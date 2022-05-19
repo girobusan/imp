@@ -1,0 +1,51 @@
+// @use "./milligram.min.css";
+@use "./Gutenberg-master/assets/combined.css";
+body, html{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height: 100vh;
+}
+
+li{
+  input[type=checkbox]{
+    margin:0;
+    margin-right: 6px;
+    
+  }
+  label{
+    margin:0;
+  }
+}
+
+code{
+  display: inline;
+  padding: 0 3px;
+  margin:0;
+}
+
+pre{
+  background-color: #eee;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+pre code{
+  padding:0;
+}
+.container{
+  @media(max-width:800px){
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+table{
+  th{
+    border-bottom: 1px solid gray;
+  }
+  th,td{
+    padding: 4px 12px;
+  }
+}

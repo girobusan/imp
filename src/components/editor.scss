@@ -1,0 +1,131 @@
+  @use '../scss/normalize.css';
+  @import 'milligram/src/_Color';
+  @import 'milligram/src/_Base';
+  @import 'milligram/src/_Typography';
+  @import 'milligram/src/_Form';
+
+  #mainButtons{
+    max-width: 800px;
+    left: 32px;
+    position: fixed;
+    top:0;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    z-index:60;
+    @media(max-width:800px){
+      position: static;
+      margin: 24px;
+    }
+
+  }
+  #exportHTML, #fullPreview{
+
+    background-color: $color-secondary;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .8s;
+    text-align: center;
+    font-size: 16px;
+    line-height: 120%;
+    padding: 8px 16px;
+    
+  }
+
+  #exportHTML{
+    border-radius: 0 0 0 8px;
+    &.modified{
+      background-color: orangered;
+    }
+  }
+
+  #fullPreview{
+    background-color: $color-secondary;
+    border-radius: 0 0 8px 0;
+  }
+
+  #previewIframe{
+    position: fixed;
+    top:0;
+    width:100%;
+    height: 100vh;
+    z-index: 50;
+    background-color: white;
+    border: none;
+  }
+.PageEditor{
+  input , textarea{
+    box-sizing: border-box !important;
+    width: 100%;
+  }
+  label{
+    display: block;
+  }
+  .EditorToolbar{
+     padding: 8px;
+     background-color: silver;
+     position: fixed;
+     width: 100%;
+     display: flex;
+     flex-direction: row;
+     // height: 48px;
+     top: 0;
+     left: 0;
+     z-index: 10;
+  }
+  .workZone{
+    all:unset;
+    display:block;
+    margin-top: 64px;
+    padding:16px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+  }
+  .areacss{
+    min-height: 300px;
+  }
+  .editorArea{
+    // height: calc(100vh - 200px);
+  }
+}
+.editor-toolbar{
+  background-color: white !important;
+}
+.editor-toolbar button{
+  color: black !important;
+}
+.CodeMirror-fullscreen, .editor-toolbar.fullscreen{
+   z-index: 20 !important;
+}
+.editor-preview{
+    z-index:20 !important;
+    position:relative;
+    iframe{
+      position: absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      width: 100%;
+      height: 100%;
+    }
+}
+
+.TheInput{
+  margin-bottom: 1rem;
+}
+
+.formRow{
+  display: flex;
+  flex-direction: row;
+  justify-items: stretch;
+  .TheInput{
+    flex-grow: 1;
+  }
+  .divider{
+    width: 8px;
+    flex-grow: 0;
+  }
+}

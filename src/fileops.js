@@ -27,7 +27,7 @@ export function convert2html(text, mdtext , settings,headHTML){
  saveCSSto.innerHTML = currentCSS.innerHTML;
 
  //content - doc body
- newDoc.body.innerHTML = "<div class='container'>" + text + "</div><!--end text-->";
+ newDoc.body.innerHTML = "<div class='container'>" + text + "</div><footer id='pageFooter'>" + settings.footer + "</footer>";
 
  //settings and source
  const data = {markdown: mdtext , settings: settings};
@@ -36,6 +36,10 @@ export function convert2html(text, mdtext , settings,headHTML){
  dataContainer.type = "data/json";
  dataContainer.innerHTML = JSON.stringify(data);
  newDoc.body.appendChild(dataContainer)
+ //settings for JS
+ const settingsContainer = document.createElement("script");
+ settingsContainer.innerHTML = "window.settings=" + JSON.stringify(settings);
+ newDoc.body.appendChild(settingsContainer);
 
  //and...
  const htm = newDoc.querySelector("html")

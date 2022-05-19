@@ -1,6 +1,6 @@
 
 const STORE = {};
-const props = ["title" , "description" , "image" , "icon" , "filename"]
+const props = ["title" , "description" , "image" , "icon" , "filename" , "footer"]
 var callback ;
 
 export function create(jss , cb){

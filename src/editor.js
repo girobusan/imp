@@ -11,7 +11,9 @@ let s = fileops.extractFromHTML();
 console.log('S' , s);
 const settings = createSettings(s.settings);
 //remove viewer css
-document.querySelector("#viewCSS").remove();
+const viewcss= document.querySelector("#viewCSS").remove();
+if(viewcss){viewcss.remove()}
+
 
 
 let Editor = h(

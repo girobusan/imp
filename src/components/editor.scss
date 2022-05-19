@@ -4,6 +4,10 @@
   @import 'milligram/src/_Typography';
   @import 'milligram/src/_Form';
 
+  body{
+    background-color: white;
+  }
+
   #mainButtons{
     max-width: 800px;
     left: 32px;
@@ -14,8 +18,8 @@
     margin: 0 auto;
     z-index:60;
     @media(max-width:800px){
-      position: static;
-      margin: 24px;
+      // position: static;
+      left: 16px;
     }
 
   }

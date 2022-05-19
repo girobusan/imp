@@ -55,7 +55,8 @@ export class PageEditor extends Component{
        title: props.settings.title() || "",
        image: props.settings.image() || "",
        filename: props.settings.filename() || "",
-       description: props.settings.description(),
+       description: props.settings.description() || "",
+       footer: props.settings.footer() || "",
        customCSS: document.getElementById("customCSS").innerHTML
     }
   }
@@ -150,6 +151,15 @@ export class PageEditor extends Component{
         area=${true}
         handler=${this.makeHandler("description")}
         />
+
+        <${TheInput} 
+        title=${"Footer"}
+        name=${"footer"}
+        value=${this.state.footer}
+        area=${true}
+        handler=${this.makeHandler("footer")}
+        />
+
         <${TheInput} 
         title=${"Custom CSS"}
         name=${"css"}
@@ -214,7 +224,11 @@ export class PageEditor extends Component{
   componentDidMount(){
   this.updateMdEditor();
   }
-  componentWillUpdate(){
+  componentWillUpdate(np,ns){
+    if(ns.action!=this.state.action){ //switch preview mode
+       return;
+    }
+    
     this.modified = true;
   }
   componentDidUpdate(){

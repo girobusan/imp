@@ -94,7 +94,7 @@ export class PageEditor extends Component{
       class=${this.modified ? "modified" : "nochange"}
       onclick=${()=>{
       console.log("export requested...") ;
-      saveFile(md.render(this.state.text) , this.state.text , this.props.settings.copy() , window.savedHead);
+      saveFile(md.render(this.state.text) , this.state.text , this.props.settings.copy() , window.savedHead , this.props.viewCSS);
       this.modified = false;
 
       }}
@@ -240,7 +240,7 @@ export class PageEditor extends Component{
     
   }
   radicalPreview(frame){
-    const phtml = convert2html(md.render(this.state.text) , "" , this.props.settings.copy() , window.savedHead);
+    const phtml = convert2html(md.render(this.state.text) , "" , this.props.settings.copy() , window.savedHead , this.props.viewCSS);
     frame.contentWindow.document.open();
     frame.contentWindow.document.write(phtml);
     frame.contentWindow.document.close();

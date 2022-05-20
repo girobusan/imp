@@ -1,9 +1,26 @@
 
-export function convert2html(text, mdtext , settings,headHTML){
+export function convert2html(text, mdtext , settings,headHTML, viewCSSnode){
 
  let newDoc = document.implementation.createHTMLDocument("");
 
  newDoc.head.innerHTML = headHTML;
+
+ //check view CSS
+ let vc = newDoc.querySelector("link#viewCSS");
+ if(vc){
+     vc.remove();
+}
+     const vcss = newDoc.createElement("link");
+     vcss.id="viewCSS";
+     vcss.rel="stylesheet";
+     vcss.href="style.css";
+
+     const cc = newDoc.querySelector("#customCSS");
+     newDoc.head.insertBefore(vcss, cc)
+
+ 
+
+
  
  //title
  newDoc.title = settings.title || "";
@@ -57,10 +74,10 @@ export function extractFromHTML(){
   return JSON.parse(dataContainer.innerHTML);
 }
 
-export function saveFile(text, mdtext, settings, headHTML){
+export function saveFile(text, mdtext, settings, headHTML , cssnode){
 console.log("save with" , settings);
    const fn = settings.filename;
-   const content = convert2html(text, mdtext, settings, headHTML);
+   const content = convert2html(text, mdtext, settings, headHTML , cssnode);
    saveToDisk(fn, content);
 
 }

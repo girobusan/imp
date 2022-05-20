@@ -5,8 +5,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "css-watch": "npx sass --watch src/scss/core.scss:dist/style.css --style compressed",
-    "build": "npx webpack --mode production",
-    "watch": "npx webpack --mode development"
+    "css-build": "npx sass src/scss/core.scss:dist/style.css --style compressed",
+    "build": "npm run css-build; npx webpack --mode production",
+    "watch": "npx webpack --mode development",
+    
+    "postbuild": "npx rm dist/loader.js ; npx rm dist/*.map"
   },
   "author": "",
   "license": "ISC",

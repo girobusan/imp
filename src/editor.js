@@ -11,16 +11,16 @@ let s = fileops.extractFromHTML();
 console.log('S' , s);
 const settings = createSettings(window.settings);
 //remove viewer css
-const viewcss= document.querySelector("#viewCSS").remove();
-if(viewcss){viewcss.remove()}
-
-
+const viewcss= document.querySelector("#viewCSS");
+viewcss.remove();
 
 let Editor = h(
   PageEditor,
-  {settings: settings , text: s.markdown},
+  {settings: settings , text: s.markdown , viewCSS:viewcss.href},
   ""
 
 )
+
+viewcss.href="";
 
 render(Editor, document.body)

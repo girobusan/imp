@@ -23,6 +23,10 @@ There is a field for custom CSS in each IMP! file for small adjustments. But you
 
 You can have as many imps as you want. If they would live in one directory, they will share single `editor.js` file. 
 
+## Known problems
+
+- If you use NoScript extension, you'd need to disable it for IMP! page (*not* set to TRUSTED mode, but disable all restrictions completely)
+
 ## License
 
 - Mostly MIT, except:

@@ -225,7 +225,7 @@ export class PageEditor extends Component{
         } )
 
 
-        console.log("MDE" , easyMDE);
+        // console.log("MDE" , easyMDE);
 
   }
   fixPreview(p){

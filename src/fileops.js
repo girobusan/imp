@@ -1,5 +1,5 @@
 
-export function convert2html(text, mdtext , settings,headHTML, viewCSSnode){
+export function convert2html(text, mdtext , settings,headHTML){
 
  let newDoc = document.implementation.createHTMLDocument("");
 
@@ -55,7 +55,7 @@ export function convert2html(text, mdtext , settings,headHTML, viewCSSnode){
  newDoc.body.appendChild(dataContainer)
  //settings for JS
  const settingsContainer = document.createElement("script");
- settingsContainer.innerHTML = "window.settings=" + JSON.stringify(settings);
+ settingsContainer.innerHTML = "window.settings=" + JSON.stringify(settings) + "; console.info('Settings set.')";
  newDoc.body.appendChild(settingsContainer);
 
  //and...
@@ -74,10 +74,10 @@ export function extractFromHTML(){
   return JSON.parse(dataContainer.innerHTML);
 }
 
-export function saveFile(text, mdtext, settings, headHTML , cssnode){
+export function saveFile(text, mdtext, settings, headHTML ){
 console.log("save with" , settings);
    const fn = settings.filename;
-   const content = convert2html(text, mdtext, settings, headHTML , cssnode);
+   const content = convert2html(text, mdtext, settings, headHTML );
    saveToDisk(fn, content);
 
 }

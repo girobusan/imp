@@ -4,10 +4,10 @@ const props = ["title" , "description" , "image" , "icon" , "filename" , "footer
 var callback ;
 
 export function create(jss , cb){
-console.log("JSS" , jss)
+console.log("Creating settings wrapper" , jss)
   if(cb){callback=cb}
   Object.assign(STORE , jss);
-  console.log("STORE" , STORE)
+  // console.log("STORE" , STORE)
   return createWrapper();
 }
 

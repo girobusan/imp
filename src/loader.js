@@ -2,6 +2,7 @@
 window.addEventListener("DOMContentLoaded" , function(){
   console.log("I am" , window.location)
   function IMPEdit(){
+    console.log("Edit mode.")
     const head = document.head;
     window.savedHead = head.innerHTML;//.clone(true);
     const editor = document.createElement("script");
@@ -22,7 +23,6 @@ window.addEventListener("DOMContentLoaded" , function(){
   }
 
   if(window.location.hash ==="#edit"){
-    console.info("We're opened for editing");
     IMPEdit();
   }
   if(window.location.protocol==="file:"){

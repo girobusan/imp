@@ -15,6 +15,14 @@ When ypu load IMP! locally, it opens up an editor, where ypu can enter or import
 4. Upload files to server, you may skip `editor.js`, as it's not required for *viewing* file.
 5. That's it.
 
+## Customization
+
+There is a field for custom CSS in each IMP! file for small adjustments. But you can replace the whole `style.css` with your own. There is nothing fancy about it.
+
+## More files
+
+You can have as many imps as you want. If they would live in one directory, they will share single `editor.js` file. 
+
 ## License
 
 - Mostly MIT, except:

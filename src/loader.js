@@ -10,6 +10,8 @@ window.addEventListener("DOMContentLoaded" , function(){
     editor.src="editor.js";
     head.appendChild(editor);
   }
+
+  
   var inIframe = false;
   try{
     inIframe = window.self!=window.top;
@@ -29,5 +31,7 @@ window.addEventListener("DOMContentLoaded" , function(){
     IMPEdit();
   }
 })
+
+window.addEventListener("hashchange", ()=>history.go(0));
 
 

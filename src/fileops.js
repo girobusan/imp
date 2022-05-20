@@ -1,4 +1,29 @@
 
+const tagsToReplace = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;'
+};
+
+const replaceToTags = {
+     '&amp;':'&',
+     '&lt;': '<',
+     '&gt;': '>'
+}
+
+export function escapeTags(s){
+  const replacer=(tag)=>{return tagsToReplace[tag]||tag}
+  return s.replace(/[&<>]/g , replacer);
+}
+export function unescapeTags(s){
+  const replacer=(tag)=>{return replaceToTags[tag]||tag}
+  return s.replace(/&amp;|&lt;|&gt;/g , replacer);
+}
+
+
+
+
+
 export function convert2html(text, mdtext , settings,headHTML){
 
  let newDoc = document.implementation.createHTMLDocument("");
@@ -51,7 +76,7 @@ export function convert2html(text, mdtext , settings,headHTML){
  const dataContainer = document.createElement("script");
  dataContainer.id="pageData";
  dataContainer.type = "data/json";
- dataContainer.innerHTML = JSON.stringify(data);
+ dataContainer.innerHTML = escapeTags(JSON.stringify(data));
  newDoc.body.appendChild(dataContainer)
  //settings for JS
  const settingsContainer = document.createElement("script");
@@ -71,7 +96,7 @@ export function extractFromHTML(){
     console.info("It is empty document");
      return {settings:{} , markdown: ""}
   }
-  return JSON.parse(dataContainer.innerHTML);
+  return JSON.parse(unescapeTags( dataContainer.innerHTML ));
 }
 
 export function saveFile(text, mdtext, settings, headHTML ){

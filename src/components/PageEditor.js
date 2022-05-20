@@ -2,7 +2,7 @@
 import {Component , createRef} from "preact";
 import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
-import {saveFile, convert2html} from "../fileops.js"
+import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js"
 
 var md = require('markdown-it')({html:true})
 .use(require('markdown-it-checkbox'))
@@ -15,6 +15,7 @@ import * as MDE from "easymde";
 import {If} from "./If";
 require("./editor.scss")
 require("easymde/dist/easymde.min.css");
+const version = VERSION
 
 
 
@@ -57,8 +58,17 @@ export class PageEditor extends Component{
        filename: props.settings.filename() || "",
        description: props.settings.description() || "",
        footer: props.settings.footer() || "",
-       customCSS: document.getElementById("customCSS").innerHTML
+       customCSS: this.findCustomCSS()
     }
+  }
+  findCustomCSS(){
+    if(this.props.settings.css()){ return this.props.settings.css() }
+    
+     let e = document.getElementById("customCSS");
+     if(e && e.innerHTML){
+        return e.innerHTML;
+     }
+     return "/* write your CSS here*/";
   }
   handleInput(f,v){
       const ns = {};
@@ -77,6 +87,7 @@ export class PageEditor extends Component{
         // if(p){p.innerHTML = "I'm special"};
   // console.log("mde"  , mdes)
     return html`<div class="PageEditor">
+      <div id="branding"><strong>IMP!</strong> ${version}</div>
       <div class="container" id="mainButtons">
 
       <div id="exportHTML"
@@ -179,21 +190,34 @@ export class PageEditor extends Component{
       {
         element: this.mdEditorNode.current ,
         syncSideBySidePreviewScroll: false,
-        //autoDownloadFontAwesome: true,
-        // previewRender: (m)=>{ this.radicalPreview(m); return null },
-        // previewClass: "preview-panel-open",
-        // previewRender: (m)=>null,
         previewRender: (m ,p)=>{   
-        
-    const phtml = convert2html(md.render(m) , "" , this.props.settings.copy() , window.savedHead);
-      // console.log("p" , phtml);
-        // return "<div id='specialPreviewDiv'></div>"
         return md.render(m) 
-        // return `<iframe srcdoc="${phtml}"></iframe>`;
         },
         spellChecker: false,
         sideBySideFullscreen: false,
+        toolbar: ["bold", "italic", "heading", "|", "quote" ,
+        "unordered-list" , "ordered-list" ,  "|" , "link" , "image" , "|",
+        "preview" , "side-by-side" , "fullscreen" , "|" , "guide" , "|",
+        {
+          name: "export",
+          action: ()=>{ saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
+            this.state.text)
+          },
+          className: "fa fa-download",
+          title: "Export markdown"
+        },
+        {
+          name: "import",
+          action: ()=>{
+             loadFromDisk((t)=>{ easyMDE.value(t);this.setState({text:t}) })
+          },
+          className: "fa fa-upload",
+          title: "Import markdown"
+        }
+
+        ]
       });
+
       easyMDE.value( this.state.text );
       easyMDE.codemirror.on("change" , 
         ()=>{
@@ -237,7 +261,9 @@ export class PageEditor extends Component{
    s.title(this.state.title)
    s.description(this.state.description)
    s.filename(this.state.filename)
+   s.css(this.state.customCSS)
    //update customCSS
+   document.title = s.title();
    const ccsst = document.querySelector("#customCSS");
    ccsst.innerHTML = this.state.customCSS;
    //editor

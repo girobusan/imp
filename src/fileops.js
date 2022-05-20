@@ -65,12 +65,28 @@ console.log("save with" , settings);
 
 }
 
-function saveToDisk(name,content){
+export function saveToDisk(name,content){
   var element = document.createElement('a');
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
   element.setAttribute('download', name);
   document.body.appendChild(element);
   element.click();
   document.body.removeChild(element);
+
+}
+
+
+export function loadFromDisk(callback){
+  var element = document.createElement("input");
+  element.setAttribute("type", "file");
+  element.addEventListener("change" , function(){
+    element.files[0]
+    .text()
+    .then(r=>callback(r))
+  });
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+
 
 }

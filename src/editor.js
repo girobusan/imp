@@ -9,7 +9,7 @@ import * as fileops from "./fileops.js"
 console.log("editor");
 let s = fileops.extractFromHTML();
 console.log('S' , s);
-const settings = createSettings(s.settings);
+const settings = createSettings(window.settings);
 //remove viewer css
 const viewcss= document.querySelector("#viewCSS").remove();
 if(viewcss){viewcss.remove()}

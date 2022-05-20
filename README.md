@@ -9,7 +9,7 @@ Just drop markdown.
 - CC BY-CA - default theme based on Cutenberg  (which is licensed under CC BY-CA)
 
 
-## Wouldn't be impossible without awesome projects like:
+## Wouldn't be possible without awesome projects like:
 
 - [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg/)

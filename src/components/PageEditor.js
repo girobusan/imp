@@ -262,6 +262,7 @@ export class PageEditor extends Component{
    s.description(this.state.description)
    s.filename(this.state.filename)
    s.css(this.state.customCSS)
+   s.image(this.state.image)
    //update customCSS
    document.title = s.title();
    const ccsst = document.querySelector("#customCSS");

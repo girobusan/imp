@@ -7,6 +7,8 @@ Like a markdown-based CMS for single file, fully client-side. When you need just
 
 When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, **static** HTML. 
 
+![](src/side-by-side.png)
+
 ## Step by step guide
 
 1. Download and unpack. There are 3 files: `index.html`, `style.css` and `editor.js`
@@ -25,7 +27,7 @@ You can have as many imps as you want. If they would live in one directory, they
 
 ## Known problems
 
-- If you use NoScript extension, you'd need to disable it for IMP! page (*not* set to TRUSTED mode, but disable all restrictions completely)
+- If you use NoScript extension, you'd need to disable it for IMP! page (*not* just set to TRUSTED mode, but disable all restrictions completely)
 
 ## License
 

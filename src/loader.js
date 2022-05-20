@@ -1,8 +1,8 @@
 
 window.addEventListener("DOMContentLoaded" , function(){
-  console.log("I am" , window.location)
+  // console.log("I am" , window.location)
   function IMPEdit(){
-    console.log("Edit mode.")
+    console.info("Edit mode.")
     const head = document.head;
     window.savedHead = head.innerHTML;//.clone(true);
     const editor = document.createElement("script");

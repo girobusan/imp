@@ -26,5 +26,6 @@ let Editor = h(
 
 )
 
+document.body.innerHTML="<!--clean up-->";
 
 render(Editor, document.body)

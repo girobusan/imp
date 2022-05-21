@@ -1,12 +1,22 @@
+import { escapeTags , unescapeTags } from "./fileops"
 
 const STORE = {};
-const props = ["title" , "description" , "image" , "icon" , "filename" , "footer" , "css"]
+const props = [
+   "title" , 
+   "description" , 
+   "image" , 
+   "icon" , 
+   "filename" , //html 
+   "footer" ,  //html
+   "css" , //html
+   "headHTML" //html
+   ]
 var callback ;
 
-export function create(jss , cb){
-console.log("Creating settings wrapper" , jss)
+export function create(settings_src , cb){
+console.log("Creating settings wrapper" , settings_src)
   if(cb){callback=cb}
-  Object.assign(STORE , jss);
+  Object.assign(STORE , settings_src);
   // console.log("STORE" , STORE)
   return createWrapper();
 }
@@ -16,14 +26,23 @@ function updated(k,v){
   console.log("Updated setting" , k)
 }
 
+function escapedCopy(){
+  return props.reduce( (a,e)=>{a[e]=( STORE[e] || "" ) ; return a}  , {})
+  
+}
+
+function unescapedCopy(){
+  return props.reduce( (a,e)=>{a[e]=unescapeTags( STORE[e] || "" ) ; return a}  , {})
+}
+
 function createWrapper(){
    const w = {};
    w.listProps = ()=> props.slice(0);
-   w.copy = ()=> Object.assign({} , STORE);
+   w.copy = (escape)=> escape ? escapedCopy() : unescapedCopy();
    props.forEach( p=>{
-      w[p] = (v)=>{ if(v===undefined){return STORE[p]} ;  
+      w[p] = (v)=>{ if(v===undefined){return unescapeTags( STORE[p] || "" )} ;  
       if(STORE[p]==v){return w}
-      STORE[p]=v ; updated(p,v) ; return w }
+      STORE[p]=escapeTags(v) ; updated(p,v) ; return w }
    } )
    return w;
 }

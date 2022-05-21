@@ -1,4 +1,6 @@
 
+import {renderHTML} from "./template.js";
+
 const tagsToReplace = {
     '&': '&amp;',
     '<': '&lt;',
@@ -20,73 +22,31 @@ export function unescapeTags(s){
   return s.replace(/&amp;|&lt;|&gt;/g , replacer);
 }
 
+export function convert2html(
+   text, 
+   mdtext , 
+   settings, //object
+   )
+   {
 
+     //current custom CSS
+     const currentCSS = document.querySelector("#customCSS");
 
+     return renderHTML(
+       text,
+       mdtext,
+       settings.footer(),
+       settings.title(),
+       settings.description(),
+       settings.image(),
+       currentCSS ? currentCSS.innerHTML :  "",
+       settings.headHTML(),
+       settings.copy(true)
 
-
-export function convert2html(text, mdtext , settings,headHTML){
-
- let newDoc = document.implementation.createHTMLDocument("");
-
- newDoc.head.innerHTML = headHTML;
-
- //check view CSS
- let vc = newDoc.querySelector("link#viewCSS");
- if(vc){
-     vc.remove();
-}
-     const vcss = newDoc.createElement("link");
-     vcss.id="viewCSS";
-     vcss.rel="stylesheet";
-     vcss.href="style.css";
-
-     const cc = newDoc.querySelector("#customCSS");
-     newDoc.head.insertBefore(vcss, cc)
-
- 
-
-
- 
- //title
- newDoc.title = settings.title || "";
- const metaOgTitle = newDoc.querySelector("meta[name='og:title']");
- if(metaOgTitle){ metaOgTitle.content = settings.title || ""}
- //description
- const metaDescription = newDoc.querySelector("meta[name='description']");
- if(metaDescription){ metaDescription.content = settings.description || "" }
- const metaOgDescription = newDoc.querySelector("meta[name='og:description']");
- if(metaOgDescription){ metaOgDescription.content = settings.description || "" }
-
- //image
- const metaOgImage = newDoc.querySelector("meta[name='og:image']");
- if(metaOgImage){ metaOgImage.content=settings.image || "" }
- const twitterImage = newDoc.querySelector("meta[name='twitter:image']");
- if(twitterImage){ twitterImage.content=settings.image || "" }
-
- //current custom CSS
- const currentCSS = document.querySelector("#customCSS");
- const saveCSSto = newDoc.querySelector("#customCSS");
- saveCSSto.innerHTML = currentCSS.innerHTML;
-
- //content - doc body
- newDoc.body.innerHTML = "<div class='container'>" + text + "</div><footer id='pageFooter'>" + settings.footer + "</footer>";
-
- //settings and source
- const data = {markdown: mdtext , settings: settings};
- const dataContainer = document.createElement("script");
- dataContainer.id="pageData";
- dataContainer.type = "data/json";
- dataContainer.innerHTML = escapeTags(JSON.stringify(data));
- newDoc.body.appendChild(dataContainer)
- //settings for JS
- const settingsContainer = document.createElement("script");
- settingsContainer.innerHTML = "window.settings=" + JSON.stringify(settings) + "; console.info('Settings set.')";
- newDoc.body.appendChild(settingsContainer);
-
- //and...
- const htm = newDoc.querySelector("html")
- return "<!DOCTYPE html>\n"+htm.outerHTML;
- 
+     )
+     ;
+     /*
+     */
 }
 
 export function extractFromHTML(){
@@ -94,15 +54,18 @@ export function extractFromHTML(){
   if(!dataContainer){ 
 
     console.info("It is empty document");
-     return {settings:{} , markdown: ""}
+     return { markdown: ""}
+  }
+  if(dataContainer.type=="text/markdown"){
+     return {markdown: unescapeTags(dataContainer.innerHTML) }
   }
   return JSON.parse(unescapeTags( dataContainer.innerHTML ));
 }
 
-export function saveFile(text, mdtext, settings, headHTML ){
-console.log("save with" , settings);
-   const fn = settings.filename;
-   const content = convert2html(text, mdtext, settings, headHTML );
+export function saveFile(text, mdtext, settings){
+console.log("save with" , settings.copy());
+   const fn = settings.filename();
+   const content = convert2html(text, mdtext, settings);
    saveToDisk(fn, content);
 
 }

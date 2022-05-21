@@ -94,7 +94,7 @@ export class PageEditor extends Component{
       class=${this.modified ? "modified" : "nochange"}
       onclick=${()=>{
       console.log("export requested...") ;
-      saveFile(md.render(this.state.text) , this.state.text , this.props.settings.copy() , window.savedHead , this.props.viewCSS);
+      saveFile(md.render(this.state.text) , this.state.text , this.props.settings );
       this.modified = false;
 
       }}
@@ -105,9 +105,15 @@ export class PageEditor extends Component{
         
         let ci = document.getElementById("previewIframe");
         
-        if(ci){ci.remove(); this.setState({action: "edit"}) ;return}
+        if(ci){
+
+          ci.remove(); 
+          document.body.style.overflow="auto";
+          this.setState({action: "edit"}) ;
+          return}
 
         let i = document.createElement("iframe");
+          document.body.style.overflow="hidden";
         i.id="previewIframe";
         document.body.appendChild(i);
         this.radicalPreview(i);
@@ -240,7 +246,7 @@ export class PageEditor extends Component{
     
   }
   radicalPreview(frame){
-    const phtml = convert2html(md.render(this.state.text) , "" , this.props.settings.copy() , window.savedHead , this.props.viewCSS);
+    const phtml = convert2html(md.render(this.state.text) , "" , this.props.settings , window.savedHead , this.props.viewCSS);
     frame.contentWindow.document.open();
     frame.contentWindow.document.write(phtml);
     frame.contentWindow.document.close();

@@ -1,15 +1,14 @@
 {
   "name": "imp",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "css-watch": "npx sass --watch src/scss/core.scss:dist/style.css --style compressed",
-    "css-build": "npx sass src/scss/core.scss:dist/style.css --style compressed",
-    "build": "npm run css-build; npx webpack --mode production",
+    "cssbuild": "npx sass src/scss/core.scss:dist/style.css --style compressed",
+    "build": " npx webpack --mode production",
     "watch": "npx webpack --mode development",
-    
-    "postbuild": "npx rm dist/loader.js ; npx rm dist/*.map"
+    "postbuild": "shx rm dist/loader.js dist/*.map"
   },
   "author": "",
   "license": "ISC",

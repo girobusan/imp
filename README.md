@@ -9,6 +9,10 @@ When you load IMP! Locally, it opens up an editor, where you can enter or import
 
 ![](src/side-by-side.png)
 
+## System requirements
+
+Descent browser, Firefox or Chrome preferred (tested). If you've updated your browser within last 4 years, it should be fine.
+
 ## Step by step guide
 
 1. Download and unpack. There are 3 files: `index.html`, `style.css` and `editor.js`

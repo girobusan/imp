@@ -26,6 +26,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
+    "bulma": "^0.9.4",
     "codejar": "^3.6.0",
     "d3-dsv": "^3.0.1",
     "easymde": "^2.16.1",

@@ -24,17 +24,18 @@ function TheInput(props){
   const onChange = ()=>{props.handler(inp.current.value)};
 
   return html`<div class="TheInput">
-  <label for=${props.name || "" }>${props.title}</label>
+  <label class="label" for=${props.name || "" }>${props.title}</label>
   <${If} condition=${props.area==true}>
   <textarea ref=${inp} 
-  class=${"area"+props.name}
+  style="min-height: 150px;"
+  class=${"input biginout area"+props.name}
   name=${props.name || ""} 
   onchange=${onChange}>
   ${props.value || ""}
   </textarea>
   </${If}>
   <${If} condition=${props.area==false}>
-  <input type="text" ref=${inp} name=${props.name || ""}
+  <input class="input" type="text" ref=${inp} name=${props.name || ""}
   value=${props.value || ""}
   onchange=${onChange}
   ></input>
@@ -88,19 +89,22 @@ export class PageEditor extends Component{
   // console.log("mde"  , mdes)
     return html`<div class="PageEditor">
       <div id="branding"><strong>IMP!</strong> ${version}</div>
-      <div class="container" id="mainButtons">
 
-      <div id="exportHTML"
-      class=${this.modified ? "modified" : "nochange"}
+      <div class="is-mobile" id="mainButtons">
+    
+
+      <input type=button id="exportHTML" value="Save"
+      class=${this.modified ? "button is-danger is-large" : "button is-primary is-medium"}
       onclick=${()=>{
       console.log("export requested...") ;
       saveFile(md.render(this.state.text) , this.state.text , this.props.settings );
       this.modified = false;
-
       }}
-      > Save </div>
+      ></input>
 
-      <div id="fullPreview"
+        <div class="divider"></div>
+      <input type="button" id="fullPreview" class="button is-primary is-medium"
+      value=${this.state.action=="preview" ? "Edit" : "Preview"}
       onclick=${()=>{
         
         let ci = document.getElementById("previewIframe");
@@ -119,7 +123,7 @@ export class PageEditor extends Component{
         this.radicalPreview(i);
         this.setState({action:"preview"})
       }
-      }>${this.state.action=="preview" ? "Edit" : "Preview"}</div>
+      }></input>
       </div>
       
 
@@ -186,9 +190,9 @@ export class PageEditor extends Component{
         />
 
         <div class="formRow">
-        <input type="button" class="utility" value="Switch to view mode" onclick=${()=>window.location="#view"}></input>
+        <input type="button" class="utility button is-primary" value="Switch to view mode" onclick=${()=>window.location="#view"}></input>
         <div class="divider"></div>
-        <input type="button" class="utility" value="Duplicate file" onclick=${
+        <input type="button" class="utility button is-primary" value="Duplicate file" onclick=${
           ()=>{
                const myfilename = this.props.settings.filename();
                const filename = prompt("Enter new filename with extension" , this.props.settings.filename());

@@ -98,7 +98,7 @@ export class PageEditor extends Component{
       this.modified = false;
 
       }}
-      > Export HTML </div>
+      > Save </div>
 
       <div id="fullPreview"
       onclick=${()=>{

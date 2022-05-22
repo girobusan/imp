@@ -17,7 +17,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 
 1. Download and unpack. There are 3 files: `index.html`, `style.css` and `editor.js`
 2. Open the `index.html` in your browser (Firefox or Chrome is recommended)
-3. Edit it, import or enter your text, preview it. Click the big "Export HTML" button and save file to the same directory. If you didn't change file name, overwrite old file.
+3. Edit it, import or enter your text, preview it. Click the big "Export HTML" ("Save" in newer version) button and save file to the same directory. If you didn't change file name, overwrite old file.
 4. Upload files to server, you may skip `editor.js`, as it's not required for *viewing* file.
 5. That's it.
 

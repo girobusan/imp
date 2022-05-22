@@ -16,7 +16,7 @@
 
 ## Особенности
 
-- Работает без верверов, сервисов, не требует настройки.
+- Работает без серверов, сервисов, не требует настройки.
 - На выходе полностью статичный, *легкий* HTML, если вы сами не добавите скриптов. 
 - Нужен только браузер и локальный файл, работает на любой ОС
 - EasyMDE как редактор, несколько режимов предварительного просмотра
@@ -52,5 +52,5 @@
 
 - [Preact](https://preactjs.com/)
 - [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
-- [Gutenberg CSS](https://matejlatin.github.io/Gutenberg/)
+- [Gutenberg CSS](https://matejlatim.github.io/Gutenberg/)
 - [Milligram CSS framework](https://milligram.io/)

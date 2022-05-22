@@ -53,5 +53,5 @@ You can have as many imps as you want. If they would live in one directory, they
 
 - [Preact](https://preactjs.com/)
 - [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
-- [Gutenberg CSS](https://matejlatin.github.io/Gutenberg/)
+- [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Milligram CSS framework](https://milligram.io/)

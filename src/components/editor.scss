@@ -3,6 +3,7 @@
   @import 'milligram/src/_Base';
   @import 'milligram/src/_Typography';
   @import 'milligram/src/_Form';
+  @import 'milligram/src/_Button';
 
   body{
     background-color: white;
@@ -34,9 +35,11 @@
     cursor: pointer;
     transition: all .8s;
     text-align: center;
-    font-size: 16px;
+    font-size: 1.1rem;
+    letter-spacing: 0.1rem;
     line-height: 120%;
-    padding: 8px 16px;
+    padding: 8px 24px;
+    text-transform: uppercase;
     @media(max-width:800px){
       width:50%;
       border-radius: 0 !important;
@@ -151,6 +154,9 @@
   justify-items: stretch;
   .TheInput{
     flex-grow: 1;
+  }
+  .utility{
+    background-color: $color-secondary;
   }
   .divider{
     width: 8px;

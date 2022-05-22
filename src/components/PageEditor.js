@@ -185,6 +185,20 @@ export class PageEditor extends Component{
         handler=${this.makeHandler("customCSS")}
         />
 
+        <div class="formRow">
+        <input type="button" class="utility" value="Switch to view mode" onclick=${()=>window.location="#view"}></input>
+        <div class="divider"></div>
+        <input type="button" class="utility" value="Duplicate file" onclick=${
+          ()=>{
+               const myfilename = this.props.settings.filename();
+               const filename = prompt("Enter new filename with extension" , this.props.settings.filename());
+               this.props.settings.filename(filename);
+               saveFile( md.render(this.state.text) , this.state.text , this.props.settings );
+               this.props.settings.filename(myfilename);
+            }
+          }></input>
+        </div>
+
 
 
       </div>

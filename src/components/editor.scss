@@ -20,6 +20,7 @@
 
   #mainButtons{
     left: 32px;
+    box-sizing: border-box;
     position: fixed;
     display: flex;
     flex-direction: row;

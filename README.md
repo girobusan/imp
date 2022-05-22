@@ -5,13 +5,23 @@ Like a markdown-based CMS for single file, fully client-side. When you need just
 
 ## How it works
 
-When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, **static** HTML. 
+When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, **static** HTML. Page does not require Java Script to be viewed, it's just plain HTML. 
 
 ![](src/side-by-side.png)
 
 ## System requirements
 
 Descent browser, Firefox or Chrome preferred (tested). If you've updated your browser within last 4 years, it should be fine.
+
+## Features
+
+- Fully local thing &mdash; no server required, no setup. It's YOUR page!
+- Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)
+- All you need is browser, that means it fully multiplatform
+- EasyMDE as Markdown editor
+- Customizable
+- Lo-fi :)
+
 
 ## Step by step guide
 

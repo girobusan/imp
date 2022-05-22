@@ -52,5 +52,5 @@
 
 - [Preact](https://preactjs.com/)
 - [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
-- [Gutenberg CSS](https://matejlatim.github.io/Gutenberg)
+- [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Milligram CSS framework](https://milligram.io/)

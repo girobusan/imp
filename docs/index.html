@@ -25,7 +25,7 @@
   "footer": "<small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small>",
   "css": "\n  ",
   "headHTML": "",
-  "editor": "",
+  "editor": "../dist/editor.js",
   "viewCSS": ""
 }
   </script>
@@ -35,7 +35,7 @@
     console.info("Loading editor...")
     const editor = document.createElement("script");
     editor.id="editorScript";
-    editor.src="editor.js";
+    editor.src="../dist/editor.js";
     document.head.appendChild(editor);
   }
   
@@ -70,13 +70,14 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <p>Like a markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.</p>
 <h2>How it works</h2>
 <p>When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, <strong>static</strong> HTML. Page does not require Java Script to be viewed, it's just plain HTML.</p>
-<p><img src="src/side-by-side.png" alt=""></p>
+<p><img src="side-by-side.png" alt=""></p>
 <h2>System requirements</h2>
 <p>Descent browser, Firefox or Chrome preferred (tested). If you've updated your browser within last 4 years, it should be fine.</p>
 <h2>Features</h2>
 <ul>
 <li>Fully local thing — no server required, no setup. It's YOUR page!</li>
 <li>Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)</li>
+<li>You can mix any HTML tags to your markdown</li>
 <li>All you need is browser, that means it fully multiplatform</li>
 <li>EasyMDE as Markdown editor</li>
 <li>Customizable</li>
@@ -90,10 +91,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <li>Upload files to server, you may skip <code>editor.js</code>, as it's not required for <em>viewing</em> file.</li>
 <li>That's it.</li>
 </ol>
-<h2>Customization</h2>
-<p>There is a field for custom CSS in each IMP! file for small adjustments. But you can replace the whole <code>style.css</code> with your own. There is nothing fancy about it.</p>
-<h2>More files</h2>
-<p>You can have as many imps as you want. If they would live in one directory, they will share single <code>editor.js</code> file.</p>
+<p><big><a href="docs.html">More documentation here</a></big></p>
 <h2>Known problems</h2>
 <ul>
 <li>If you use NoScript extension, you'd need to disable it for IMP! page (<em>not</em> just set to TRUSTED mode, but disable all restrictions completely)</li>
@@ -114,6 +112,9 @@ window.addEventListener("hashchange", ()=>history.go(0));
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
+
+
+
 [←Girobusan](https://girobusan.github.io)
 # IMP! (It's My Page!)
 
@@ -123,7 +124,7 @@ Like a markdown-based CMS for single file, fully client-side. When you need just
 
 When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, **static** HTML. Page does not require Java Script to be viewed, it's just plain HTML. 
 
-![](src/side-by-side.png)
+![](side-by-side.png)
 
 ## System requirements
 
@@ -133,6 +134,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 
 - Fully local thing &amp;mdash; no server required, no setup. It's YOUR page!
 - Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)
+-  You can mix any HTML tags to your markdown
 - All you need is browser, that means it fully multiplatform
 - EasyMDE as Markdown editor
 - Customizable
@@ -147,13 +149,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 4. Upload files to server, you may skip `editor.js`, as it's not required for *viewing* file.
 5. That's it.
 
-## Customization
-
-There is a field for custom CSS in each IMP! file for small adjustments. But you can replace the whole `style.css` with your own. There is nothing fancy about it.
-
-## More files
-
-You can have as many imps as you want. If they would live in one directory, they will share single `editor.js` file. 
+&lt;big&gt;[More documentation here](docs.html)&lt;/big&gt;
 
 ## Known problems
 
@@ -171,6 +167,9 @@ You can have as many imps as you want. If they would live in one directory, they
 - [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Milligram CSS framework](https://milligram.io/)
+
+
+
 
 </script>
 </body>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP! :: More options</title>
+  <meta name="description" content="">
+  <meta name="og:title" content="IMP! :: More options">
+  <meta name="og:description" content="Small tool">
+  <meta name="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="">
+  <link rel="icon" type="image/png" href="">
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <style id="customCSS">
+  
+  </style>
+  <script>
+   window.settings = {
+  "title": "IMP! :: More options",
+  "description": "Small tool",
+  "image": "",
+  "icon": "",
+  "filename": "docs.html",
+  "footer": "<small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small>",
+  "css": "\n  ",
+  "headHTML": "",
+  "editor": "../dist/editor.js",
+  "viewCSS": ""
+}
+  </script>
+  <script>
+    window.addEventListener("DOMContentLoaded" , function(){
+    function IMPEdit(){
+    console.info("Loading editor...")
+    const editor = document.createElement("script");
+    editor.id="editorScript";
+    editor.src="../dist/editor.js";
+    document.head.appendChild(editor);
+  }
+  
+  var inIframe = false;
+  try{
+    inIframe = window.self!=window.top;
+  }catch(e){
+   inIframe = true;
+  }
+  if(inIframe){return;}
+
+  if(window.location.hash==="#view"){
+    return;
+  }
+
+  if(window.location.hash ==="#edit"){
+    IMPEdit();
+  }
+  if(window.location.protocol==="file:"){
+    IMPEdit();
+  }
+})
+
+window.addEventListener("hashchange", ()=>history.go(0));
+  </script>
+  <!--custom html here-->
+</head>
+<body>
+<div class="container">
+<p><a href="https://girobusan.github.io">←Girobusan</a></p>
+<h1>IMP!</h1>
+<h2>Force <em>view</em> or <em>edit</em> mode</h2>
+<p>By default, when you open IMP! page locally, it loads in edit mode, and when you load it over http, in view mode. But you can force mode by adding special hash to filename. Like this for view mode:</p>
+<pre><code>....filename.html#view
+</code></pre>
+<p>And for edit mode:</p>
+<pre><code>....filename.html#edit
+</code></pre>
+<h2>Change location of editor.js file and/or main style file</h2>
+<p>This is done in <em>Advanced settings</em> section. You can enter alternative path to both files.</p>
+
+</div>
+<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script id="pageData" type="text/markdown">
+[←Girobusan](https://girobusan.github.io)
+# IMP! 
+
+## Force *view* or *edit* mode
+
+By default, when you open IMP! page locally, it loads in edit mode, and when you load it over http, in view mode. But you can force mode by adding special hash to filename. Like this for view mode:
+
+```
+....filename.html#view
+```
+
+And for edit mode:
+
+```
+....filename.html#edit
+```
+
+## Change location of editor.js file and/or main style file
+
+This is done in *Advanced settings* section. You can enter alternative path to both files.
+
+
+
+
+</script>
+</body>
+</html>

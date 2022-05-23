@@ -67,6 +67,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <div class="container">
 <p><a href="https://girobusan.github.io">←Girobusan</a></p>
 <h1>IMP!</h1>
+<p><big>Advanced usage</big></p>
 <h2>Force <em>view</em> or <em>edit</em> mode</h2>
 <p>By default, when you open IMP! page locally, it loads in edit mode, and when you load it over http, in view mode. But you can force mode by adding special hash to filename. Like this for view mode:</p>
 <pre><code>....filename.html#view
@@ -74,6 +75,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <p>And for edit mode:</p>
 <pre><code>....filename.html#edit
 </code></pre>
+<p>There is also button in editor, which will switch to view mode. Use &quot;back&quot; button of your browser to return to editor.</p>
 <h2>Change location of editor.js file and/or main style file</h2>
 <p>This is done in <em>Advanced settings</em> section. You can enter alternative path to both files. For example, you can link editor script from CDN, in order to keep it always up-to-date:</p>
 <pre><code>https://cdn.jsdelivr.net/gh/girobusan/imp/dist/editor.js
@@ -91,6 +93,8 @@ window.addEventListener("hashchange", ()=>history.go(0));
 [←Girobusan](https://girobusan.github.io)
 # IMP! 
 
+&lt;big&gt;Advanced usage&lt;/big&gt;
+
 ## Force *view* or *edit* mode
 
 By default, when you open IMP! page locally, it loads in edit mode, and when you load it over http, in view mode. But you can force mode by adding special hash to filename. Like this for view mode:
@@ -104,6 +108,7 @@ And for edit mode:
 ```
 ....filename.html#edit
 ```
+There is also button in editor, which will switch to view mode. Use "back" button of your browser to return to editor.
 
 ## Change location of editor.js file and/or main style file
 
@@ -122,10 +127,6 @@ https://cdn.jsdelivr.net/gh/girobusan/imp/dist/style.css
 ## Update your IMP! page to new version
 
 You have to update only `editor.js` file. On the next save the html will be updated too.
-
-
-
-
 
 
 </script>

@@ -192,7 +192,8 @@ export class PageEditor extends Component{
         handler=${this.makeHandler("customCSS")}
         />
 
-<h2>Advanced </h2>
+<hr />
+<h2 class="subtitle is-3">Advanced </h2>
 
         <${TheInput} 
         title=${"Editor location"}

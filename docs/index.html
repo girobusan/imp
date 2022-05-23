@@ -25,7 +25,7 @@
   "footer": "<small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small>",
   "css": "\n  ",
   "headHTML": "",
-  "editor": "../dist/editor.js",
+  "editor": "../dist/imp.js",
   "viewCSS": ""
 }
   </script>
@@ -35,7 +35,7 @@
     console.info("Loading editor...")
     const editor = document.createElement("script");
     editor.id="editorScript";
-    editor.src="../dist/editor.js";
+    editor.src="../dist/imp.js";
     document.head.appendChild(editor);
   }
   
@@ -85,10 +85,10 @@ window.addEventListener("hashchange", ()=>history.go(0));
 </ul>
 <h2>Step by step guide</h2>
 <ol>
-<li>Download and unpack. There are 3 files: <code>index.html</code>, <code>style.css</code> and <code>editor.js</code></li>
+<li>Download and unpack. There are 3 files: <code>index.html</code>, <code>style.css</code> and <code>imp.js</code></li>
 <li>Open the <code>index.html</code> in your browser (Firefox or Chrome is recommended)</li>
 <li>Edit it, import or enter your text, preview it. Click the big &quot;Export HTML&quot; (&quot;Save&quot; in newer version) button and save file to the same directory. If you didn't change file name, overwrite old file.</li>
-<li>Upload files to server, you may skip <code>editor.js</code>, as it's not required for <em>viewing</em> file.</li>
+<li>Upload files to server, you may skip <code>imp.js</code>, as it's not required for <em>viewing</em> file.</li>
 <li>That's it.</li>
 </ol>
 <p><big><a href="impdocs.html">More documentation here</a></big></p>
@@ -144,10 +144,10 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 
 ## Step by step guide
 
-1. Download and unpack. There are 3 files: `index.html`, `style.css` and `editor.js`
+1. Download and unpack. There are 3 files: `index.html`, `style.css` and `imp.js`
 2. Open the `index.html` in your browser (Firefox or Chrome is recommended)
 3. Edit it, import or enter your text, preview it. Click the big "Export HTML" ("Save" in newer version) button and save file to the same directory. If you didn't change file name, overwrite old file.
-4. Upload files to server, you may skip `editor.js`, as it's not required for *viewing* file.
+4. Upload files to server, you may skip `imp.js`, as it's not required for *viewing* file.
 5. That's it.
 
 &lt;big&gt;[More documentation here](impdocs.html)&lt;/big&gt;

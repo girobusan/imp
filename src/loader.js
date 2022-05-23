@@ -7,7 +7,7 @@ window.addEventListener("DOMContentLoaded" , function(){
     window.savedHead = head.innerHTML;//.clone(true);
     const editor = document.createElement("script");
     editor.id="editorScript";
-    editor.src="editor.js";
+    editor.src="imp.js";
     head.appendChild(editor);
   }
 

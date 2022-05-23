@@ -25,7 +25,7 @@
   "footer": "<small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small>",
   "css": "\n  ",
   "headHTML": "",
-  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp/dist/editor.js",
+  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js",
   "viewCSS": ""
 }
   </script>
@@ -35,7 +35,7 @@
     console.info("Loading editor...")
     const editor = document.createElement("script");
     editor.id="editorScript";
-    editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/editor.js";
+    editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js";
     document.head.appendChild(editor);
   }
   
@@ -76,19 +76,20 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <pre><code>....filename.html#edit
 </code></pre>
 <p>There is also button in editor, which will switch to view mode. Use &quot;back&quot; button of your browser to return to editor.</p>
-<h2>Change location of editor.js file and/or main style file</h2>
+<h2>Change location of imp.js file and/or main style file</h2>
 <p>This is done in <em>Advanced settings</em> section. You can enter alternative path to both files. For example, you can link editor script from CDN, in order to keep it always up-to-date:</p>
-<pre><code>https://cdn.jsdelivr.net/gh/girobusan/imp/dist/editor.js
+<pre><code>https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js
 </code></pre>
 <p>The same for <code>style.css</code>:</p>
 <pre><code>https://cdn.jsdelivr.net/gh/girobusan/imp/dist/style.css
 </code></pre>
 <h2>Update your IMP! page to new version</h2>
-<p>You have to update only <code>editor.js</code> file. On the next save the html will be updated too.</p>
+<p>After stable version will come, you'll have to update only editor file. On the next save the html will be updated too. For now, you'd have to create new page and copy-paste content manually.</p>
 
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
+
 
 [←Girobusan](https://girobusan.github.io)
 # IMP! 
@@ -110,12 +111,12 @@ And for edit mode:
 ```
 There is also button in editor, which will switch to view mode. Use "back" button of your browser to return to editor.
 
-## Change location of editor.js file and/or main style file
+## Change location of imp.js file and/or main style file
 
 This is done in *Advanced settings* section. You can enter alternative path to both files. For example, you can link editor script from CDN, in order to keep it always up-to-date:
 
 ```
-https://cdn.jsdelivr.net/gh/girobusan/imp/dist/editor.js
+https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js
 ```
 
 The same for `style.css`:
@@ -126,7 +127,8 @@ https://cdn.jsdelivr.net/gh/girobusan/imp/dist/style.css
 
 ## Update your IMP! page to new version
 
-You have to update only `editor.js` file. On the next save the html will be updated too.
+After stable version will come, you'll have to update only editor file. On the next save the html will be updated too. For now, you'd have to create new page and copy-paste content manually.
+
 
 
 </script>

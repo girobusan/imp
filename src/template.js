@@ -39,7 +39,7 @@ return `<!DOCTYPE html>
     console.info("Loading editor...")
     const editor = document.createElement("script");
     editor.id="editorScript";
-    editor.src="${editor || "editor.js"}";
+    editor.src="${editor || "imp.js"}";
     document.head.appendChild(editor);
   }
   

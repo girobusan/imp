@@ -26,10 +26,10 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 
 ## Step by step guide
 
-1. Download and unpack. There are 3 files: `index.html`, `style.css` and `editor.js`
+1. Download and unpack. There are 3 files: `index.html`, `style.css` and `imp.js`
 2. Open the `index.html` in your browser (Firefox or Chrome is recommended)
 3. Edit it, import or enter your text, preview it. Click the big "Export HTML" ("Save" in newer version) button and save file to the same directory. If you didn't change file name, overwrite old file.
-4. Upload files to server, you may skip `editor.js`, as it's not required for *viewing* file.
+4. Upload files to server, you may skip `imp.js`, as it's not required for *viewing* file.
 5. That's it.
 
 ## Customization
@@ -38,7 +38,7 @@ There is a field for custom CSS in each IMP! file for small adjustments. But you
 
 ## More files
 
-You can have as many imps as you want. If they would live in one directory, they will share single `editor.js` file. 
+You can have as many imps as you want. If they would live in one directory, they will share single `imp.js` file. 
 
 ## Known problems
 

@@ -2,15 +2,15 @@
 import {renderHTML} from "./template.js";
 
 const tagsToReplace = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;'
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;'
 };
 
 const replaceToTags = {
-     '&amp;':'&',
-     '&lt;': '<',
-     '&gt;': '>'
+  '&amp;':'&',
+  '&lt;': '<',
+  '&gt;': '>'
 }
 
 export function escapeTags(s){
@@ -23,32 +23,32 @@ export function unescapeTags(s){
 }
 
 export function convert2html(
-   text, 
-   mdtext , 
-   settings, //object
-   )
-   {
+  text, 
+  mdtext , 
+  settings, //object
+)
+{
 
-     //current custom CSS
-     const currentCSS = document.querySelector("#customCSS");
+  //current custom CSS
+  const currentCSS = document.querySelector("#customCSS");
 
-     return renderHTML(
-       text,
-       mdtext,
-       settings.footer(),
-       settings.title(),
-       settings.description(),
-       settings.image(),
-       currentCSS ? currentCSS.innerHTML :  "",
-       settings.headHTML(),
-       settings.copy(true),
-       settings.editor(),
-       settings.viewCSS()
+  return renderHTML(
+    text,
+    mdtext,
+    settings.footer(),
+    settings.title(),
+    settings.description(),
+    settings.image(),
+    currentCSS ? currentCSS.innerHTML :  "",
+    settings.headHTML(),
+    settings.copy(true),
+    settings.editor(),
+    settings.viewCSS()
 
-     )
-     ;
-     /*
-     */
+  )
+  ;
+  /*
+  */
 }
 
 export function extractFromHTML(){
@@ -56,19 +56,19 @@ export function extractFromHTML(){
   if(!dataContainer){ 
 
     console.info("It is empty document");
-     return { markdown: ""}
+    return { markdown: ""}
   }
   if(dataContainer.type=="text/markdown"){
-     return {markdown: unescapeTags(dataContainer.innerHTML) }
+    return {markdown: unescapeTags(dataContainer.innerHTML) }
   }
   return JSON.parse(unescapeTags( dataContainer.innerHTML ));
 }
 
 export function saveFile(text, mdtext, settings){
-console.log("save with" , settings.copy());
-   const fn = settings.filename();
-   const content = convert2html(text, mdtext, settings);
-   saveToDisk(fn, content);
+  console.log("save with" , settings.copy());
+  const fn = settings.filename();
+  const content = convert2html(text, mdtext, settings);
+  saveToDisk(fn, content);
 
 }
 

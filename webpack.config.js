@@ -41,7 +41,7 @@ module.exports = function (env, argv) {
 
     mode: argv.mode,
     entry: {
-      "editor": './src/editor.js',
+      "imp": './src/editor.js',
       "loader": './src/loader.js'
     },
     devtool: argv.mode != "production" ? 'inline-source-map' : false, 
@@ -95,7 +95,7 @@ module.exports = function (env, argv) {
         chunks: ["loader"],
         filename: 'index.html',
         minify: false,
-        inject: "head",
+        inject: false,
         css: coreCSS,
         // scriptLoading: 'defer',
         template: path.join(__dirname, "src/templates/index.ejs"),

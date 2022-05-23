@@ -48,6 +48,7 @@ function TheInput(props){
 export class PageEditor extends Component{
   constructor(props){
     super(props);
+    console.log("one")
     this.mdEditorNode = createRef();
     this.modified=false;
     this.previewIframe;
@@ -59,7 +60,9 @@ export class PageEditor extends Component{
        filename: props.settings.filename() || "",
        description: props.settings.description() || "",
        footer: props.settings.footer() || "",
-       customCSS: this.findCustomCSS()
+       customCSS: this.findCustomCSS(),
+       editor: props.settings.editor() || "",
+       viewCSS: props.settings.viewCSS() || "",
     }
   }
   findCustomCSS(){
@@ -72,6 +75,7 @@ export class PageEditor extends Component{
      return "/* write your CSS here*/";
   }
   handleInput(f,v){
+      console.log(f,v);
       const ns = {};
       ns[f]=v;
       this.setState(ns);
@@ -94,7 +98,7 @@ export class PageEditor extends Component{
     
 
       <input type=button id="exportHTML" value="Save"
-      class=${this.modified ? "button is-danger is-large" : "button is-primary is-medium"}
+      class=${this.modified ? "modified" : "not-modified"}
       onclick=${()=>{
       console.log("export requested...") ;
       saveFile(md.render(this.state.text) , this.state.text , this.props.settings );
@@ -102,8 +106,7 @@ export class PageEditor extends Component{
       }}
       ></input>
 
-        <div class="divider"></div>
-      <input type="button" id="fullPreview" class="button is-primary is-medium"
+      <input type="button" id="fullPreview" 
       value=${this.state.action=="preview" ? "Edit" : "Preview"}
       onclick=${()=>{
         
@@ -189,10 +192,28 @@ export class PageEditor extends Component{
         handler=${this.makeHandler("customCSS")}
         />
 
+<h2>Advanced </h2>
+
+        <${TheInput} 
+        title=${"Editor location"}
+        value=${this.state.editor}
+        name=${"editor"}
+        area=${false}
+        handler=${this.makeHandler("editor")}
+        />
+
+        <${TheInput} 
+        title=${"View CSS location"}
+        value=${this.state.viewCSS}
+        name=${"viewcss"}
+        area=${false}
+        handler=${this.makeHandler("viewCSS")}
+        />
+
         <div class="formRow">
-        <input type="button" class="utility button is-primary" value="Switch to view mode" onclick=${()=>window.location="#view"}></input>
+        <input type="button" class="utility button is-gray" value="Switch to view mode" onclick=${()=>window.location="#view"}></input>
         <div class="divider"></div>
-        <input type="button" class="utility button is-primary" value="Duplicate file" onclick=${
+        <input type="button" class="utility button is-gray" value="Duplicate file" onclick=${
           ()=>{
                const myfilename = this.props.settings.filename();
                const filename = prompt("Enter new filename with extension" , this.props.settings.filename());
@@ -288,6 +309,8 @@ export class PageEditor extends Component{
    s.css(this.state.customCSS)
    s.image(this.state.image)
    s.footer(this.state.footer)
+   s.editor(this.state.editor)
+   s.viewCSS(this.state.viewCSS)
    //update customCSS
    document.title = s.title();
    const ccsst = document.querySelector("#customCSS");

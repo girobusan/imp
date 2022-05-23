@@ -41,7 +41,9 @@ export function convert2html(
        settings.image(),
        currentCSS ? currentCSS.innerHTML :  "",
        settings.headHTML(),
-       settings.copy(true)
+       settings.copy(true),
+       settings.editor(),
+       settings.viewCSS()
 
      )
      ;

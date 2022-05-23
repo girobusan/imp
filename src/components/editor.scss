@@ -2,84 +2,101 @@
 @import 'bulma/sass/utilities/_all';
 // @import 'bulma/sass/base/_all';
 // Avoiding minireset
-  @import 'bulma/sass/base/generic';
-  // @import 'bulma/sass/base/animations';
+@import 'bulma/sass/base/generic';
+// @import 'bulma/sass/base/animations';
 @import 'bulma/sass/elements/_all';
 @import 'bulma/sass/form/_all';
-  // @import 'milligram/src/_Color';
-  // @import 'milligram/src/_Base';
-  // @import 'milligram/src/_Typography';
-  // @import 'milligram/src/_Form';
-  // @import 'milligram/src/_Button';
+// @import 'milligram/src/_Color';
+// @import 'milligram/src/_Base';
+// @import 'milligram/src/_Typography';
+// @import 'milligram/src/_Form';
+// @import 'milligram/src/_Button';
 
-  
 
-  body{
-    background-color: white;
-  }
 
-  #mainButtons{
-    left: 32px;
-    box-sizing: border-box;
-    position: fixed;
-    display: flex;
-    flex-direction: row;
-    padding: 8px;
-    top:0;
-    z-index:60;
-    background-color: white;
-    border-radius: 0 0 12px 12px;
-    @media(max-width:800px){
-      // position: static;
-      left: 0px;
-      bottom: 0;
-      top: initial;
-      width:100%;
-      background-color: white;
-      border-radius: 0;
-    }
+body{
+  background-color: white;
+}
 
-  }
-  #exportHTML, #fullPreview{
-
-    @media(max-width:800px){
-      width:50%;
-      border-radius: 0 !important;
-      padding-top: 10px;
-    }
-    
-  }
-
-  #exportHTML{
-    &.modified{
-      background-color: orangered;
-    }
-  }
-
-  #fullPreview{
-  }
-
-  #previewIframe{
-    position: fixed;
-    top:0;
+#mainButtons{
+  left: 32px;
+  box-sizing: border-box;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  top:0;
+  z-index:60;
+  background-color: white;
+  border-radius: 0 0 12px 12px;
+  @media(max-width:800px){
+    // position: static;
+    left: 0px;
+    bottom: 0;
+    top: initial;
     width:100%;
-    height: 100vh;
-    z-index: 50;
     background-color: white;
-    border: none;
+    border-radius: 0;
   }
-  #branding{
-    position: fixed;
-    top: 0;
-    right:32px;
-    padding-top:8px;
-    @media(max-width:800px){
-      position: static;
-      width:100%;
-      text-align: center;
-      font-size: 1.5em;
+
+}
+#exportHTML, #fullPreview{
+  all: unset;
+  cursor:pointer;
+  background-color: #666;
+  color: white;
+  display: block;
+  padding: 8px 18px;
+  font-family: inherit;
+  text-align: center;
+  &:hover{
+     background-color: #888;
+  }
+  @media(max-width:800px){
+    width:50%;
+    border-radius: 0 !important;
+    padding-top: 10px;
+  }
+
+}
+
+#exportHTML{
+  border-radius: 0 0 0 16px;
+  border-right: 1px solid gray;
+  &.modified{
+    background-color: $danger;
+    color: black;
+    &:hover{
+      background-color: lighten($danger , 10%);
     }
   }
+}
+
+#fullPreview{
+  border-radius: 0 0 16px 0;
+}
+
+#previewIframe{
+  position: fixed;
+  top:0;
+  width:100%;
+  height: 100vh;
+  z-index: 50;
+  background-color: white;
+  border: none;
+}
+#branding{
+  position: absolute;
+  top: 0;
+  right:32px;
+  padding-top:8px;
+  @media(max-width:800px){
+    position: static;
+    width:100%;
+    text-align: center;
+    font-size: 1.5em;
+  }
+}
 .PageEditor{
   input , textarea{
     box-sizing: border-box !important;
@@ -89,31 +106,32 @@
     display: block;
   }
   .EditorToolbar{
-     padding: 8px;
-     background-color: silver;
-     position: fixed;
-     width: 100%;
-     display: flex;
-     flex-direction: row;
-     // height: 48px;
-     top: 0;
-     left: 0;
-     z-index: 10;
+    padding: 8px;
+    background-color: silver;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    // height: 48px;
+    top: 0;
+    left: 0;
+    z-index: 10;
   }
   .workZone{
     all:unset;
     display:block;
     margin-top: 64px;
     padding:16px;
+    padding-bottom: 32px;
     margin-left: auto;
     margin-right: auto;
     max-width: 800px;
 
     @media(max-width:800px){
-    margin-top: 32px;
-    padding-bottom: 80px;
+      margin-top: 32px;
+      padding-bottom: 80px;
+    }
   }
-}
   .areacss{
     min-height: 300px;
   }
@@ -128,20 +146,20 @@
   color: black !important;
 }
 .CodeMirror-fullscreen, .editor-toolbar.fullscreen{
-   z-index: 20 !important;
+  z-index: 20 !important;
 }
 .editor-preview{
-    z-index:20 !important;
-    position:relative;
-    iframe{
-      position: absolute;
-      top:0;
-      left:0;
-      right:0;
-      bottom:0;
-      width: 100%;
-      height: 100%;
-    }
+  z-index:20 !important;
+  position:relative;
+  iframe{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .TheInput{
@@ -162,8 +180,8 @@
     flex-grow: 0;
   }
 }
-  .divider{
-    width: 8px;
-    flex-shrink: 0;
-    flex-grow: 0;
-  }
+.divider{
+  width: 8px;
+  flex-shrink: 0;
+  flex-grow: 0;
+}

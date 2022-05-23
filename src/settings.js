@@ -9,7 +9,9 @@ const props = [
    "filename" , //html 
    "footer" ,  //html
    "css" , //html
-   "headHTML" //html
+   "headHTML", //html
+   "editor",
+   "viewCSS"
    ]
 var callback ;
 

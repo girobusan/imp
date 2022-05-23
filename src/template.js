@@ -10,6 +10,8 @@ export function renderHTML(
    customCSS,
    customHeadHTML,
    settings, //escaped
+   editor,
+   viewCSS
 
 ){
 return `<!DOCTYPE html>
@@ -25,11 +27,11 @@ return `<!DOCTYPE html>
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="${image}">
   <link rel="icon" type="image/png" href="">
-  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <link id = "viewCSS" rel="stylesheet" href="${viewCSS || "style.css"}">
   <style id="customCSS">${customCSS}
   </style>
   <script>
-   window.settings = ${JSON.stringify(settings)}
+   window.settings = ${JSON.stringify(settings , null , 2)}
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
@@ -37,7 +39,7 @@ return `<!DOCTYPE html>
     console.info("Loading editor...")
     const editor = document.createElement("script");
     editor.id="editorScript";
-    editor.src="editor.js";
+    editor.src="${editor || "editor.js"}";
     document.head.appendChild(editor);
   }
   

@@ -65,3 +65,5 @@
 - [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Milligram CSS framework](https://milligram.io/)
+- [Bulma CSS framework](https://bulma.io/)
+- [Jsdelivr](https://www.jsdelivr.com/)

@@ -23,14 +23,23 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 - Customizable
 - Lo-fi :)
 
+## Two clicks CDN setup
 
-## Step by step guide
+1. Click (this link)[https://girobusan.github.io/imp/impcdn.html#edit]
+2. Scroll down, click "Duplicate page" button
+3. Enter any filename, ending with `.html`, save.
+
+This setup does not require downloading of any other files. You may load newly downloaded file in your browser, edit content and settings, save it (see below) and than upload to your server.
+
+
+## Local install
 
 1. Download and unpack. There are 3 files: `index.html`, `style.css` and `imp.js`
 2. Open the `index.html` in your browser (Firefox or Chrome is recommended)
 3. Edit it, import or enter your text, preview it. Click the big "Export HTML" ("Save" in newer version) button and save file to the same directory. If you didn't change file name, overwrite old file.
-4. Upload files to server, you may skip `imp.js`, as it's not required for *viewing* file.
-5. That's it.
+
+You may skip `imp.js` while uploading files to server, as it's not required for *viewing* file.
+
 
 ## Customization
 

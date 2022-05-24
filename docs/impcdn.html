@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP! :: Preconfigured CDN setup</title>
+  <meta name="description" content="">
+  <meta name="og:title" content="IMP! :: Preconfigured CDN setup">
+  <meta name="og:description" content="IMP! peconfigured CDN">
+  <meta name="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="">
+  <link rel="icon" type="image/png" href="">
+  <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/style.css">
+  <style id="customCSS">
+  
+  </style>
+  <script>
+   window.settings = {
+  "title": "IMP! :: Preconfigured CDN setup",
+  "description": "IMP! peconfigured CDN",
+  "image": "",
+  "icon": "",
+  "filename": "impcdn.html",
+  "footer": "<small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small>",
+  "css": "\n  ",
+  "headHTML": "",
+  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js",
+  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp/dist/style.css"
+}
+  </script>
+  <script>
+    window.addEventListener("DOMContentLoaded" , function(){
+    function IMPEdit(){
+    console.info("Loading editor...")
+    const editor = document.createElement("script");
+    editor.id="editorScript";
+    editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js";
+    document.head.appendChild(editor);
+  }
+  
+  var inIframe = false;
+  try{
+    inIframe = window.self!=window.top;
+  }catch(e){
+   inIframe = true;
+  }
+  if(inIframe){return;}
+
+  if(window.location.hash==="#view"){
+    return;
+  }
+
+  if(window.location.hash ==="#edit"){
+    IMPEdit();
+  }
+  if(window.location.protocol==="file:"){
+    IMPEdit();
+  }
+})
+
+window.addEventListener("hashchange", ()=>history.go(0));
+  </script>
+  <!--custom html here-->
+</head>
+<body>
+<div class="container">
+<h1>IMP! Preconfigured for CDN</h1>
+<p>From here you can get page, preconfigured to use CDN for editor script and view CSS.</p>
+<ol>
+<li>Swith to <a href="#edit">edit mode</a>. <!--If you see this text, you already there--></li>
+<li>Scroll down, click the &quot;Duplicate page&quot; button</li>
+<li>Enter filename, save.</li>
+</ol>
+
+</div>
+<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script id="pageData" type="text/markdown">
+# IMP! Preconfigured for CDN
+From here you can get page, preconfigured to use CDN for editor script and view CSS.
+
+1. Swith to [edit mode](#edit). &lt;!--If you see this text, you already there--&gt;
+2. Scroll down, click the "Duplicate page" button
+3. Enter filename, save.
+
+
+
+
+
+
+</script>
+</body>
+</html>

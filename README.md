@@ -25,7 +25,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 
 ## Two clicks CDN setup
 
-1. Click (this link)[https://girobusan.github.io/imp/impcdn.html#edit]
+1. Click [ this link ]( https://girobusan.github.io/imp/impcdn.html#edit )
 2. Scroll down, click "Duplicate page" button
 3. Enter any filename, ending with `.html`, save.
 

@@ -32,7 +32,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 This setup does not require downloading of any other files. You may load newly downloaded file in your browser, edit content and settings, save it (see below) and than upload to your server.
 
 
-## Local install
+## Local setup (no external resources required for editor)
 
 1. Download and unpack. There are 3 files: `index.html`, `style.css` and `imp.js`
 2. Open the `index.html` in your browser (Firefox or Chrome is recommended)

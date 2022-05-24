@@ -11,7 +11,11 @@ samp {
   font-family: monospace, monospace;
 }
 
-code {
+code{
+  display: inline;
+}
+
+pre code {
   @include padding-equal(1);
 
   display: block;

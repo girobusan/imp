@@ -1,4 +1,4 @@
-@use "./Gutenberg-master/assets/combined.css";
+@use "./Gutenberg-master/src/style/gutenberg.scss";
 body, html{
   margin:0;
   padding:0;
@@ -17,21 +17,6 @@ li{
   }
 }
 
-code{
-  display: inline;
-  padding: 0 3px;
-  margin:0;
-}
-
-pre{
-  background-color: #eee;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-pre code{
-  padding:0;
-}
 .container{
   margin-top:1rem;
   @media(max-width:800px){
@@ -59,4 +44,8 @@ footer#pageFooter{
   @media(max-width: 800px){
     width: 100%;
   }
+}
+
+code{
+  background-color: #efefef;
 }

@@ -7,14 +7,6 @@ const webpack = require('webpack');
 const pkg = require('./package.json');
 const fs = require('fs');
 var coreCSS="/*not generated yet*/"
-try{
-coreCSS = fs.readFileSync("./src/scss/core.css");
-}catch{
- console.log("Generate CSS first")
-}
-
-
-
 
 
 const env = process.env.NODE_ENV;
@@ -27,7 +19,7 @@ const econfig = {
 
 module.exports = function (env, argv) {
 
-  let builddir = 'dist';
+  let builddir = argv.mode== 'production' ? 'dist' : 'test';
 
   return {
     //externals: ["fs"],

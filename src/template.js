@@ -1,7 +1,7 @@
 import { escapeTags , unescapeTags } from "./fileops"
 
 /*
- <!--!block_name-->  /<!--!\s?(\w+)\s?-->/
+ <!--!block_name-->  /<!--!\s?(\w+)\s?-->(.+)<!--!!-->/
  <!--!!-->    /<!--!!-->/
  */
 function HTMLTemplate(ht){

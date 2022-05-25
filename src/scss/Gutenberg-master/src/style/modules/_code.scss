@@ -19,7 +19,9 @@ pre code {
   @include padding-equal(1);
 
   display: block;
-  overflow: auto;
+  overflow-x: auto;
+  // margin-bottom: #{-$leading + "px"};
+  // margin-bottom: #{-$leading-rem + "rem"};
 
   @media screen and (min-width: #{ $max-width + 5 + 'em'}) {
     $leading: $leading-desktop;

@@ -63,6 +63,7 @@ export class PageEditor extends Component{
        customCSS: this.findCustomCSS(),
        editor: props.settings.editor() || "",
        viewCSS: props.settings.viewCSS() || "",
+       headHTML: props.settings.headHTML() || "",
     }
   }
   findCustomCSS(){
@@ -196,6 +197,14 @@ export class PageEditor extends Component{
 <h2 class="subtitle is-3">Advanced </h2>
 
         <${TheInput} 
+        title=${"Custom HTML to HEAD"}
+        name=${"head"}
+        area=${true}
+        value=${this.state.headHTML}
+        handler=${this.makeHandler("headHTML")}
+        />
+
+        <${TheInput} 
         title=${"Editor location"}
         value=${this.state.editor}
         name=${"editor"}
@@ -312,6 +321,7 @@ export class PageEditor extends Component{
    s.footer(this.state.footer)
    s.editor(this.state.editor)
    s.viewCSS(this.state.viewCSS)
+   s.headHTML(this.state.headHTML)
    //update customCSS
    document.title = s.title();
    const ccsst = document.querySelector("#customCSS");

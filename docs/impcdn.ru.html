@@ -11,7 +11,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="">
   <link rel="icon" type="image/png" href="">
-  <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/style.css">
+  <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
   <style id="customCSS">
   
   </style>
@@ -25,8 +25,8 @@
   "footer": "<small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small>",
   "css": "\n  ",
   "headHTML": "",
-  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js",
-  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp/dist/style.css"
+  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
+  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css"
 }
   </script>
   <script>
@@ -35,7 +35,7 @@
     console.info("Loading editor...")
     const editor = document.createElement("script");
     editor.id="editorScript";
-    editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js";
+    editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
     document.head.appendChild(editor);
   }
   
@@ -81,6 +81,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
 
+
 # IMP! сконфигурированный для CDN
 - [Что такое IMP?](https://github.com/girobusan/imp/blob/master/README.ru.md)
 
@@ -91,6 +92,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 3. Введите желаемое имя файла с расширением html, сохраните где нужно.
 
 Эта настройка — хороший способ начать работать с IMP! У вас будет всего один файл, полностью готовый к работе. И редактор, и тема оформления будут загружаться с CDN по необходимости. Но если вы захотите поменять тему, вам нужно будет соответственно поменять настройку `View CSS location`.
+
 
 </script>
 </body>

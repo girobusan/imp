@@ -48,7 +48,7 @@ function TheInput(props){
 export class PageEditor extends Component{
   constructor(props){
     super(props);
-    console.log("one")
+    // console.log("one")
     this.mdEditorNode = createRef();
     this.modified=false;
     this.previewIframe;
@@ -75,7 +75,7 @@ export class PageEditor extends Component{
      return "/* write your CSS here*/";
   }
   handleInput(f,v){
-      console.log(f,v);
+      // console.log(f,v);
       const ns = {};
       ns[f]=v;
       this.setState(ns);

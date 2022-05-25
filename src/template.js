@@ -1,5 +1,13 @@
 import { escapeTags , unescapeTags } from "./fileops"
 
+/*
+ <!--!block_name-->  /<!--!\s?(\w+)\s?-->/
+ <!--!!-->    /<!--!!-->/
+ */
+function HTMLTemplate(ht){
+  return "<div class='container'>" + ht + "</div>"
+}
+
 export function renderHTML(
    htmlText,
    mdText,
@@ -68,9 +76,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
   ${customHeadHTML||"<!--custom html here-->"}
 </head>
 <body>
-<div class="container">
-${htmlText}
-</div>
+${HTMLTemplate(htmlText)}
 <footer id="pageFooter">${footer}</footer>
 <script id="pageData" type="text/markdown">
 ${escapeTags( mdText )}

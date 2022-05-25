@@ -7,12 +7,12 @@ import * as fileops from "./fileops.js"
 
 console.info("IMP! editor v" + version);
 let s = fileops.extractFromHTML();
-console.log('Extracted from html' , s);
-console.log('Saved in script' , window.settings);
+// console.log('Extracted from html' , s);
+// console.log('Saved in script' , window.settings);
 const settings = createSettings(window.settings);
-console.log("test settings");
-console.log(settings.copy())
-console.log(settings.copy(true))
+// console.log("test settings");
+// console.log(settings.copy())
+// console.log(settings.copy(true))
 //remove viewer css
 const viewcss= document.querySelector("#viewCSS");
 if(viewcss) {

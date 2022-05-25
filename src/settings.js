@@ -16,7 +16,7 @@ const props = [
 var callback ;
 
 export function create(settings_src , cb){
-console.log("Creating settings wrapper" , settings_src)
+// console.log("Creating settings wrapper" , settings_src)
   if(cb){callback=cb}
   Object.assign(STORE , settings_src);
   // console.log("STORE" , STORE)
@@ -25,7 +25,7 @@ console.log("Creating settings wrapper" , settings_src)
 
 function updated(k,v){
   if(callback){callback(k,v)}
-  console.log("Updated setting" , k)
+  // console.log("Updated setting" , k)
 }
 
 function escapedCopy(){

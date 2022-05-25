@@ -11,7 +11,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="">
   <link rel="icon" type="image/png" href="">
-  <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/style.css">
+  <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
   <style id="customCSS">
   
   </style>
@@ -25,8 +25,8 @@
   "footer": "<small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small>",
   "css": "\n  ",
   "headHTML": "",
-  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js",
-  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp/dist/style.css"
+  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
+  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css"
 }
   </script>
   <script>
@@ -35,7 +35,7 @@
     console.info("Loading editor...")
     const editor = document.createElement("script");
     editor.id="editorScript";
-    editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js";
+    editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
     document.head.appendChild(editor);
   }
   
@@ -77,6 +77,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
+
 # IMP! Preconfigured for CDN
 From here you can get page, preconfigured to use CDN for editor script and view CSS.
 
@@ -85,6 +86,7 @@ From here you can get page, preconfigured to use CDN for editor script and view 
 3. Enter any filename you want (ending with `.html`), save.
 
 This setup is ideal as starting point. You will get just one file, fully working and ready. Both editor and default theme will be served from CDN. If you will need to change default theme, you will also need to adjust `View CSS location` setting accordingly. 
+
 </script>
 </body>
 </html>

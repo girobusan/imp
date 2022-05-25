@@ -25,7 +25,7 @@
   "footer": "<small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small>",
   "css": "\n  ",
   "headHTML": "",
-  "editor": "../dist/imp.js",
+  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
   "viewCSS": ""
 }
   </script>
@@ -35,7 +35,7 @@
     console.info("Loading editor...")
     const editor = document.createElement("script");
     editor.id="editorScript";
-    editor.src="../dist/imp.js";
+    editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
     document.head.appendChild(editor);
   }
   
@@ -64,8 +64,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
   <!--custom html here-->
 </head>
 <body>
-<div class="container">
-<p><a href="https://girobusan.github.io">←Girobusan</a></p>
+<div class='container'><p><a href="https://girobusan.github.io">←Girobusan</a></p>
 <h1>IMP! (It's My Page!)</h1>
 <p>Like a markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.</p>
 <h2>How it works</h2>
@@ -108,10 +107,10 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <li><a href="https://matejlatin.github.io/Gutenberg">Gutenberg CSS</a></li>
 <li><a href="https://milligram.io/">Milligram CSS framework</a></li>
 </ul>
-
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
+
 
 
 
@@ -168,6 +167,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 - [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Milligram CSS framework](https://milligram.io/)
+
 
 
 

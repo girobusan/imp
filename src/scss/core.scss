@@ -49,3 +49,18 @@ footer#pageFooter{
 code{
   background-color: #efefef;
 }
+
+a{
+  color: inherit;
+  text-decoration: underline;
+  text-decoration: solid underline royalblue 2px;
+  &:hover{
+    color: royalblue;
+  }
+  &:visited {
+  color: #555555;
+  &:hover{
+    color: #555555;
+  }
+  }
+}

@@ -13,9 +13,13 @@ samp {
 
 code{
   display: inline;
+  padding: .2rem .4rem;
+  font-size: 85%;
+  border-radius: 3px;
 }
 
 pre code {
+  font-size: inherit;
   @include padding-equal(1);
 
   display: block;

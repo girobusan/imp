@@ -38,14 +38,15 @@ table{
 
 body footer#pageFooter{
   color: #555;
+  // width: 100%;
   border-top: 2px solid black;
   padding-top: 2rem;
   padding-bottom: 3rem;
   margin-top: 3rem;
   @media(max-width: 800px){
-    width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
+    width: calc(100% - 32px);
+    margin-left: 16px;
+    margin-right: 16px;
   }
 }
 

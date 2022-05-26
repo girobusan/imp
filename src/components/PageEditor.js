@@ -26,10 +26,26 @@ function TheInput(props){
   <label class="label" for=${props.name || "" }>${props.title}</label>
   <${If} condition=${props.area==true}>
   <textarea ref=${inp} 
-  style="min-height: 150px;"
+  style="min-height: 100px;transition:height .5s"
   class=${"input biginout area"+props.name}
   name=${props.name || ""} 
-  onchange=${onChange}>
+  onfocus=${(e)=>{
+     const bh = e.target.getBoundingClientRect().height;
+     const sh = e.target.scrollHeight;
+     if(sh>bh){
+       e.target.style.height=(sh+16)+"px"
+       }
+    }}
+  onblur=${ (e)=>e.target.style.height="100px" }
+  onkeyup=${(e)=>{ 
+     const bh = e.target.getBoundingClientRect().height;
+     const sh = e.target.scrollHeight;
+     if(sh>bh){
+       e.target.style.height=(sh+16)+"px"
+     }
+     onChange()
+    }}
+  onchange=${(e)=>{ onChange(); }} >
   ${props.value || ""}
   </textarea>
   </${If}>

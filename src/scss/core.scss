@@ -32,17 +32,20 @@ table{
   }
   th,td{
     padding: 4px 12px;
+    text-align: left;
   }
 }
 
-footer#pageFooter{
-  color: #666;
+body footer#pageFooter{
+  color: #555;
   border-top: 2px solid black;
   padding-top: 2rem;
   padding-bottom: 3rem;
   margin-top: 3rem;
   @media(max-width: 800px){
     width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
 
@@ -59,6 +62,7 @@ a{
   }
   &:visited {
   color: #555555;
+  text-decoration-color: #555555;
   &:hover{
     color: #555555;
   }

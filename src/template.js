@@ -43,32 +43,27 @@ return `<!DOCTYPE html>
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
-    function IMPEdit(){
-    console.info("Loading editor...")
-    const editor = document.createElement("script");
-    editor.id="editorScript";
-    editor.src="${editor || "imp.js"}";
-    document.head.appendChild(editor);
-  }
-  
-  var inIframe = false;
-  try{
-    inIframe = window.self!=window.top;
-  }catch(e){
-   inIframe = true;
-  }
-  if(inIframe){return;}
 
-  if(window.location.hash==="#view"){
-    return;
-  }
+      function IMPEdit(){
+      console.info("Loading editor...")
+      const editor = document.createElement("script");
+      editor.id="editorScript";
+      editor.src="${editor || "imp.js"}";
+      document.head.appendChild(editor);
+      }
 
-  if(window.location.hash ==="#edit"){
-    IMPEdit();
-  }
-  if(window.location.protocol==="file:"){
-    IMPEdit();
-  }
+   if(window.self.name=="IMPPreviewIframe"){
+   return;
+   }
+   if(window.location.hash==="#view"){
+   return;
+   }
+   if(window.location.hash ==="#edit"){
+   IMPEdit();
+   }
+   if(window.location.protocol==="file:"){
+   IMPEdit();
+   }
 })
 
 window.addEventListener("hashchange", ()=>history.go(0));

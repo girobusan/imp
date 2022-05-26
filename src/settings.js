@@ -19,7 +19,7 @@ export function create(settings_src , cb){
 // console.log("Creating settings wrapper" , settings_src)
   if(cb){callback=cb}
   Object.assign(STORE , settings_src);
-  // console.log("STORE" , STORE)
+  props.forEach(p=>STORE[p]=escapeTags(settings_src[p] || ""));
   return createWrapper();
 }
 
@@ -43,8 +43,9 @@ function createWrapper(){
    w.copy = (escape)=> escape ? escapedCopy() : unescapedCopy();
    props.forEach( p=>{
       w[p] = (v)=>{ if(v===undefined){return unescapeTags( STORE[p] || "" )} ;  
-      if(STORE[p]==v){return w}
-      STORE[p]=escapeTags(v) ; updated(p,v) ; return w }
+      const ev = escapeTags(v);
+      if(STORE[p]===ev){return w}
+      STORE[p]=ev ; updated(p,v) ; return w }
    } )
    return w;
 }

@@ -121,6 +121,7 @@ export class PageEditor extends Component{
           return}
 
         let i = document.createElement("iframe");
+         i.name="IMPPreviewIframe";
           document.body.style.overflow="hidden";
         i.id="previewIframe";
         document.body.appendChild(i);
@@ -312,21 +313,22 @@ export class PageEditor extends Component{
   }
   componentDidUpdate(){
    //update settings
-   const s = this.props.settings;
-   s.title(this.state.title)
-   s.description(this.state.description)
-   s.filename(this.state.filename)
-   s.css(this.state.customCSS)
-   s.image(this.state.image)
-   s.footer(this.state.footer)
-   s.editor(this.state.editor)
-   s.viewCSS(this.state.viewCSS)
-   s.headHTML(this.state.headHTML)
-   //update customCSS
-   document.title = s.title();
+   this.props.settings
+   .title(this.state.title)
+   .description(this.state.description)
+   .filename(this.state.filename)
+   .css(this.state.customCSS)
+   .image(this.state.image)
+   .footer(this.state.footer)
+   .editor(this.state.editor)
+   .viewCSS(this.state.viewCSS)
+   .headHTML(this.state.headHTML)
+   //update some current HTML
+   document.title = this.state.title;
    const ccsst = document.querySelector("#customCSS");
-   ccsst.innerHTML = this.state.customCSS;
-   //editor
+   if(ccsst){
+     ccsst.innerHTML = this.state.customCSS;
+   }
   }
 }
 

@@ -17,7 +17,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 
 - Fully local thing &mdash; no server required, no setup. It's YOUR page!
 - Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)
-- You can add any HTML to your page
+- You can add any HTML or JS to your page
 - All you need is browser, that means it fully multiplatform
 - EasyMDE as Markdown editor
 - Customizable

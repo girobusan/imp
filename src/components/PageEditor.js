@@ -1,4 +1,3 @@
-
 import {Component , createRef} from "preact";
 import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
@@ -41,7 +40,7 @@ function TheInput(props){
   ></input>
   </${If}>
   </div>`
-   
+
 }
 
 
@@ -53,86 +52,80 @@ export class PageEditor extends Component{
     this.modified=false;
     this.previewIframe;
     this.state = {
-       text: props.text,
-       action: "edit",
-       title: props.settings.title() || "",
-       image: props.settings.image() || "",
-       filename: props.settings.filename() || "",
-       description: props.settings.description() || "",
-       footer: props.settings.footer() || "",
-       customCSS: this.findCustomCSS(),
-       editor: props.settings.editor() || "",
-       viewCSS: props.settings.viewCSS() || "",
-       headHTML: props.settings.headHTML() || "",
+      text: props.text,
+      action: "edit",
+      title: props.settings.title() || "",
+      image: props.settings.image() || "",
+      filename: props.settings.filename() || "",
+      description: props.settings.description() || "",
+      footer: props.settings.footer() || "",
+      customCSS: this.findCustomCSS(),
+      editor: props.settings.editor() || "",
+      viewCSS: props.settings.viewCSS() || "",
+      headHTML: props.settings.headHTML() || "",
     }
   }
   findCustomCSS(){
     if(this.props.settings.css()){ return this.props.settings.css() }
-    
-     let e = document.getElementById("customCSS");
-     if(e && e.innerHTML){
-        return e.innerHTML;
-     }
-     return "/* write your CSS here*/";
+
+    let e = document.getElementById("customCSS");
+    if(e && e.innerHTML){
+      return e.innerHTML;
+    }
+    return "/* write your CSS here*/";
   }
   handleInput(f,v){
-      // console.log(f,v);
-      const ns = {};
-      ns[f]=v;
-      this.setState(ns);
-      //handle customCSS and title here
+    const ns = {};
+    ns[f]=v;
+    this.setState(ns);
   }
   makeHandler(f){
-     const func =  (v)=>this.handleInput(f,v)
-     func.bind(this);
-     return func;
+    const func =  (v)=>this.handleInput(f,v)
+    func.bind(this);
+    return func;
   }
   render(){
-        // let p = document.getElementById("specialPreviewDiv");
-        // console.log("Special" , p)
-        // if(p){p.innerHTML = "I'm special"};
-  // console.log("mde"  , mdes)
     return html`<div class="PageEditor">
-      <div id="branding"><strong>IMP!</strong> ${version}</div>
+    <div id="branding"><strong>IMP!</strong> ${version}</div>
 
-      <div class="is-mobile" id="mainButtons">
-    
+    <div class="is-mobile" id="mainButtons">
 
-      <input type=button id="exportHTML" value="Save"
-      class=${this.modified ? "modified" : "not-modified"}
-      onclick=${()=>{
+
+    <input type=button id="exportHTML" value="Save"
+    class=${this.modified ? "modified" : "not-modified"}
+    onclick=${()=>{
       console.log("export requested...") ;
       saveFile(md.render(this.state.text) , this.state.text , this.props.settings );
       this.modified = false;
-      }}
-      ></input>
+    }}
+    ></input>
 
-      <input type="button" id="fullPreview" 
-      value=${this.state.action=="preview" ? "Edit" : "Preview"}
-      onclick=${()=>{
-        
-        let ci = document.getElementById("previewIframe");
-        
-        if(ci){
+    <input type="button" id="fullPreview" 
+    value=${this.state.action=="preview" ? "Edit" : "Preview"}
+    onclick=${()=>{
 
-          ci.remove(); 
-          document.body.style.overflow="auto";
-          this.setState({action: "edit"}) ;
-          return}
+      let ci = document.getElementById("previewIframe");
+
+      if(ci){
+
+        ci.remove(); 
+        document.body.style.overflow="auto";
+        this.setState({action: "edit"}) ;
+        return}
 
         let i = document.createElement("iframe");
-         i.name="IMPPreviewIframe";
-          document.body.style.overflow="hidden";
+        i.name="IMPPreviewIframe";
+        document.body.style.overflow="hidden";
         i.id="previewIframe";
         document.body.appendChild(i);
         this.radicalPreview(i);
         this.setState({action:"preview"})
-      }
-      }></input>
-      </div>
-      
+        }
+        }></input>
+        </div>
 
-      <div class="workZone">
+
+        <div class="workZone">
 
         <!--markdown editor-->
         <textarea 
@@ -194,8 +187,8 @@ export class PageEditor extends Component{
         handler=${this.makeHandler("customCSS")}
         />
 
-<hr />
-<h2 class="subtitle is-3">Advanced </h2>
+        <hr />
+        <h2 class="subtitle is-3">Advanced </h2>
 
         <${TheInput} 
         title=${"Custom HTML to HEAD"}
@@ -226,113 +219,109 @@ export class PageEditor extends Component{
         <div class="divider"></div>
         <input type="button" class="utility button is-gray" value="Duplicate file" onclick=${
           ()=>{
-               const myfilename = this.props.settings.filename();
-               const filename = prompt("Enter new filename with extension" , this.props.settings.filename());
-               this.props.settings.filename(filename);
-               saveFile( md.render(this.state.text) , this.state.text , this.props.settings );
-               this.props.settings.filename(myfilename);
-            }
+            const myfilename = this.props.settings.filename();
+            const filename = prompt("Enter new filename with extension" , this.props.settings.filename());
+            this.props.settings.filename(filename);
+            saveFile( md.render(this.state.text) , this.state.text , this.props.settings );
+            this.props.settings.filename(myfilename);
+          }
           }></input>
-        </div>
+          </div>
 
 
 
-      </div>
-    </div>`
-  }
-  updateMdEditor(){
-
-    const easyMDE = new MDE(
-      {
-        element: this.mdEditorNode.current ,
-        syncSideBySidePreviewScroll: false,
-        previewRender: (m ,p)=>{   
-        return md.render(m) 
-        },
-        spellChecker: false,
-        sideBySideFullscreen: false,
-        toolbar: ["bold", "italic", "heading", "|", "quote" ,
-        "unordered-list" , "ordered-list" ,  "|" , "link" , "image" , "|",
-        "preview" , "side-by-side" , "fullscreen" , "|" , "guide" , "|",
-        {
-          name: "export",
-          action: ()=>{ saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
-            this.state.text)
-          },
-          className: "fa fa-download",
-          title: "Export markdown"
-        },
-        {
-          name: "import",
-          action: ()=>{
-             loadFromDisk((t)=>{ easyMDE.value(t);this.setState({text:t}) })
-          },
-          className: "fa fa-upload",
-          title: "Import markdown"
+          </div>
+          </div>`
         }
+        updateMdEditor(){
 
-        ]
-      });
+          const easyMDE = new MDE(
+            {
+              element: this.mdEditorNode.current ,
+              syncSideBySidePreviewScroll: false,
+              previewRender: (m ,p)=>{   
+                return md.render(m) 
+              },
+              spellChecker: false,
+              sideBySideFullscreen: false,
+              toolbar: ["bold", "italic", "heading", "|", "quote" ,
+                "unordered-list" , "ordered-list" ,  "|" , "link" , "image" , "|",
+                "preview" , "side-by-side" , "fullscreen" , "|" , "guide" , "|",
+                {
+                  name: "export",
+                  action: ()=>{ saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
+                    this.state.text)
+                  },
+                  className: "fa fa-download",
+                  title: "Export markdown"
+                },
+                {
+                  name: "import",
+                  action: ()=>{
+                    loadFromDisk((t)=>{ easyMDE.value(t);this.setState({text:t}) })
+                  },
+                  className: "fa fa-upload",
+                  title: "Import markdown"
+                }
 
-      easyMDE.value( this.state.text );
-      easyMDE.codemirror.on("change" , 
-        ()=>{
-        this.handleInput("text", easyMDE.value()) 
-        } )
+              ]
+            });
+
+            easyMDE.value( this.state.text );
+            easyMDE.codemirror.on("change" , 
+              ()=>{
+                this.handleInput("text", easyMDE.value()) 
+              } )
 
 
-        // console.log("MDE" , easyMDE);
+              // console.log("MDE" , easyMDE);
 
-  }
-  fixPreview(p){
-    console.log("fix preview...") 
-    const iframeID = "radicalPreviewIframe";
-    let e=p.getElementById(iframeID);
-    console.log(e);
-    if(!e){ 
-      console.log("preview needs fixin")
-      this.radicalPreview(this.state.text ,document.querySelector(".editor-preview"))
+        }
+        fixPreview(p){
+          console.log("fix preview...") 
+          const iframeID = "radicalPreviewIframe";
+          let e=p.getElementById(iframeID);
+          console.log(e);
+          if(!e){ 
+            console.log("preview needs fixin")
+            this.radicalPreview(this.state.text ,document.querySelector(".editor-preview"))
+          }
+
+        }
+        radicalPreview(frame){
+          const phtml = convert2html(md.render(this.state.text) , "" , this.props.settings);
+          frame.contentWindow.document.open();
+          frame.contentWindow.document.write(phtml);
+          frame.contentWindow.document.close();
+        }
+        componentDidMount(){
+          this.updateMdEditor();
+        }
+        componentWillUpdate(np,ns){
+          if(ns.action!=this.state.action){ //switch preview mode
+            return;
+          }
+
+          this.modified = true;
+        }
+        componentDidUpdate(){
+          //update settings
+          this.props.settings
+          .title(this.state.title)
+          .description(this.state.description)
+          .filename(this.state.filename)
+          .css(this.state.customCSS)
+          .image(this.state.image)
+          .footer(this.state.footer)
+          .editor(this.state.editor)
+          .viewCSS(this.state.viewCSS)
+          .headHTML(this.state.headHTML)
+          //update some current HTML
+          document.title = this.state.title;
+          const ccsst = document.querySelector("#customCSS");
+          if(ccsst){
+            ccsst.innerHTML = this.state.customCSS;
+          }
+        }
       }
-    
-  }
-  radicalPreview(frame){
-    const phtml = convert2html(md.render(this.state.text) , "" , this.props.settings , window.savedHead , this.props.viewCSS);
-    frame.contentWindow.document.open();
-    frame.contentWindow.document.write(phtml);
-    frame.contentWindow.document.close();
-  }
-  componentDidMount(){
-  this.updateMdEditor();
-  }
-  componentWillUpdate(np,ns){
-    if(ns.action!=this.state.action){ //switch preview mode
-       return;
-    }
-    
-    this.modified = true;
-  }
-  componentDidUpdate(){
-   //update settings
-   this.props.settings
-   .title(this.state.title)
-   .description(this.state.description)
-   .filename(this.state.filename)
-   .css(this.state.customCSS)
-   .image(this.state.image)
-   .footer(this.state.footer)
-   .editor(this.state.editor)
-   .viewCSS(this.state.viewCSS)
-   .headHTML(this.state.headHTML)
-   //update some current HTML
-   document.title = this.state.title;
-   const ccsst = document.querySelector("#customCSS");
-   if(ccsst){
-     ccsst.innerHTML = this.state.customCSS;
-   }
-  }
-}
 
-PageEditor.defaultProps = {
-   text: "Test text",
-   mode: "md"
-}

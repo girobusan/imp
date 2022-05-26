@@ -18,8 +18,7 @@ var callback ;
 export function create(settings_src , cb){
 // console.log("Creating settings wrapper" , settings_src)
   if(cb){callback=cb}
-  Object.assign(STORE , settings_src);
-  props.forEach(p=>STORE[p]=escapeTags(settings_src[p] || ""));
+  props.forEach(p=>STORE[p]=settings_src[p] || "");
   return createWrapper();
 }
 

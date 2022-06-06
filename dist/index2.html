@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP!</title>
+  <meta name="description" content="">
+  <meta name="og:title" content="IMP!">
+  <meta name="og:description" content="Small tool">
+  <meta name="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="">
+  <link rel="icon" type="image/png" href="">
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <style id="customCSS">
+  
+  </style>
+  <script>
+   window.settings = {"title":"IMP!","description":"Small tool","image":"","icon":"","filename":"index2.html","footer":"<small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small>","css":"\n  ","headHTML":""}
+  </script>
+  <script>
+    window.addEventListener("DOMContentLoaded" , function(){
+    function IMPEdit(){
+    console.info("Loading editor...")
+    const editor = document.createElement("script");
+    editor.id="editorScript";
+    editor.src="editor.js";
+    document.head.appendChild(editor);
+  }
+  
+  var inIframe = false;
+  try{
+    inIframe = window.self!=window.top;
+  }catch(e){
+   inIframe = true;
+  }
+  if(inIframe){return;}
+
+  if(window.location.hash==="#view"){
+    return;
+  }
+
+  if(window.location.hash ==="#edit"){
+    IMPEdit();
+  }
+  if(window.location.protocol==="file:"){
+    IMPEdit();
+  }
+})
+
+window.addEventListener("hashchange", ()=>history.go(0));
+  </script>
+  <!--custom html here-->
+</head>
+<body>
+<div class="container">
+<h1>IMP! (It's My Page!)</h1>
+<p>Like a markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.</p>
+<h2>How it works</h2>
+<p>When you load IMP! Locally, it opens up an editor, where ypu can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, <strong>static</strong> HTML.</p>
+<h2>Step by step guide</h2>
+<ol>
+<li>Download and unpack. There are 3 files: <code>index.html</code>, <code>style.css</code> and <code>editor.js</code></li>
+<li>Open the <code>index.html</code> in your browser (Firefox or Chrome is recommended)</li>
+<li>Edit it, import or enter your text, preview it. Click the big &quot;Export HTML&quot; button and save file to the same directory. If you didn't change file name, overwrite old file.</li>
+<li>Upload files to server, you may skip <code>editor.js</code>, as it's not required for <em>viewing</em> file.</li>
+<li>That's it.</li>
+</ol>
+<h2>Customization</h2>
+<p>There is a field for custom CSS in each IMP! file for small adjustments. But you can replace the whole <code>style.css</code> with your own. There is nothing fancy about it.</p>
+<h2>More files</h2>
+<p>You can have as many imps as you want. If they would live in one directory, they will share single <code>editor.js</code> file.</p>
+<h2>License</h2>
+<ul>
+<li>Mostly MIT, except:</li>
+<li>CC BY-CA - default theme based on Cutenberg  (which is licensed under CC BY-CA)</li>
+</ul>
+<h2>Wouldn't be possible without awesome projects like:</h2>
+<ul>
+<li><a href="https://github.com/Ionaru/easy-markdown-editor">EasyMDE</a></li>
+<li><a href="https://matejlatin.github.io/Gutenberg/">Gutenberg CSS</a></li>
+<li><a href="https://milligram.io/">Milligram CSS framework</a></li>
+</ul>
+
+</div>
+<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script id="pageData" type="text/markdown">
+# IMP! (It's My Page!)
+
+Like a markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.
+
+## How it works
+
+When you load IMP! Locally, it opens up an editor, where ypu can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, **static** HTML. 
+
+## Step by step guide
+
+1. Download and unpack. There are 3 files: `index.html`, `style.css` and `editor.js`
+2. Open the `index.html` in your browser (Firefox or Chrome is recommended)
+3. Edit it, import or enter your text, preview it. Click the big "Export HTML" button and save file to the same directory. If you didn't change file name, overwrite old file.
+4. Upload files to server, you may skip `editor.js`, as it's not required for *viewing* file.
+5. That's it.
+
+## Customization
+
+There is a field for custom CSS in each IMP! file for small adjustments. But you can replace the whole `style.css` with your own. There is nothing fancy about it.
+
+## More files
+
+You can have as many imps as you want. If they would live in one directory, they will share single `editor.js` file. 
+
+## License
+
+- Mostly MIT, except:
+- CC BY-CA - default theme based on Cutenberg  (which is licensed under CC BY-CA)
+
+
+## Wouldn't be possible without awesome projects like:
+
+- [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
+- [Gutenberg CSS](https://matejlatin.github.io/Gutenberg/)
+- [Milligram CSS framework](https://milligram.io/)
+
+</script>
+</body>
+</html>

@@ -9,6 +9,12 @@ When you load IMP! Locally, it opens up an editor, where you can enter or import
 
 ![](docs/side-by-side.png)
 
+## Possible uses
+
+- Digital experiments 
+- Small-scale sites
+- Anywhere, where you need "just html file". 
+
 ## System requirements
 
 Descent browser, Firefox or Chrome preferred (tested). If you've updated your browser within last 4 years, it should be fine.

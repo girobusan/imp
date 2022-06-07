@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP! Favicon</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="og:title" content="IMP! Favicon">
+  <meta name="og:description" content="IMP! peconfigured CDN">
+  <meta name="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="">
+  <link rel="icon" type="image/png" href="">
+  <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
+  <style id="customCSS">
+  
+  </style>
+  <script>
+   window.settings = {
+  "title": "IMP! Favicon",
+  "description": "IMP! peconfigured CDN",
+  "image": "",
+  "icon": "",
+  "filename": "favicon.html",
+  "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
+  "css": "\n  ",
+  "headHTML": "&lt;link rel=\"icon\" \nhref=\"data:image/svg+xml,\n&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 \nviewBox=%220 0 100 100%22&gt;\n&lt;text y=%22.9em%22 font-size=%2290%22&gt;😈&lt;/text&gt;\n&lt;/svg&gt;\"&gt;",
+  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
+  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css",
+  "author": "",
+  "keywords": ""
+}
+  </script>
+  <script>
+    window.addEventListener("DOMContentLoaded" , function(){
+
+      function IMPEdit(){
+      console.info("Loading editor...")
+      const editor = document.createElement("script");
+      editor.id="editorScript";
+      editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
+      document.head.appendChild(editor);
+      }
+
+   if(window.self.name=="IMPPreviewIframe"){
+   return;
+   }
+   if(window.location.hash==="#view"){
+   return;
+   }
+   if(window.location.hash ==="#edit"){
+   IMPEdit();
+   }
+   if(window.location.protocol==="file:"){
+   IMPEdit();
+   }
+})
+
+window.addEventListener("hashchange", ()=>history.go(0));
+  </script>
+  <link rel="icon" 
+href="data:image/svg+xml,
+<svg xmlns=%22http://www.w3.org/2000/svg%22 
+viewBox=%220 0 100 100%22>
+<text y=%22.9em%22 font-size=%2290%22>😈</text>
+</svg>">
+</head>
+<body>
+<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="https://girobusan.github.io/imp">IMP!</a></p>
+<h1>Add emoji favicon</h1>
+<p>Change emoji to your favourite and add this code to <code>Custom HTML</code> field in editor.</p>
+<pre><code>&lt;link rel=&quot;icon&quot; 
+href=&quot;data:image/svg+xml,
+&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 
+viewBox=%220 0 100 100%22&gt;
+&lt;text y=%22.9em%22 font-size=%2290%22&gt;😈&lt;/text&gt;
+&lt;/svg&gt;&quot;&gt;
+</code></pre>
+<p>Look at this page in <a href="#edit">edit mode</a> for reference.</p>
+<ul>
+<li>Taken from <a href="https://css-tricks.com/emoji-as-a-favicon/">here</a></li>
+</ul>
+</div>
+<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script id="pageData" type="text/markdown">
+[Girobusan](https://girobusan.github.io) | [IMP!](https://girobusan.github.io/imp)
+
+# Add emoji favicon
+
+Change emoji to your favourite and add this code to `Custom HTML` field in editor. 
+
+```
+&lt;link rel="icon" 
+href="data:image/svg+xml,
+&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 
+viewBox=%220 0 100 100%22&gt;
+&lt;text y=%22.9em%22 font-size=%2290%22&gt;😈&lt;/text&gt;
+&lt;/svg&gt;"&gt;
+```
+
+Look at this page in [edit mode](#edit) for reference.
+
+- Taken from [here](https://css-tricks.com/emoji-as-a-favicon/)
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

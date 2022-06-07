@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IMP!</title>
   <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
   <meta name="og:title" content="IMP!">
   <meta name="og:description" content="Small tool">
   <meta name="og:image" content="">
@@ -24,9 +26,11 @@
   "filename": "index.html",
   "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
   "css": "\n  ",
-  "headHTML": "",
+  "headHTML": "&lt;link rel=\"icon\" href=\"data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;😈&lt;/text&gt;&lt;/svg&gt;\"&gt;",
   "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
-  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css"
+  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css",
+  "author": "",
+  "keywords": ""
 }
   </script>
   <script>
@@ -56,18 +60,20 @@
 
 window.addEventListener("hashchange", ()=>history.go(0));
   </script>
-  <!--custom html here-->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😈</text></svg>">
 </head>
 <body>
 <div class='container'><p><a href="https://girobusan.github.io">Girobusan</a></p>
 <h1>IMP! (It's My Page!)</h1>
 <p>Like a markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.</p>
+<h2>Topics</h2>
 <ul>
 <li><a href="getstarted.html">Quick start manual</a></li>
 <li><a href="impdocs.html">Advanced topics</a></li>
+<li><a href="favicon.html">Add emoji favicon</a></li>
 <li><a href="impcdn.html">Two click install using CDN</a></li>
 </ul>
-<p><img src="side-by-side.png" alt=""></p>
+<p><img src="side-by-side.png" alt="Side by side"></p>
 <h2>System requirements</h2>
 <p>Descent browser, Firefox or Chrome preferred (tested). If you've updated your browser within last 4 years, it should be fine.</p>
 <h2>Features</h2>
@@ -92,16 +98,22 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <script id="pageData" type="text/markdown">
 
 
+
+
+
 [Girobusan](https://girobusan.github.io)
 # IMP! (It's My Page!)
 
 Like a markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.
 
+## Topics
+
 - [Quick start manual](getstarted.html)
 - [Advanced topics](impdocs.html)
+- [Add emoji favicon](favicon.html)
 - [Two click install using CDN](impcdn.html)
 
-![](side-by-side.png)
+![Side by side](side-by-side.png)
 
 ## System requirements
 
@@ -123,6 +135,9 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 - [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Milligram CSS framework](https://milligram.io/)
+
+
+
 
 
 </script>

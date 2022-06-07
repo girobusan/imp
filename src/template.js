@@ -56,7 +56,7 @@ return `<!DOCTYPE html>
       document.head.appendChild(editor);
       }
 
-   if(window.self.name=="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe"){
    return;
    }
    if(window.location.hash==="#view"){

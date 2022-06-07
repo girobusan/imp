@@ -8,10 +8,10 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   <meta name="og:title" content="IMP!">
-  <meta name="og:description" content="Small tool">
-  <meta name="og:image" content="">
+  <meta name="og:description" content="Markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG">
+  <meta name="og:image" content="https://girobusan.github.io/imp/side-by-side.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="">
+  <meta name="twitter:image" content="https://girobusan.github.io/imp/side-by-side.png">
   <link rel="icon" type="image/png" href="">
   <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
   <style id="customCSS">
@@ -20,8 +20,8 @@
   <script>
    window.settings = {
   "title": "IMP!",
-  "description": "Small tool",
-  "image": "",
+  "description": "Markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG",
+  "image": "https://girobusan.github.io/imp/side-by-side.png",
   "icon": "",
   "filename": "index.html",
   "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
@@ -69,8 +69,19 @@ window.addEventListener("hashchange", ()=>history.go(0));
     </a>
 <div style="font-size:96px;position:relative;top:3rem;">😈</div>
 <h1>IMP!  (It's My Page!)</h1>
-<p><big>Like a markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI and Markdown for content editing. </big></p>
+<p><big>Like a markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI and markdown for content editing. </big></p>
 <p><em>This page is made with IMP!, you can see how it looks in <a href="#edit">edit mode</a>.</em></p>
+<h2>Features</h2>
+<ul>
+<li>Fully local thing — no server required, no setup. It's YOUR page!</li>
+<li>CDN-enabled setup also available</li>
+<li>Quick full page preview while editing</li>
+<li>Pages can be fully static, even text-based browser friendly</li>
+<li>You can use any HTML tags (and JS)</li>
+<li>All you need is browser, that means it fully multiplatform</li>
+<li>Customizable</li>
+</ul>
+<p><img src="side-by-side.png" alt="Side by side"></p>
 <h2>Possible uses</h2>
 <ul>
 <li>Digital experiments</li>
@@ -84,17 +95,6 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <li><a href="impcdn.html">Two click install using CDN</a></li>
 <li><a href="favicon.html">Add emoji favicon</a></li>
 </ul>
-<p><img src="side-by-side.png" alt="Side by side"></p>
-<h2>Features</h2>
-<ul>
-<li>Fully local thing — no server required, no setup. It's YOUR page!</li>
-<li>Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)</li>
-<li>You can mix any HTML tags to your markdown</li>
-<li>All you need is browser, that means it fully multiplatform</li>
-<li>EasyMDE as Markdown editor</li>
-<li>Customizable</li>
-<li>Lo-fi :)</li>
-</ul>
 <h2>Wouldn't be possible without awesome projects like:</h2>
 <ul>
 <li><a href="https://preactjs.com/">Preact</a></li>
@@ -105,6 +105,8 @@ window.addEventListener("hashchange", ()=>history.go(0));
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
+
+
 [Girobusan](https://girobusan.github.io)
 
    &lt;a href="https://github.com/girobusan/imp"&gt;
@@ -115,10 +117,22 @@ window.addEventListener("hashchange", ()=>history.go(0));
 	
 # IMP!  (It's My Page!)
 
-&lt;big&gt;Like a markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI and Markdown for content editing. &lt;/big&gt;
+&lt;big&gt;Like a markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI and markdown for content editing. &lt;/big&gt;
 
  *This page is made with IMP!, you can see how it looks in [edit mode](#edit).*
- 
+  ## Features
+
+- Fully local thing &amp;mdash; no server required, no setup. It's YOUR page!
+- CDN-enabled setup also available
+- Quick full page preview while editing
+- Pages can be fully static, even text-based browser friendly 
+-  You can use any HTML tags (and JS) 
+- All you need is browser, that means it fully multiplatform
+- Customizable
+
+![Side by side](side-by-side.png)
+
+
  ## Possible uses
 
 - Digital experiments 
@@ -132,17 +146,8 @@ window.addEventListener("hashchange", ()=>history.go(0));
 - [Two click install using CDN](impcdn.html)
 - [Add emoji favicon](favicon.html)
 
-![Side by side](side-by-side.png)
 
-## Features
 
-- Fully local thing &amp;mdash; no server required, no setup. It's YOUR page!
-- Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)
--  You can mix any HTML tags to your markdown
-- All you need is browser, that means it fully multiplatform
-- EasyMDE as Markdown editor
-- Customizable
-- Lo-fi :)
 
 ## Wouldn't be possible without awesome projects like:
 
@@ -150,6 +155,8 @@ window.addEventListener("hashchange", ()=>history.go(0));
 - [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Milligram CSS framework](https://milligram.io/)
+
+
 
 
 

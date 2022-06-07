@@ -11,7 +11,9 @@ const props = [
    "css" , //html
    "headHTML", //html
    "editor",
-   "viewCSS"
+   "viewCSS",
+   "author",
+   "keywords"
    ]
 var callback ;
 

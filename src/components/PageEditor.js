@@ -79,6 +79,8 @@ export class PageEditor extends Component{
       editor: props.settings.editor() || "",
       viewCSS: props.settings.viewCSS() || "",
       headHTML: props.settings.headHTML() || "",
+      author: props.settings.author() || "",
+      keywords: props.settings.keywords() || "",
     }
   }
   findCustomCSS(){
@@ -168,6 +170,35 @@ export class PageEditor extends Component{
         />
         </div>
 
+
+        <div class="formRow">
+
+        <${TheInput} 
+        title=${"Author"}
+        value=${this.state.author}
+        name=${"author"}
+        area=${false}
+        handler=${this.makeHandler("author")}
+        />
+        <div class="divider"></div>
+        <${TheInput} 
+        title=${"Keywords"}
+        value=${this.state.keywords}
+        name=${"keywords"}
+        area=${false}
+        handler=${this.makeHandler("keywords")}
+        />
+        </div>
+        
+
+        <${TheInput} 
+        title=${"Description"}
+        name=${"description"}
+        value=${this.state.description}
+        area=${true}
+        handler=${this.makeHandler("description")}
+        />
+
         <div class="formRow">
 
         <${TheInput} 
@@ -178,14 +209,6 @@ export class PageEditor extends Component{
         handler=${this.makeHandler("image")}
         />
         </div>
-
-        <${TheInput} 
-        title=${"Description"}
-        name=${"description"}
-        value=${this.state.description}
-        area=${true}
-        handler=${this.makeHandler("description")}
-        />
 
         <${TheInput} 
         title=${"Footer"}
@@ -332,6 +355,8 @@ export class PageEditor extends Component{
           .editor(this.state.editor)
           .viewCSS(this.state.viewCSS)
           .headHTML(this.state.headHTML)
+          .author(this.state.author)
+          .keywords(this.state.keywords)
           //update some current HTML
           document.title = this.state.title;
           const ccsst = document.querySelector("#customCSS");

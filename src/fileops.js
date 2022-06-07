@@ -43,7 +43,9 @@ export function convert2html(
     settings.headHTML(),
     settings.copy(true),
     settings.editor(),
-    settings.viewCSS()
+    settings.viewCSS(),
+    settings.author(),
+    settings.keywords()
 
   )
   ;

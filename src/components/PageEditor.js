@@ -1,9 +1,23 @@
 import {Component , createRef} from "preact";
 import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
-import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js"
+import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
+const hljs = require('highlight.js');
 
-var md = require('markdown-it')({html:true})
+var md = require('markdown-it')({
+  html:true,
+  langPrefix: 'language-',
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(str, { language: lang }).value;
+      } catch (__) {}
+    }
+
+    return ''; // use external default escaping
+  }
+  
+  })
 .use(require('markdown-it-checkbox'))
 .use(require('markdown-it-multimd-table') , { 
   headerless: true,

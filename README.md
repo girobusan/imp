@@ -1,7 +1,7 @@
 [Русский](README.ru.md)
 # IMP! (It's My Page!)
 
-Like a markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.
+Like a markdown-based CMS for single file, fully client-side. When you need to drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.
 
 ## How it works
 

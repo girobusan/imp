@@ -52,10 +52,25 @@ margin-left: auto;
 margin-right: auto;
 }
 
-img{
- max-width: 100%;
- margin-left: 1rem;
-margin-right: 1rem;
+@media(max-width: 800px){
+  .container > * {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+p > img{
+ max-width:  calc(100% + 4rem);
+ margin-left: -2rem;
+margin-right: -2rem;
+}
+
+@media(max-width: 800px){
+  p > img{
+   max-width: 100%;
+  margin-right: 0;
+  margin-left: 0;  
+ }
 }
 
 #hero{
@@ -73,7 +88,13 @@ font-size: 48px;
 margin-bottom: 2rem;
 max-width: 100%;
 width: 100%;
+}
 
+@media(max-width: 800px){
+  #hero{   
+  margin-right: 0;
+  margin-left: 0;  
+ }
 }
 
 
@@ -97,7 +118,7 @@ background-color: white;
   "icon": "",
   "filename": "typebase_01.html",
   "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt;&lt;/small&gt;",
-  "css": "body{\nfont-family: 'PT Sans', sans-serif;\nbackground-color: #eeefef;\ncolor: #444444;\npadding:0;\nmargin:0;\n}\n\nh1, h2,h3,h4,h5,h6{\nfont-family: 'PT Serif' , serif;\ncolor: royalblue;\n}\n#hero h1, #hero h2{\ncolor: white;\nmargin: 0;\n}\n\n#hero h2{\n font-size: 1.2rem;\nfont-style: italic;\n}\n\nh5{\ntext-transform: uppercase;\nletter-spacing: 0.08em;\n}\n\n.container{\nwidth: 100%;\nmax-width: 100%;\npadding-top: 0;\n}\n.container &gt; *{\nmax-width: 800px;\nmargin-left: auto;\nmargin-right: auto;\n}\n\nimg{\n max-width: 100%;\n margin-left: 1rem;\nmargin-right: 1rem;\n}\n\n#hero{\nbackground-image: url(index.jpg);\nfont-family: 'PT Serif Caption' , serif;\nbox-sizing: border-box;\nbackground-color: royalblue;\ncolor: white !important;\npadding: 64px ;\npadding-top: 64px;\npadding-bottom: 2rem;\npadding-left: calc(50% - 400px);\nline-height: 1.2em !Important;\nfont-size: 48px;\nmargin-bottom: 2rem;\nmax-width: 100%;\nwidth: 100%;\n\n}\n\n\nhr{\nbackground-color: royalblue;\n}\n\ncode{\n color: black;\n}\n\ntr:nth-child(odd) td{\nbackground-color: white;\n}",
+  "css": "body{\nfont-family: 'PT Sans', sans-serif;\nbackground-color: #eeefef;\ncolor: #444444;\npadding:0;\nmargin:0;\n}\n\nh1, h2,h3,h4,h5,h6{\nfont-family: 'PT Serif' , serif;\ncolor: royalblue;\n}\n#hero h1, #hero h2{\ncolor: white;\nmargin: 0;\n}\n\n#hero h2{\n font-size: 1.2rem;\nfont-style: italic;\n}\n\nh5{\ntext-transform: uppercase;\nletter-spacing: 0.08em;\n}\n\n.container{\nwidth: 100%;\nmax-width: 100%;\npadding-top: 0;\n}\n.container &gt; *{\nmax-width: 800px;\nmargin-left: auto;\nmargin-right: auto;\n}\n\n@media(max-width: 800px){\n  .container &gt; * {\n    margin-left: 1rem;\n    margin-right: 1rem;\n  }\n}\n\np &gt; img{\n max-width:  calc(100% + 4rem);\n margin-left: -2rem;\nmargin-right: -2rem;\n}\n\n@media(max-width: 800px){\n  p &gt; img{\n   max-width: 100%;\n  margin-right: 0;\n  margin-left: 0;  \n }\n}\n\n#hero{\nbackground-image: url(index.jpg);\nfont-family: 'PT Serif Caption' , serif;\nbox-sizing: border-box;\nbackground-color: royalblue;\ncolor: white !important;\npadding: 64px ;\npadding-top: 64px;\npadding-bottom: 2rem;\npadding-left: calc(50% - 400px);\nline-height: 1.2em !Important;\nfont-size: 48px;\nmargin-bottom: 2rem;\nmax-width: 100%;\nwidth: 100%;\n}\n\n@media(max-width: 800px){\n  #hero{   \n  margin-right: 0;\n  margin-left: 0;  \n }\n}\n\n\nhr{\nbackground-color: royalblue;\n}\n\ncode{\n color: black;\n}\n\ntr:nth-child(odd) td{\nbackground-color: white;\n}",
   "headHTML": "&lt;link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"&gt;\n&lt;link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin&gt;\n&lt;link href=\"https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap\" rel=\"stylesheet\"&gt; ",
   "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
   "viewCSS": "tbase.css",
@@ -151,8 +172,8 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <li>Enter filename, save with downloaded css.</li>
 </ol>
 <ul>
-<li><input type="checkbox" id="checkbox44" checked="true"><label for="checkbox44">Checkboxes</label></li>
-<li><input type="checkbox" id="checkbox45"><label for="checkbox45">As usual</label></li>
+<li><input type="checkbox" id="checkbox6" checked="true"><label for="checkbox6">Checkboxes</label></li>
+<li><input type="checkbox" id="checkbox7"><label for="checkbox7">As usual</label></li>
 </ul>
 <h2>Second level</h2>
 <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
@@ -203,6 +224,8 @@ here
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a></small></footer>
 <script id="pageData" type="text/markdown">
 
+
+
 &lt;div id="hero"&gt;
 	
 # IMP! Theme,&lt;br /&gt;based on Typebase CSS
@@ -249,6 +272,8 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
 ![kitty](https://placekitten.com/1200/600)
 
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+
+
 
 
 

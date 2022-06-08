@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP! Theme bases on Typebase — customized</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="og:title" content="IMP! Theme bases on Typebase — customized">
+  <meta name="og:description" content="IMP! Customized Typebase based theme">
+  <meta name="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="">
+  <link rel="icon" type="image/png" href="">
+  <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
+  <style id="customCSS">
+body{
+background-color: ivory;
+}
+
+code{
+background-color: rgba(0,0,0,.1);
+}
+
+h1,h2,h3,h4{
+color: maroon;
+}
+  </style>
+  <script>
+   window.settings = {
+  "title": "IMP! Theme bases on Typebase — customized",
+  "description": "IMP! Customized Typebase based theme",
+  "image": "",
+  "icon": "",
+  "filename": "default_custom.html",
+  "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt;&lt;/small&gt;",
+  "css": "\nbody{\nbackground-color: ivory;\n}\n\ncode{\nbackground-color: rgba(0,0,0,.1);\n}\n\nh1,h2,h3,h4{\ncolor: maroon;\n}",
+  "headHTML": "",
+  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
+  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css",
+  "author": "",
+  "keywords": ""
+}
+  </script>
+  <script>
+    window.addEventListener("DOMContentLoaded" , function(){
+
+      function IMPEdit(){
+      console.info("Loading editor...")
+      const editor = document.createElement("script");
+      editor.id="editorScript";
+      editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
+      document.head.appendChild(editor);
+      }
+
+   if(window.self.name=="IMPPreviewIframe"){
+   return;
+   }
+   if(window.location.hash==="#view"){
+   return;
+   }
+   if(window.location.hash ==="#edit"){
+   IMPEdit();
+   }
+   if(window.location.protocol==="file:"){
+   IMPEdit();
+   }
+})
+
+window.addEventListener("hashchange", ()=>history.go(0));
+  </script>
+  <!--custom html here-->
+</head>
+<body>
+<div class='container'><h1>IMP! Customized default theme</h1>
+<p><big>This theme use some custom CSS to add color to default theme (see in <a href="#edit">edit mode</a>)</big></p>
+<hr />
+<p>To use this theme:</p>
+<ol>
+<li>Download  <a href="tbase.css">css</a> (right click on link, choose &quot;save as&quot;)</li>
+<li>Open this page in <a href="#edit">edit mode</a></li>
+<li>Scroll down, click &quot;Duplicate page&quot; button</li>
+<li>Enter filename, save with downloaded css.</li>
+</ol>
+<ul>
+<li><input type="checkbox" id="checkbox16" checked="true"><label for="checkbox16">Checkboxes</label></li>
+<li><input type="checkbox" id="checkbox17"><label for="checkbox17">As usual</label></li>
+</ul>
+<h2>Second level</h2>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+<pre><code>Code block
+here
+</code></pre>
+<h3>Third level</h3>
+<p>Lorem ipsum dolor sit amet, <em>consectetur</em> adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+<hr>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+<h4>Fourth level header</h4>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+<table>
+<thead>
+<tr>
+<th>Header row</th>
+<th>Of our</th>
+<th>New table</th>
+<th>Tables are the must</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1234,5</td>
+<td>String</td>
+<td>Longer Lorem Ipsusm for the table</td>
+<td>34</td>
+</tr>
+<tr>
+<td>87</td>
+<td>Cupidatat non proident</td>
+<td>Shorter Lorem Ipsum</td>
+<td>true</td>
+</tr>
+<tr>
+<td>87</td>
+<td>Cupidatat non proident</td>
+<td>Shorter Lorem Ipsum</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<h5>Fifth level header</h5>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+<p><img src="https://placekitten.com/1200/600" alt="kitty"></p>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+</div>
+<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a></small></footer>
+<script id="pageData" type="text/markdown">
+# IMP! Customized default theme
+
+&lt;big&gt;This theme use some custom CSS to add color to default theme (see in [edit mode](#edit))&lt;/big&gt;
+
+&lt;hr /&gt;
+
+To use this theme:
+
+1. Download  [css](tbase.css) (right click on link, choose "save as")
+2. Open this page in [edit mode](#edit)
+3. Scroll down, click "Duplicate page" button
+4. Enter filename, save with downloaded css.
+
+
+- [x] Checkboxes
+- [ ] As usual
+
+## Second level
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+```
+Code block
+here
+```
+### Third level
+Lorem ipsum dolor sit amet, *consectetur* adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+
+---
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+#### Fourth level header
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+
+| Header row | Of our | New table | Tables are the must|
+|------------|-------|----|---|
+| 1234,5 | String | Longer Lorem Ipsusm for the table | 34 |
+| 87 | Cupidatat non proident | Shorter Lorem Ipsum | true |
+| 87 | Cupidatat non proident | Shorter Lorem Ipsum | true |
+
+##### Fifth level header
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+
+![kitty](https://placekitten.com/1200/600)
+
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+
+
+
+
+
+
+</script>
+</body>
+</html>

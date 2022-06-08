@@ -2,7 +2,7 @@ import {Component , createRef} from "preact";
 import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
-const hljs = require('highlight.js');
+const hljs = require('highlight.js/lib/common');
 
 var md = require('markdown-it')({
   html:true,

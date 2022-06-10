@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP! Netart theme</title>
+  <meta name="description" content="">
+  <meta name="og:title" content="IMP! Netart theme">
+  <meta name="og:description" content="IMP! peconfigured CDN">
+  <meta name="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="">
+  <link rel="icon" type="image/png" href="">
+  <link id = "viewCSS" rel="stylesheet" href="netart.css">
+  <style id="customCSS">
+  
+  </style>
+  <script>
+   window.settings = {
+  "title": "IMP! Netart theme",
+  "description": "IMP! peconfigured CDN",
+  "image": "",
+  "icon": "",
+  "filename": "netart.html",
+  "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
+  "css": "\n  ",
+  "headHTML": "",
+  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
+  "viewCSS": "netart.css"
+}
+  </script>
+  <script>
+    window.addEventListener("DOMContentLoaded" , function(){
+
+      function IMPEdit(){
+      console.info("Loading editor...")
+      const editor = document.createElement("script");
+      editor.id="editorScript";
+      editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
+      document.head.appendChild(editor);
+      }
+
+   if(window.self.name=="IMPPreviewIframe"){
+   return;
+   }
+   if(window.location.hash==="#view"){
+   return;
+   }
+   if(window.location.hash ==="#edit"){
+   IMPEdit();
+   }
+   if(window.location.protocol==="file:"){
+   IMPEdit();
+   }
+})
+
+window.addEventListener("hashchange", ()=>history.go(0));
+  </script>
+  <!--custom html here-->
+</head>
+<body>
+<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="https://girobusan.github.io/imp">IMP!</a></p>
+<h1>IMP! Netart theme</h1>
+<h2>With optional subheading</h2>
+<p><big>The light theme for long articles with big illustrations.</big></p>
+<p>To install this theme:</p>
+<ol>
+<li>Download  <a href="tbase.css">css</a> (right click on link, choose &quot;save as&quot;)</li>
+<li>Save it where your IMP! page is.</li>
+<li>Open IMP! page for editing.</li>
+<li>Navigate to the bottom of the editor</li>
+<li>Fill the CSS name in <code>View CSS location</code> field</li>
+<li>Save page</li>
+</ol>
+<ul>
+<li><input type="checkbox" id="checkbox4" checked="true"><label for="checkbox4">Checkboxes</label></li>
+<li><input type="checkbox" id="checkbox5"><label for="checkbox5">As usual</label></li>
+</ul>
+<h2>Second level</h2>
+<p>Theme is ready for syntax highlighting (IMP! version &gt; 0.2.5)</p>
+<pre><code class="language-js">//strange function
+function makeStrange(n){
+    console.log(&quot;one moment, please&quot;);
+    return strange(n);
+}
+</code></pre>
+<h3>Wide image (also third level heading)</h3>
+<p>Images, added with HTML tag <code>img</code> shown full size. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<img src="https://placekitten.com/1200/600" />
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+<h4>Fourth level heading</h4>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+<table>
+<thead>
+<tr>
+<th>Header row</th>
+<th>Of our</th>
+<th>New table</th>
+<th>Tables are the must</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1234,5</td>
+<td>String</td>
+<td>Longer Lorem Ipsusm for the table</td>
+<td>34</td>
+</tr>
+<tr>
+<td>87</td>
+<td>Cupidatat non proident</td>
+<td>Shorter Lorem Ipsum</td>
+<td>true</td>
+</tr>
+<tr>
+<td>87</td>
+<td>Cupidatat non proident</td>
+<td>Shorter Lorem Ipsum</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<h5>Fifth level heading</h5>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat <small>cupidatat non proident, sunt in culpa</small> qui officia deserunt mollit anim id est laborum</p>
+<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat <small>cupidatat non proident, sunt in culpa</small> qui officia deserunt mollit anim id est laborum</p>
+<h4>Blockquote</h4>
+<blockquote>
+<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+</blockquote>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+</div>
+<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script id="pageData" type="text/markdown">
+
+[Girobusan](https://girobusan.github.io) | [IMP!](https://girobusan.github.io/imp)
+# IMP! Netart theme
+## With optional subheading
+&lt;big&gt;The light theme for long articles with big illustrations.&lt;/big&gt;
+
+To install this theme:
+
+1. Download  [css](tbase.css) (right click on link, choose "save as")
+2. Save it where your IMP! page is.
+3. Open IMP! page for editing.
+4. Navigate to the bottom of the editor
+5. Fill the CSS name in `View CSS location` field
+6. Save page
+
+- [x] Checkboxes
+- [ ] As usual
+
+## Second level
+Theme is ready for syntax highlighting (IMP! version &gt; 0.2.5)
+```js
+//strange function
+function makeStrange(n){
+    console.log("one moment, please");
+    return strange(n);
+}
+```
+### Wide image (also third level heading)
+Images, added with HTML tag `img` shown full size. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+&lt;img src="https://placekitten.com/1200/600" /&gt;
+
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+#### Fourth level heading
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+
+| Header row | Of our | New table | Tables are the must|
+|------------|-------|----|---|
+| 1234,5 | String | Longer Lorem Ipsusm for the table | 34 |
+| 87 | Cupidatat non proident | Shorter Lorem Ipsum | true |
+| 87 | Cupidatat non proident | Shorter Lorem Ipsum | true |
+
+##### Fifth level heading
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat &lt;small&gt;cupidatat non proident, sunt in culpa&lt;/small&gt; qui officia deserunt mollit anim id est laborum
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat &lt;small&gt;cupidatat non proident, sunt in culpa&lt;/small&gt; qui officia deserunt mollit anim id est laborum
+
+#### Blockquote
+
+&gt;  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+
+
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

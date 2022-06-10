@@ -14,15 +14,37 @@
   <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
   <style id="customCSS">
 body{
-background-color: ivory;
+background-color: #333;
+color: #eee;
+}
+
+body > footer#pageFooter{
+color: #fff;
+border-top-color: #ddd;
 }
 
 code{
-background-color: rgba(0,0,0,.1);
+background-color: #ddd;
+color: black;
+}
+
+hr{
+background-image: linear-gradient(to bottom, transparent 1px, transparent 13.5px, #eee 13.5px, #eee 17.5px, transparent 17.5px, transparent 31px)
+
 }
 
 h1,h2,h3,h4{
-color: maroon;
+color: orange;
+}
+
+a, a:hover , a:active{
+ color: orange;
+text-decoration-color: orange;
+}
+
+
+a:visited{
+color: #efefef;
 }
   </style>
   <script>
@@ -31,9 +53,9 @@ color: maroon;
   "description": "IMP! Customized Typebase based theme",
   "image": "",
   "icon": "",
-  "filename": "default_custom.html",
+  "filename": "default_inverted.html",
   "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt;&lt;/small&gt;",
-  "css": "\nbody{\nbackground-color: ivory;\n}\n\ncode{\nbackground-color: rgba(0,0,0,.1);\n}\n\nh1,h2,h3,h4{\ncolor: maroon;\n}",
+  "css": "\nbody{\nbackground-color: #333;\ncolor: #eee;\n}\n\nbody &gt; footer#pageFooter{\ncolor: #fff;\nborder-top-color: #ddd;\n}\n\ncode{\nbackground-color: #ddd;\ncolor: black;\n}\n\nhr{\nbackground-image: linear-gradient(to bottom, transparent 1px, transparent 13.5px, #eee 13.5px, #eee 17.5px, transparent 17.5px, transparent 31px)\n\n}\n\nh1,h2,h3,h4{\ncolor: orange;\n}\n\na, a:hover , a:active{\n color: orange;\ntext-decoration-color: orange;\n}\n\n\na:visited{\ncolor: #efefef;\n}",
   "headHTML": "",
   "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
   "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css"
@@ -79,8 +101,8 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <li>Enter filename, save.</li>
 </ol>
 <ul>
-<li><input type="checkbox" id="checkbox0" checked="true"><label for="checkbox0">Checkboxes</label></li>
-<li><input type="checkbox" id="checkbox1"><label for="checkbox1">As usual</label></li>
+<li><input type="checkbox" id="checkbox8" checked="true"><label for="checkbox8">Checkboxes</label></li>
+<li><input type="checkbox" id="checkbox9"><label for="checkbox9">As usual</label></li>
 </ul>
 <h2>Second level</h2>
 <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
@@ -130,6 +152,9 @@ here
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a></small></footer>
 <script id="pageData" type="text/markdown">
+
+
+
 # IMP! Customized default theme
 
 &lt;big&gt;This theme use some custom CSS to add color to default theme (see in [edit mode](#edit))&lt;/big&gt;

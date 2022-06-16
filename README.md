@@ -7,7 +7,7 @@ Like a markdown-based CMS for single file, fully client-side. When you need to d
 
 When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, **static** HTML. Page does not require Java Script to be viewed, it's just plain HTML. [Demo](https://girobusan.github.io/imp/). 
 
-![](docs/side-by-side.png)
+![](docs/side-by-side2.png)
 
 ## Possible uses
 

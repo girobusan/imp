@@ -96,6 +96,15 @@ export class PageEditor extends Component{
       author: props.settings.author() || "",
       keywords: props.settings.keywords() || "",
     }
+    this.radicalPreview = this.radicalPreview.bind(this);
+    const RP = this.radicalPreview;
+    const frm = document.getElementById("embeddedPreviewIframe");
+    window.pframe = function(e){
+        console.log("iframe event fired" , e , this , RP);
+        const fr = document.getElementById("embeddedPreviewIframe");
+        console.log("text" , window.pframeText);
+        RP(fr , window.pframeText)
+        }
   }
   findCustomCSS(){
     if(this.props.settings.css()){ return this.props.settings.css() }
@@ -293,7 +302,10 @@ export class PageEditor extends Component{
               element: this.mdEditorNode.current ,
               syncSideBySidePreviewScroll: false,
               previewRender: (m ,p)=>{   
-                return md.render(m) 
+                 window.pframeText = m;
+                return "<iframe id='embeddedPreviewIframe' onload='pframe()' name='IMPPreviewIframe'></iframe>"
+                 
+                // return  md.render(m) ;
               },
               spellChecker: false,
               sideBySideFullscreen: false,
@@ -341,8 +353,8 @@ export class PageEditor extends Component{
           }
 
         }
-        radicalPreview(frame){
-          const phtml = convert2html(md.render(this.state.text) , "" , this.props.settings);
+        radicalPreview(frame , txt){
+          const phtml = convert2html(md.render(txt || this.state.text) , "" , this.props.settings);
           frame.contentWindow.document.open();
           frame.contentWindow.document.write(phtml);
           frame.contentWindow.document.close();

@@ -97,14 +97,6 @@ export class PageEditor extends Component{
       keywords: props.settings.keywords() || "",
     }
     this.radicalPreview = this.radicalPreview.bind(this);
-    const RP = this.radicalPreview;
-    const frm = document.getElementById("embeddedPreviewIframe");
-    window.pframe = function(e){
-        console.log("iframe event fired" , e , this , RP);
-        const fr = document.getElementById("embeddedPreviewIframe");
-        console.log("text" , window.pframeText);
-        RP(fr , window.pframeText)
-        }
   }
   findCustomCSS(){
     if(this.props.settings.css()){ return this.props.settings.css() }
@@ -296,16 +288,25 @@ export class PageEditor extends Component{
           </div>`
         }
         updateMdEditor(){
+          const me = this;
 
           const easyMDE = new MDE(
             {
               element: this.mdEditorNode.current ,
               syncSideBySidePreviewScroll: false,
               previewRender: (m ,p)=>{   
-                 window.pframeText = m;
-                return "<iframe id='embeddedPreviewIframe' onload='pframe()' name='IMPPreviewIframe'></iframe>"
-                 
-                // return  md.render(m) ;
+                // window.pframeText = m;
+                // console.log("In preview render" , p);
+                var ifrm = p.querySelector("#embeddedPreviewIframe");
+                if(!ifrm){
+                  ifrm = document.createElement("iframe");
+                  ifrm.name="IMPPreviewIframe";
+                  ifrm.id = "embeddedPreviewIframe";
+                  ifrm.onload = ()=>me.radicalPreview(ifrm ,m);
+                  p.innerHTML="";
+                  p.appendChild(ifrm);
+                }
+                 me.radicalPreview(ifrm, m)
               },
               spellChecker: false,
               sideBySideFullscreen: false,
@@ -356,6 +357,7 @@ export class PageEditor extends Component{
         radicalPreview(frame , txt){
           const phtml = convert2html(md.render(txt || this.state.text) , "" , this.props.settings);
           frame.contentWindow.document.open();
+
           frame.contentWindow.document.write(phtml);
           frame.contentWindow.document.close();
         }

@@ -295,18 +295,33 @@ export class PageEditor extends Component{
               element: this.mdEditorNode.current ,
               syncSideBySidePreviewScroll: false,
               previewRender: (m ,p)=>{   
-                // window.pframeText = m;
-                // console.log("In preview render" , p);
-                var ifrm = p.querySelector("#embeddedPreviewIframe");
-                if(!ifrm){
-                  ifrm = document.createElement("iframe");
-                  ifrm.name="IMPPreviewIframe";
-                  ifrm.id = "embeddedPreviewIframe";
-                  ifrm.onload = ()=>me.radicalPreview(ifrm ,m);
-                  p.innerHTML="";
-                  p.appendChild(ifrm);
+                // EVERYTHING DOWN BELOW
+                // IS NOT MY FAULT
+                // EasyMDE forced me
+                // to do this
+                //
+                // make external listener
+                if(!window.embedListener){
+                  window.embedListener = function(){
+                    const pviews = document.querySelectorAll(".embeddedPreviewIframe");
+                    pviews.forEach(f=>{ me.radicalPreview(f, window.currentEditorText) })
+
+                  }
                 }
+                // window.pframeText = m;
+                var ifrm = p.querySelector(".embeddedPreviewIframe");
+                // console.log("ifrm" , ifrm);
+                window.currentEditorText = m;
+                if(!ifrm){
+                   return `<iframe 
+                   name="IMPPreviewIframe"
+                   class="embeddedPreviewIframe"
+                   onload="embedListener()"
+                   ></iframe>`
+                }else{
                  me.radicalPreview(ifrm, m)
+                }
+                 // return ifrm;
               },
               spellChecker: false,
               sideBySideFullscreen: false,

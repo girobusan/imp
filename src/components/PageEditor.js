@@ -312,7 +312,8 @@ export class PageEditor extends Component{
                 var ifrm = p.querySelector(".embeddedPreviewIframe");
                 // console.log("ifrm" , ifrm);
                 window.currentEditorText = m;
-                if(!ifrm){
+                if(p.classList.contains("editor-preview-full") || !ifrm){
+                   
                    return `<iframe 
                    name="IMPPreviewIframe"
                    class="embeddedPreviewIframe"

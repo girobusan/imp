@@ -1,6 +1,6 @@
 {
   "name": "imp",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -39,6 +39,7 @@
     "milligram": "^1.4.1",
     "preact": "^10.7.1",
     "prismjs": "^1.28.0",
+    "markdown-it-emoji": "^2.0.2",
     "uuid": "^8.3.2"
   }
 }

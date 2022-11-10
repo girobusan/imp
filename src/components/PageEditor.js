@@ -3,6 +3,7 @@ import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
 const hljs = require('highlight.js/lib/common');
+var emoji = require('markdown-it-emoji');
 
 var md = require('markdown-it')({
   html:true,
@@ -18,6 +19,7 @@ var md = require('markdown-it')({
   }
   
   })
+.use(emoji )
 .use(require('markdown-it-checkbox'))
 .use(require('markdown-it-multimd-table') , { 
   headerless: true,

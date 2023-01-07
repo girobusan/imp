@@ -8,7 +8,6 @@ npm install -g sass
 ```
 
 
-
 ## Clone & build
 
 ```
@@ -17,7 +16,7 @@ cd imp
 rm dist/*.*
 npm install
 npm run build
-nom run cssbuild
+npm run cssbuild
 ```
 
 Output files are in `dist` directory.

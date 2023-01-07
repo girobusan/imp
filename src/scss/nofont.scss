@@ -1,6 +1,7 @@
 .editor-toolbar{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   button{
   width: 32px !important;
   height: 32px !important;

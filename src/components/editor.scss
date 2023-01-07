@@ -150,7 +150,7 @@ body{
   color: black !important;
 }
   .modified .toolbarSaveButton i{
-      color: red;
+      color: $danger;
   }
 .CodeMirror-fullscreen, .editor-toolbar.fullscreen{
   z-index: 20 !important;

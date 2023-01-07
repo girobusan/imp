@@ -34,7 +34,7 @@ module.exports = function (env, argv) {
     mode: argv.mode,
     entry: {
       "imp": './src/editor.js',
-      "loader": './src/loader.js'
+      // "loader": './src/loader.js'
     },
     devtool: argv.mode != "production" ? 'inline-source-map' : false, 
     // devServer: argv.mode != "production" ? {contentBase: 'dist'} : {contentBase: 'dist'},
@@ -84,7 +84,7 @@ module.exports = function (env, argv) {
       }),
       new HtmlWebpackPlugin({
 
-        chunks: ["loader"],
+        chunks: ["editor"],
         filename: 'index.html',
         minify: false,
         inject: false,

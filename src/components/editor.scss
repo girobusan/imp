@@ -1,5 +1,6 @@
 @use '../scss/normalize.css';
 @import 'bulma/sass/utilities/_all';
+@import '../scss/nofont.scss';
 // @import 'bulma/sass/base/_all';
 // Avoiding minireset
 @import 'bulma/sass/base/generic';
@@ -149,8 +150,8 @@ body{
 .editor-toolbar button{
   color: black !important;
 }
-  .modified .toolbarSaveButton i{
-      color: $danger;
+  .modified .toolbarSaveButton {
+      background-color: $danger;
   }
 .CodeMirror-fullscreen, .editor-toolbar.fullscreen{
   z-index: 20 !important;

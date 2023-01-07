@@ -296,6 +296,7 @@ export class PageEditor extends Component{
             {
               element: this.mdEditorNode.current ,
               syncSideBySidePreviewScroll: false,
+              autoDownloadFontAwesome: false,
               previewRender: (m ,p)=>{   
                 // EVERYTHING DOWN BELOW
                 // IS NOT MY FAULT

@@ -49,7 +49,7 @@ module.exports = function (env, argv) {
 
         {
           test: /\.svg$/,
-          loader: 'svg-inline-loader'
+          type: 'asset/inline'
         },
 
         {

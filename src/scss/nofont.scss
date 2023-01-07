@@ -1,0 +1,98 @@
+.editor-toolbar{
+  display: flex;
+  flex-direction: row;
+  button{
+  width: 32px !important;
+  height: 32px !important;
+    padding: 4px !important;
+    margin-right: 6px !important;
+  }
+  .separator{
+    margin-right: 6px !important;
+  }
+}
+button i{
+  display: block !important;
+  position: relative;
+  overflow: visible;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin:0;
+}
+.fa{
+  &:before{
+      display: block;
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: " ";
+      font-size: 4px;
+      position: relative;
+      bottom: 1px;
+    color: transparent;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+  }
+
+  &.fa-bold::before{
+     background-image: url("../icons/format_bold_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  &.fa-italic::before{
+     background-image: url("../icons/format_italic_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  &.fa-header::before{
+     background-image: url("../icons/format_h1_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+
+  &.fa-quote-left::before{
+     background-image: url("../icons/format_quote_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  &.fa-list-ul::before{
+     background-image: url("../icons/format_list_bulleted_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  &.fa-list-ol::before{
+     background-image: url("../icons/format_list_numbered_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  &.fa-image::before{
+     background-image: url("../icons/image_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  &.fa-link::before{
+     background-image: url("../icons/link_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  &.fa-columns::before{
+     background-image: url("../icons/vertical_split_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  &.fa-arrows-alt::before{
+     background-image: url("../icons/fullscreen_FILL0_wght400_GRAD0_opsz24.svg");
+     .active &{
+
+     background-image: url("../icons/fullscreen_exit_FILL0_wght400_GRAD0_opsz24.svg");
+     }
+  }
+  &.fa-question-circle::before{
+     background-image: url("../icons/help_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  &.fa-floppy-o::before{
+     background-image: url("../icons/save_as_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  &.fa-download::before{
+     background-image: url("../icons/download_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  &.fa-upload::before{
+     background-image: url("../icons/upload_FILL0_wght400_GRAD0_opsz24.svg");
+  }
+  
+
+
+  &.fa-eye{
+    &:before{
+    color: transparent;
+    background-image: url("../icons/preview_FILL0_wght400_GRAD0_opsz24.svg");
+    }
+  }
+}

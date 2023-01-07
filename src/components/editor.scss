@@ -26,7 +26,7 @@ body{
   flex-direction: row;
   padding: 0;
   top:0;
-  z-index:60;
+  // z-index:60;
   border-radius: 0 0 12px 12px;
   @media(max-width:800px){
     // position: static;
@@ -149,6 +149,9 @@ body{
 .editor-toolbar button{
   color: black !important;
 }
+  .modified .toolbarSaveButton i{
+      color: red;
+  }
 .CodeMirror-fullscreen, .editor-toolbar.fullscreen{
   z-index: 20 !important;
 }

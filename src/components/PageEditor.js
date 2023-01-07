@@ -160,7 +160,7 @@ export class PageEditor extends Component{
         </div>
 
 
-        <div class="workZone">
+        <div class="workZone ${this.modified ? 'modified' : 'still'}">
 
         <!--markdown editor-->
         <textarea 
@@ -331,6 +331,19 @@ export class PageEditor extends Component{
               toolbar: ["bold", "italic", "heading", "|", "quote" ,
                 "unordered-list" , "ordered-list" ,  "|" , "link" , "image" , "|",
                 "preview" , "side-by-side" , "fullscreen" , "|" , "guide" , "|",
+                {
+                  name: "save",
+                  action: ()=>{ 
+      console.log("export requested...") ;
+      saveFile(md.render(me.state.text) , me.state.text , me.props.settings );
+      me.modified = false;
+
+                  
+                  },
+                  className: "fa fa-floppy-o toolbarSaveButton",
+                  id: "editorSaveButton",
+                  title: "Save HTML"
+                },
                 {
                   name: "export",
                   action: ()=>{ saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),

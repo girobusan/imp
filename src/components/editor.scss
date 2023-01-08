@@ -29,6 +29,7 @@ body{
   top:0;
   // z-index:60;
   border-radius: 0 0 12px 12px;
+  display: none ;
   @media(max-width:800px){
     // position: static;
     left: 0px;
@@ -86,15 +87,16 @@ body{
   border: none;
 }
 #branding{
-  position: absolute;
-  top: 0;
-  right:32px;
-  padding-top:8px;
+  position: static;
+  width: 800px;
+  margin: 0 auto;
+  text-align: left;
+  padding-top:16px;
   @media(max-width:800px){
     position: static;
     width:100%;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1em;
   }
 }
 .PageEditor{
@@ -125,7 +127,7 @@ body{
   .workZone{
     all:unset;
     display:block;
-    margin-top: 64px;
+    margin-top: 0px;
     padding:16px;
     padding-bottom: 32px;
     margin-left: auto;
@@ -133,7 +135,7 @@ body{
     max-width: 800px;
 
     @media(max-width:800px){
-      margin-top: 32px;
+      margin-top: 0px;
       padding-bottom: 80px;
     }
   }

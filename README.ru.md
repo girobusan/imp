@@ -75,3 +75,4 @@
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Bulma CSS framework](https://bulma.io/)
 - [Jsdelivr](https://www.jsdelivr.com/)
+- [Google Material Icons](https://fonts.google.com/icons)

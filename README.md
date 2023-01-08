@@ -76,3 +76,4 @@ You can have as many imps as you want. If they would live in one directory, they
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Bulma CSS framework](https://bulma.io/)
 - [Jsdelivr](https://www.jsdelivr.com/)
+- [Google Material Icons](https://fonts.google.com/icons)

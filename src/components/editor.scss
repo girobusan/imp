@@ -1,19 +1,9 @@
 @use '../scss/normalize.css';
-@import 'bulma/sass/utilities/_all';
 @import '../scss/nofont.scss';
-// @import 'bulma/sass/base/_all';
-// Avoiding minireset
+@import 'bulma/sass/utilities/_all';
 @import 'bulma/sass/base/generic';
-// @import 'bulma/sass/base/animations';
 @import 'bulma/sass/elements/_all';
 @import 'bulma/sass/form/_all';
-// @import 'milligram/src/_Color';
-// @import 'milligram/src/_Base';
-// @import 'milligram/src/_Typography';
-// @import 'milligram/src/_Form';
-// @import 'milligram/src/_Button';
-
-
 
 body{
   background-color: white;
@@ -159,7 +149,7 @@ body{
         border-color: black;
         background-color: black;
       }
-      i::before{
+      i{
         background-image: url("../icons/save_white.svg");
       }
 

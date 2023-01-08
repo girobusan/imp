@@ -1,5 +1,5 @@
 [Русский](README.ru.md)
-# IMP! (It's My Page!)
+# IMP! :imp: (It's My Page!)
 
   <big>
   <strong>Markdown when you write it. HTML when they read it.</strong>

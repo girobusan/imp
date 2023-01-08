@@ -121,7 +121,7 @@ export class PageEditor extends Component{
   }
   render(){
     return html`<div class="PageEditor">
-    <div id="branding"><strong>IMP!</strong> ${version}</div>
+    <div id="branding"><strong>IMP!</strong> 😈 ${version}</div>
 
     <div class="is-mobile" id="mainButtons">
 

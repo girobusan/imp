@@ -329,7 +329,8 @@ export class PageEditor extends Component{
               },
               spellChecker: false,
               sideBySideFullscreen: false,
-              toolbar: ["bold", "italic", "heading", "|", "quote" ,
+              toolbar: ["bold", "italic", "strikethrough",
+              "heading", "|", "quote" ,
                 "unordered-list" , "ordered-list" ,  "|" , "link" , "image" , "|",
                 "preview" , "side-by-side" , "fullscreen" , "|" ,
                 {

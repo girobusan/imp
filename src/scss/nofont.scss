@@ -53,6 +53,9 @@
   &.fa-italic::before{
      background-image: url("../icons/format_italic_FILL0_wght400_GRAD0_opsz24.svg");
   }
+  &.fa-strikethrough::before{
+     background-image: url("../icons/strikethrough_s_FILL0_wght400_GRAD0_opsz24.svg");
+  }
   &.fa-header::before{
      background-image: url("../icons/header-24px.svg");
   }

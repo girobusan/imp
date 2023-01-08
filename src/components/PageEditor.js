@@ -331,7 +331,7 @@ export class PageEditor extends Component{
               sideBySideFullscreen: false,
               toolbar: ["bold", "italic", "heading", "|", "quote" ,
                 "unordered-list" , "ordered-list" ,  "|" , "link" , "image" , "|",
-                "preview" , "side-by-side" , "fullscreen" , "|" , "guide" , "|",
+                "preview" , "side-by-side" , "fullscreen" , "|" ,
                 {
                   name: "save",
                   action: ()=>{ 
@@ -360,7 +360,8 @@ export class PageEditor extends Component{
                   },
                   className: "fa fa-upload",
                   title: "Import markdown"
-                }
+                },
+              "|", "guide" , 
 
               ]
             });

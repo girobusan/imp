@@ -151,7 +151,16 @@ body{
   color: black !important;
 }
   .modified .toolbarSaveButton {
+     border-color: $danger;
       background-color: $danger;
+      &:hover{
+        border-color: black;
+        background-color: black;
+      }
+      i::before{
+        background-image: url("../icons/save_white.svg");
+      }
+
   }
 .CodeMirror-fullscreen, .editor-toolbar.fullscreen{
   z-index: 20 !important;

@@ -3,16 +3,23 @@
   flex-direction: row;
   flex-wrap: wrap;
   button{
-  width: 32px !important;
-  height: 32px !important;
-    padding: 4px !important;
+    // background-color: skyblue !important;
+    box-sizing: border-box;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 3px !important;
     margin-right: 6px !important;
+    &:last-child{
+      margin-right: 0 !important;
+    }
   }
   .separator{
     margin-right: 6px !important;
   }
 }
-button i{
+
+.fa{
+  // background-color: red;
   display: block !important;
   position: relative;
   overflow: visible;
@@ -20,21 +27,21 @@ button i{
   height: 24px;
   padding: 0;
   margin:0;
-}
-.fa{
+
   &:before{
-      display: block;
-      width: 24px;
-      height: 24px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      content: " ";
-      font-size: 4px;
-      position: relative;
-      bottom: 1px;
+    display: block;
+    // background-color: orange;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: " ";
+    font-size: 4px;
+    position: relative;
+    bottom: 1px;
     color: transparent;
-    background-position: center center;
+    // background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
 
@@ -47,7 +54,7 @@ button i{
      background-image: url("../icons/format_italic_FILL0_wght400_GRAD0_opsz24.svg");
   }
   &.fa-header::before{
-     background-image: url("../icons/format_h1_FILL0_wght400_GRAD0_opsz24.svg");
+     background-image: url("../icons/header-24px.svg");
   }
 
   &.fa-quote-left::before{

@@ -48,46 +48,19 @@ return `<!DOCTYPE html>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
 
-        const replaceToTags = {
-        '&amp;':'&',
-        '&lt;': '<',
-        '&gt;': '>'
-        }
-
-        function unescapeTags(s){
-        const replacer=(tag)=>{return replaceToTags[tag]||tag}
-        return s.replace(/&amp;|&lt;|&gt;/g , replacer);
-        }
-
-        function downloadMd(){
-        console.info("will download md");
-        const c = document.querySelector("#pageData");
-        const t = unescapeTags( c.innerHTML );
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(t));
-        element.setAttribute('download', "export.md");
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-        }
-
-
-      function IMPEdit(){
-      console.info("Loading editor...")
-      const editor = document.createElement("script");
-      editor.id="editorScript";
-      editor.src="${editor || "imp.js"}";
-      document.head.appendChild(editor);
-      }
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="${editor || "imp.js"}";
+   document.head.appendChild(editor);
+   }
 
    if(window.self.name==="IMPPreviewIframe"){
    return;
    }
    if(window.location.hash==="#view"){
    return;
-   }
-   if(window.location.hash==="#md"){
-   return downloadMd();
    }
    if(window.location.hash ==="#edit" 
    ){
@@ -107,7 +80,7 @@ ${HTMLTemplate(htmlText)}
 <footer id="pageFooter">${footer}</footer>
 <script id="pageData" type="text/markdown">
 ${escapeTags( mdText )}
-</script>
+</scrip>
 </body>
 </html>`
 

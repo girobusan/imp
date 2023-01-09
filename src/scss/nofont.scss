@@ -3,12 +3,10 @@
   flex-direction: row;
   flex-wrap: wrap;
   button{
-    // background-color: skyblue !important;
     box-sizing: border-box;
     width: 32px !important;
     height: 32px !important;
     padding: 3px !important;
-    // margin-right: 6px !important;
   }
   button , .separator{
     margin-right: 6px !important;
@@ -61,7 +59,7 @@
      background-image: url("../icons/link_FILL0_wght400_GRAD0_opsz24.svg");
   }
   &.fa-columns{
-     background-image: url("../icons/vertical_split_FILL0_wght400_GRAD0_opsz24.svg");
+     background-image: url("../icons/view_column_2_FILL0_wght400_GRAD0_opsz24.svg");
   }
   &.fa-arrows-alt{
      background-image: url("../icons/fullscreen_FILL0_wght400_GRAD0_opsz24.svg");

@@ -93,7 +93,7 @@ module.exports = function (env, argv) {
         template: path.join(__dirname, "src/templates/index.ejs"),
       }
       ),
-      new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/loader/]),
+      // new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/loader/]),
       // new HTMLInlineCSSWebpackPlugin(
 
       //   {
@@ -110,6 +110,7 @@ module.exports = function (env, argv) {
       // ),
 
 
+    // 
     ],
   };
 }

@@ -78,10 +78,12 @@ body{
 }
 #branding{
   position: static;
+  box-sizing: border-box;
   width: 800px;
   margin: 0 auto;
   text-align: left;
   padding-top:16px;
+  padding-left: 10px;
   @media(max-width:800px){
     position: static;
     width:100%;

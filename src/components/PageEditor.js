@@ -342,7 +342,7 @@ export class PageEditor extends Component{
 
                   
                   },
-                  className: "fa fa-floppy-o toolbarSaveButton",
+                  className: "fa fa-floppy-o toolbarSaveButton no-disable",
                   id: "editorSaveButton",
                   title: "Save HTML"
                 },
@@ -351,7 +351,7 @@ export class PageEditor extends Component{
                   action: ()=>{ saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
                     this.state.text)
                   },
-                  className: "fa fa-download",
+                  className: "fa fa-download no-disable",
                   title: "Export markdown"
                 },
                 {

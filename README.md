@@ -1,9 +1,8 @@
 [Русский](README.ru.md)
+
 # IMP! :imp: (It's My Page!)
 
-  <big>
-  <strong>Markdown when you write it. HTML when they read it.</strong>
-  </big>
+<strong>Markdown when you write it. HTML when they read it.</strong>
 
 Like a markdown-based CMS for single file, fully client-side. When you need to drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.
 

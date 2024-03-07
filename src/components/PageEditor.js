@@ -275,7 +275,7 @@ export class PageEditor extends Component{
         />
 
         <div class="formRow">
-        <input type="button" class="utility button is-gray" value="Switch to view mode" onclick=${()=>window.location="#view"}></input>
+        <input type="button" class="utility button is-gray" value="Switch to view mode" onclick=${()=>window.location="?mode=view"}></input>
         <div class="divider"></div>
         <input type="button" class="utility button is-gray" value="Duplicate file" onclick=${
           ()=>{

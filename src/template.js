@@ -56,22 +56,23 @@ return `<!DOCTYPE html>
    document.head.appendChild(editor);
    }
 
-   if(window.self.name==="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe")
+   {
    return;
    }
-   if(window.location.hash==="#view"){
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
    return;
    }
-   if(window.location.hash ==="#edit" 
-   ){
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
    IMPEdit();
+   return;
    }
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
 })
-
-window.addEventListener("hashchange", ()=>history.go(0));
   </script>
   ${customHeadHTML||"<!--custom html here-->"}
 </head>

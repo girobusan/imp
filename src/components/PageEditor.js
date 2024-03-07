@@ -247,7 +247,6 @@ export class PageEditor extends Component{
         handler=${this.makeHandler("customCSS")}
         />
 
-        <hr />
         <h2 class="subtitle is-3">Advanced </h2>
 
         <${TheInput} 
@@ -275,7 +274,14 @@ export class PageEditor extends Component{
         />
 
         <div class="formRow">
-        <input type="button" class="utility button is-gray" value="Switch to view mode" onclick=${()=>window.location="?mode=view"}></input>
+        <input type="button" class="utility button is-gray" value="Switch to view mode" onclick=${()=>{
+          if(this.modified)
+          { 
+            confirm("All changes may be lost!") && ( window.location="?mode=view" ) 
+          }else{
+            window.location="?mode=view"
+            }
+           }}></input>
         <div class="divider"></div>
         <input type="button" class="utility button is-gray" value="Duplicate file" onclick=${
           ()=>{

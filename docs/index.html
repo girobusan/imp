@@ -36,6 +36,30 @@
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
 
+        const replaceToTags = {
+        '&amp;':'&',
+        '&lt;': '<',
+        '&gt;': '>'
+        }
+
+        function unescapeTags(s){
+        const replacer=(tag)=>{return replaceToTags[tag]||tag}
+        return s.replace(/&amp;|&lt;|&gt;/g , replacer);
+        }
+
+        function downloadMd(){
+        console.info("will download md");
+        const c = document.querySelector("#pageData");
+        const t = unescapeTags( c.innerHTML );
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(t));
+        element.setAttribute('download', "export.md");
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+        }
+
+
       function IMPEdit(){
       console.info("Loading editor...")
       const editor = document.createElement("script");
@@ -44,13 +68,17 @@
       document.head.appendChild(editor);
       }
 
-   if(window.self.name=="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe"){
    return;
    }
    if(window.location.hash==="#view"){
    return;
    }
-   if(window.location.hash ==="#edit"){
+   if(window.location.hash==="#md"){
+   return downloadMd();
+   }
+   if(window.location.hash ==="#edit" 
+   ){
    IMPEdit();
    }
    if(window.location.protocol==="file:"){
@@ -92,6 +120,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <ul>
 <li><a href="getstarted.html">Quick start manual</a></li>
 <li><a href="impdocs.html">Advanced topics</a></li>
+<li><a href="export_import.html">Markdown export and import</a></li>
 <li><a href="impcdn.html">Two click install using CDN</a></li>
 <li><a href="favicon.html">Add emoji favicon</a></li>
 <li><a href="/imp/themes">Themes</a></li>
@@ -106,6 +135,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
+
 
 [Girobusan](https://girobusan.github.io)
 
@@ -143,6 +173,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 
 - [Quick start manual](getstarted.html)
 - [Advanced topics](impdocs.html)
+- [Markdown export and import](export_import.html)
 - [Two click install using CDN](impcdn.html)
 - [Add emoji favicon](favicon.html)
 - [Themes](/imp/themes)
@@ -154,6 +185,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 - [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Milligram CSS framework](https://milligram.io/)
+
 
 
 </script>

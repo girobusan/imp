@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown export and Import</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="og:title" content="Markdown export and Import">
+  <meta name="og:description" content="Export IMP! as clean markdown or import existing markdown file to IMP!">
+  <meta name="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="">
+  <link rel="icon" type="image/png" href="">
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <style id="customCSS">
+  
+  </style>
+  <script>
+   window.settings = {
+  "title": "Markdown export and Import",
+  "description": "Export IMP! as clean markdown or import existing markdown file to IMP!",
+  "image": "",
+  "icon": "",
+  "filename": "export_import.html",
+  "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
+  "css": "\n  ",
+  "headHTML": "",
+  "editor": "",
+  "viewCSS": "",
+  "author": "",
+  "keywords": ""
+}
+  </script>
+  <script>
+    window.addEventListener("DOMContentLoaded" , function(){
+
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="imp.js";
+   document.head.appendChild(editor);
+   }
+
+   if(window.self.name==="IMPPreviewIframe"){
+   return;
+   }
+   if(window.location.hash==="#view"){
+   return;
+   }
+   if(window.location.hash ==="#edit" 
+   ){
+   IMPEdit();
+   }
+   if(window.location.protocol==="file:"){
+   IMPEdit();
+   }
+})
+
+window.addEventListener("hashchange", ()=>history.go(0));
+  </script>
+  <!--custom html here-->
+</head>
+<body>
+<div class='container'><h1>Markdown export and Import</h1>
+<p>You can export IMP! content as markdown file. All it's properties, like
+custom HTML, title, description will be exported as YAML frontmatter (see below).</p>
+<p>You also can import markdown to IMP!, and if some IMP! settings where specified
+in frontmatter, they will be added to resulting IMP! page.</p>
+<p>Export and Import buttons are located at editor toolbar here:</p>
+<p><img src="imp_export_import.png" alt=" Export and Import buttons "></p>
+<h2>Supported metadata:</h2>
+<ul>
+<li>title</li>
+<li>description</li>
+<li>image</li>
+<li>icon</li>
+<li>filename</li>
+<li>footer</li>
+<li>css</li>
+<li>headHTML</li>
+<li>viewCSS</li>
+<li>author</li>
+<li>keywords</li>
+</ul>
+</div>
+<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script id="pageData" type="text/markdown">
+
+Markdown export and Import
+==========================
+
+You can export IMP! content as markdown file. All it's properties, like 
+custom HTML, title, description will be exported as YAML frontmatter (see below).
+
+You also can import markdown to IMP!, and if some IMP! settings where specified
+in frontmatter, they will be added to resulting IMP! page.
+
+Export and Import buttons are located at editor toolbar here:
+
+![ Export and Import buttons ]( imp_export_import.png )
+
+
+## Supported metadata:
+
+- title  
+- description  
+- image  
+- icon  
+- filename  
+- footer   
+- css  
+- headHTML 
+- viewCSS
+- author
+- keywords
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

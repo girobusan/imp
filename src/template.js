@@ -80,7 +80,7 @@ ${HTMLTemplate(htmlText)}
 <footer id="pageFooter">${footer}</footer>
 <script id="pageData" type="text/markdown">
 ${escapeTags( mdText )}
-</scrip>
+</script>
 </body>
 </html>`
 

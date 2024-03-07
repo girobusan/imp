@@ -4,6 +4,10 @@ import {html} from "htm/preact";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
 const hljs = require('highlight.js/lib/common');
 var emoji = require('markdown-it-emoji');
+import { cleanupObj } from "../settings";
+import { extractFM } from "../fm_extractor.js";
+const yaml = require('js-yaml');
+
 
 var md = require('markdown-it')({
   html:true,
@@ -348,8 +352,11 @@ export class PageEditor extends Component{
                 },
                 {
                   name: "export",
-                  action: ()=>{ saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
-                    this.state.text)
+                  action: ()=>{ 
+                      //export settings
+                      const st = this.props.settings.dump();
+                      saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
+                      "---\n" + st + "\n---\n" + this.state.text)
                   },
                   className: "fa fa-download no-disable",
                   title: "Export markdown"
@@ -357,7 +364,22 @@ export class PageEditor extends Component{
                 {
                   name: "import",
                   action: ()=>{
-                    loadFromDisk((t)=>{ easyMDE.value(t);this.setState({text:t}) })
+                    loadFromDisk((t)=>{
+                      const extracted = extractFM(t)
+                      easyMDE.value(extracted.markdown);
+                      let newState = {text:extracted.markdown}
+                      if(extracted.meta){
+                        try{
+                          newState = Object.assign(
+                            newState , 
+                            cleanupObj( yaml.load( extracted.meta ) , true )
+                          )
+                        }catch ( e ){
+                         console.error(e);
+                        }
+                      }
+
+                      this.setState( newState ) })
                   },
                   className: "fa fa-upload",
                   title: "Import markdown"

@@ -64,7 +64,8 @@ window.addEventListener("hashchange", ()=>history.go(0));
   <!--custom html here-->
 </head>
 <body>
-<div class='container'><h1>Markdown export and Import</h1>
+<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="/imp">IMP!</a></p>
+<h1>Markdown export and Import</h1>
 <p>You can export IMP! content as markdown file. All it's properties, like
 custom HTML, title, description will be exported as YAML frontmatter (see below).</p>
 <p>You also can import markdown to IMP!, and if some IMP! settings where specified
@@ -73,21 +74,23 @@ in frontmatter, they will be added to resulting IMP! page.</p>
 <p><img src="imp_export_import.png" alt=" Export and Import buttons "></p>
 <h2>Supported metadata:</h2>
 <ul>
-<li>title</li>
-<li>description</li>
-<li>image</li>
-<li>icon</li>
-<li>filename</li>
-<li>footer</li>
-<li>css</li>
-<li>headHTML</li>
-<li>viewCSS</li>
-<li>author</li>
-<li>keywords</li>
+<li><code>title</code></li>
+<li><code>description</code></li>
+<li><code>image</code></li>
+<li><code>icon</code></li>
+<li><code>filename</code></li>
+<li><code>footer</code></li>
+<li><code>css</code></li>
+<li><code>headHTML</code></li>
+<li><code>viewCSS</code></li>
+<li><code>author</code></li>
+<li><code>keywords</code></li>
 </ul>
+<p><strong>Note:</strong> Field <code>editor</code> with custom path to editor script won't be imported!</p>
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
+[Girobusan](https://girobusan.github.io) | [IMP!](/imp)
 
 Markdown export and Import
 ==========================
@@ -105,17 +108,20 @@ Export and Import buttons are located at editor toolbar here:
 
 ## Supported metadata:
 
-- title  
-- description  
-- image  
-- icon  
-- filename  
-- footer   
-- css  
-- headHTML 
-- viewCSS
-- author
-- keywords
+- `title`  
+- `description`  
+- `image`  
+- `icon`  
+- `filename`
+- `footer`
+- `css`
+- `headHTML`
+- `viewCSS`
+- `author`
+- `keywords`
+
+**Note:** Field `editor` with custom path to editor script won't be imported!
+
 
 
 

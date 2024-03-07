@@ -1,8 +1,13 @@
 ---
 title: Markdown export and Import
-filename: export_import.html
 description: Export IMP! as clean markdown or import existing markdown file to IMP!
+filename: export_import.html
+footer: >-
+  <small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a
+  href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small>
+
 ---
+[Girobusan](https://girobusan.github.io) | [IMP!](/imp)
 
 Markdown export and Import
 ==========================
@@ -20,17 +25,20 @@ Export and Import buttons are located at editor toolbar here:
 
 ## Supported metadata:
 
-- title  
-- description  
-- image  
-- icon  
-- filename  
-- footer   
-- css  
-- headHTML 
-- viewCSS
-- author
-- keywords
+- `title`  
+- `description`  
+- `image`  
+- `icon`  
+- `filename`
+- `footer`
+- `css`
+- `headHTML`
+- `viewCSS`
+- `author`
+- `keywords`
+
+**Note:** Field `editor` with custom path to editor script won't be imported!
+
 
 
 

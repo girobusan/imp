@@ -36,21 +36,22 @@
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
 
-      function IMPEdit(){
-      console.info("Loading editor...")
-      const editor = document.createElement("script");
-      editor.id="editorScript";
-      editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js";
-      document.head.appendChild(editor);
-      }
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js";
+   document.head.appendChild(editor);
+   }
 
-   if(window.self.name=="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe"){
    return;
    }
    if(window.location.hash==="#view"){
    return;
    }
-   if(window.location.hash ==="#edit"){
+   if(window.location.hash ==="#edit" 
+   ){
    IMPEdit();
    }
    if(window.location.protocol==="file:"){
@@ -70,8 +71,14 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <p>By default, when you open IMP! page locally, it loads in edit mode, and when you load it over http, in view mode. But you can force mode by adding special hash to filename. Like this for view mode:</p>
 <pre><code>....filename.html#view
 </code></pre>
+<p>In the next versions this will be changed to:</p>
+<pre><code>...filename/html?mode=view
+</code></pre>
 <p>And for edit mode:</p>
 <pre><code>....filename.html#edit
+</code></pre>
+<p>In the next versions this will be changed to:</p>
+<pre><code>...filename/html?mode=edit
 </code></pre>
 <p>There is also button in editor, which will switch to view mode. Use &quot;back&quot; button of your browser to return to editor.</p>
 <h2>Change location of imp.js file and/or main style file</h2>
@@ -86,6 +93,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
+
 [Girobusan](https://girobusan.github.io) | [IMP!](/imp)
 # IMP! 
 
@@ -99,11 +107,24 @@ By default, when you open IMP! page locally, it loads in edit mode, and when you
 ....filename.html#view
 ```
 
+In the next versions this will be changed to:
+
+```
+...filename/html?mode=view
+```
+
 And for edit mode:
 
 ```
 ....filename.html#edit
 ```
+
+In the next versions this will be changed to:
+
+```
+...filename/html?mode=edit
+```
+
 There is also button in editor, which will switch to view mode. Use "back" button of your browser to return to editor.
 
 ## Change location of imp.js file and/or main style file
@@ -123,6 +144,7 @@ https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css
 ## Update your IMP! page to new version
 
 You have to update only editor file. On the next save the html will be updated too.
+
 </script>
 </body>
 </html>

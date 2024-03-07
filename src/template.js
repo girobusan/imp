@@ -15,6 +15,7 @@ export function renderHTML(
    title,
    description,
    image,
+   icon,
    customCSS,
    customHeadHTML,
    settings, //escaped
@@ -38,7 +39,7 @@ return `<!DOCTYPE html>
   <meta name="og:image" content="${image}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="${image}">
-  <link rel="icon" type="image/png" href="">
+  <link rel="icon" type="image/png" href="${icon}">
   <link id = "viewCSS" rel="stylesheet" href="${viewCSS || "style.css"}">
   <style id="customCSS">${customCSS}
   </style>

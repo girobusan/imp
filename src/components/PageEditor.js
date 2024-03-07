@@ -92,6 +92,7 @@ export class PageEditor extends Component{
       action: "edit",
       title: props.settings.title() || "",
       image: props.settings.image() || "",
+      icon: props.settings.icon() || "",
       filename: props.settings.filename() || "",
       description: props.settings.description() || "",
       footer: props.settings.footer() || "",
@@ -229,6 +230,14 @@ export class PageEditor extends Component{
         area=${false}
         handler=${this.makeHandler("image")}
         />
+        <div class="divider"></div>
+        <${TheInput} 
+        title=${"Icon image URL"}
+        value=${this.state.icon}
+        name=${"icon"}
+        area=${false}
+        handler=${this.makeHandler("icon")}
+        />
         </div>
 
         <${TheInput} 
@@ -277,7 +286,7 @@ export class PageEditor extends Component{
         <input type="button" class="utility button is-gray" value="Switch to view mode" onclick=${()=>{
           if(this.modified)
           { 
-            confirm("All changes may be lost!") && ( window.location="?mode=view" ) 
+            confirm("All changes may be lost. Proceed?") && ( window.location="?mode=view" ) 
           }else{
             window.location="?mode=view"
             }
@@ -441,6 +450,7 @@ export class PageEditor extends Component{
           .filename(this.state.filename)
           .css(this.state.customCSS)
           .image(this.state.image)
+          .icon(this.state.icon)
           .footer(this.state.footer)
           .editor(this.state.editor)
           .viewCSS(this.state.viewCSS)

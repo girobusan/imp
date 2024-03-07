@@ -39,6 +39,7 @@ export function convert2html(
     settings.title(),
     settings.description(),
     settings.image(),
+    settings.icon(),
     currentCSS ? currentCSS.innerHTML :  "",
     settings.headHTML(),
     settings.copy(true),

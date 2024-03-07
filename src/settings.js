@@ -2,7 +2,7 @@ import { escapeTags , unescapeTags } from "./fileops"
 const yaml = require('js-yaml');
 
 const STORE = {};
-export const props = [
+const props = [
    "title" , 
    "description" , 
    "image" , 

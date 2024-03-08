@@ -36,32 +36,29 @@
 
         function IMPEdit(){
         console.info("Loading editor...")
-          const editor = document.createElement("script");
+        const editor = document.createElement("script");
         editor.id="editorScript";
         editor.src="imp.js";
         document.head.appendChild(editor);
         }
 
         if(window.self.name==="IMPPreviewIframe"){
-          return;
+        return;
         }
-        if(window.location.hash==="#view"){
-          return;
+        if(window.location.search.indexOf("mode=view")!=-1){
+        return;
         }
-        if(window.location.hash==="#md"){
-          return downloadMd();
-        }
-        if(window.location.hash ==="#edit" 
-            /* || window.location.hash==="#md" */
-          ){
-          IMPEdit();
+        if(window.location.search.indexOf("mode=edit")!=-1){
+
+        IMPEdit();
+        return;
         }
         if(window.location.protocol==="file:"){
           IMPEdit();
+          return;
         }
 })
 
-window.addEventListener("hashchange", ()=>history.go(0));
   </script>
   <!--custom html here-->
 </head>

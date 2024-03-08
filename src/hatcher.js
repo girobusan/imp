@@ -67,6 +67,7 @@ function md2imp(mdtext){
 }
 
 const Hatcher = function(){
+   const zone = createRef();
    return html`
    <div class="HatcherUI">
    <h2>😈 Hatcher</h2>
@@ -74,7 +75,12 @@ const Hatcher = function(){
    Note: you'll need to download imp.js and style.css separately.
    <div 
    onDrop=${ processDrop }
+   onDragOver=${ e=>{ zone.current.classList.add("hover") } }
+   onDragLeave=${ e=>{ zone.current.classList.remove("hover") } }
+   onDragEnd=${ e=>{ zone.current.classList.remove("hover") } }
+   onMouseOut=${ e=>{ zone.current.classList.remove("hover") } }
    class="Hatcher"
+   ref=${zone}
    ></div>
    </div>
    `

@@ -17,9 +17,17 @@ background-color: #b1b69c ;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: background-color , 1s;
+
+  &.hover{
+  background-color: #7f497f;
+   &::before{
+     content: "Drop!"
+   }
+  }
 
   &::before{
-    content: "Drop your markdown files here";
+    content: "Drag your markdown files here";
     color: white;
     font-size: 0.75em;
   }

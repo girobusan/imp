@@ -1,10 +1,18 @@
 body{
   font-family: Arial, Helvetica , sans-serif;
   font-size: 18px;
-background-color: #b1b69c ; 
+  line-height: 140%;
+background-color: #b99ac5 ; 
+color: #333;
+}
+code{
+  background-color: rgba( 255 , 255 , 255 , 0.15 );
+  display: inline-block;
+  border-radius: 3px;
+  padding: 0 4px;
 }
 .HatcherUI{
-  width: 300px;
+  width: 450px;
   margin: 2em auto;
 }
 .Hatcher{
@@ -18,6 +26,7 @@ background-color: #b1b69c ;
   align-items: center;
   justify-content: center;
   transition: background-color , 1s;
+  cursor: crosshair;
 
   &.hover{
   background-color: #7f497f;
@@ -27,9 +36,11 @@ background-color: #b1b69c ;
   }
 
   &::before{
+    pointer-events: none;
     content: "Drag your markdown files here";
     color: white;
     font-size: 0.75em;
+    letter-spacing: 0.1em;
   }
 
 }

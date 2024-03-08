@@ -31,17 +31,24 @@ var md = require('markdown-it')({
   multiline: true
 })
 
+function replaceExt(fn){
+  const isExt = /^.+\.\w+$/ig ; 
+  if( !fn.match(isExt) ){ return fn + ".html" }
+  return fn.replace( /\.[^.]+$/i , ".html"  )
+}
+
 function processDrop(ev){
 ev.preventDefault();
 ev.stopPropagation();
+console.log("Something dropped")
   if(ev.dataTransfer.items){
      Array.from( ev.dataTransfer.items ).forEach( 
        (item)=>{
           const f = item.getAsFile();
           console.log(f)
           if(!f.type.startsWith("text/")){ return }
-          console.log("Let's convert" , f.name )
-          const fname = f.name + ".html";
+          console.info("Let's convert" , f.name )
+          const fname = replaceExt( f.name ) ;
           f.text()
           .then(r=>{
              const h = md2imp(r);
@@ -70,14 +77,19 @@ const Hatcher = function(){
    const zone = createRef();
    return html`
    <div class="HatcherUI">
-   <h2>😈 Hatcher</h2>
-   Hatcher makes <strong>IMP!</strong> html from markdown files.
-   Note: you'll need to download imp.js and style.css separately.
+   <h2>Imp 😈 Hatcher <small>(beta)</small></h2>
+   <p>
+   Hatcher makes <strong><a href="https://github.com/girobusan/imp">IMP!</a></strong> HTML files from markdown text files.
+   </p>
+   <p>
+   <strong>Note:</strong> you'll need to download <code>imp.js</code> and <code>style.css</code> separately (<a href="https://github.com/girobusan/imp/tree/master/dist">here</a>).
+   </p>
+   <p>You may read the <a href="https://girobusan.github.io/imp/"><strong>IMP!</strong> docs here.</a></p>
    <div 
    onDrop=${ processDrop }
-   onDragOver=${ e=>{ zone.current.classList.add("hover") } }
-   onDragLeave=${ e=>{ zone.current.classList.remove("hover") } }
-   onDragEnd=${ e=>{ zone.current.classList.remove("hover") } }
+   onDragOver=${ e=>{ zone.current.classList.add("hover") ; e.stopPropagation() ; e.preventDefault() } }
+   onDragLeave=${ e=>{ zone.current.classList.remove("hover") ; e.stopPropagation() ; e.preventDefault() } }
+   onDragEnd=${ e=>{ zone.current.classList.remove("hover") ; e.stopPropagation() ; e.preventDefault() } }
    onMouseOut=${ e=>{ zone.current.classList.remove("hover") } }
    class="Hatcher"
    ref=${zone}
@@ -87,5 +99,4 @@ const Hatcher = function(){
 }
 
 let Ht = h( Hatcher , {} , "" )
-console.log(Ht)
 render( Ht , document.body )

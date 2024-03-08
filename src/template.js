@@ -8,6 +8,26 @@ function HTMLTemplate(ht){
   return "<div class='container'>" + ht + "</div>"
 }
 
+export function renderHTMLFromObj({
+   htmlText,
+   mdText,
+   footer,
+   title,
+   description,
+   image,
+   icon,
+   customCSS,
+   customHeadHTML,
+   settings, //escaped
+   editor,
+   viewCSS,
+   author,
+   keywords
+}){
+   return renderHTML(htmlText, mdText, footer, title, description, image, icon, customCSS, customHeadHTML, settings, editor, viewCSS, author, keywords)
+ 
+}
+
 export function renderHTML(
    htmlText,
    mdText,

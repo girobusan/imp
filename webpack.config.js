@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
@@ -34,6 +35,7 @@ module.exports = function (env, argv) {
     mode: argv.mode,
     entry: {
       "imp": './src/editor.js',
+      "hatcher" : './src/hatcher.js'
       // "loader": './src/loader.js'
     },
     devtool: argv.mode != "production" ? 'inline-source-map' : false, 
@@ -93,24 +95,16 @@ module.exports = function (env, argv) {
         template: path.join(__dirname, "src/templates/index.ejs"),
       }
       ),
-      // new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/loader/]),
-      // new HTMLInlineCSSWebpackPlugin(
 
-      //   {
-      //     filter: (n)=>{console.log("NAME" , n) ; return n!=="editor.css"},
-      //     leaveCSSFile: true,
-      //     replace:
-      //     {target: '<style id="customCSS">' , 
-      //       position: "before",
-      //       removeTarget: false,
-      //     },
-      //     styleTagFactory({ style }){ return `<style id="coreCSS">${ style }</style>`
-      //     },
-      //   }
-      // ),
+      new HtmlWebpackPlugin({
 
-
-    // 
+        chunks: ["hatcher"],
+        filename: 'hatcher.html',
+        minify: false,
+        inject: "body",
+        template: path.join(__dirname, "src/templates/hatcher.ejs"),
+      }
+      ),
     ],
   };
 }

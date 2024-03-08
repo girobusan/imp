@@ -13,7 +13,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="">
   <link rel="icon" type="image/png" href="">
-  <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
   <style id="customCSS">
   
   </style>
@@ -27,8 +27,8 @@
   "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
   "css": "\n  ",
   "headHTML": "&lt;link rel=\"icon\" \nhref=\"data:image/svg+xml,\n&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 \nviewBox=%220 0 100 100%22&gt;\n&lt;text y=%22.9em%22 font-size=%2290%22&gt;😈&lt;/text&gt;\n&lt;/svg&gt;\"&gt;",
-  "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
-  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css",
+  "editor": "",
+  "viewCSS": "",
   "author": "",
   "keywords": ""
 }
@@ -36,21 +36,22 @@
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
 
-      function IMPEdit(){
-      console.info("Loading editor...")
-      const editor = document.createElement("script");
-      editor.id="editorScript";
-      editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
-      document.head.appendChild(editor);
-      }
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="imp.js";
+   document.head.appendChild(editor);
+   }
 
-   if(window.self.name=="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe"){
    return;
    }
    if(window.location.hash==="#view"){
    return;
    }
-   if(window.location.hash ==="#edit"){
+   if(window.location.hash ==="#edit" 
+   ){
    IMPEdit();
    }
    if(window.location.protocol==="file:"){
@@ -85,6 +86,7 @@ viewBox=%220 0 100 100%22&gt;
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
+
 [Girobusan](https://girobusan.github.io) | [IMP!](https://girobusan.github.io/imp)
 
 # Add emoji favicon
@@ -103,6 +105,7 @@ viewBox=%220 0 100 100%22&gt;
 Look at this page in [edit mode](#edit) for reference.
 
 - Taken from [here](https://css-tricks.com/emoji-as-a-favicon/)
+
 
 
 

@@ -13,7 +13,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="">
   <link rel="icon" type="image/png" href="">
-  <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
   <style id="customCSS">
   
   </style>
@@ -28,7 +28,7 @@
   "css": "\n  ",
   "headHTML": "&lt;link rel=\"icon\" href=\"data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;😈&lt;/text&gt;&lt;/svg&gt;\"&gt;",
   "editor": "",
-  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css",
+  "viewCSS": "",
   "author": "",
   "keywords": ""
 }
@@ -36,46 +36,19 @@
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
 
-        const replaceToTags = {
-        '&amp;':'&',
-        '&lt;': '<',
-        '&gt;': '>'
-        }
-
-        function unescapeTags(s){
-        const replacer=(tag)=>{return replaceToTags[tag]||tag}
-        return s.replace(/&amp;|&lt;|&gt;/g , replacer);
-        }
-
-        function downloadMd(){
-        console.info("will download md");
-        const c = document.querySelector("#pageData");
-        const t = unescapeTags( c.innerHTML );
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(t));
-        element.setAttribute('download', "export.md");
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-        }
-
-
-      function IMPEdit(){
-      console.info("Loading editor...")
-      const editor = document.createElement("script");
-      editor.id="editorScript";
-      editor.src="imp.js";
-      document.head.appendChild(editor);
-      }
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="imp.js";
+   document.head.appendChild(editor);
+   }
 
    if(window.self.name==="IMPPreviewIframe"){
    return;
    }
    if(window.location.hash==="#view"){
    return;
-   }
-   if(window.location.hash==="#md"){
-   return downloadMd();
    }
    if(window.location.hash ==="#edit" 
    ){
@@ -115,6 +88,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <script id="pageData" type="text/markdown">
 
 
+
 [Girobusan](https://girobusan.github.io) | [IMP!](/imp)
 # Getting Started With IMP! 
 
@@ -140,6 +114,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 ## Known problems
 
 - If you use NoScript extension, you'd need to disable it for IMP! page (*not* just set to TRUSTED mode, but disable all restrictions completely)
+
 
 
 

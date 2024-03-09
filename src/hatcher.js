@@ -51,7 +51,7 @@ console.log("Something dropped")
           const fname = replaceExt( f.name ) ;
           f.text()
           .then(r=>{
-             const h = md2imp(r);
+             const h = md2imp(r , fname);
              saveToDisk( fname , h )
           })
           .catch(e=>console.error( fname , e ))
@@ -62,7 +62,7 @@ console.log("Something dropped")
   }
 }
 
-function md2imp(mdtext){
+function md2imp(mdtext , fname){
    const parts = extractFM( mdtext );
    const md2html = md.render(parts.markdown);
    let metadata = parts.meta ? yaml.load(parts.meta): {};
@@ -70,6 +70,7 @@ function md2imp(mdtext){
    metadata.settings = Object.assign( {} , metadata)
    metadata.htmlText = md2html;
    metadata.mdText = parts.markdown; 
+   if(fname){ metadata.filename = fname }
    return renderHTMLFromObj(metadata)
 }
 
@@ -99,4 +100,4 @@ const Hatcher = function(){
 }
 
 let Ht = h( Hatcher , {} , "" )
-render( Ht , document.body )
+render( Ht , document.getElementById("impHatcher") )

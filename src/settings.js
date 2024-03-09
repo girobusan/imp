@@ -20,6 +20,7 @@ var callback ;
 
 export function create(settings_src , cb){
 // console.log("Creating settings wrapper" , settings_src)
+  props.forEach( k=>STORE[k]="" );
   if(cb){callback=cb}
   props.forEach(p=>STORE[p]=settings_src[p] || "");
   return createWrapper();
@@ -33,6 +34,10 @@ export function cleanupObj( obj , safe){
     }
     return a;
   } , {} )
+}
+export function addEmpties(obj){
+   props.forEach( k=>{ if(!obj[k]){ obj[k]="" } } );
+   return obj;
 }
 
 function updated(k,v){

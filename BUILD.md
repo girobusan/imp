@@ -1,5 +1,7 @@
 # Building IMP!
 
+Please, note: git version may have undocumented features.
+
 ## Prerequisites
 
 ```

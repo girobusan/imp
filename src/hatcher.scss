@@ -1,24 +1,27 @@
-body{
+.HatcherUI{
+  max-width: 450px;
+  padding: 24px;
+  margin: 2em auto;
   font-family: Arial, Helvetica , sans-serif;
   font-size: 18px;
   line-height: 140%;
-background-color: #b99ac5 ; 
-color: #333;
-}
-code{
-  background-color: rgba( 255 , 255 , 255 , 0.15 );
-  display: inline-block;
-  border-radius: 3px;
-  padding: 0 4px;
-}
-.HatcherUI{
-  width: 450px;
-  margin: 2em auto;
+  background-color: #e3d2ea ; 
+  color: #333;
+  border-radius: 18px;
+  code{
+    background-color: rgba( 255 , 255 , 255 , 0.2 );
+    display: inline-block;
+    border-radius: 3px;
+    padding: 0 4px;
+  }
+  h2{
+    margin-top: 0;
+  }
 }
 .Hatcher{
   border-radius: 6px;
   height: 300px;
-  width: 300px;
+  width: 100%;
   background-color: rgba( 0 , 0 , 0 , 0.2 );
   margin-top: 1em;
   display: flex;

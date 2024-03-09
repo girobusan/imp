@@ -459,10 +459,10 @@ export class PageEditor extends Component{
           .keywords(this.state.keywords)
           //update some current HTML
           document.title = this.state.title;
-          const ccsst = document.querySelector("#customCSS");
-          if(ccsst){
-            ccsst.innerHTML = this.state.customCSS;
-          }
+          // const ccsst = document.querySelector("#customCSS");
+          // if(ccsst){
+          //   ccsst.innerHTML = this.state.customCSS;
+          // }
         }
       }
 

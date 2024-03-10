@@ -79,7 +79,7 @@ return `<!DOCTYPE html>
 
    if(window.self.name==="IMPPreviewIframe")
    {
-   return;
+  return;
    }
    if(window.location.search.indexOf("mode=view")!=-1)
    {
@@ -87,6 +87,10 @@ return `<!DOCTYPE html>
    }
    if(window.location.search.indexOf("mode=edit")!=-1)
    {
+   IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
    IMPEdit();
    return;
    }

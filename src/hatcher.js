@@ -67,10 +67,10 @@ function md2imp(mdtext , fname){
    const md2html = md.render(parts.markdown);
    let metadata = parts.meta ? yaml.load(parts.meta): {};
    metadata = cleanupObj(metadata);
-   metadata.settings = Object.assign( {} , metadata)
    metadata.htmlText = md2html;
    metadata.mdText = parts.markdown; 
    if(fname){ metadata.filename = fname }
+   metadata.settings = Object.assign( {} , metadata)
    return renderHTMLFromObj(metadata)
 }
 

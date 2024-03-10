@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP! Readme file</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="og:title" content="IMP! Readme file">
+  <meta name="og:description" content="Like a markdown-based CMS for single file, fully client-side. When you need to drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.">
+  <meta name="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="">
+  <link rel="icon" type="image/png" href="">
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <style id="customCSS">
+  
+  </style>
+  <script>
+   window.settings = {
+  "title": "IMP! Readme file",
+  "description": "Like a markdown-based CMS for single file, fully client-side. When you need to drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.",
+  "image": "",
+  "icon": "",
+  "filename": "README.html",
+  "footer": "",
+  "css": "\n  ",
+  "headHTML": "",
+  "editor": "",
+  "viewCSS": "",
+  "author": "",
+  "keywords": ""
+}
+  </script>
+  <script>
+    window.addEventListener("DOMContentLoaded" , function(){
+
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="imp.js";
+   document.head.appendChild(editor);
+   }
+
+   if(window.self.name==="IMPPreviewIframe"){
+   return;
+   }
+   if(window.location.hash==="#view"){
+   return;
+   }
+   if(window.location.hash ==="#edit" 
+   ){
+   IMPEdit();
+   }
+   if(window.location.protocol==="file:"){
+   IMPEdit();
+   }
+})
+
+window.addEventListener("hashchange", ()=>history.go(0));
+  </script>
+  <!--custom html here-->
+</head>
+<body>
+<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="index.html">IMP!</a></p>
+<h1>IMP! 👿 (It's My Page!)</h1>
+<p><strong>Markdown when you write it. HTML when they read it.</strong></p>
+<p>Like a markdown-based CMS for single file, fully client-side. When you need to drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.</p>
+<p>→ 📖 <a href="https://girobusan.github.io/imp/">Docs</a></p>
+<h2>How it works</h2>
+<p>When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, <strong>static</strong> HTML. Page does not require Java Script to be viewed, it's just plain HTML. <a href="https://girobusan.github.io/imp/">Demo and docs</a>.</p>
+<p><img src="side-by-side2.png" alt=""></p>
+<h2>Possible uses</h2>
+<ul>
+<li>Digital experiments</li>
+<li>Small-scale sites</li>
+<li>Anywhere, where you need &quot;just html file&quot;.</li>
+</ul>
+<h2>System requirements</h2>
+<p>Descent browser, Firefox or Chrome preferred (tested). If you've updated your browser within last 4 years, it should be fine.</p>
+<h2>Features</h2>
+<ul>
+<li>Fully local thing — no server required, no setup. It's YOUR page!</li>
+<li>Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)</li>
+<li>You can add any HTML or JS to your page</li>
+<li>All you need is browser, that means it fully multiplatform</li>
+<li>EasyMDE as Markdown editor</li>
+<li><a href="https://girobusan.github.io/imp/themes/"> Customizable </a></li>
+<li>Lo-fi 😃</li>
+</ul>
+<h2>Two clicks setup, with CDN</h2>
+<ol>
+<li>Click <a href="https://girobusan.github.io/imp/impcdn.html#edit"> this link </a></li>
+<li>Scroll down, click &quot;Duplicate page&quot; button</li>
+<li>Enter any filename, ending with <code>.html</code>, save.</li>
+</ol>
+<p>This setup does not require downloading of any other files. Editor and main CSS will be loaded from CDN. You may load newly downloaded file in your browser, edit content and settings, save it (see below) and than upload to your server.</p>
+<h2>Local setup (everything local, no CDN)</h2>
+<ol>
+<li>Download and unpack. There are 3 files: <code>index.html</code>, <code>style.css</code> and <code>imp.js</code></li>
+<li>Open the <code>index.html</code> in your browser (Firefox or Chrome is recommended)</li>
+<li>Edit it, import or enter your text, preview it. Click the big &quot;Export HTML&quot; (&quot;Save&quot; in newer version) button and save file to the same directory. If you didn't change file name, overwrite old file.</li>
+</ol>
+<p>You may skip <code>imp.js</code> while uploading files to server, as it's not required for <em>viewing</em> file.</p>
+<h2>Customization</h2>
+<p>There is a field for custom CSS in each IMP! file for small adjustments. But you can replace the whole <code>style.css</code> with your own. There is nothing fancy about it.</p>
+<h2>More files</h2>
+<p>You can have as many imps as you want. If they would live in one directory, they will share single <code>imp.js</code> file.</p>
+<h2>Known problems</h2>
+<ul>
+<li>If you use NoScript extension, you'd need to disable it for IMP! page (<em>not</em> just set to TRUSTED mode, but disable all restrictions completely)</li>
+</ul>
+<h2>License</h2>
+<ul>
+<li>Mostly MIT, except:</li>
+<li>CC BY-CA - default theme based on Cutenberg  (which is licensed under CC BY-CA)</li>
+</ul>
+<h2>Wouldn't be possible without awesome projects like:</h2>
+<ul>
+<li><a href="https://preactjs.com/">Preact</a></li>
+<li><a href="https://github.com/Ionaru/easy-markdown-editor">EasyMDE</a></li>
+<li><a href="https://matejlatin.github.io/Gutenberg">Gutenberg CSS</a></li>
+<li><a href="https://bulma.io/">Bulma CSS framework</a></li>
+<li><a href="https://www.jsdelivr.com/">Jsdelivr</a></li>
+<li><a href="https://fonts.google.com/icons">Google Material Icons</a></li>
+</ul>
+</div>
+<footer id="pageFooter"></footer>
+<script id="pageData" type="text/markdown">
+[Girobusan](https://girobusan.github.io) | [IMP!](index.html)
+
+
+# IMP! :imp: (It's My Page!)
+
+&lt;strong&gt;Markdown when you write it. HTML when they read it.&lt;/strong&gt;
+
+Like a markdown-based CMS for single file, fully client-side. When you need to drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.
+
+→ :book: [Docs](https://girobusan.github.io/imp/)
+
+## How it works
+
+When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, **static** HTML. Page does not require Java Script to be viewed, it's just plain HTML. [Demo and docs](https://girobusan.github.io/imp/). 
+
+![](side-by-side2.png)
+
+## Possible uses
+
+- Digital experiments 
+- Small-scale sites
+- Anywhere, where you need "just html file". 
+
+## System requirements
+
+Descent browser, Firefox or Chrome preferred (tested). If you've updated your browser within last 4 years, it should be fine.
+
+## Features
+
+- Fully local thing &amp;mdash; no server required, no setup. It's YOUR page!
+- Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)
+- You can add any HTML or JS to your page
+- All you need is browser, that means it fully multiplatform
+- EasyMDE as Markdown editor
+- [ Customizable ](https://girobusan.github.io/imp/themes/)
+- Lo-fi :)
+
+## Two clicks setup, with CDN
+
+1. Click [ this link ]( https://girobusan.github.io/imp/impcdn.html#edit )
+2. Scroll down, click "Duplicate page" button
+3. Enter any filename, ending with `.html`, save.
+
+This setup does not require downloading of any other files. Editor and main CSS will be loaded from CDN. You may load newly downloaded file in your browser, edit content and settings, save it (see below) and than upload to your server. 
+
+
+## Local setup (everything local, no CDN)
+
+1. Download and unpack. There are 3 files: `index.html`, `style.css` and `imp.js`
+2. Open the `index.html` in your browser (Firefox or Chrome is recommended)
+3. Edit it, import or enter your text, preview it. Click the big "Export HTML" ("Save" in newer version) button and save file to the same directory. If you didn't change file name, overwrite old file.
+
+You may skip `imp.js` while uploading files to server, as it's not required for *viewing* file.
+
+
+## Customization
+
+There is a field for custom CSS in each IMP! file for small adjustments. But you can replace the whole `style.css` with your own. There is nothing fancy about it.
+
+## More files
+
+You can have as many imps as you want. If they would live in one directory, they will share single `imp.js` file. 
+
+## Known problems
+
+- If you use NoScript extension, you'd need to disable it for IMP! page (*not* just set to TRUSTED mode, but disable all restrictions completely)
+
+## License
+
+- Mostly MIT, except:
+- CC BY-CA - default theme based on Cutenberg  (which is licensed under CC BY-CA)
+
+
+## Wouldn't be possible without awesome projects like:
+
+- [Preact](https://preactjs.com/)
+- [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
+- [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
+- [Bulma CSS framework](https://bulma.io/)
+- [Jsdelivr](https://www.jsdelivr.com/)
+- [Google Material Icons](https://fonts.google.com/icons)
+
+
+
+
+</script>
+</body>
+</html>

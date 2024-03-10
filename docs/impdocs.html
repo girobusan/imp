@@ -64,23 +64,27 @@ window.addEventListener("hashchange", ()=>history.go(0));
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😈</text></svg>">
 </head>
 <body>
-<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="/imp">IMP!</a></p>
+<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="index.html">IMP!</a></p>
 <h1>IMP!</h1>
 <p><big>Advanced usage</big></p>
 <h2>Force <em>view</em> or <em>edit</em> mode</h2>
 <p>By default, when you open IMP! page locally, it loads in edit mode, and when you load it over http, in view mode. But you can force mode by adding special hash to filename. Like this for view mode:</p>
 <pre><code>....filename.html#view
 </code></pre>
-<p>In the next versions this will be changed to:</p>
-<pre><code>...filename/html?mode=view
+<p>In the next versions (since 0.3) this will be changed to:</p>
+<pre><code>...filename.html?mode=view
 </code></pre>
 <p>And for edit mode:</p>
 <pre><code>....filename.html#edit
 </code></pre>
-<p>In the next versions this will be changed to:</p>
-<pre><code>...filename/html?mode=edit
+<p>In the next versions (since 0.3) this will be changed to:</p>
+<pre><code>...filename.html?mode=edit
 </code></pre>
-<p>There is also button in editor, which will switch to view mode. Use &quot;back&quot; button of your browser to return to editor.</p>
+<p>There is also button in editor, which will switch to view mode. Use &quot;back&quot; button of your browser to return to editor. Switching to view mode before saving will erase all changes you've made so far!</p>
+<h2>Markdown download link</h2>
+<p>Since version 0.3, you can add  <code>?mode=download</code> to page URL, and this will force download of markdown version of the page. If you want to allow users to download markdown version, you may add this somewhere:</p>
+<pre><code>[Download this in markdown format](?mode=download)
+</code></pre>
 <h2>Change location of imp.js file and/or main style file</h2>
 <p>This is done in <em>Advanced settings</em> section. You can enter alternative path to both files. For example, you can link editor script from CDN, in order to keep it always up-to-date:</p>
 <pre><code>https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js
@@ -94,8 +98,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
 
-
-[Girobusan](https://girobusan.github.io) | [IMP!](/imp)
+[Girobusan](https://girobusan.github.io) | [IMP!](index.html)
 # IMP! 
 
 &lt;big&gt;Advanced usage&lt;/big&gt;
@@ -108,10 +111,10 @@ By default, when you open IMP! page locally, it loads in edit mode, and when you
 ....filename.html#view
 ```
 
-In the next versions this will be changed to:
+In the next versions (since 0.3) this will be changed to:
 
 ```
-...filename/html?mode=view
+...filename.html?mode=view
 ```
 
 And for edit mode:
@@ -120,13 +123,22 @@ And for edit mode:
 ....filename.html#edit
 ```
 
-In the next versions this will be changed to:
+In the next versions (since 0.3) this will be changed to:
 
 ```
-...filename/html?mode=edit
+...filename.html?mode=edit
 ```
 
-There is also button in editor, which will switch to view mode. Use "back" button of your browser to return to editor.
+
+There is also button in editor, which will switch to view mode. Use "back" button of your browser to return to editor. Switching to view mode before saving will erase all changes you've made so far!
+
+## Markdown download link
+
+Since version 0.3, you can add  `?mode=download` to page URL, and this will force download of markdown version of the page. If you want to allow users to download markdown version, you may add this somewhere:
+
+```
+[Download this in markdown format](?mode=download)
+```
 
 ## Change location of imp.js file and/or main style file
 
@@ -145,6 +157,8 @@ https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css
 ## Update your IMP! page to new version
 
 You have to update only editor file. On the next save the html will be updated too.
+
+
 
 
 </script>

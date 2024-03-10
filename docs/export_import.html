@@ -64,7 +64,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
   <!--custom html here-->
 </head>
 <body>
-<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="/imp">IMP!</a></p>
+<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="index.html">IMP!</a></p>
 <h1>Markdown export and Import</h1>
 <p>You can export IMP! content as markdown file. All it's properties, like
 custom HTML, title, description will be exported as YAML frontmatter (see below).</p>
@@ -87,10 +87,15 @@ in frontmatter, they will be added to resulting IMP! page.</p>
 <li><code>keywords</code></li>
 </ul>
 <p><strong>Note:</strong> Field <code>editor</code> with custom path to editor script won't be imported!</p>
+<h2>Quick convert markdown to IMP!</h2>
+<p>You may try <em>experimental</em> ImpHatcher utility. It will produce files, compatible with 0.3 version of IMP!.</p>
+<div id="impHatcher"></div>
+<script src="hatcher.js" defer></script>
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
-[Girobusan](https://girobusan.github.io) | [IMP!](/imp)
+
+[Girobusan](https://girobusan.github.io) | [IMP!](index.html)
 
 Markdown export and Import
 ==========================
@@ -121,6 +126,20 @@ Export and Import buttons are located at editor toolbar here:
 - `keywords`
 
 **Note:** Field `editor` with custom path to editor script won't be imported!
+
+## Quick convert markdown to IMP!
+
+You may try _experimental_ ImpHatcher utility. It will produce files, compatible with 0.3 version of IMP!.
+
+&lt;div id="impHatcher"&gt;&lt;/div&gt;
+
+&lt;script src="hatcher.js" defer&gt;&lt;/script&gt;
+
+
+
+
+
+
 
 
 

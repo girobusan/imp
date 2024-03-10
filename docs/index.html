@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IMP!</title>
-  <meta name="description" content="">
+  <meta name="description" content="Markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG">
   <meta name="author" content="">
   <meta name="keywords" content="">
   <meta name="og:title" content="IMP!">
@@ -44,22 +44,27 @@
    document.head.appendChild(editor);
    }
 
-   if(window.self.name==="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe")
+   {
+  return;
+   }
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
    return;
    }
-   if(window.location.hash==="#view"){
-   return;
-   }
-   if(window.location.hash ==="#edit" 
-   ){
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
    IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
+   IMPEdit();
+   return;
    }
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
 })
-
-window.addEventListener("hashchange", ()=>history.go(0));
   </script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😈</text></svg>">
 </head>
@@ -107,6 +112,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
 
+
 [Girobusan](https://girobusan.github.io)
 
    &lt;a href="https://github.com/girobusan/imp"&gt;
@@ -153,6 +159,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 - [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Milligram CSS framework](https://milligram.io/)
+
 
 
 

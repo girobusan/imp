@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IMP! Favicon</title>
-  <meta name="description" content="">
+  <meta name="description" content="IMP! peconfigured CDN">
   <meta name="author" content="">
   <meta name="keywords" content="">
   <meta name="og:title" content="IMP! Favicon">
@@ -44,22 +44,27 @@
    document.head.appendChild(editor);
    }
 
-   if(window.self.name==="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe")
+   {
+  return;
+   }
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
    return;
    }
-   if(window.location.hash==="#view"){
-   return;
-   }
-   if(window.location.hash ==="#edit" 
-   ){
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
    IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
+   IMPEdit();
+   return;
    }
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
 })
-
-window.addEventListener("hashchange", ()=>history.go(0));
   </script>
   <link rel="icon" 
 href="data:image/svg+xml,
@@ -87,6 +92,7 @@ viewBox=%220 0 100 100%22&gt;
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
 
+
 [Girobusan](https://girobusan.github.io) | [IMP!](https://girobusan.github.io/imp)
 
 # Add emoji favicon
@@ -105,6 +111,7 @@ viewBox=%220 0 100 100%22&gt;
 Look at this page in [edit mode](#edit) for reference.
 
 - Taken from [here](https://css-tricks.com/emoji-as-a-favicon/)
+
 
 
 

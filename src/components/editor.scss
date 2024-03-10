@@ -54,7 +54,7 @@ body{
 #exportHTML{
   border-radius: 0 0 0 16px;
   border-right: 1px solid gray;
-  &.modified{
+  .modified &{
     background-color: $danger;
     color: black;
     &:hover{

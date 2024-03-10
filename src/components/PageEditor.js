@@ -59,7 +59,6 @@ export class PageEditor extends Component{
     super(props);
     // console.log("one")
     this.mdEditorNode = createRef();
-    this.modified=false;
     this.previewIframe;
     this.state = {
       text: props.text,
@@ -76,6 +75,7 @@ export class PageEditor extends Component{
       headHTML: props.settings.headHTML() || "",
       author: props.settings.author() || "",
       keywords: props.settings.keywords() || "",
+      modified: false
     }
     this.radicalPreview = this.radicalPreview.bind(this);
   }
@@ -91,6 +91,7 @@ export class PageEditor extends Component{
   handleInput(f,v){
     const ns = {};
     ns[f]=v;
+    ns.modified = true;
     this.setState(ns);
   }
   makeHandler(f){
@@ -106,11 +107,11 @@ export class PageEditor extends Component{
 
 
     <input type=button id="exportHTML" value="Save"
-    class=${this.modified ? "modified" : "not-modified"}
+    class=${this.state.modified ? "modified" : "not-modified"}
     onclick=${()=>{
       console.log("export requested...") ;
       saveFile(md.render(this.state.text) , this.state.text , this.props.settings );
-      this.modified = false;
+      this.setState({modified: false})
     }}
     ></input>
 
@@ -139,7 +140,7 @@ export class PageEditor extends Component{
         </div>
 
 
-        <div class="workZone ${this.modified ? 'modified' : 'still'}">
+        <div class="workZone ${this.state.modified ? 'modified' : 'still'}">
 
         <!--markdown editor-->
         <textarea 
@@ -258,7 +259,7 @@ export class PageEditor extends Component{
 
         <div class="formRow">
         <input type="button" class="utility button is-gray" value="Switch to view mode" onclick=${()=>{
-          if(this.modified)
+          if(this.state.modified)
           { 
             confirm("All changes may be lost. Proceed?") && ( window.location="?mode=view" ) 
           }else{
@@ -332,6 +333,7 @@ export class PageEditor extends Component{
       console.log("export requested...") ;
       saveFile(md.render(me.state.text) , me.state.text , me.props.settings );
       me.modified = false;
+      me.setState({modified: false});
 
                   
                   },
@@ -414,7 +416,6 @@ export class PageEditor extends Component{
             return;
           }
 
-          this.modified = true;
         }
         componentDidUpdate(){
           //update settings

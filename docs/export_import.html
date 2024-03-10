@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Markdown export and Import</title>
-  <meta name="description" content="">
+  <meta name="description" content="Export IMP! as clean markdown or import existing markdown file to IMP!">
   <meta name="author" content="">
   <meta name="keywords" content="">
   <meta name="og:title" content="Markdown export and Import">
@@ -44,22 +44,27 @@
    document.head.appendChild(editor);
    }
 
-   if(window.self.name==="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe")
+   {
+  return;
+   }
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
    return;
    }
-   if(window.location.hash==="#view"){
-   return;
-   }
-   if(window.location.hash ==="#edit" 
-   ){
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
    IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
+   IMPEdit();
+   return;
    }
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
 })
-
-window.addEventListener("hashchange", ()=>history.go(0));
   </script>
   <!--custom html here-->
 </head>
@@ -71,7 +76,7 @@ custom HTML, title, description will be exported as YAML frontmatter (see below)
 <p>You also can import markdown to IMP!, and if some IMP! settings where specified
 in frontmatter, they will be added to resulting IMP! page.</p>
 <p>Export and Import buttons are located at editor toolbar here:</p>
-<p><img src="imp_export_import.png" alt=" Export and Import buttons "></p>
+<p><img src="pix/imp_export_import.png" alt=" Export and Import buttons "></p>
 <h2>Supported metadata:</h2>
 <ul>
 <li><code>title</code></li>
@@ -95,6 +100,8 @@ in frontmatter, they will be added to resulting IMP! page.</p>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
 
+
+
 [Girobusan](https://girobusan.github.io) | [IMP!](index.html)
 
 Markdown export and Import
@@ -108,7 +115,7 @@ in frontmatter, they will be added to resulting IMP! page.
 
 Export and Import buttons are located at editor toolbar here:
 
-![ Export and Import buttons ]( imp_export_import.png )
+![ Export and Import buttons ]( pix/imp_export_import.png )
 
 
 ## Supported metadata:
@@ -134,6 +141,8 @@ You may try _experimental_ ImpHatcher utility. It will produce files, compatible
 &lt;div id="impHatcher"&gt;&lt;/div&gt;
 
 &lt;script src="hatcher.js" defer&gt;&lt;/script&gt;
+
+
 
 
 

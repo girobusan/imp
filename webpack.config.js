@@ -1,21 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
-const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
 const webpack = require('webpack');
 const pkg = require('./package.json');
-const fs = require('fs');
 var coreCSS="/*not generated yet*/"
 
 
 const env = process.env.NODE_ENV;
-
-const econfig = {
-  mode: env || 'development'
-}
-
 
 
 module.exports = function (env, argv) {
@@ -23,7 +14,6 @@ module.exports = function (env, argv) {
   let builddir = argv.mode== 'production' ? 'dist' : 'test';
 
   return {
-    //externals: ["fs"],
     watch: argv.mode != 'production',
     target: 'web',
     optimization: {
@@ -34,12 +24,10 @@ module.exports = function (env, argv) {
 
     mode: argv.mode,
     entry: {
-      "imp": './src/editor.js',
+      "imp": './src/editor_launcher.js',
       "hatcher" : './src/hatcher.js'
-      // "loader": './src/loader.js'
     },
     devtool: argv.mode != "production" ? 'inline-source-map' : false, 
-    // devServer: argv.mode != "production" ? {contentBase: 'dist'} : {contentBase: 'dist'},
 
     output: {
     //   filename: '[name].js',

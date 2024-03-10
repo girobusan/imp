@@ -1,35 +1,14 @@
 
-import {h , Component , createRef ,render} from "preact";
+import {h , render} from "preact";
 import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
 import { saveToDisk } from "./fileops.js";
 import { renderHTMLFromObj } from "./template.js";
 import { cleanupObj } from "./settings.js";
 import { extractFM } from "./fm_extractor.js";
-var emoji = require('markdown-it-emoji');
 const yaml = require('js-yaml');
-require("./hatcher.scss");
-
-
-var md = require('markdown-it')({
-  html:true,
-  langPrefix: 'language-',
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return hljs.highlight(str, { language: lang }).value;
-      } catch (__) {}
-    }
-    return ''; // use external default escaping
-  }
-  
-  })
-.use(emoji )
-.use(require('markdown-it-checkbox'))
-.use(require('markdown-it-multimd-table') , { 
-  headerless: true,
-  multiline: true
-})
+require("./scss/hatcher.scss");
+import { md } from "./md_wrapper.js";
 
 function replaceExt(fn){
   const isExt = /^.+\.\w+$/ig ; 
@@ -45,7 +24,6 @@ console.log("Something dropped")
      Array.from( ev.dataTransfer.items ).forEach( 
        (item)=>{
           const f = item.getAsFile();
-          console.log(f)
           if(!f.type.startsWith("text/")){ return }
           console.info("Let's convert" , f.name )
           const fname = replaceExt( f.name ) ;
@@ -75,7 +53,7 @@ function md2imp(mdtext , fname){
 }
 
 const Hatcher = function(){
-   const zone = createRef();
+   const zone = useRef(null);
    return html`
    <div class="HatcherUI">
    <h2>Imp 😈 Hatcher <small>(beta)</small></h2>

@@ -1,42 +1,16 @@
+const version = VERSION ;
 import {Component , createRef} from "preact";
 import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
+const yaml = require('js-yaml');
+import * as MDE from "easymde";
+import { md } from "../md_wrapper.js";
+import { If } from "./If";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
-const hljs = require('highlight.js/lib/common');
-var emoji = require('markdown-it-emoji');
 import { cleanupObj } from "../settings";
 import { extractFM } from "../fm_extractor.js";
-const yaml = require('js-yaml');
-
-
-var md = require('markdown-it')({
-  html:true,
-  langPrefix: 'language-',
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return hljs.highlight(str, { language: lang }).value;
-      } catch (__) {}
-    }
-
-    return ''; // use external default escaping
-  }
-  
-  })
-.use(emoji )
-.use(require('markdown-it-checkbox'))
-.use(require('markdown-it-multimd-table') , { 
-  headerless: true,
-  multiline: true
-})
-
-import * as MDE from "easymde";
-import {If} from "./If";
 require("./editor.scss")
 require("easymde/dist/easymde.min.css");
-const version = VERSION
-
-
 
 function TheInput(props){
   const inp = useRef(null);

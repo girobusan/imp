@@ -6,7 +6,7 @@ const version = VERSION;
 import {extractFromHTML , saveToDisk} from "./fileops.js"
 
 console.info("IMP! editor v" + version);
-let s = extractFromHTML();
+const s = extractFromHTML();
 const settings = createSettings(window.settings);
 
 if(window.location.search.indexOf("mode=download")==-1){
@@ -15,7 +15,7 @@ if(window.location.search.indexOf("mode=download")==-1){
   viewcss && viewcss.remove();
   customcss && customcss.remove();
 
-  let Editor = h(
+  const Editor = h(
     PageEditor,
     {settings: settings , text: s.markdown },
     ""
@@ -28,5 +28,5 @@ if(window.location.search.indexOf("mode=download")==-1){
   const fcontent = "---\n" + settings.dump()+"---\n" + s.markdown ;
   window.location = "?mode=view"
   saveToDisk( settings.filename().replace(/\.htm(l)?$/ , "") + ".md" , fcontent )
-  
+
 }

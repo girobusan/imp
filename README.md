@@ -31,6 +31,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 - You can add any HTML or JS to your page
 - All you need is browser, that means it fully multiplatform
 - EasyMDE as Markdown editor
+- Code highlighting
 - [ Customizable ](https://girobusan.github.io/imp/themes/)
 - Lo-fi :)
 

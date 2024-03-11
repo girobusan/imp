@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IMP! конфигурация для CDN</title>
   <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
   <meta name="og:title" content="IMP! конфигурация для CDN">
   <meta name="og:description" content="Эта настройка — хороший способ начать работать с IMP! У вас будет всего один файл, полностью готовый к работе. И редактор, и тема оформления будут загружаться с CDN по необходимости. Но если вы захотите поменять тему, вам нужно будет соответственно поменять настройку `View CSS location`.">
   <meta name="og:image" content="">
@@ -26,11 +28,37 @@
   "css": "\n  ",
   "headHTML": "",
   "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
-  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css"
+  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css",
+  "author": "",
+  "keywords": ""
 }
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
+
+        const replaceToTags = {
+        '&amp;':'&',
+        '&lt;': '<',
+        '&gt;': '>'
+        }
+
+        function unescapeTags(s){
+        const replacer=(tag)=>{return replaceToTags[tag]||tag}
+        return s.replace(/&amp;|&lt;|&gt;/g , replacer);
+        }
+
+        function downloadMd(){
+        console.info("will download md");
+        const c = document.querySelector("#pageData");
+        const t = unescapeTags( c.innerHTML );
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(t));
+        element.setAttribute('download', "export.md");
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+        }
+
 
       function IMPEdit(){
       console.info("Loading editor...")
@@ -40,13 +68,17 @@
       document.head.appendChild(editor);
       }
 
-   if(window.self.name=="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe"){
    return;
    }
    if(window.location.hash==="#view"){
    return;
    }
-   if(window.location.hash ==="#edit"){
+   if(window.location.hash==="#md"){
+   return downloadMd();
+   }
+   if(window.location.hash ==="#edit" 
+   ){
    IMPEdit();
    }
    if(window.location.protocol==="file:"){
@@ -59,14 +91,14 @@ window.addEventListener("hashchange", ()=>history.go(0));
   <!--custom html here-->
 </head>
 <body>
-<div class='container'><p><a href="/">Girobusan</a> | <a href="/imp">IMP!</a></p>
+<div class='container'><p><a href="/">Girobusan</a> | <a href="index.html">IMP!</a></p>
 <h1>IMP! сконфигурированный для CDN</h1>
 <ul>
 <li><a href="https://github.com/girobusan/imp/blob/master/README.ru.md">Что такое IMP?</a></li>
 </ul>
 <p>Здесь вы можете создать страничку, которая использует CDN для редактора и основного CSS.</p>
 <ol>
-<li>Переключитесь в <a href="#edit">режим редактирования</a>. <!--Если вы видите этот текст, вы уже в нем--></li>
+<li>Переключитесь в <a href="#?mode=edit">режим редактирования</a>. <!--Если вы видите этот текст, вы уже в нем--></li>
 <li>Промотайте вниз, нажмите на кнопку &quot;Duplicate page&quot;</li>
 <li>Введите желаемое имя файла с расширением html, сохраните где нужно.</li>
 </ol>
@@ -74,7 +106,8 @@ window.addEventListener("hashchange", ()=>history.go(0));
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
-[Girobusan](/) | [IMP!](/imp)
+
+[Girobusan](/) | [IMP!](index.html)
 
 
 # IMP! сконфигурированный для CDN
@@ -82,11 +115,12 @@ window.addEventListener("hashchange", ()=>history.go(0));
 
 Здесь вы можете создать страничку, которая использует CDN для редактора и основного CSS.
 
-1. Переключитесь в [режим редактирования](#edit). &lt;!--Если вы видите этот текст, вы уже в нем--&gt;
+1. Переключитесь в [режим редактирования](#?mode=edit). &lt;!--Если вы видите этот текст, вы уже в нем--&gt;
 2. Промотайте вниз, нажмите на кнопку "Duplicate page"
 3. Введите желаемое имя файла с расширением html, сохраните где нужно.
 
 Эта настройка — хороший способ начать работать с IMP! У вас будет всего один файл, полностью готовый к работе. И редактор, и тема оформления будут загружаться с CDN по необходимости. Но если вы захотите поменять тему, вам нужно будет соответственно поменять настройку `View CSS location`.
+
 
 
 

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IMP! preconfigured CDN setup</title>
   <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
   <meta name="og:title" content="IMP! preconfigured CDN setup">
   <meta name="og:description" content="IMP! peconfigured CDN">
   <meta name="og:image" content="">
@@ -13,6 +15,7 @@
   <link rel="icon" type="image/png" href="">
   <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
   <style id="customCSS">
+  
   
   </style>
   <script>
@@ -26,27 +29,30 @@
   "css": "\n  ",
   "headHTML": "",
   "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
-  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css"
+  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css",
+  "author": "",
+  "keywords": ""
 }
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
 
-      function IMPEdit(){
-      console.info("Loading editor...")
-      const editor = document.createElement("script");
-      editor.id="editorScript";
-      editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
-      document.head.appendChild(editor);
-      }
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
+   document.head.appendChild(editor);
+   }
 
-   if(window.self.name=="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe"){
    return;
    }
    if(window.location.hash==="#view"){
    return;
    }
-   if(window.location.hash ==="#edit"){
+   if(window.location.hash ==="#edit" 
+   ){
    IMPEdit();
    }
    if(window.location.protocol==="file:"){
@@ -59,11 +65,11 @@ window.addEventListener("hashchange", ()=>history.go(0));
   <!--custom html here-->
 </head>
 <body>
-<div class='container'><p><a href="/">Girobusan</a> | <a href="/imp">IMP!</a></p>
+<div class='container'><p><a href="/">Girobusan</a> | <a href="index.html">IMP!</a></p>
 <h1>IMP! Preconfigured for CDN</h1>
 <p>From here you can get page, preconfigured to use CDN for editor script and view CSS.</p>
 <ol>
-<li>Switch to <a href="#edit">edit mode</a>. <!--If you see this text, you already there--></li>
+<li>Switch to <a href="?mode=edit">edit mode</a>. <!--If you see this text, you already there--></li>
 <li>Scroll down, click the &quot;Duplicate page&quot; button</li>
 <li>Enter any filename you want (ending with <code>.html</code>), save.</li>
 </ol>
@@ -71,16 +77,20 @@ window.addEventListener("hashchange", ()=>history.go(0));
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
-[Girobusan](/) | [IMP!](/imp)
+
+
+[Girobusan](/) | [IMP!](index.html)
 
 # IMP! Preconfigured for CDN
 From here you can get page, preconfigured to use CDN for editor script and view CSS.
 
-1. Switch to [edit mode](#edit). &lt;!--If you see this text, you already there--&gt;
+1. Switch to [edit mode](?mode=edit). &lt;!--If you see this text, you already there--&gt;
 2. Scroll down, click the "Duplicate page" button
 3. Enter any filename you want (ending with `.html`), save.
 
 This setup is ideal as starting point. You will get just one file, fully working and ready. Both editor and default theme will be served from CDN. If you will need to change default theme, you will also need to adjust `View CSS location` setting accordingly. 
+
+
 
 
 </script>

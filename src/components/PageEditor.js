@@ -390,17 +390,6 @@ export class PageEditor extends Component{
               // console.log("MDE" , easyMDE);
 
         }
-        fixPreview(p){
-          console.log("fix preview...") 
-          const iframeID = "radicalPreviewIframe";
-          let e=p.getElementById(iframeID);
-          console.log(e);
-          if(!e){ 
-            console.log("preview needs fixin")
-            this.radicalPreview(this.state.text ,document.querySelector(".editor-preview"))
-          }
-
-        }
         radicalPreview(frame , txt){
           const phtml = convert2html(md.render(txt || this.state.text) , "" , this.props.settings);
           frame.contentWindow.document.open();

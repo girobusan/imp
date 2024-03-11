@@ -16,6 +16,7 @@
   <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
   <style id="customCSS">
   
+  
   </style>
   <script>
    window.settings = {
@@ -36,46 +37,19 @@
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
 
-        const replaceToTags = {
-        '&amp;':'&',
-        '&lt;': '<',
-        '&gt;': '>'
-        }
-
-        function unescapeTags(s){
-        const replacer=(tag)=>{return replaceToTags[tag]||tag}
-        return s.replace(/&amp;|&lt;|&gt;/g , replacer);
-        }
-
-        function downloadMd(){
-        console.info("will download md");
-        const c = document.querySelector("#pageData");
-        const t = unescapeTags( c.innerHTML );
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(t));
-        element.setAttribute('download', "export.md");
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-        }
-
-
-      function IMPEdit(){
-      console.info("Loading editor...")
-      const editor = document.createElement("script");
-      editor.id="editorScript";
-      editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
-      document.head.appendChild(editor);
-      }
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
+   document.head.appendChild(editor);
+   }
 
    if(window.self.name==="IMPPreviewIframe"){
    return;
    }
    if(window.location.hash==="#view"){
    return;
-   }
-   if(window.location.hash==="#md"){
-   return downloadMd();
    }
    if(window.location.hash ==="#edit" 
    ){
@@ -107,6 +81,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
 
+
 [Girobusan](/) | [IMP!](index.html)
 
 
@@ -120,6 +95,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 3. Введите желаемое имя файла с расширением html, сохраните где нужно.
 
 Эта настройка — хороший способ начать работать с IMP! У вас будет всего один файл, полностью готовый к работе. И редактор, и тема оформления будут загружаться с CDN по необходимости. Но если вы захотите поменять тему, вам нужно будет соответственно поменять настройку `View CSS location`.
+
 
 
 

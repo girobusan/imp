@@ -32,6 +32,7 @@
   "author": "",
   "keywords": ""
 }
+   window.savedWithImpVersion = "0.3.0"
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
@@ -46,7 +47,7 @@
 
    if(window.self.name==="IMPPreviewIframe")
    {
-  return;
+   return;
    }
    if(window.location.search.indexOf("mode=view")!=-1)
    {
@@ -100,8 +101,6 @@ in frontmatter, they will be added to resulting IMP! page.</p>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
 
-
-
 [Girobusan](https://girobusan.github.io) | [IMP!](index.html)
 
 Markdown export and Import
@@ -141,6 +140,8 @@ You may try _experimental_ ImpHatcher utility. It will produce files, compatible
 &lt;div id="impHatcher"&gt;&lt;/div&gt;
 
 &lt;script src="hatcher.js" defer&gt;&lt;/script&gt;
+
+
 
 
 

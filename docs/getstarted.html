@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IMP! : Get Started</title>
-  <meta name="description" content="">
+  <meta name="description" content="Small tool">
   <meta name="author" content="">
   <meta name="keywords" content="">
   <meta name="og:title" content="IMP! : Get Started">
@@ -32,6 +32,7 @@
   "author": "",
   "keywords": ""
 }
+   window.savedWithImpVersion = "0.3.0"
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
@@ -44,22 +45,27 @@
    document.head.appendChild(editor);
    }
 
-   if(window.self.name==="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe")
+   {
    return;
    }
-   if(window.location.hash==="#view"){
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
    return;
    }
-   if(window.location.hash ==="#edit" 
-   ){
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
    IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
+   IMPEdit();
+   return;
    }
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
 })
-
-window.addEventListener("hashchange", ()=>history.go(0));
   </script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😈</text></svg>">
 </head>
@@ -89,6 +95,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 
 
 
+
 [Girobusan](https://girobusan.github.io) | [IMP!](/imp)
 # Getting Started With IMP! 
 
@@ -114,6 +121,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 ## Known problems
 
 - If you use NoScript extension, you'd need to disable it for IMP! page (*not* just set to TRUSTED mode, but disable all restrictions completely)
+
 
 
 

@@ -7,7 +7,11 @@ footer: >-
   href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small>
 
 ---
-[Girobusan](https://girobusan.github.io) | [IMP!](/imp)
+
+
+
+
+[Girobusan](https://girobusan.github.io) | [IMP!](index.html)
 
 Markdown export and Import
 ==========================
@@ -20,7 +24,7 @@ in frontmatter, they will be added to resulting IMP! page.
 
 Export and Import buttons are located at editor toolbar here:
 
-![ Export and Import buttons ]( imp_export_import.png )
+![ Export and Import buttons ]( pix/imp_export_import.png )
 
 
 ## Supported metadata:
@@ -38,6 +42,23 @@ Export and Import buttons are located at editor toolbar here:
 - `keywords`
 
 **Note:** Field `editor` with custom path to editor script won't be imported!
+
+## Quick convert markdown to IMP!
+
+You may try _experimental_ ImpHatcher utility. It will produce files, compatible with 0.3 version of IMP!.
+
+<div id="impHatcher"></div>
+
+<script src="hatcher.js" defer></script>
+
+
+
+
+
+
+
+
+
 
 
 

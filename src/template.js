@@ -1,4 +1,5 @@
 import { escapeTags , unescapeTags } from "./fileops"
+const version = VERSION;
 
 /*
  <!--!block_name-->  /<!--!\s?(\w+)\s?-->(.+)<!--!!-->/
@@ -65,6 +66,7 @@ return `<!DOCTYPE html>
   </style>
   <script>
    window.settings = ${JSON.stringify(settings , null , 2)}
+   window.savedWithImpVersion = "${version}"
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
@@ -79,7 +81,7 @@ return `<!DOCTYPE html>
 
    if(window.self.name==="IMPPreviewIframe")
    {
-  return;
+   return;
    }
    if(window.location.search.indexOf("mode=view")!=-1)
    {

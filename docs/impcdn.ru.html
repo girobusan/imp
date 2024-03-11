@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IMP! конфигурация для CDN</title>
-  <meta name="description" content="">
+  <meta name="description" content="Эта настройка — хороший способ начать работать с IMP! У вас будет всего один файл, полностью готовый к работе. И редактор, и тема оформления будут загружаться с CDN по необходимости. Но если вы захотите поменять тему, вам нужно будет соответственно поменять настройку `View CSS location`.">
   <meta name="author" content="">
   <meta name="keywords" content="">
   <meta name="og:title" content="IMP! конфигурация для CDN">
@@ -15,7 +15,6 @@
   <link rel="icon" type="image/png" href="">
   <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
   <style id="customCSS">
-  
   
   </style>
   <script>
@@ -33,6 +32,7 @@
   "author": "",
   "keywords": ""
 }
+   window.savedWithImpVersion = "0.3.0"
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
@@ -45,22 +45,27 @@
    document.head.appendChild(editor);
    }
 
-   if(window.self.name==="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe")
+   {
    return;
    }
-   if(window.location.hash==="#view"){
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
    return;
    }
-   if(window.location.hash ==="#edit" 
-   ){
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
    IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
+   IMPEdit();
+   return;
    }
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
 })
-
-window.addEventListener("hashchange", ()=>history.go(0));
   </script>
   <!--custom html here-->
 </head>
@@ -80,8 +85,6 @@ window.addEventListener("hashchange", ()=>history.go(0));
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
-
-
 [Girobusan](/) | [IMP!](index.html)
 
 
@@ -95,6 +98,7 @@ window.addEventListener("hashchange", ()=>history.go(0));
 3. Введите желаемое имя файла с расширением html, сохраните где нужно.
 
 Эта настройка — хороший способ начать работать с IMP! У вас будет всего один файл, полностью готовый к работе. И редактор, и тема оформления будут загружаться с CDN по необходимости. Но если вы захотите поменять тему, вам нужно будет соответственно поменять настройку `View CSS location`.
+
 
 
 

@@ -63,7 +63,7 @@ export function extractFromHTML(){
     return { markdown: ""}
   }
   if(dataContainer.type=="text/markdown"){
-    return {markdown: unescapeTags(dataContainer.innerHTML) }
+    return {markdown: unescapeTags(dataContainer.innerHTML).trim() }
   }
   return JSON.parse(unescapeTags( dataContainer.innerHTML ));
 }

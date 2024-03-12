@@ -106,9 +106,7 @@ return `<!DOCTYPE html>
 <body>
 ${HTMLTemplate(htmlText)}
 <footer id="pageFooter">${footer}</footer>
-<script id="pageData" type="text/markdown">
-${escapeTags( mdText )}
-</script>
+<script id="pageData" type="text/markdown">${escapeTags( mdText )}</script>
 </body>
 </html>`
 

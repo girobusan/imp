@@ -35,7 +35,9 @@
     "markdown-it": "^13.0.0",
     "markdown-it-checkbox": "^1.1.0",
     "markdown-it-emoji": "^2.0.2",
+    "markdown-it-footnote": "^4.0.0",
     "markdown-it-multimd-table": "^4.1.3",
+    "markdown-it-small": "^1.0.0",
     "preact": "^10.7.1",
     "prismjs": "^1.28.0"
   }

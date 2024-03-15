@@ -16,6 +16,8 @@ export const md = require('markdown-it')({
 })
 .use(emoji )
 .use(require('markdown-it-checkbox'))
+.use(require('markdown-it-small'))
+.use(require('markdown-it-footnote'))
 .use(require('markdown-it-multimd-table') , { 
   headerless: true,
   multiline: true

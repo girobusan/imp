@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IMP! :: More options</title>
-  <meta name="description" content="">
+  <meta name="description" content="IMP! advanced topics.">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
   <meta name="og:title" content="IMP! :: More options">
   <meta name="og:description" content="IMP! advanced topics.">
   <meta name="og:image" content="">
@@ -26,35 +28,44 @@
   "css": "\n  ",
   "headHTML": "&lt;link rel=\"icon\" href=\"data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;😈&lt;/text&gt;&lt;/svg&gt;\"&gt;",
   "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js",
-  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css"
+  "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css",
+  "author": "",
+  "keywords": ""
 }
+   window.savedWithImpVersion = "0.3.0"
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
 
-      function IMPEdit(){
-      console.info("Loading editor...")
-      const editor = document.createElement("script");
-      editor.id="editorScript";
-      editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js";
-      document.head.appendChild(editor);
-      }
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp/dist/imp.js";
+   document.head.appendChild(editor);
+   }
 
-   if(window.self.name=="IMPPreviewIframe"){
+   if(window.self.name==="IMPPreviewIframe")
+   {
    return;
    }
-   if(window.location.hash==="#view"){
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
    return;
    }
-   if(window.location.hash ==="#edit"){
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
    IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
+   IMPEdit();
+   return;
    }
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
 })
-
-window.addEventListener("hashchange", ()=>history.go(0));
   </script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😈</text></svg>">
 </head>
@@ -67,22 +78,11 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <li><a href="default_custom.html">Add colors to default theme</a></li>
 <li><a href="default_inverted.html">Inverted default theme</a></li>
 </ul>
-<h2>Other themes</h2>
-<ul>
-<li><a href="typebase.html">Theme based on Typebase.CSS</a></li>
-<li><a href="typebase_01.html">The same, but heavily customized</a></li>
-<li><a href="netart.html">&quot;Net-art&quot; — theme for long articles</a></li>
-</ul>
-<p>You may use all themes, listed here, for free. Do whatever your want with them.</p>
+<h2>Ready themes</h2>
+<p>Go to the <a href="https://girobusan.github.io/imp-themes/">IMP! Themes Site to view more</a>!</p>
 </div>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">
-
-
-
-
-
-
 [Girobusan](https://girobusan.github.io) | [IMP!](/imp)
 # IMP! themes
 
@@ -93,13 +93,10 @@ IMP! is easily customized. Default theme can be adjusted via custom CSS, but you
 - [Add colors to default theme](default_custom.html)
 - [Inverted default theme](default_inverted.html)
 
-## Other themes
+## Ready themes
 
-- [Theme based on Typebase.CSS](typebase.html)
-- [The same, but heavily customized](typebase_01.html)
-- ["Net-art" &amp;mdash; theme for long articles](netart.html)
+Go to the [IMP! Themes Site to view more](https://girobusan.github.io/imp-themes/)!
 
-You may use all themes, listed here, for free. Do whatever your want with them.
 
 
 

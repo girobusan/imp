@@ -59,7 +59,7 @@ License URL ... https://raw.githubusercontent.com/matejlatin/Gutenberg/master/li
 }
 
 .toggleWrapper {
-  display: block;
+  display: none;
   position: fixed;
   top: 26px;
   right: 26px;
@@ -846,5 +846,3 @@ a:visited {
 a:visited:hover {
   color: #555555;
 }
-
-/*# sourceMappingURL=style.css.map */

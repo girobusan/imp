@@ -24,8 +24,8 @@ export function renderHTMLFromObj({
    viewCSS,
    author,
    keywords
-}){
-   return renderHTML(htmlText, mdText, footer, title, description, image, icon, customCSS, customHeadHTML, settings, editor, viewCSS, author, keywords)
+} , noScript){
+   return renderHTML(htmlText, mdText, footer, title, description, image, icon, customCSS, customHeadHTML, settings, editor, viewCSS, author, keywords , noScript)
  
 }
 
@@ -43,7 +43,8 @@ export function renderHTML(
    editor,
    viewCSS,
    author,
-   keywords
+   keywords,
+   noScript
 
 ){
 return `<!DOCTYPE html>
@@ -70,7 +71,7 @@ return `<!DOCTYPE html>
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
-
+  ${  noScript===true ? "return;" : ""}
    function IMPEdit(){
    console.info("Loading editor...")
    const editor = document.createElement("script");

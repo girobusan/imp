@@ -26,6 +26,7 @@ export function convert2html(
   text, 
   mdtext , 
   settings, //object
+  noScript
 )
 {
 
@@ -47,7 +48,8 @@ export function convert2html(
     settings.editor(),
     settings.viewCSS(),
     settings.author(),
-    settings.keywords()
+    settings.keywords(),
+    noScript
 
   )
   ;

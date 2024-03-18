@@ -391,7 +391,7 @@ export class PageEditor extends Component{
 
         }
         radicalPreview(frame , txt){
-          const phtml = convert2html(md.render(txt || this.state.text) , "" , this.props.settings);
+          const phtml = convert2html(md.render(txt || this.state.text) , "" , this.props.settings , true);
           frame.contentWindow.document.open();
 
           frame.contentWindow.document.write(phtml);

@@ -4,6 +4,7 @@ import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
 const yaml = require('js-yaml');
 import * as MDE from "easymde";
+import BareMDE from "../BareMDE_v0.2.0.js";
 import { md } from "../md_wrapper.js";
 import { If } from "./If";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
@@ -59,7 +60,6 @@ export class PageEditor extends Component{
     super(props);
     // console.log("one")
     this.mdEditorNode = createRef();
-    this.previewIframe;
     this.state = {
       text: props.text,
       action: "edit",
@@ -78,6 +78,7 @@ export class PageEditor extends Component{
       modified: false
     }
     this.radicalPreview = this.radicalPreview.bind(this);
+    this.saveHTML = this.saveHTML.bind(this);
   }
   findCustomCSS(){
     if(this.props.settings.css()){ return this.props.settings.css() }
@@ -99,55 +100,65 @@ export class PageEditor extends Component{
     func.bind(this);
     return func;
   }
+  //service 
+  saveHTML(){
+    console.log("save requested..." , this) ;
+    saveFile(md.render(this.state.text) , this.state.text , this.props.settings );
+    this.modified = false;
+    this.setState({modified: false});
+  }
+  importMd(){
+    loadFromDisk((t)=>{
+      const extracted = extractFM(t)
+      // set editor content
+      // easyMDE.value(extracted.markdown);
+      let newState = {text:extracted.markdown}
+      if(extracted.meta){
+        try{
+          newState = Object.assign(
+            newState , 
+            cleanupObj( yaml.load( extracted.meta ) , true )
+          )
+        }catch ( e ){
+          console.error(e);
+        }
+      }
+
+      this.setState( newState ) })
+ 
+  }
+  exportMd(){
+ 
+    //export settings
+    const st = this.props.settings.dump();
+    saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
+    "---\n" + st + "\n---\n" + this.state.text)
+                  
+  }
   render(){
     return html`<div class="PageEditor">
     <div id="branding"><strong>IMP!</strong> 😈 ${version}</div>
 
-    <div class="is-mobile" id="mainButtons">
 
 
-    <input type=button id="exportHTML" value="Save"
-    class=${this.state.modified ? "modified" : "not-modified"}
-    onclick=${()=>{
-      console.log("export requested...") ;
-      saveFile(md.render(this.state.text) , this.state.text , this.props.settings );
-      this.setState({modified: false})
-    }}
-    ></input>
 
-    <input type="button" id="fullPreview" 
-    value=${this.state.action=="preview" ? "Edit" : "Preview"}
-    onclick=${()=>{
+    <!--markdown editor-->
 
-      let ci = document.getElementById("previewIframe");
+    <div class="editor_ui">
+    <${ BareMDE } 
+    content=${ this.props.text }
+    onUpdate=${ (c)=>this.handleInput( "text" , c ) }
+    modified=${ this.state.modified }
+    save=${ this.saveHTML }
+    maxHeight="100%"
+    trueFullscreen=${true}
+    render=${
+      ()=>{ return convert2html(md.render(this.state.text) , "" , this.props.settings , true) }
+      }
+      />
+      </div>
 
-      if(ci){
-
-        ci.remove(); 
-        document.body.style.overflow="auto";
-        this.setState({action: "edit"}) ;
-        return}
-
-        let i = document.createElement("iframe");
-        i.name="IMPPreviewIframe";
-        document.body.style.overflow="hidden";
-        i.id="previewIframe";
-        document.body.appendChild(i);
-        this.radicalPreview(i);
-        this.setState({action:"preview"})
-        }
-        }></input>
-        </div>
-
-
-        <div class="workZone ${this.state.modified ? 'modified' : 'still'}">
-
-        <!--markdown editor-->
-        <textarea 
-        class="editorArea"
-        ref=${this.mdEditorNode}>
-        </textarea>
-
+    <div class="main_ui ${this.state.modified ? 'modified' : 'still'}">
         <!--form-->
         <div class="formRow">
         <${TheInput} 
@@ -284,111 +295,7 @@ export class PageEditor extends Component{
           </div>`
         }
         updateMdEditor(){
-          const me = this;
-
-          const easyMDE = new MDE(
-            {
-              element: this.mdEditorNode.current ,
-              syncSideBySidePreviewScroll: false,
-              autoDownloadFontAwesome: false,
-              previewRender: (m ,p)=>{   
-                // EVERYTHING DOWN BELOW
-                // IS NOT MY FAULT
-                // EasyMDE forced me
-                // to do this
-                //
-                // make external listener
-                if(!window.embedListener){
-                  window.embedListener = function(){
-                    const pviews = document.querySelectorAll(".embeddedPreviewIframe");
-                    pviews.forEach(f=>{ me.radicalPreview(f, window.currentEditorText) })
-
-                  }
-                }
-                // window.pframeText = m;
-                var ifrm = p.querySelector(".embeddedPreviewIframe");
-                // console.log("ifrm" , ifrm);
-                window.currentEditorText = m;
-                if(p.classList.contains("editor-preview-full") || !ifrm){
-                   
-                   return `<iframe 
-                   name="IMPPreviewIframe"
-                   class="embeddedPreviewIframe"
-                   onload="embedListener()"
-                   ></iframe>`
-                }else{
-                 me.radicalPreview(ifrm, m)
-                }
-                 // return ifrm;
-              },
-              spellChecker: false,
-              sideBySideFullscreen: false,
-              toolbar: ["bold", "italic", "strikethrough",
-              "heading", "|", "quote" ,
-                "unordered-list" , "ordered-list" ,  "|" , "link" , "image" , "|",
-                "preview" , "side-by-side" , "fullscreen" , "|" ,
-                {
-                  name: "save",
-                  action: ()=>{ 
-      console.log("export requested...") ;
-      saveFile(md.render(me.state.text) , me.state.text , me.props.settings );
-      me.modified = false;
-      me.setState({modified: false});
-
-                  
-                  },
-                  className: "fa fa-floppy-o toolbarSaveButton no-disable",
-                  id: "editorSaveButton",
-                  title: "Save HTML"
-                },
-                {
-                  name: "export",
-                  action: ()=>{ 
-                      //export settings
-                      const st = this.props.settings.dump();
-                      saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
-                      "---\n" + st + "\n---\n" + this.state.text)
-                  },
-                  className: "fa fa-download no-disable",
-                  title: "Export markdown"
-                },
-                {
-                  name: "import",
-                  action: ()=>{
-                    loadFromDisk((t)=>{
-                      const extracted = extractFM(t)
-                      easyMDE.value(extracted.markdown);
-                      let newState = {text:extracted.markdown}
-                      if(extracted.meta){
-                        try{
-                          newState = Object.assign(
-                            newState , 
-                            cleanupObj( yaml.load( extracted.meta ) , true )
-                          )
-                        }catch ( e ){
-                         console.error(e);
-                        }
-                      }
-
-                      this.setState( newState ) })
-                  },
-                  className: "fa fa-upload",
-                  title: "Import markdown"
-                },
-              "|", "guide" , 
-
-              ]
-            });
-
-            easyMDE.value( this.state.text );
-            easyMDE.codemirror.on("change" , 
-              ()=>{
-                this.handleInput("text", easyMDE.value()) 
-              } )
-
-
-              // console.log("MDE" , easyMDE);
-
+          console.error("wrong function called")
         }
         radicalPreview(frame , txt){
           const phtml = convert2html(md.render(txt || this.state.text) , "" , this.props.settings);
@@ -398,7 +305,6 @@ export class PageEditor extends Component{
           frame.contentWindow.document.close();
         }
         componentDidMount(){
-          this.updateMdEditor();
         }
         componentWillUpdate(np,ns){
           if(ns.action!=this.state.action){ //switch preview mode

@@ -9,81 +9,14 @@ body{
   background-color: white;
 }
 
-#mainButtons{
-  left: 32px;
-  box-sizing: border-box;
-  position: fixed;
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-  top:0;
-  // z-index:60;
-  border-radius: 0 0 12px 12px;
-  display: none ;
-  @media(max-width:800px){
-    // position: static;
-    left: 0px;
-    bottom: 0;
-    top: initial;
-    width:100%;
-    background-color: white;
-    border-radius: 0;
-  }
 
-}
-#exportHTML, #fullPreview{
-  all: unset;
-  cursor:pointer;
-  background-color: #666;
-  color: white;
-  display: block;
-  padding: 8px 18px;
-  font-family: inherit;
-  text-align: center;
-  &:hover{
-     background-color: #888;
-  }
-  @media(max-width:800px){
-    width:50%;
-    border-radius: 0 !important;
-    padding-top: 10px;
-  }
-
-}
-
-#exportHTML{
-  border-radius: 0 0 0 16px;
-  border-right: 1px solid gray;
-  .modified &{
-    background-color: $danger;
-    color: black;
-    &:hover{
-      background-color: lighten($danger , 10%);
-    }
-  }
-}
-
-#fullPreview{
-  border-radius: 0 0 16px 0;
-}
-
-#previewIframe{
-  position: fixed;
-  top:0;
-  width:100%;
-  height: 100vh;
-  z-index: 50;
-  background-color: white;
-  border: none;
-}
 #branding{
   position: static;
   box-sizing: border-box;
-  width: 800px;
-  margin: 0 auto;
+  margin: 0 2rem;
   text-align: left;
   padding-top:16px;
-  padding-left: 10px;
+  padding-left: 0;
   @media(max-width:800px){
     position: static;
     width:100%;
@@ -116,7 +49,14 @@ body{
     border: none;
     border-bottom: 1px solid #ccc;
   }
-  .workZone{
+  .editor_ui{
+    margin: 0 24px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    max-height: 80vh;
+  }
+  .main_ui{
     all:unset;
     display:block;
     margin-top: 0px;

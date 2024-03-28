@@ -11,50 +11,52 @@ body{
 
 
 #branding{
-  position: static;
   box-sizing: border-box;
   margin: 0 2rem;
   text-align: left;
   padding-top:16px;
   padding-left: 0;
   @media(max-width:800px){
-    position: static;
     width:100%;
     text-align: center;
     font-size: 1em;
   }
 }
 .PageEditor{
-  input , textarea{
-    box-sizing: border-box !important;
-    width: 100%;
-  }
-  label{
-    display: block;
-  }
-  .EditorToolbar{
-    padding: 8px;
-    background-color: silver;
-    position: fixed;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    // height: 48px;
-    top: 0;
-    left: 0;
-    z-index: 10;
-  }
+  // input , textarea{
+  //   box-sizing: border-box !important;
+  //   width: 100%;
+  // }
+  // label{
+  //   display: block;
+  // }
+  // .EditorToolbar{
+  //   padding: 8px;
+  //   background-color: silver;
+  //   position: fixed;
+  //   width: 100%;
+  //   display: flex;
+  //   flex-direction: row;
+  //   // height: 48px;
+  //   top: 0;
+  //   left: 0;
+  //   z-index: 10;
+  // }
   hr{
     display: block;
     border: none;
     border-bottom: 1px solid #ccc;
   }
   .editor_ui{
+    .BareMDE{
+      height: 100%;
+    }
     margin: 0 24px;
     border-radius: 6px;
     overflow: hidden;
     margin-bottom: 1rem;
-    max-height: 80vh;
+    height: 60vh;
+    border: 1px solid gray;
   }
   .main_ui{
     all:unset;
@@ -74,49 +76,17 @@ body{
   .areacss{
     min-height: 300px;
   }
-  .editorArea{
-    // height: calc(100vh - 200px);
-  }
-}
-.editor-toolbar{
-  background-color: white !important;
-}
-.editor-toolbar button{
-  color: black !important;
-}
-  .modified .toolbarSaveButton {
-     border-color: $danger;
-      background-color: $danger;
-      &:hover{
-        border-color: black;
-        background-color: black;
-      }
-      i{
-        background-image: url("../icons/save_white.svg");
-      }
-
-  }
-.CodeMirror-fullscreen, .editor-toolbar.fullscreen{
-  z-index: 20 !important;
-}
-.editor-preview{
-  z-index:20 !important;
-  position:relative;
-  padding: 0 !important;
-  iframe{
-    // position: absolute;
-    // top:0;
-    // left:0;
-    // right:0;
-    // bottom:0;
-    border: 0;
-    width: 100%;
-    height: 100%;
-  }
+  // .editorArea{
+  //   // height: calc(100vh - 200px);
+  // }
 }
 
 .TheInput{
   margin-bottom: 1rem;
+  box-sizing: border-box;
+  input, textarea{
+    box-sizing: border-box;
+  }
 }
 
 .formRow{
@@ -125,16 +95,15 @@ body{
   justify-content: stretch;
   .TheInput{
     flex-grow: 1;
+    &:last-child{
+    }
   }
   .utility{
   }
   .divider{
     width: 8px;
     flex-grow: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
   }
-}
-.divider{
-  width: 8px;
-  flex-shrink: 0;
-  flex-grow: 0;
 }

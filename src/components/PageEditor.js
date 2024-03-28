@@ -3,8 +3,7 @@ import {Component , createRef} from "preact";
 import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
 const yaml = require('js-yaml');
-import * as MDE from "easymde";
-import BareMDE from "../BareMDE_v0.2.0.js";
+import BareMDE from "../BareMDE_v0.2.1.js";
 import { md } from "../md_wrapper.js";
 import { If } from "./If";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
@@ -77,8 +76,10 @@ export class PageEditor extends Component{
       keywords: props.settings.keywords() || "",
       modified: false
     }
-    this.radicalPreview = this.radicalPreview.bind(this);
     this.saveHTML = this.saveHTML.bind(this);
+    this.exportMd = this.exportMd.bind(this);
+    this.importMd = this.importMd.bind(this);
+
   }
   findCustomCSS(){
     if(this.props.settings.css()){ return this.props.settings.css() }
@@ -102,7 +103,7 @@ export class PageEditor extends Component{
   }
   //service 
   saveHTML(){
-    console.log("save requested..." , this) ;
+    // console.log("save requested..." , this) ;
     saveFile(md.render(this.state.text) , this.state.text , this.props.settings );
     this.modified = false;
     this.setState({modified: false});
@@ -153,9 +154,14 @@ export class PageEditor extends Component{
     maxHeight="100%"
     trueFullscreen=${true}
     render=${
-      ()=>{ return convert2html(md.render(this.state.text) , "" , this.props.settings , true) }
+      (c)=>{ return convert2html(md.render(c) , "" , this.props.settings , true) }
       }
+      menuItems=${[
+       { label:"Import markdown" , handler:this.importMd },
+       { label:"Export markdown" , handler:this.exportMd },
+        ]}
       />
+
       </div>
 
     <div class="main_ui ${this.state.modified ? 'modified' : 'still'}">
@@ -296,15 +302,6 @@ export class PageEditor extends Component{
         }
         updateMdEditor(){
           console.error("wrong function called")
-        }
-        radicalPreview(frame , txt){
-          const phtml = convert2html(md.render(txt || this.state.text) , "" , this.props.settings);
-          frame.contentWindow.document.open();
-
-          frame.contentWindow.document.write(phtml);
-          frame.contentWindow.document.close();
-        }
-        componentDidMount(){
         }
         componentWillUpdate(np,ns){
           if(ns.action!=this.state.action){ //switch preview mode

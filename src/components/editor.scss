@@ -6,7 +6,10 @@
 @import 'bulma/sass/form/_all';
 
 body{
-  background-color: white;
+  background-color: silver;
+}
+h2.subtitle{
+  color: white;
 }
 
 
@@ -51,12 +54,12 @@ body{
     .BareMDE{
       height: 100%;
     }
-    margin: 0 24px;
-    border-radius: 6px;
+    margin: 0;
+    // border-radius: 6px;
     overflow: hidden;
     margin-bottom: 1rem;
     height: 60vh;
-    border: 1px solid gray;
+     border-bottom: 1px solid silver;
   }
   .main_ui{
     all:unset;

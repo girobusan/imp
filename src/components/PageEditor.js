@@ -76,6 +76,7 @@ export class PageEditor extends Component{
       keywords: props.settings.keywords() || "",
       modified: false
     }
+    this.handleInput = this.handleInput.bind(this);
     this.saveHTML = this.saveHTML.bind(this);
     this.exportMd = this.exportMd.bind(this);
     this.importMd = this.importMd.bind(this);
@@ -94,6 +95,7 @@ export class PageEditor extends Component{
     const ns = {};
     ns[f]=v;
     ns.modified = true;
+    // console.log("NS" , ns);
     this.setState(ns);
   }
   makeHandler(f){
@@ -138,11 +140,7 @@ export class PageEditor extends Component{
   }
   render(){
     return html`<div class="PageEditor">
-    <div id="branding"><strong>IMP!</strong> 😈 ${version}</div>
-
-
-
-
+    <!--<div id="branding"><strong>IMP!</strong> 😈 ${version}</div>-->
     <!--markdown editor-->
 
     <div class="editor_ui">
@@ -152,13 +150,14 @@ export class PageEditor extends Component{
     modified=${ this.state.modified }
     save=${ this.saveHTML }
     maxHeight="100%"
+    branding=${ "<div style='line-height:38px'>IMP! 😈 " + version + "</div>" }
     trueFullscreen=${true}
     render=${
       (c)=>{ return convert2html(md.render(c) , "" , this.props.settings , true) }
       }
       menuItems=${[
-       { label:"Import markdown" , handler:this.importMd },
-       { label:"Export markdown" , handler:this.exportMd },
+       { label:"Import markdown &larr;" , handler:this.importMd },
+       { label:"Export markdown &rarr;" , handler:this.exportMd },
         ]}
       />
 

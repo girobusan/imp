@@ -9,7 +9,7 @@ $hatch_color: rgba(0,0,0,0.3);
 $hatch_bg_color: rgba(0,0,0,0.25);
 
 body{
-  // background-color: silver;
+  background-color: #eee;
   background-image: linear-gradient( 
       to bottom right, 
       $hatch_color,
@@ -28,6 +28,7 @@ body{
 }
 h2.subtitle{
   color: white;
+  text-shadow: 0 0 6px rgba(0,0,0,0.3);
 }
 
 
@@ -71,6 +72,15 @@ h2.subtitle{
   .editor_ui{
     .BareMDE{
       height: 100%;
+    }
+    &:after{
+      display: block;
+      position: absolute;
+      content: " ";
+      height: 4px;
+      width: 100%;
+      background: linear-gradient( to bottom , rgba(0,0,0,0.2) , rgba(0,0,0,0) )
+
     }
     margin: 0;
     // border-radius: 6px;

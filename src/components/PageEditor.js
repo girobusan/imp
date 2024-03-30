@@ -1,58 +1,15 @@
 const version = VERSION ;
 import {Component , createRef} from "preact";
-import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
 const yaml = require('js-yaml');
 import BareMDE from "../BareMDE_v0.2.1.js";
 import { md } from "../md_wrapper.js";
-import { If } from "./If";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
 import { cleanupObj } from "../settings";
 import { extractFM } from "../fm_extractor.js";
 require("./editor.scss")
-require("easymde/dist/easymde.min.css");
 import impIcon from "../icons/imp.svg?raw";
-
-function TheInput(props){
-  const inp = useRef(null);
-  const onChange = ()=>{props.handler(inp.current.value)};
-
-  return html`<div class="TheInput">
-  <label class="label" for=${props.name || "" }>${props.title}</label>
-  <${If} condition=${props.area==true}>
-  <textarea ref=${inp} 
-  style="min-height: 100px;transition:height .5s"
-  class=${"input biginout area"+props.name}
-  name=${props.name || ""} 
-  onfocus=${(e)=>{
-     const bh = e.target.getBoundingClientRect().height;
-     const sh = e.target.scrollHeight;
-     if(sh>bh){
-       e.target.style.height=(sh+16)+"px"
-       }
-    }}
-  onblur=${ (e)=>e.target.style.height="100px" }
-  onkeyup=${(e)=>{ 
-     const bh = e.target.getBoundingClientRect().height;
-     const sh = e.target.scrollHeight;
-     if(sh>bh){
-       e.target.style.height=(sh+16)+"px"
-     }
-     onChange()
-    }}
-  onchange=${(e)=>{ onChange(); }} >
-  ${props.value || ""}
-  </textarea>
-  </${If}>
-  <${If} condition=${props.area==false}>
-  <input class="input" type="text" ref=${inp} name=${props.name || ""}
-  value=${props.value || ""}
-  onchange=${onChange}
-  ></input>
-  </${If}>
-  </div>`
-
-}
+import TheInput from "./TheInput.js";
 
 
 export class PageEditor extends Component{
@@ -62,7 +19,6 @@ export class PageEditor extends Component{
     this.mdEditorNode = createRef();
     this.state = {
       text: props.text,
-      action: "edit",
       title: props.settings.title() || "",
       image: props.settings.image() || "",
       icon: props.settings.icon() || "",
@@ -100,8 +56,7 @@ export class PageEditor extends Component{
     //do not update text in state
     //keep copy
     if(f!=='text'){ ns[f]=v }else{ this.text=v };
-    ns.modified = true;
-    // console.log("NS" , ns);
+    ( !ns.modified ) && ( ns.modified = true );
     this.setState(ns);
   }
   makeHandler(f){
@@ -110,15 +65,18 @@ export class PageEditor extends Component{
     return func;
   }
   handleDrop(e){
-    console.log("Drop event found" , e);
+    // console.log("Drop event found" , e);
+    const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext)$/i
     e.preventDefault();
     e.stopPropagation();
     if(e.dataTransfer.items){
-      console.log("I see files");
+      console.log("I see file");
       const f = e.dataTransfer.items[0].getAsFile();
-      console.log(f);
-      if(f.name.endsWith(".md") || f.name.endsWith(".markdown")){
-         f.text().then(t=>this.importMdText(t)) 
+      // console.log(f);
+      if(mdRx.test(f.name) && f.type.startswith("text/")){
+        f.text().then(t=>{ 
+          confirm("Looks like markdown file. Do you want to import it?") && 
+          this.importMdText(t) }) 
       }
     }
   }
@@ -130,15 +88,13 @@ export class PageEditor extends Component{
   //service 
   saveHTML(){
     // console.log("save requested..." , this) ;
-    saveFile(md.render(this.state.text) , this.state.text , this.props.settings );
+    saveFile(md.render(this.state.text) , this.state.text , this.makeSettings() );
     this.modified = false;
     this.setState({modified: false});
   }
 
   importMdText(t){
     const extracted = extractFM(t)
-    // set editor content
-    // easyMDE.value(extracted.markdown);
     let newState = {text:extracted.markdown}
     this.text=extracted.markdown;
     if(extracted.meta){
@@ -152,226 +108,238 @@ export class PageEditor extends Component{
         console.error(e);
       }
     }
-
     this.setState( newState ) 
-
   }
+
   importMd(){
     loadFromDisk((t)=>this.importMdText(t))
   }
+
   exportMd(){
- 
     //export settings
     const st = this.props.settings.dump();
     saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
     "---\n" + st + "\n---\n" + this.text)
-                  
   }
-  render(){
-    return html`<div class="PageEditor">
-    <!--markdown editor-->
-    <div class="editor_ui">
-    <${ BareMDE } 
-    content=${ this.state.text }
-    onUpdate=${ (c)=>this.handleInput( "text" , c ) }
-    modified=${ this.state.modified }
-    save=${ this.saveHTML }
-    maxHeight="100%"
-    branding=${ "<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>" }
-    trueFullscreen=${true}
-    render=${
-      (c)=>{ return convert2html(md.render(c) , "" , this.props.settings , true) }
+
+  makeSettings(){
+    this.props.settings
+    .title(this.state.title)
+    .description(this.state.description)
+    .filename(this.state.filename)
+    .css(this.state.customCSS)
+    .image(this.state.image)
+    .icon(this.state.icon)
+    .footer(this.state.footer)
+    .editor(this.state.editor)
+    .viewCSS(this.state.viewCSS)
+    .headHTML(this.state.headHTML)
+    .author(this.state.author)
+    .keywords(this.state.keywords)
+    ;
+    return this.props.settings;
+  }
+
+  componentDidMount(){
+    document.body.addEventListener("drop", this.handleDrop)
+    document.body.addEventListener("dragover", this.handleDragOver)
+  }
+  componentWillUnmount(){
+    document.body.removeEventListener("drop", this.handleDrop)
+    document.body.removeEventListener("dragover", this.handleDragOver)
+  }
+
+  // componentWillUpdate(np,ns){
+    //   // this.text = ns.text;
+    //   if(ns.action!=this.state.action){ //switch preview mode
+      //     return;
+      //   }
+
+      // }
+      componentDidUpdate(){
+        //update settings
+        // this.props.settings
+        // .title(this.state.title)
+        // .description(this.state.description)
+        // .filename(this.state.filename)
+        // .css(this.state.customCSS)
+        // .image(this.state.image)
+        // .icon(this.state.icon)
+        // .footer(this.state.footer)
+        // .editor(this.state.editor)
+        // .viewCSS(this.state.viewCSS)
+        // .headHTML(this.state.headHTML)
+        // .author(this.state.author)
+        // .keywords(this.state.keywords)
+        //update some current HTML
+        document.title = this.state.title;
+
+        // console.log(this.state);
       }
-      menuItems=${[
-       { label:"Import markdown &larr;" , handler:this.importMd },
-       { label:"Export markdown &rarr;" , handler:this.exportMd },
-        ]}
-      />
+      render(){
+        return html`<div class="PageEditor">
+        <!--markdown editor-->
+        <div class="editor_ui">
+        <${ BareMDE } 
+        content=${ this.state.text }
+        onUpdate=${ (c)=>this.handleInput( "text" , c ) }
+        modified=${ this.state.modified }
+        save=${ this.saveHTML }
+        maxHeight="100%"
+        branding=${ "<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>" }
+        trueFullscreen=${true}
+        render=${
+          (c)=>{ return convert2html(md.render(c) , "" , this.props.settings , true) }
+          }
+          menuItems=${[
+            { label:"Import markdown &larr;" , handler:this.importMd },
+            { label:"Export markdown &rarr;" , handler:this.exportMd },
+            ]}
+            />
 
-      </div>
+            </div>
 
-    <div class="main_ui ${this.state.modified ? 'modified' : 'still'}">
+            <div class="main_ui ${this.state.modified ? 'modified' : 'still'}">
 
-        <h2 class="subtitle is-3">Page settings </h2>
-        <!--form-->
-        <div class="formRow">
-        <${TheInput} 
-        title=${"File name"}
-        name=${"filename"}
-        value=${this.state.filename}
-        area=${false}
-        handler=${this.makeHandler("filename")}
-        />
-        <div class="divider"></div>
-        <${TheInput} 
-        title=${"Title"}
-        value=${this.state.title}
-        name=${"title"}
-        area=${false}
-        handler=${this.makeHandler("title")}
-        />
-        </div>
+            <h2 class="subtitle is-3">Page settings </h2>
+            <!--form-->
+            <div class="formRow">
+            <${TheInput} 
+            title=${"File name"}
+            name=${"filename"}
+            value=${this.state.filename}
+            area=${false}
+            handler=${this.makeHandler("filename")}
+            />
+            <div class="divider"></div>
+            <${TheInput} 
+            title=${"Title"}
+            value=${this.state.title}
+            name=${"title"}
+            area=${false}
+            handler=${this.makeHandler("title")}
+            />
+            </div>
 
 
-        <div class="formRow">
+            <div class="formRow">
 
-        <${TheInput} 
-        title=${"Author"}
-        value=${this.state.author}
-        name=${"author"}
-        area=${false}
-        handler=${this.makeHandler("author")}
-        />
-        <div class="divider"></div>
-        <${TheInput} 
-        title=${"Keywords"}
-        value=${this.state.keywords}
-        name=${"keywords"}
-        area=${false}
-        handler=${this.makeHandler("keywords")}
-        />
-        </div>
-        
+            <${TheInput} 
+            title=${"Author"}
+            value=${this.state.author}
+            name=${"author"}
+            area=${false}
+            handler=${this.makeHandler("author")}
+            />
+            <div class="divider"></div>
+            <${TheInput} 
+            title=${"Keywords"}
+            value=${this.state.keywords}
+            name=${"keywords"}
+            area=${false}
+            handler=${this.makeHandler("keywords")}
+            />
+            </div>
 
-        <${TheInput} 
-        title=${"Description"}
-        name=${"description"}
-        value=${this.state.description}
-        area=${true}
-        handler=${this.makeHandler("description")}
-        />
 
-        <div class="formRow">
+            <${TheInput} 
+            title=${"Description"}
+            name=${"description"}
+            value=${this.state.description}
+            area=${true}
+            handler=${this.makeHandler("description")}
+            />
 
-        <${TheInput} 
-        title=${"Preview image URL"}
-        value=${this.state.image}
-        name=${"image"}
-        area=${false}
-        handler=${this.makeHandler("image")}
-        />
-        <div class="divider"></div>
-        <${TheInput} 
-        title=${"Icon image URL"}
-        value=${this.state.icon}
-        name=${"icon"}
-        area=${false}
-        handler=${this.makeHandler("icon")}
-        />
-        </div>
+            <div class="formRow">
 
-        <${TheInput} 
-        title=${"Footer"}
-        name=${"footer"}
-        value=${this.state.footer}
-        area=${true}
-        handler=${this.makeHandler("footer")}
-        />
+            <${TheInput} 
+            title=${"Preview image URL"}
+            value=${this.state.image}
+            name=${"image"}
+            area=${false}
+            handler=${this.makeHandler("image")}
+            />
+            <div class="divider"></div>
+            <${TheInput} 
+            title=${"Icon image URL"}
+            value=${this.state.icon}
+            name=${"icon"}
+            area=${false}
+            handler=${this.makeHandler("icon")}
+            />
+            </div>
 
-        <${TheInput} 
-        title=${"Custom CSS"}
-        name=${"css"}
-        area=${true}
-        value=${this.state.customCSS}
-        handler=${this.makeHandler("customCSS")}
-        />
+            <${TheInput} 
+            title=${"Footer"}
+            name=${"footer"}
+            value=${this.state.footer}
+            area=${true}
+            handler=${this.makeHandler("footer")}
+            />
 
-        <h2 class="subtitle is-3">Advanced </h2>
+            <${TheInput} 
+            title=${"Custom CSS"}
+            name=${"css"}
+            area=${true}
+            value=${this.state.customCSS}
+            handler=${this.makeHandler("customCSS")}
+            />
 
-        <${TheInput} 
-        title=${"Custom HTML to HEAD"}
-        name=${"head"}
-        area=${true}
-        value=${this.state.headHTML}
-        handler=${this.makeHandler("headHTML")}
-        />
+            <h2 class="subtitle is-3">Advanced (may break everything) </h2>
 
-        <${TheInput} 
-        title=${"Editor location"}
-        value=${this.state.editor}
-        name=${"editor"}
-        area=${false}
-        handler=${this.makeHandler("editor")}
-        />
+            <${TheInput} 
+            title=${"Custom HTML to HEAD"}
+            name=${"head"}
+            area=${true}
+            value=${this.state.headHTML}
+            handler=${this.makeHandler("headHTML")}
+            />
 
-        <${TheInput} 
-        title=${"View CSS location"}
-        value=${this.state.viewCSS}
-        name=${"viewcss"}
-        area=${false}
-        handler=${this.makeHandler("viewCSS")}
-        />
+            <${TheInput} 
+            title=${"Editor location"}
+            value=${this.state.editor}
+            name=${"editor"}
+            area=${false}
+            handler=${this.makeHandler("editor")}
+            />
 
-        <div class="formRow">
-        <input type="button" class="utility button is-gray" value="Switch to view mode" onclick=${()=>{
-          if(this.state.modified)
-          { 
-            confirm("All changes may be lost. Proceed?") && ( window.location="?mode=view" ) 
-          }else{
-            window.location="?mode=view"
+            <${TheInput} 
+            title=${"View CSS location"}
+            value=${this.state.viewCSS}
+            name=${"viewcss"}
+            area=${false}
+            handler=${this.makeHandler("viewCSS")}
+            />
+
+            <div class="formRow">
+            <input type="button" class="utility button is-gray" value="Switch to view mode" onclick=${()=>{
+              if(this.state.modified)
+              { 
+                confirm("All changes may be lost. Proceed?") && ( window.location="?mode=view" ) 
+              }else{
+                window.location="?mode=view"
+                }
+                }}></input>
+                <div class="divider"></div>
+                <input type="button" class="utility button is-gray" value="Duplicate file" onclick=${
+                  ()=>{
+                    const myfilename = this.props.settings.filename();
+                    const filename = prompt("Enter new filename with extension" , this.props.settings.filename());
+                    this.props.settings.filename(filename);
+                    saveFile( md.render(this.state.text) , this.state.text , this.props.settings );
+                    this.props.settings.filename(myfilename);
+                  }
+                  }></input>
+                  </div>
+
+
+
+                  </div>
+                  </div>`
+                }//render
+
+                updateMdEditor(){
+                  console.error("wrong function called")
+                }
             }
-           }}></input>
-        <div class="divider"></div>
-        <input type="button" class="utility button is-gray" value="Duplicate file" onclick=${
-          ()=>{
-            const myfilename = this.props.settings.filename();
-            const filename = prompt("Enter new filename with extension" , this.props.settings.filename());
-            this.props.settings.filename(filename);
-            saveFile( md.render(this.state.text) , this.state.text , this.props.settings );
-            this.props.settings.filename(myfilename);
-          }
-          }></input>
-          </div>
-
-
-
-          </div>
-          </div>`
-        }
-        updateMdEditor(){
-          console.error("wrong function called")
-        }
-        componentDidMount(){
-          document.addEventListener("drop", this.handleDrop)
-          document.addEventListener("dragover", this.handleDragOver)
-        }
-        componentWillUnmount(){
-
-          document.removeEventListener("drop", this.handleDrop)
-
-          document.removeEventListener("dragover", this.handleDragOver)
-        }
-        componentWillUpdate(np,ns){
-          // this.text = ns.text;
-          if(ns.action!=this.state.action){ //switch preview mode
-            return;
-          }
-
-        }
-        componentDidUpdate(){
-          //update settings
-          //
-          this.props.settings
-          .title(this.state.title)
-          .description(this.state.description)
-          .filename(this.state.filename)
-          .css(this.state.customCSS)
-          .image(this.state.image)
-          .icon(this.state.icon)
-          .footer(this.state.footer)
-          .editor(this.state.editor)
-          .viewCSS(this.state.viewCSS)
-          .headHTML(this.state.headHTML)
-          .author(this.state.author)
-          .keywords(this.state.keywords)
-          //update some current HTML
-          document.title = this.state.title;
-          
-          console.log(this.state);
-          // const ccsst = document.querySelector("#customCSS");
-          // if(ccsst){
-          //   ccsst.innerHTML = this.state.customCSS;
-          // }
-        }
-      }
 

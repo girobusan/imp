@@ -11,6 +11,7 @@ import { cleanupObj } from "../settings";
 import { extractFM } from "../fm_extractor.js";
 require("./editor.scss")
 require("easymde/dist/easymde.min.css");
+import impIcon from "../icons/imp.svg?raw";
 
 function TheInput(props){
   const inp = useRef(null);
@@ -76,7 +77,10 @@ export class PageEditor extends Component{
       keywords: props.settings.keywords() || "",
       modified: false
     }
+    this.text=props.text;
     this.handleInput = this.handleInput.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
+    this.handleDragOver = this.handleDragOver.bind(this);
     this.saveHTML = this.saveHTML.bind(this);
     this.exportMd = this.exportMd.bind(this);
     this.importMd = this.importMd.bind(this);
@@ -93,7 +97,9 @@ export class PageEditor extends Component{
   }
   handleInput(f,v){
     const ns = {};
-    ns[f]=v;
+    //do not update text in state
+    //keep copy
+    if(f!=='text'){ ns[f]=v }else{ this.text=v };
     ns.modified = true;
     // console.log("NS" , ns);
     this.setState(ns);
@@ -103,6 +109,24 @@ export class PageEditor extends Component{
     func.bind(this);
     return func;
   }
+  handleDrop(e){
+    console.log("Drop event found" , e);
+    e.preventDefault();
+    e.stopPropagation();
+    if(e.dataTransfer.items){
+      console.log("I see files");
+      const f = e.dataTransfer.items[0].getAsFile();
+      console.log(f);
+      if(f.name.endsWith(".md") || f.name.endsWith(".markdown")){
+         f.text().then(t=>this.importMdText(t)) 
+      }
+    }
+  }
+  handleDragOver(e){
+    // console.log("Drop event found" , e);
+    e.preventDefault();
+    e.stopPropagation();
+  }
   //service 
   saveHTML(){
     // console.log("save requested..." , this) ;
@@ -110,47 +134,50 @@ export class PageEditor extends Component{
     this.modified = false;
     this.setState({modified: false});
   }
-  importMd(){
-    loadFromDisk((t)=>{
-      const extracted = extractFM(t)
-      // set editor content
-      // easyMDE.value(extracted.markdown);
-      let newState = {text:extracted.markdown}
-      if(extracted.meta){
-        try{
-          newState = Object.assign(
-            newState , 
-            cleanupObj( yaml.load( extracted.meta ) , true )
-          )
-        }catch ( e ){
-          console.error(e);
-        }
-      }
 
-      this.setState( newState ) })
- 
+  importMdText(t){
+    const extracted = extractFM(t)
+    // set editor content
+    // easyMDE.value(extracted.markdown);
+    let newState = {text:extracted.markdown}
+    this.text=extracted.markdown;
+    if(extracted.meta){
+      try{
+        newState = Object.assign(
+          newState , 
+          cleanupObj( yaml.load( extracted.meta ) , true )
+        )
+        newState.text=extracted.markdown;
+      }catch ( e ){
+        console.error(e);
+      }
+    }
+
+    this.setState( newState ) 
+
+  }
+  importMd(){
+    loadFromDisk((t)=>this.importMdText(t))
   }
   exportMd(){
  
     //export settings
     const st = this.props.settings.dump();
     saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
-    "---\n" + st + "\n---\n" + this.state.text)
+    "---\n" + st + "\n---\n" + this.text)
                   
   }
   render(){
     return html`<div class="PageEditor">
-    <!--<div id="branding"><strong>IMP!</strong> 😈 ${version}</div>-->
     <!--markdown editor-->
-
     <div class="editor_ui">
     <${ BareMDE } 
-    content=${ this.props.text }
+    content=${ this.state.text }
     onUpdate=${ (c)=>this.handleInput( "text" , c ) }
     modified=${ this.state.modified }
     save=${ this.saveHTML }
     maxHeight="100%"
-    branding=${ "<div style='line-height:38px'>IMP! 😈 " + version + "</div>" }
+    branding=${ "<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>" }
     trueFullscreen=${true}
     render=${
       (c)=>{ return convert2html(md.render(c) , "" , this.props.settings , true) }
@@ -164,6 +191,8 @@ export class PageEditor extends Component{
       </div>
 
     <div class="main_ui ${this.state.modified ? 'modified' : 'still'}">
+
+        <h2 class="subtitle is-3">Page settings </h2>
         <!--form-->
         <div class="formRow">
         <${TheInput} 
@@ -302,7 +331,18 @@ export class PageEditor extends Component{
         updateMdEditor(){
           console.error("wrong function called")
         }
+        componentDidMount(){
+          document.addEventListener("drop", this.handleDrop)
+          document.addEventListener("dragover", this.handleDragOver)
+        }
+        componentWillUnmount(){
+
+          document.removeEventListener("drop", this.handleDrop)
+
+          document.removeEventListener("dragover", this.handleDragOver)
+        }
         componentWillUpdate(np,ns){
+          // this.text = ns.text;
           if(ns.action!=this.state.action){ //switch preview mode
             return;
           }
@@ -310,6 +350,7 @@ export class PageEditor extends Component{
         }
         componentDidUpdate(){
           //update settings
+          //
           this.props.settings
           .title(this.state.title)
           .description(this.state.description)
@@ -325,6 +366,8 @@ export class PageEditor extends Component{
           .keywords(this.state.keywords)
           //update some current HTML
           document.title = this.state.title;
+          
+          console.log(this.state);
           // const ccsst = document.querySelector("#customCSS");
           // if(ccsst){
           //   ccsst.innerHTML = this.state.customCSS;

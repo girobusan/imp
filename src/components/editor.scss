@@ -5,26 +5,32 @@
 @import 'bulma/sass/elements/_all';
 @import 'bulma/sass/form/_all';
 
+$hatch_color: rgba(0,0,0,0.3);
+$hatch_bg_color: rgba(0,0,0,0.25);
+
 body{
-  background-color: silver;
+  // background-color: silver;
+  background-image: linear-gradient( 
+      to bottom right, 
+      $hatch_color,
+      $hatch_color 10%,
+      $hatch_bg_color 10%,
+      $hatch_bg_color 40%,
+      $hatch_color 40%,
+      $hatch_color 60%,
+      $hatch_bg_color 60%,
+      $hatch_bg_color 90%,
+      $hatch_color 90%,
+
+      );
+  background-size: 16px 16px;
+  background-repeat: repeat;
 }
 h2.subtitle{
   color: white;
 }
 
 
-#branding{
-  box-sizing: border-box;
-  margin: 0 2rem;
-  text-align: left;
-  padding-top:16px;
-  padding-left: 0;
-  @media(max-width:800px){
-    width:100%;
-    text-align: center;
-    font-size: 1em;
-  }
-}
 .PageEditor{
   // input , textarea{
   //   box-sizing: border-box !important;
@@ -45,6 +51,18 @@ h2.subtitle{
   //   left: 0;
   //   z-index: 10;
   // }
+  .IMPBrand{
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.5;
+    svg{
+      display: inline;
+      width: 18px;
+      height: 18px;
+      position: relative;
+      top: 4px;
+    }
+  }
   hr{
     display: block;
     border: none;

@@ -71,7 +71,7 @@ return `<!DOCTYPE html>
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
-  ${  noScript===true ? "return;" : ""}
+  ${  noScript===true ? "return;/*" : ""}
    function IMPEdit(){
    console.info("Loading editor...")
    const editor = document.createElement("script");
@@ -100,6 +100,7 @@ return `<!DOCTYPE html>
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
+  ${  noScript===true ? "*/" : ""}
 })
   </script>
   ${customHeadHTML||"<!--custom html here-->"}

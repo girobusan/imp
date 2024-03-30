@@ -73,7 +73,7 @@ export class PageEditor extends Component{
       console.log("I see file");
       const f = e.dataTransfer.items[0].getAsFile();
       // console.log(f);
-      if(mdRx.test(f.name) && f.type.startswith("text/")){
+      if(mdRx.test(f.name) && f.type.startsWith("text/")){
         f.text().then(t=>{ 
           confirm("Looks like markdown file. Do you want to import it?") && 
           this.importMdText(t) }) 
@@ -189,7 +189,7 @@ export class PageEditor extends Component{
         branding=${ "<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>" }
         trueFullscreen=${true}
         render=${
-          (c)=>{ return convert2html(md.render(c) , "" , this.props.settings , true) }
+          (c)=>{ return convert2html(md.render(c) , "" , this.makeSettings() , true) }
           }
           menuItems=${[
             { label:"Import markdown &larr;" , handler:this.importMd },

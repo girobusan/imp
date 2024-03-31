@@ -333,9 +333,6 @@ export class PageEditor extends Component{
                   }
                   }></input>
                   </div>
-
-
-
                   </div>
                   </div>`
                 }//render

@@ -71,16 +71,17 @@ function unescapedCopy(){
   return props.reduce( (a,e)=>{a[e]=unescapeTags( STORE[e] || "" ) ; return a}  , {})
 }
 
-function createWrapper(){
+function createWrapper(obj){
    const w = {};
+   const SRC = obj || STORE;
    w.listProps = ()=> props.slice(0);
    w.copy = (escape)=> escape ? escapedCopy() : unescapedCopy();
    w.dump = ()=>dump2YAML( unescapedCopy() );
    props.forEach( p=>{
-      w[p] = (v)=>{ if(v===undefined){return unescapeTags( STORE[p] || "" )} ;  
+      w[p] = (v)=>{ if(v===undefined){return unescapeTags( SRC[p] || "" )} ;  
       const ev = escapeTags(v);
-      if(STORE[p]===ev){return w}
-      STORE[p]=ev ; updated(p,v) ; return w }
+      if(SRC[p]===ev){return w}
+      SRC[p]=ev ; updated(p,v) ; return w }
    } )
    return w;
 }

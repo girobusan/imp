@@ -61,6 +61,7 @@ return `<!DOCTYPE html>
   <meta name="og:image" content="${image}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="${image}">
+  <base target="_blank">
   <link rel="icon" type="image/png" href="${icon}">
   <link id = "viewCSS" rel="stylesheet" href="${viewCSS || "style.css"}">
   <style id="customCSS">${customCSS || ""}
@@ -78,11 +79,6 @@ return `<!DOCTYPE html>
    editor.id="editorScript";
    editor.src="${editor || "imp.js"}";
    document.head.appendChild(editor);
-   }
-
-   if(window.self.name==="IMPPreviewIframe")
-   {
-   return;
    }
    if(window.location.search.indexOf("mode=view")!=-1)
    {

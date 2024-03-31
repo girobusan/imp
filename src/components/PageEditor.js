@@ -5,7 +5,7 @@ const yaml = require('js-yaml');
 import BareMDE from "../BareMDE_v0.2.1.js";
 import { md } from "../md_wrapper.js";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
-import { cleanupObj } from "../settings";
+import { addEmpties, cleanupObj } from "../settings";
 import { extractFM } from "../fm_extractor.js";
 require("./editor.scss")
 import impIcon from "../icons/imp.svg?raw";
@@ -66,7 +66,7 @@ export class PageEditor extends Component{
   }
   handleDrop(e){
     // console.log("Drop event found" , e);
-    const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext)$/i
+    const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i
     e.preventDefault();
     e.stopPropagation();
     if(e.dataTransfer.items){
@@ -103,6 +103,7 @@ export class PageEditor extends Component{
           newState , 
           cleanupObj( yaml.load( extracted.meta ) , true )
         )
+        newState = addEmpties(newState);
         newState.text=extracted.markdown;
       }catch ( e ){
         console.error(e);
@@ -117,9 +118,9 @@ export class PageEditor extends Component{
 
   exportMd(){
     //export settings
-    const st = this.props.settings.dump();
+    const st = this.makeSettings().dump();
     saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
-    "---\n" + st + "\n---\n" + this.text)
+    "---\n" + st + "---\n" + this.text)
   }
 
   makeSettings(){
@@ -323,11 +324,12 @@ export class PageEditor extends Component{
                 <div class="divider"></div>
                 <input type="button" class="utility button is-gray" value="Duplicate file" onclick=${
                   ()=>{
-                    const myfilename = this.props.settings.filename();
-                    const filename = prompt("Enter new filename with extension" , this.props.settings.filename());
-                    this.props.settings.filename(filename);
-                    saveFile( md.render(this.state.text) , this.state.text , this.props.settings );
-                    this.props.settings.filename(myfilename);
+                    const s = this.makeSettings(); //sync settings
+                    const thisfilename = s.filename;
+                    const newfilename = prompt("Enter new filename with extension" , s.filename);
+                    s.filename(newfilename);
+                    saveFile( md.render(this.text) , this.text , s );
+                    s.filename( thisfilename )
                   }
                   }></input>
                   </div>

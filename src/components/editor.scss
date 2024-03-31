@@ -1,5 +1,5 @@
 @use '../scss/normalize.css';
-@import '../scss/nofont.scss';
+// @import '../scss/nofont.scss';
 @import 'bulma/sass/utilities/_all';
 @import 'bulma/sass/base/generic';
 @import 'bulma/sass/elements/_all';
@@ -39,25 +39,6 @@ button.TButton.alerted{
 
 
 .PageEditor{
-  // input , textarea{
-  //   box-sizing: border-box !important;
-  //   width: 100%;
-  // }
-  // label{
-  //   display: block;
-  // }
-  // .EditorToolbar{
-  //   padding: 8px;
-  //   background-color: silver;
-  //   position: fixed;
-  //   width: 100%;
-  //   display: flex;
-  //   flex-direction: row;
-  //   // height: 48px;
-  //   top: 0;
-  //   left: 0;
-  //   z-index: 10;
-  // }
   .IMPBrand{
     pointer-events: none;
     user-select: none;

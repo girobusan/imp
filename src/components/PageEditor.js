@@ -88,7 +88,7 @@ export class PageEditor extends Component{
   //service 
   saveHTML(){
     // console.log("save requested..." , this) ;
-    saveFile(md.render(this.state.text) , this.state.text , this.makeSettings() );
+    saveFile(md.render(this.text) , this.text , this.makeSettings() );
     this.modified = false;
     this.setState({modified: false});
   }

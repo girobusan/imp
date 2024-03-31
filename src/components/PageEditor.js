@@ -313,7 +313,7 @@ export class PageEditor extends Component{
             />
 
             <div class="formRow">
-            <input type="button" class="utility button is-gray" value="Switch to view mode" onclick=${()=>{
+            <input type="button" class="utility button is-gray violet" value="Switch to view mode" onclick=${()=>{
               if(this.state.modified)
               { 
                 confirm("All changes may be lost. Proceed?") && ( window.location="?mode=view" ) 
@@ -322,7 +322,7 @@ export class PageEditor extends Component{
                 }
                 }}></input>
                 <div class="divider"></div>
-                <input type="button" class="utility button is-gray" value="Duplicate file" onclick=${
+                <input type="button" class="utility button is-gray violet" value="Duplicate file" onclick=${
                   ()=>{
                     const s = this.makeSettings(); //sync settings
                     const thisfilename = s.filename;

@@ -7,7 +7,7 @@
 
 $hatch_color: rgba(0,0,0,0.3);
 $hatch_bg_color: rgba(0,0,0,0.25);
-$violet_color:#bb0e95 ;
+$violet_color:#8115d6 ;
 
 body{
   background-color: #eee;
@@ -30,6 +30,10 @@ body{
 h2.subtitle{
   color: white;
   text-shadow: 0 0 6px rgba(0,0,0,0.3);
+}
+
+button.TButton.alerted{
+  background-color: lighten( $violet_color , 15% ) !important;
 }
 
 
@@ -101,10 +105,6 @@ h2.subtitle{
     margin-right: auto;
     max-width: 800px;
 
-    @media(max-width:800px){
-      margin-top: 0px;
-      padding-bottom: 80px;
-    }
   }
   .areacss{
     min-height: 300px;
@@ -114,11 +114,22 @@ h2.subtitle{
   // }
 }
 
+  input[type*=button].violet{
+    background-color: $violet_color;
+    color: white;
+    border-color: darken($violet_color , 10%);
+  }
+
 .TheInput{
   margin-bottom: 1rem;
   box-sizing: border-box;
   input, textarea{
     box-sizing: border-box;
+    &:focus{
+      outline: none;
+      border: 1px solid $violet_color;
+      box-shadow: 0 0 4px $violet_color;
+    }
   }
 }
 

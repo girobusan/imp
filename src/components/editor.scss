@@ -1,9 +1,12 @@
 @use '../scss/normalize.css';
 // @import '../scss/nofont.scss';
 @import 'bulma/sass/utilities/_all';
-@import 'bulma/sass/base/generic';
-@import 'bulma/sass/elements/_all';
 @import 'bulma/sass/form/_all';
+@import 'bulma/sass/base/_all';
+
+@import 'bulma/sass/elements/button.sass';
+@import 'bulma/sass/elements/title.sass';
+@import 'bulma/sass/elements/content.sass';
 
 $hatch_color: rgba(0,0,0,0.3);
 $hatch_bg_color: rgba(0,0,0,0.25);
@@ -30,6 +33,7 @@ body{
 h2.subtitle{
   color: white;
   text-shadow: 0 0 6px rgba(0,0,0,0.3);
+  margin-top: 3rem;
 }
 
 button.TButton.alerted{
@@ -80,7 +84,7 @@ button.TButton.alerted{
     all:unset;
     display:block;
     margin-top: 0px;
-    padding:16px;
+    padding: 0 16px;
     padding-bottom: 32px;
     margin-left: auto;
     margin-right: auto;

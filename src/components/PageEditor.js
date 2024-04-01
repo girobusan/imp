@@ -16,7 +16,7 @@ export class PageEditor extends Component{
   constructor(props){
     super(props);
     // console.log("one")
-    this.mdEditorNode = createRef();
+    this.editorNode = createRef();
     this.state = {
       text: props.text,
       title: props.settings.title() || "",
@@ -34,6 +34,9 @@ export class PageEditor extends Component{
       modified: false
     }
     this.text=props.text;
+    this.startResize = this.startResize.bind(this);
+    this.stopResize = this.stopResize.bind(this);
+    this.doResize = this.doResize.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
@@ -50,6 +53,16 @@ export class PageEditor extends Component{
       return e.innerHTML;
     }
     return "/* write your CSS here*/";
+  }
+  //resize
+  startResize(){
+    console.log("start resize");
+  }
+  doResize(){
+    console.log("resizing...")
+  }
+  stopResize(){
+    console.log("resized.")
   }
   handleInput(f,v){
     const ns = {};
@@ -180,7 +193,10 @@ export class PageEditor extends Component{
       render(){
         return html`<div class="PageEditor">
         <!--markdown editor-->
-        <div class="editor_ui">
+        <div class="editor_ui" 
+        ref=${this.editorNode}
+        style=${{ height: Math.round( window.innerHeight*0.75 ) + 'px' }}
+        >
         <${ BareMDE } 
         content=${ this.state.text }
         onUpdate=${ (c)=>this.handleInput( "text" , c ) }
@@ -197,7 +213,7 @@ export class PageEditor extends Component{
             { label:"Export markdown &rarr;" , handler:this.exportMd },
             ]}
             />
-
+            <div id="resizeHandle" />
             </div>
 
             <div class="main_ui ${this.state.modified ? 'modified' : 'still'}">

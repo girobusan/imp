@@ -43,11 +43,33 @@ button.TButton.alerted{
   #resizeHandle{
     height: 8px;
     width: 100%;
-    border: 2px solid red;
     background-color: gray;
     background-image: none;
     cursor:  ns-resize;
     display: block;
+    position: absolute;
+    bottom: 0;
+    user-select: none;
+    &:after{
+      pointer-events: none;
+      display: block;
+      content: " ";
+      width: 72px;
+      height: 8px;
+      opacity: 0.5;
+      margin: 0 auto;
+      background-size: 12px 8px;
+      background-position: center center;
+      background-image: linear-gradient(
+      to bottom,
+      white,
+      black,
+      white,
+      black,
+      white,
+      black
+      );
+    }
   }
 
 
@@ -70,6 +92,7 @@ button.TButton.alerted{
     border-bottom: 1px solid #ccc;
   }
   .editor_ui{
+    position: relative;
     .BareMDE{
       height: 100%;
     }
@@ -79,6 +102,7 @@ button.TButton.alerted{
       content: " ";
       height: 4px;
       width: 100%;
+      bottom: -4px;
       background: linear-gradient( to bottom , rgba(0,0,0,0.2) , rgba(0,0,0,0) )
 
     }

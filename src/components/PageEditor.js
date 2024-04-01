@@ -34,6 +34,8 @@ export class PageEditor extends Component{
       modified: false
     }
     this.text=props.text;
+    this.editorHeight = Math.round( window.innerHeight * 0.75 );
+    this.resizeValue = null;
     this.startResize = this.startResize.bind(this);
     this.stopResize = this.stopResize.bind(this);
     this.doResize = this.doResize.bind(this);
@@ -55,14 +57,29 @@ export class PageEditor extends Component{
     return "/* write your CSS here*/";
   }
   //resize
-  startResize(){
-    console.log("start resize");
+  startResize(evt){
+    // console.log("start resize");
+    // evt.preventDefault();
+    // evt.stopPropagation();
+    window.addEventListener("mouseup", this.stopResize)
+    window.addEventListener("click", this.stopResize)
+    window.addEventListener("mousemove", this.doResize)
+    if(this.resizeValue===null){ this.resizeValue = evt.clientY }
   }
-  doResize(){
-    console.log("resizing...")
+  doResize(evt){
+    // console.log("resizing...")
+    const delta = evt.clientY - this.resizeValue;
+    this.editorHeight += delta;
+    this.resizeValue = evt.clientY;
+    this.editorNode.current.style.height = this.editorHeight + "px";
+    // console.log(delta);
   }
   stopResize(){
-    console.log("resized.")
+    console.log("resized:" , this.editorHeight)
+    this.resizeValue = null;
+    window.removeEventListener("mouseup", this.stopResize)
+    window.removeEventListener("click", this.stopResize)
+    window.removeEventListener("mousemove", this.doResize)
   }
   handleInput(f,v){
     const ns = {};
@@ -195,7 +212,7 @@ export class PageEditor extends Component{
         <!--markdown editor-->
         <div class="editor_ui" 
         ref=${this.editorNode}
-        style=${{ height: Math.round( window.innerHeight*0.75 ) + 'px' }}
+        style=${{ height: this.editorHeight + 'px' }}
         >
         <${ BareMDE } 
         content=${ this.state.text }
@@ -213,7 +230,10 @@ export class PageEditor extends Component{
             { label:"Export markdown &rarr;" , handler:this.exportMd },
             ]}
             />
-            <div id="resizeHandle" />
+            <div id="resizeHandle" 
+            onmousedown=${ this.startResize }
+            onmouseup=${ this.stopResize }
+            />
             </div>
 
             <div class="main_ui ${this.state.modified ? 'modified' : 'still'}">
@@ -228,7 +248,7 @@ export class PageEditor extends Component{
             area=${false}
             handler=${this.makeHandler("filename")}
             />
-            <div class="divider"></div>
+            <div class="divider" />
             <${TheInput} 
             title=${"Title"}
             value=${this.state.title}

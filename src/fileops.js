@@ -71,7 +71,7 @@ export function extractFromHTML(){
 }
 
 export function saveFile(text, mdtext, settings){
-  console.log("save with" , settings.copy());
+  // console.log("save with" , settings.copy());
   const fn = settings.filename();
   const content = convert2html(text, mdtext, settings);
   saveToDisk(fn, content);

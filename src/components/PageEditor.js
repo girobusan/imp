@@ -369,8 +369,8 @@ export class PageEditor extends Component{
                 <input type="button" class="utility button is-gray violet" value="Duplicate file" onclick=${
                   ()=>{
                     const s = this.makeSettings(); //sync settings
-                    const thisfilename = s.filename;
-                    const newfilename = prompt("Enter new filename with extension" , s.filename);
+                    const thisfilename = s.filename();
+                    const newfilename = prompt("Enter new filename with extension" , s.filename());
                     s.filename(newfilename);
                     saveFile( md.render(this.text) , this.text , s );
                     s.filename( thisfilename )

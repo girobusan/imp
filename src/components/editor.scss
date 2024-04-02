@@ -44,7 +44,13 @@ button.TButton.alerted{
     height: 8px;
     width: 100%;
     background-color: gray;
-    background-image: none;
+    background-image: linear-gradient( to bottom,
+    rgb( 180 , 180 , 180 ),
+    rgb( 180 , 180 , 180) 20%, 
+    rgb( 120 , 120 , 120) 20%, 
+    rgb( 120 , 120 , 120) 80%, 
+    rgb( 60 , 60 , 60) 80%, 
+    );
     cursor:  ns-resize;
     display: block;
     position: absolute;

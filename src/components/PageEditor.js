@@ -17,6 +17,7 @@ export class PageEditor extends Component{
     super(props);
     // console.log("one")
     this.editorNode = createRef();
+    this.resizer = createRef();
     this.state = {
       text: props.text,
       title: props.settings.title() || "",
@@ -58,28 +59,31 @@ export class PageEditor extends Component{
   }
   //resize
   startResize(evt){
-    // console.log("start resize");
+    console.log("start resize");
     // evt.preventDefault();
     // evt.stopPropagation();
     window.addEventListener("mouseup", this.stopResize)
     window.addEventListener("click", this.stopResize)
     window.addEventListener("mousemove", this.doResize)
-    if(this.resizeValue===null){ this.resizeValue = evt.clientY }
+    this.resizer.current.removeEventListener("mousedown" , this.startResize)
+    this.resizeValue = evt.clientY 
   }
   doResize(evt){
-    // console.log("resizing...")
+    console.log("resizing...")
     const delta = evt.clientY - this.resizeValue;
+    if(Math.abs(delta)<=2){ return }
     this.editorHeight += delta;
+    if(this.editorHeight<=200){ this.editorHeight=200 ; this.stopResize() }
     this.resizeValue = evt.clientY;
     this.editorNode.current.style.height = this.editorHeight + "px";
     // console.log(delta);
   }
   stopResize(){
     console.log("resized:" , this.editorHeight)
-    this.resizeValue = null;
     window.removeEventListener("mouseup", this.stopResize)
     window.removeEventListener("click", this.stopResize)
     window.removeEventListener("mousemove", this.doResize)
+    this.resizer.current.addEventListener("mousedown" , this.startResize)
   }
   handleInput(f,v){
     const ns = {};
@@ -231,6 +235,7 @@ export class PageEditor extends Component{
             ]}
             />
             <div id="resizeHandle" 
+            ref=${this.resizer}
             onmousedown=${ this.startResize }
             onmouseup=${ this.stopResize }
             />

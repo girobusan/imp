@@ -35,6 +35,7 @@ export class PageEditor extends Component{
       modified: false
     }
     this.text=props.text;
+    this.editorControls = {};
     this.editorHeight = Math.round( window.innerHeight * 0.75 );
     this.resizeValue = null;
     this.startResize = this.startResize.bind(this);
@@ -84,6 +85,7 @@ export class PageEditor extends Component{
     window.removeEventListener("click", this.stopResize)
     window.removeEventListener("mousemove", this.doResize)
     this.resizer.current.addEventListener("mousedown" , this.startResize)
+    this.editorControls.syncScroll();
   }
   handleInput(f,v){
     const ns = {};
@@ -219,6 +221,7 @@ export class PageEditor extends Component{
         style=${{ height: this.editorHeight + 'px' }}
         >
         <${ BareMDE } 
+        controls=${this.editorControls}
         content=${ this.state.text }
         onUpdate=${ (c)=>this.handleInput( "text" , c ) }
         modified=${ this.state.modified }

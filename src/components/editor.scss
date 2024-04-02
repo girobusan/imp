@@ -62,18 +62,18 @@ button.TButton.alerted{
       content: " ";
       width: 72px;
       height: 8px;
-      opacity: 0.5;
+      opacity: 0.6;
       margin: 0 auto;
       background-size: 12px 8px;
       background-position: center center;
       background-image: linear-gradient(
       to bottom,
       white,
-      black,
+    #585858,
       white,
-      black,
+    #585858,
       white,
-      black
+    #585858,
       );
     }
   }

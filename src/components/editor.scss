@@ -11,6 +11,7 @@
 $hatch_color: rgba(0,0,0,0.3);
 $hatch_bg_color: rgba(0,0,0,0.25);
 $violet_color:#8115d6 ;
+$resize_handle_height: 8px;
 
 body{
   background-color: #eee;
@@ -41,7 +42,7 @@ button.TButton.alerted{
 }
 
   #resizeHandle{
-    height: 8px;
+    height: $resize_handle_height;
     width: 100%;
     background-color: gray;
     background-image: linear-gradient( to bottom,
@@ -99,6 +100,7 @@ button.TButton.alerted{
   }
   .editor_ui{
     position: relative;
+    padding-bottom: $resize_handle_height;
     .BareMDE{
       height: 100%;
     }

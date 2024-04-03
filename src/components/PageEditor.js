@@ -2,7 +2,7 @@ const version = VERSION ;
 import {Component , createRef} from "preact";
 import {html} from "htm/preact";
 const yaml = require('js-yaml');
-import BareMDE from "../BareMDE_v0.2.1.js";
+import BareMDE from "../BareMDE_v0.2.1.umd.js";
 import { md } from "../md_wrapper.js";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
 import { addEmpties, cleanupObj } from "../settings";

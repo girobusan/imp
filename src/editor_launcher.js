@@ -21,7 +21,7 @@ if(window.location.search.indexOf("mode=download")==-1){
     ""
   )
 
-  document.body.innerHTML="<!--clean up-->";
+  document.body.innerHTML="";
   render(Editor, document.body)
 }else{
   console.info("Download function is quirky!")

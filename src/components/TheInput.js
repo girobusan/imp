@@ -30,9 +30,9 @@ export default function TheInput(props){
       }
       onChange()
       }}
-      onchange=${(e)=>{ onChange(); }} >
-      ${props.value || ""}
-      </textarea>
+      onchange=${(e)=>{ onChange(); }}
+      value= ${props.value || ""}
+      />
       </${If}>
       <${If} condition=${props.area==false}>
       <input class="input" type="text" ref=${inp} name=${props.name || ""}

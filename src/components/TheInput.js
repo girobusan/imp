@@ -1,4 +1,4 @@
-import { useRef } from "preact/hooks";
+import { useRef , useCallback} from "preact/hooks";
 import { If } from "./If";
 import {html} from "htm/preact";
 import { h } from "preact";
@@ -30,8 +30,7 @@ export default function TheInput(props){
       }
       onChange()
       }}
-      onchange=${(e)=>{ onChange(); }}
-      value= ${props.value || ""}
+      defaultValue= ${props.value || ""}
       />
       </${If}>
       <${If} condition=${props.area==false}>

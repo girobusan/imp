@@ -91,11 +91,14 @@ export function saveToDisk(name,content){
 
 export function loadFromDisk(callback){
   var element = document.createElement("input");
+  var filename;
   element.setAttribute("type", "file");
   element.addEventListener("change" , function(){
+    filename = element.files[0].name;
+    console.log("name" , filename)
     element.files[0]
     .text()
-    .then(r=>callback(r))
+    .then(r=>callback(r , filename))
   });
   document.body.appendChild(element);
   element.click();

@@ -1,6 +1,7 @@
 import { useRef } from "preact/hooks";
 import { If } from "./If";
 import {html} from "htm/preact";
+import { h } from "preact";
 
 export default function TheInput(props){
   const inp = useRef(null);

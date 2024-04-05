@@ -58,6 +58,13 @@ module.exports = function (env, argv) {
           ],
         },
         {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
+        {
           test: /\.(woff|ttf)$/,
           use: [{
             loader: 'file-loader',

@@ -1,5 +1,5 @@
 const version = VERSION ;
-import {Component , createRef} from "preact";
+import {Component , createRef , h} from "preact";
 import {html} from "htm/preact";
 const yaml = require('js-yaml');
 import BareMDE from "../BareMDE_v0.2.1.umd.js";
@@ -11,6 +11,8 @@ require("./editor.scss")
 import impIcon from "../icons/imp.svg?raw";
 import TheInput from "./TheInput.js";
 
+
+const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i
 
 export class PageEditor extends Component{
   constructor(props){
@@ -102,7 +104,6 @@ export class PageEditor extends Component{
   }
   handleDrop(e){
     // console.log("Drop event found" , e);
-    const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i
     e.preventDefault();
     e.stopPropagation();
     if(e.dataTransfer.items){
@@ -112,7 +113,7 @@ export class PageEditor extends Component{
       if(mdRx.test(f.name) && f.type.startsWith("text/")){
         f.text().then(t=>{ 
           confirm("Looks like markdown file. Do you want to import it?") && 
-          this.importMdText(t) }) 
+          this.importMdText(t , f.name.replace(mdRx , ".html")) }) 
       }
     }
   }
@@ -129,7 +130,7 @@ export class PageEditor extends Component{
     this.setState({modified: false});
   }
 
-  importMdText(t){
+  importMdText(t , name){
     const extracted = extractFM(t)
     let newState = {text:extracted.markdown}
     this.text=extracted.markdown;
@@ -141,6 +142,7 @@ export class PageEditor extends Component{
         )
         newState = addEmpties(newState);
         newState.text=extracted.markdown;
+        name && ( newState.filename = name );
       }catch ( e ){
         console.error(e);
       }
@@ -149,13 +151,13 @@ export class PageEditor extends Component{
   }
 
   importMd(){
-    loadFromDisk((t)=>this.importMdText(t))
+    loadFromDisk((t,n)=>this.importMdText(t , n.replace(mdRx , ".html")))
   }
 
   exportMd(){
     //export settings
     const st = this.makeSettings().dump();
-    saveToDisk(this.state.filename.replace(/.htm(l)?$/ , ".md"),
+    saveToDisk(this.state.filename.replace(/.htm(l)?$/i , ".md"),
     "---\n" + st + "---\n" + this.text)
   }
 

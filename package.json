@@ -6,13 +6,22 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "cssbuild": "cp src/scss/style.css dist/",
     "build": "npx webpack --mode production",
-    "postbuild" :  "cp src/scss/style.css dist/",
+    "postbuild": "cp src/scss/style.css dist/",
     "watch": "npx webpack --mode development"
+  },
+  "babel": {
+    "plugins": [
+      [
+        "htm"  
+      ]
+    ]
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^6.7.1",
+    "babel-loader": "^9.1.3",
+    "babel-plugin-htm": "^3.0.0",
     "htm": "^3.1.1",
     "html-inline-css-webpack-plugin": "^1.11.1",
     "html-inline-script-webpack-plugin": "^3.2.1",
@@ -29,7 +38,6 @@
   },
   "dependencies": {
     "bulma": "^0.9.4",
-    "easymde": "^2.16.1",
     "highlight.js": "^11.5.1",
     "js-yaml": "^4.1.0",
     "markdown-it": "^13.0.0",

@@ -12,6 +12,7 @@
   <meta name="og:image" content="">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="">
+  <base target="_blank">
   <link rel="icon" type="image/png" href="">
   <link id = "viewCSS" rel="stylesheet" href="style.css">
   <style id="customCSS">
@@ -32,22 +33,17 @@
   "author": "",
   "keywords": ""
 }
-   window.savedWithImpVersion = "0.3.0"
+   window.savedWithImpVersion = "0.4.0"
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
-
+  
    function IMPEdit(){
    console.info("Loading editor...")
    const editor = document.createElement("script");
    editor.id="editorScript";
    editor.src="imp.js";
    document.head.appendChild(editor);
-   }
-
-   if(window.self.name==="IMPPreviewIframe")
-   {
-   return;
    }
    if(window.location.search.indexOf("mode=view")!=-1)
    {
@@ -65,19 +61,21 @@
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
+  
 })
   </script>
   <!--custom html here-->
 </head>
 <body>
-<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="index.html">IMP!</a></p>
+<main class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="index.html">IMP!</a></p>
 <h1>Markdown export and Import</h1>
 <p>You can export IMP! content as markdown file. All it's properties, like
 custom HTML, title, description will be exported as YAML frontmatter (see below).</p>
 <p>You also can import markdown to IMP!, and if some IMP! settings where specified
 in frontmatter, they will be added to resulting IMP! page.</p>
-<p>Export and Import buttons are located at editor toolbar here:</p>
-<p><img src="pix/imp_export_import.png" alt=" Export and Import buttons "></p>
+<p>Export and Import functions can be found in pulldown menu at upper left corner of the page:</p>
+<p><img src="pix/imp_export_import_0.4.png" alt=" Export and Import"></p>
+<p>You can also drag and drop markdown file to the settings zone of the page to import.</p>
 <h2>Supported metadata:</h2>
 <ul>
 <li><code>title</code></li>
@@ -94,14 +92,11 @@ in frontmatter, they will be added to resulting IMP! page.</p>
 </ul>
 <p><strong>Note:</strong> Field <code>editor</code> with custom path to editor script won't be imported!</p>
 <h2>Quick convert markdown to IMP!</h2>
-<p>You may try <em>experimental</em> ImpHatcher utility. It will produce files, compatible with 0.3 version of IMP!.</p>
+<p>You may try <em>experimental</em> ImpHatcher utility. It will produce files, compatible with 0.3 (and newer) version of IMP!.</p>
 <div id="impHatcher"></div>
-<script src="hatcher.js" defer></script>
-</div>
+<script src="hatcher.js" defer></script></main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
-<script id="pageData" type="text/markdown">
-
-[Girobusan](https://girobusan.github.io) | [IMP!](index.html)
+<script id="pageData" type="text/markdown">[Girobusan](https://girobusan.github.io) | [IMP!](index.html)
 
 Markdown export and Import
 ==========================
@@ -112,10 +107,11 @@ custom HTML, title, description will be exported as YAML frontmatter (see below)
 You also can import markdown to IMP!, and if some IMP! settings where specified
 in frontmatter, they will be added to resulting IMP! page.
 
-Export and Import buttons are located at editor toolbar here:
+Export and Import functions can be found in pulldown menu at upper left corner of the page:
 
-![ Export and Import buttons ]( pix/imp_export_import.png )
+![ Export and Import]( pix/imp_export_import_0.4.png )
 
+You can also drag and drop markdown file to the settings zone of the page to import.
 
 ## Supported metadata:
 
@@ -135,29 +131,10 @@ Export and Import buttons are located at editor toolbar here:
 
 ## Quick convert markdown to IMP!
 
-You may try _experimental_ ImpHatcher utility. It will produce files, compatible with 0.3 version of IMP!.
+You may try _experimental_ ImpHatcher utility. It will produce files, compatible with 0.3 (and newer) version of IMP!.
 
 &lt;div id="impHatcher"&gt;&lt;/div&gt;
 
-&lt;script src="hatcher.js" defer&gt;&lt;/script&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</script>
+&lt;script src="hatcher.js" defer&gt;&lt;/script&gt;</script>
 </body>
 </html>

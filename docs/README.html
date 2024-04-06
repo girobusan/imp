@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IMP! Readme file</title>
-  <meta name="description" content="">
+  <meta name="description" content="Like a markdown-based CMS for single file, fully client-side. When you need to drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.">
   <meta name="author" content="">
   <meta name="keywords" content="">
   <meta name="og:title" content="IMP! Readme file">
@@ -12,6 +12,7 @@
   <meta name="og:image" content="">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="">
+  <base target="_blank">
   <link rel="icon" type="image/png" href="">
   <link id = "viewCSS" rel="stylesheet" href="style.css">
   <style id="customCSS">
@@ -32,10 +33,11 @@
   "author": "",
   "keywords": ""
 }
+   window.savedWithImpVersion = "0.4.0"
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
-
+  
    function IMPEdit(){
    console.info("Loading editor...")
    const editor = document.createElement("script");
@@ -43,35 +45,36 @@
    editor.src="imp.js";
    document.head.appendChild(editor);
    }
-
-   if(window.self.name==="IMPPreviewIframe"){
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
    return;
    }
-   if(window.location.hash==="#view"){
-   return;
-   }
-   if(window.location.hash ==="#edit" 
-   ){
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
    IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
+   IMPEdit();
+   return;
    }
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
+  
 })
-
-window.addEventListener("hashchange", ()=>history.go(0));
   </script>
   <!--custom html here-->
 </head>
 <body>
-<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="index.html">IMP!</a></p>
+<main class='container'><p><a href="README.ru.md">Русский</a></p>
 <h1>IMP! 👿 (It's My Page!)</h1>
 <p><strong>Markdown when you write it. HTML when they read it.</strong></p>
 <p>Like a markdown-based CMS for single file, fully client-side. When you need to drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.</p>
 <p>→ 📖 <a href="https://girobusan.github.io/imp/">Docs</a></p>
 <h2>How it works</h2>
 <p>When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, <strong>static</strong> HTML. Page does not require Java Script to be viewed, it's just plain HTML. <a href="https://girobusan.github.io/imp/">Demo and docs</a>.</p>
-<p><img src="side-by-side2.png" alt=""></p>
+<p><img src="docs/imp_screen.png" alt=""></p>
 <h2>Possible uses</h2>
 <ul>
 <li>Digital experiments</li>
@@ -86,7 +89,8 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <li>Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)</li>
 <li>You can add any HTML or JS to your page</li>
 <li>All you need is browser, that means it fully multiplatform</li>
-<li>EasyMDE as Markdown editor</li>
+<li>Simple Markdown editor with pixel-perfect preview</li>
+<li>Code highlighting</li>
 <li><a href="https://girobusan.github.io/imp/themes/"> Customizable </a></li>
 <li>Lo-fi 😃</li>
 </ul>
@@ -120,17 +124,14 @@ window.addEventListener("hashchange", ()=>history.go(0));
 <h2>Wouldn't be possible without awesome projects like:</h2>
 <ul>
 <li><a href="https://preactjs.com/">Preact</a></li>
-<li><a href="https://github.com/Ionaru/easy-markdown-editor">EasyMDE</a></li>
 <li><a href="https://matejlatin.github.io/Gutenberg">Gutenberg CSS</a></li>
 <li><a href="https://bulma.io/">Bulma CSS framework</a></li>
 <li><a href="https://www.jsdelivr.com/">Jsdelivr</a></li>
 <li><a href="https://fonts.google.com/icons">Google Material Icons</a></li>
 </ul>
-</div>
+</main>
 <footer id="pageFooter"></footer>
-<script id="pageData" type="text/markdown">
-[Girobusan](https://girobusan.github.io) | [IMP!](index.html)
-
+<script id="pageData" type="text/markdown">[Русский](README.ru.md)
 
 # IMP! :imp: (It's My Page!)
 
@@ -144,7 +145,7 @@ Like a markdown-based CMS for single file, fully client-side. When you need to d
 
 When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, **static** HTML. Page does not require Java Script to be viewed, it's just plain HTML. [Demo and docs](https://girobusan.github.io/imp/). 
 
-![](side-by-side2.png)
+![](docs/imp_screen.png)
 
 ## Possible uses
 
@@ -162,7 +163,8 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 - Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)
 - You can add any HTML or JS to your page
 - All you need is browser, that means it fully multiplatform
-- EasyMDE as Markdown editor
+- Simple Markdown editor with pixel-perfect preview
+- Code highlighting
 - [ Customizable ](https://girobusan.github.io/imp/themes/)
 - Lo-fi :)
 
@@ -205,15 +207,10 @@ You can have as many imps as you want. If they would live in one directory, they
 ## Wouldn't be possible without awesome projects like:
 
 - [Preact](https://preactjs.com/)
-- [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Bulma CSS framework](https://bulma.io/)
 - [Jsdelivr](https://www.jsdelivr.com/)
 - [Google Material Icons](https://fonts.google.com/icons)
-
-
-
-
 </script>
 </body>
 </html>

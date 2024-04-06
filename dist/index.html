@@ -11,6 +11,7 @@
   <meta name="og:image" content="">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="">
+  <base target="_blank">
   <link rel="icon" type="image/png" href="">
   <link id = "viewCSS" rel="stylesheet" href="style.css">
   <style id="customCSS">
@@ -40,10 +41,6 @@
         editor.id="editorScript";
         editor.src="imp.js";
         document.head.appendChild(editor);
-        }
-
-        if(window.self.name==="IMPPreviewIframe"){
-        return;
         }
         if(window.location.search.indexOf("mode=view")!=-1){
         return;

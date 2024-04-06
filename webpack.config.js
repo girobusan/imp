@@ -39,6 +39,13 @@ module.exports = function (env, argv) {
 
         {
           test: /\.svg$/,
+          resourceQuery: /raw/,
+          type: 'asset/source'
+        },
+
+        {
+          test: /\.svg$/,
+          resourceQuery: { not: [/raw/] },
           type: 'asset/inline'
         },
 
@@ -50,6 +57,13 @@ module.exports = function (env, argv) {
             'sass-loader'
           ],
         },
+        {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
         {
           test: /\.(woff|ttf)$/,
           use: [{

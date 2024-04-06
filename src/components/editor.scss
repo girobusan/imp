@@ -1,182 +1,161 @@
 @use '../scss/normalize.css';
-@import '../scss/nofont.scss';
+// @import '../scss/nofont.scss';
 @import 'bulma/sass/utilities/_all';
-@import 'bulma/sass/base/generic';
-@import 'bulma/sass/elements/_all';
 @import 'bulma/sass/form/_all';
+@import 'bulma/sass/base/_all';
+
+@import 'bulma/sass/elements/button.sass';
+@import 'bulma/sass/elements/title.sass';
+@import 'bulma/sass/elements/content.sass';
+
+$hatch_color: rgba(0,0,0,0.3);
+$hatch_bg_color: rgba(0,0,0,0.25);
+$violet_color:#8115d6 ;
+$resize_handle_height: 8px;
 
 body{
-  background-color: white;
-}
+  background-color: #eee;
+  background-image: linear-gradient( 
+      to bottom right, 
+      $hatch_color,
+      $hatch_color 10%,
+      $hatch_bg_color 10%,
+      $hatch_bg_color 40%,
+      $hatch_color 40%,
+      $hatch_color 60%,
+      $hatch_bg_color 60%,
+      $hatch_bg_color 90%,
+      $hatch_color 90%,
 
-#mainButtons{
-  left: 32px;
-  box-sizing: border-box;
-  position: fixed;
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-  top:0;
-  // z-index:60;
-  border-radius: 0 0 12px 12px;
-  display: none ;
-  @media(max-width:800px){
-    // position: static;
-    left: 0px;
-    bottom: 0;
-    top: initial;
-    width:100%;
-    background-color: white;
-    border-radius: 0;
-  }
-
+      );
+  background-size: 16px 16px;
+  background-repeat: repeat;
 }
-#exportHTML, #fullPreview{
-  all: unset;
-  cursor:pointer;
-  background-color: #666;
+h2.subtitle{
   color: white;
-  display: block;
-  padding: 8px 18px;
-  font-family: inherit;
-  text-align: center;
-  &:hover{
-     background-color: #888;
-  }
-  @media(max-width:800px){
-    width:50%;
-    border-radius: 0 !important;
-    padding-top: 10px;
-  }
-
+  text-shadow: 0 0 6px rgba(0,0,0,0.3);
+  margin-top: 3rem;
 }
 
-#exportHTML{
-  border-radius: 0 0 0 16px;
-  border-right: 1px solid gray;
-  .modified &{
-    background-color: $danger;
-    color: black;
-    &:hover{
-      background-color: lighten($danger , 10%);
+button.TButton.alerted{
+  background-color: lighten( $violet_color , 15% ) !important;
+}
+
+  #resizeHandle{
+    height: $resize_handle_height;
+    width: 100%;
+    background-color: gray;
+    background-image: linear-gradient( to bottom,
+    rgb( 180 , 180 , 180 ),
+    rgb( 180 , 180 , 180) 20%, 
+    rgb( 120 , 120 , 120) 20%, 
+    rgb( 120 , 120 , 120) 80%, 
+    rgb( 60 , 60 , 60) 80%, 
+    );
+    cursor:  ns-resize;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    user-select: none;
+    &:after{
+      pointer-events: none;
+      display: block;
+      content: " ";
+      width: 72px;
+      height: 8px;
+      opacity: 0.6;
+      margin: 0 auto;
+      background-size: 12px 8px;
+      background-position: center center;
+      background-image: linear-gradient(
+      to bottom,
+      white,
+    #585858,
+      white,
+    #585858,
+      white,
+    #585858,
+      );
     }
   }
-}
 
-#fullPreview{
-  border-radius: 0 0 16px 0;
-}
 
-#previewIframe{
-  position: fixed;
-  top:0;
-  width:100%;
-  height: 100vh;
-  z-index: 50;
-  background-color: white;
-  border: none;
-}
-#branding{
-  position: static;
-  box-sizing: border-box;
-  width: 800px;
-  margin: 0 auto;
-  text-align: left;
-  padding-top:16px;
-  padding-left: 10px;
-  @media(max-width:800px){
-    position: static;
-    width:100%;
-    text-align: center;
-    font-size: 1em;
-  }
-}
 .PageEditor{
-  input , textarea{
-    box-sizing: border-box !important;
-    width: 100%;
-  }
-  label{
-    display: block;
-  }
-  .EditorToolbar{
-    padding: 8px;
-    background-color: silver;
-    position: fixed;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    // height: 48px;
-    top: 0;
-    left: 0;
-    z-index: 10;
+  .IMPBrand{
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.5;
+    svg{
+      display: inline;
+      width: 18px;
+      height: 18px;
+      position: relative;
+      top: 4px;
+    }
   }
   hr{
     display: block;
     border: none;
     border-bottom: 1px solid #ccc;
   }
-  .workZone{
+  .editor_ui{
+    position: relative;
+    padding-bottom: $resize_handle_height;
+    .BareMDE{
+      height: 100%;
+    }
+    &:after{
+      display: block;
+      position: absolute;
+      content: " ";
+      height: 4px;
+      width: 100%;
+      bottom: -4px;
+      background: linear-gradient( to bottom , rgba(0,0,0,0.2) , rgba(0,0,0,0) )
+
+    }
+    margin: 0;
+    // border-radius: 6px;
+    overflow: hidden;
+    // margin-bottom: 1rem;
+     // border-bottom: 1px solid silver;
+  }
+  .main_ui{
     all:unset;
     display:block;
     margin-top: 0px;
-    padding:16px;
+    padding: 0 16px;
     padding-bottom: 32px;
     margin-left: auto;
     margin-right: auto;
     max-width: 800px;
 
-    @media(max-width:800px){
-      margin-top: 0px;
-      padding-bottom: 80px;
-    }
   }
   .areacss{
     min-height: 300px;
   }
-  .editorArea{
-    // height: calc(100vh - 200px);
-  }
+  // .editorArea{
+  //   // height: calc(100vh - 200px);
+  // }
 }
-.editor-toolbar{
-  background-color: white !important;
-}
-.editor-toolbar button{
-  color: black !important;
-}
-  .modified .toolbarSaveButton {
-     border-color: $danger;
-      background-color: $danger;
-      &:hover{
-        border-color: black;
-        background-color: black;
-      }
-      i{
-        background-image: url("../icons/save_white.svg");
-      }
 
+  input[type*=button].violet{
+    background-color: $violet_color;
+    color: white;
+    border-color: darken($violet_color , 10%);
   }
-.CodeMirror-fullscreen, .editor-toolbar.fullscreen{
-  z-index: 20 !important;
-}
-.editor-preview{
-  z-index:20 !important;
-  position:relative;
-  padding: 0 !important;
-  iframe{
-    // position: absolute;
-    // top:0;
-    // left:0;
-    // right:0;
-    // bottom:0;
-    border: 0;
-    width: 100%;
-    height: 100%;
-  }
-}
 
 .TheInput{
   margin-bottom: 1rem;
+  box-sizing: border-box;
+  input, textarea{
+    box-sizing: border-box;
+    &:focus{
+      outline: none;
+      border: 1px solid $violet_color;
+      box-shadow: 0 0 4px $violet_color;
+    }
+  }
 }
 
 .formRow{
@@ -185,16 +164,15 @@ body{
   justify-content: stretch;
   .TheInput{
     flex-grow: 1;
+    &:last-child{
+    }
   }
   .utility{
   }
   .divider{
     width: 8px;
     flex-grow: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
   }
-}
-.divider{
-  width: 8px;
-  flex-shrink: 0;
-  flex-grow: 0;
 }

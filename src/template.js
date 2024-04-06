@@ -61,6 +61,7 @@ return `<!DOCTYPE html>
   <meta name="og:image" content="${image}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="${image}">
+  <base target="_blank">
   <link rel="icon" type="image/png" href="${icon}">
   <link id = "viewCSS" rel="stylesheet" href="${viewCSS || "style.css"}">
   <style id="customCSS">${customCSS || ""}
@@ -71,18 +72,13 @@ return `<!DOCTYPE html>
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
-  ${  noScript===true ? "return;" : ""}
+  ${  noScript===true ? "return;/*" : ""}
    function IMPEdit(){
    console.info("Loading editor...")
    const editor = document.createElement("script");
    editor.id="editorScript";
    editor.src="${editor || "imp.js"}";
    document.head.appendChild(editor);
-   }
-
-   if(window.self.name==="IMPPreviewIframe")
-   {
-   return;
    }
    if(window.location.search.indexOf("mode=view")!=-1)
    {
@@ -100,6 +96,7 @@ return `<!DOCTYPE html>
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
+  ${  noScript===true ? "*/" : ""}
 })
   </script>
   ${customHeadHTML||"<!--custom html here-->"}

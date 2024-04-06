@@ -71,7 +71,7 @@ export function extractFromHTML(){
 }
 
 export function saveFile(text, mdtext, settings){
-  console.log("save with" , settings.copy());
+  // console.log("save with" , settings.copy());
   const fn = settings.filename();
   const content = convert2html(text, mdtext, settings);
   saveToDisk(fn, content);
@@ -91,11 +91,14 @@ export function saveToDisk(name,content){
 
 export function loadFromDisk(callback){
   var element = document.createElement("input");
+  var filename;
   element.setAttribute("type", "file");
   element.addEventListener("change" , function(){
+    filename = element.files[0].name;
+    console.log("name" , filename)
     element.files[0]
     .text()
-    .then(r=>callback(r))
+    .then(r=>callback(r , filename))
   });
   document.body.appendChild(element);
   element.click();

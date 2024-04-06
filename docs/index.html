@@ -12,6 +12,7 @@
   <meta name="og:image" content="https://girobusan.github.io/imp/side-by-side.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://girobusan.github.io/imp/side-by-side.png">
+  <base target="_blank">
   <link rel="icon" type="image/png" href="">
   <link id = "viewCSS" rel="stylesheet" href="style.css">
   <style id="customCSS">
@@ -32,22 +33,17 @@
   "author": "",
   "keywords": ""
 }
-   window.savedWithImpVersion = "0.3.0"
+   window.savedWithImpVersion = "0.3.5"
   </script>
   <script>
     window.addEventListener("DOMContentLoaded" , function(){
-
+  
    function IMPEdit(){
    console.info("Loading editor...")
    const editor = document.createElement("script");
    editor.id="editorScript";
    editor.src="imp.js";
    document.head.appendChild(editor);
-   }
-
-   if(window.self.name==="IMPPreviewIframe")
-   {
-   return;
    }
    if(window.location.search.indexOf("mode=view")!=-1)
    {
@@ -65,12 +61,13 @@
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
+  
 })
   </script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😈</text></svg>">
 </head>
 <body>
-<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a></p>
+<main class='container'><p><a href="https://girobusan.github.io">Girobusan</a></p>
    <a href="https://github.com/girobusan/imp">
   <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_orange_ff7600.png?resize=149%2C149" alt="Fork me on GitHub">
     </a>
@@ -86,7 +83,7 @@
 <li>All you need is browser, that means it fully multiplatform</li>
 </ul>
 <p><a href="README.html">See full README file</a></p>
-<p><img src="side-by-side2.png" alt="Side by side"></p>
+<p><img src="imp_screen.png" alt="Side by side"></p>
 <h2>Docs</h2>
 <ul>
 <li><a href="getstarted.html">Quick start manual</a></li>
@@ -105,18 +102,12 @@
 <h2>Wouldn't be possible without awesome projects like:</h2>
 <ul>
 <li><a href="https://preactjs.com/">Preact</a></li>
-<li><a href="https://github.com/Ionaru/easy-markdown-editor">EasyMDE</a></li>
 <li><a href="https://matejlatin.github.io/Gutenberg">Gutenberg CSS</a></li>
-<li><a href="https://milligram.io/">Milligram CSS framework</a></li>
+<li><a href="https://bulma.io/">Bulma CSS framework</a></li>
 </ul>
-</div>
+</main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
-<script id="pageData" type="text/markdown">
-
-
-
-
-[Girobusan](https://girobusan.github.io)
+<script id="pageData" type="text/markdown">[Girobusan](https://girobusan.github.io)
 
    &lt;a href="https://github.com/girobusan/imp"&gt;
   &lt;img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_orange_ff7600.png?resize=149%2C149" alt="Fork me on GitHub"&gt;
@@ -139,7 +130,7 @@
 [See full README file](README.html)
 
 
-![Side by side](side-by-side2.png)
+![Side by side](imp_screen.png)
 
 ## Docs
 
@@ -159,18 +150,7 @@
 ## Wouldn't be possible without awesome projects like:
 
 - [Preact](https://preactjs.com/)
-- [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
-- [Milligram CSS framework](https://milligram.io/)
-
-
-
-
-
-
-
-
-
-</script>
+- [Bulma CSS framework](https://bulma.io/)</script>
 </body>
 </html>

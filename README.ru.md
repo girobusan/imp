@@ -30,7 +30,7 @@
 - На выходе полностью статичный, *легкий* HTML, если вы сами не добавите скриптов. 
 - В текст можно включать любой HTML и добавлять скрипты.
 - Нужен только браузер и локальный файл, работает на любой ОС
-- EasyMDE как редактор, несколько режимов предварительного просмотра.
+- Быстрый редактор markdown с точным предпросмотром и проверкой орфографии (используется функция браузера) 
 - Все можно [ кастомизировать ](https://girobusan.github.io/imp/themes/).
 - Лоу-фай :)
 
@@ -72,7 +72,6 @@
 ## Создано благодаря великолепным проектам
 
 - [Preact](https://preactjs.com/)
-- [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Bulma CSS framework](https://bulma.io/)
 - [Jsdelivr](https://www.jsdelivr.com/)

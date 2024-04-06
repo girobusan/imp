@@ -30,7 +30,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 - Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)
 - You can add any HTML or JS to your page
 - All you need is browser, that means it fully multiplatform
-- EasyMDE as Markdown editor
+- Simple Markdown editor with pixel-perfect preview
 - Code highlighting
 - [ Customizable ](https://girobusan.github.io/imp/themes/)
 - Lo-fi :)
@@ -74,7 +74,6 @@ You can have as many imps as you want. If they would live in one directory, they
 ## Wouldn't be possible without awesome projects like:
 
 - [Preact](https://preactjs.com/)
-- [EasyMDE](https://github.com/Ionaru/easy-markdown-editor)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Bulma CSS framework](https://bulma.io/)
 - [Jsdelivr](https://www.jsdelivr.com/)

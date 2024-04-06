@@ -5,8 +5,13 @@ import { h } from "preact";
 
 export default function TheInput(props){
   const inp = useRef(null);
-  const onChange = useCallback( ()=>{( props.area &&console.log("CHANGE" , inp.current.value) ) ;props.handler(inp.current.value)} , [ props.handler , inp ]);
-  props.area && console.log("input props" , props);
+  const onChange = useCallback( 
+     ()=>{ 
+     // props.area &&console.log("CHANGE" , inp.current.value) ) ;
+     props.handler(inp.current.value)} , 
+     [ props.handler , inp ]
+     );
+  // props.area && console.log("input props" , props);
 
 
   return html`<div class="TheInput">

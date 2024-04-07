@@ -16,11 +16,11 @@ const props = [
    "author",
    "keywords"
    ]
-var callback ;
+var callback ; //called on update setting, maybe not required
 
 export function create(settings_src , cb){
 // console.log("Creating settings wrapper" , settings_src)
-  props.forEach( k=>STORE[k]="" );
+  // props.forEach( k=>STORE[k]="" );
   if(cb){callback=cb}
   props.forEach(p=>STORE[p]=settings_src[p] || "");
   return createWrapper();
@@ -45,8 +45,9 @@ function updated(k,v){
   // console.log("Updated setting" , k)
 }
 
-function escapedCopy(){
-  return props.reduce( (a,e)=>{a[e]=( STORE[e] || "" ) ; return a}  , {})
+function escapedCopy(obj){
+  const SRC = obj || STORE;
+  return props.reduce( (a,e)=>{a[e]=( SRC[e] || "" ) ; return a}  , {})
   
 }
 
@@ -67,16 +68,17 @@ function dump2YAML(obj){
 
 
 
-function unescapedCopy(){
-  return props.reduce( (a,e)=>{a[e]=unescapeTags( STORE[e] || "" ) ; return a}  , {})
+function unescapedCopy(obj){
+  const SRC = obj || STORE;
+  return props.reduce( (a,e)=>{a[e]=unescapeTags( SRC[e] || "" ) ; return a}  , {})
 }
 
 function createWrapper(obj){
    const w = {};
    const SRC = obj || STORE;
    w.listProps = ()=> props.slice(0);
-   w.copy = (escape)=> escape ? escapedCopy() : unescapedCopy();
-   w.dump = ()=>dump2YAML( unescapedCopy() );
+   w.copy = (escape)=> escape ? escapedCopy(SRC) : unescapedCopy(SRC);
+   w.dump = ()=>dump2YAML( unescapedCopy(SRC) );
    props.forEach( p=>{
       w[p] = (v)=>{ if(v===undefined){return unescapeTags( SRC[p] || "" )} ;  
       const ev = escapeTags(v);

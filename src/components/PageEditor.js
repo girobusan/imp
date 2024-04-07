@@ -134,19 +134,19 @@ export class PageEditor extends Component{
     const extracted = extractFM(t)
     let newState = {text:extracted.markdown}
     this.text=extracted.markdown;
+    name && ( newState.filename = name );
+
     if(extracted.meta){
       try{
         newState = Object.assign(
           newState , 
           cleanupObj( yaml.load( extracted.meta ) , true )
         )
-        newState = addEmpties(newState);
-        newState.text=extracted.markdown;
-        name && ( newState.filename = name );
       }catch ( e ){
-        console.error(e);
+        console.error("Can not parse metadata:" , e);
       }
     }
+    newState = addEmpties(newState);
     this.setState( newState ) 
   }
 

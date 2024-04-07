@@ -1,4 +1,3 @@
-
 import {h , render} from "preact";
 import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
@@ -58,12 +57,8 @@ const Hatcher = function(){
    <div class="HatcherUI">
    <h2>Imp 😈 Hatcher <small>(beta)</small></h2>
    <p>
-   Hatcher makes <strong><a href="https://github.com/girobusan/imp">IMP!</a></strong> HTML files from markdown text files.
-   </p>
-   <p>
-   <strong>Note:</strong> you'll need to download <code>imp.js</code> and <code>style.css</code> separately (<a href="https://github.com/girobusan/imp/tree/master/dist">here</a>).
-   </p>
-   <p>You may read the <a href="https://girobusan.github.io/imp/"><strong>IMP!</strong> docs here.</a></p>
+   Hatcher makes <strong><a href="https://github.com/girobusan/imp">IMP!</a></strong> HTML files from markdown text files. <strong>Note:</strong> you'll need to download <code>imp.js</code> and <code>style.css</code> separately (<a href="https://github.com/girobusan/imp/tree/master/dist">here</a>).
+   You may read the <a href="https://girobusan.github.io/imp/"><strong>IMP!</strong> docs here.</a></p>
    <div 
    onDrop=${ processDrop }
    onDragOver=${ e=>{ zone.current.classList.add("hover") ; e.stopPropagation() ; e.preventDefault() } }

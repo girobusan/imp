@@ -44,6 +44,7 @@ function md2imp(mdtext , fname){
    const md2html = md.render(parts.markdown);
    let metadata = parts.meta ? yaml.load(parts.meta): {};
    metadata = cleanupObj(metadata);
+    !metadata.footer && ( metadata.footer = "Powered by <a href='https://github.com/girobusan/imp'><strong>IMP!</strong></a>" );
    metadata.htmlText = md2html;
    metadata.mdText = parts.markdown; 
    if(fname){ metadata.filename = fname }

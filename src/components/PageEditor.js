@@ -132,9 +132,12 @@ export class PageEditor extends Component{
 
   importMdText(t , name){
     const extracted = extractFM(t)
-    let newState = {text:extracted.markdown}
+    let newState = {
+      text:extracted.markdown,
+      footer : "Powered by <a href='https://github.com/girobusan/imp'><strong>IMP!</strong></a>",
+      filename: name || 'index.html'
+      }
     this.text=extracted.markdown;
-    name && ( newState.filename = name );
 
     if(extracted.meta){
       try{

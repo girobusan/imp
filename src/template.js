@@ -63,16 +63,11 @@ return `<!DOCTYPE html>
   <meta name="twitter:image" content="${image}">
   <base target="_blank">
   <link rel="icon" type="image/png" href="${icon}">
-  <link id = "viewCSS" rel="stylesheet" href="${viewCSS || "style.css"}">
-  <style id="customCSS">${customCSS || ""}
-  </style>
   <script>
    window.settings = ${JSON.stringify(settings , null , 2)}
    window.savedWithImpVersion = "${version}"
   </script>
   <script>
-    window.addEventListener("DOMContentLoaded" , function(){
-  ${  noScript===true ? "return;/*" : ""}
    function IMPEdit(){
    console.info("Loading editor...")
    const editor = document.createElement("script");
@@ -80,6 +75,8 @@ return `<!DOCTYPE html>
    editor.src="${editor || "imp.js"}";
    document.head.appendChild(editor);
    }
+   window.addEventListener("DOMContentLoaded" , function(){
+  ${  noScript===true ? "return;/*" : ""}
    if(window.location.search.indexOf("mode=view")!=-1)
    {
    return;
@@ -99,6 +96,9 @@ return `<!DOCTYPE html>
   ${  noScript===true ? "*/" : ""}
 })
   </script>
+  <link id = "viewCSS" rel="stylesheet" href="${viewCSS || "style.css"}">
+  <style id="customCSS">${customCSS || ""}
+  </style>
   ${customHeadHTML||"<!--custom html here-->"}
 </head>
 <body>

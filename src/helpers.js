@@ -15,7 +15,7 @@ function attachScript(url){
   return new Promise( (res, rej)=>{
       document.head.appendChild(st);
       st.addEventListener("load", res);
-      st.addEventListener("error", rej);
+      st.addEventListener("error",()=>{ console.log("oops") ;st.remove() ; rej("Can not load script") });
       st.setAttribute("src", url)
   } )
 }
@@ -27,7 +27,7 @@ function addHelper(h){
       callbacks[h] = res;
       const url = "./helpers/" + h + ".js";
       attachScript(url)
-      .catch(e=>rej(e))
+      .catch(e=>{  rej(e) })
       ; 
     }
   ) , 500 , "dropped by timeout:"+h);
@@ -59,6 +59,7 @@ window.impHelpers = {
   engage: async function( helperName ,  action , params , subname ){
      return await getHelper(helperName)
      .then(hlp=>hlp[action](params, subname))
+     .catch(()=>"Unknown helper")
   }
 }
 

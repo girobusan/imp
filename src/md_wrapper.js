@@ -54,8 +54,13 @@ export function renderMd(mdtext , draft){
 }
 
 export async function renderMdAsync(mdtext , draft){
-  return findHelpers(mdtext , draft)
-  .then(r=>md.render(r))
+  if(window.impHelpers)
+  {
+    return findHelpers(mdtext , draft)
+    .then(r=>md.render(r))
+  }else{
+     return md.render(mdtext)
+  }
   // return md.render(mdtext);
 }
 

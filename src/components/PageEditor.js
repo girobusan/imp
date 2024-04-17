@@ -2,8 +2,8 @@ const version = VERSION ;
 import {Component , createRef , h} from "preact";
 import {html} from "htm/preact";
 const yaml = require('js-yaml');
-import BareMDE from "../BareMDE_v0.2.1.umd.js";
-import { md } from "../md_wrapper.js";
+import BareMDE from "../BareMDE_v0.2.2.umd.js";
+import { md , renderMd , renderMdAsync} from "../md_wrapper.js";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
 import { addEmpties, cleanupObj } from "../settings";
 import { extractFM } from "../fm_extractor.js";
@@ -125,7 +125,7 @@ export class PageEditor extends Component{
   //service 
   saveHTML(){
     // console.log("save requested..." , this) ;
-    saveFile(md.render(this.text) , this.text , this.makeSettings() );
+    saveFile(renderMd(this.text , false) , this.text , this.makeSettings() );
     this.modified = false;
     this.setState({modified: false});
   }
@@ -235,7 +235,12 @@ export class PageEditor extends Component{
         branding=${ "<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>" }
         trueFullscreen=${true}
         render=${
-          (c)=>{ return convert2html(md.render(c) , "" , this.makeSettings() , true) }
+          (c)=>{ 
+            return renderMdAsync(c , true)
+            .then( r=>{
+              return convert2html( r , "" , this.makeSettings() , true) 
+              } )
+          }
           }
           menuItems=${[
             { label:"Import markdown &larr;" , handler:this.importMd },

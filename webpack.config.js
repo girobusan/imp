@@ -25,7 +25,8 @@ module.exports = function (env, argv) {
     mode: argv.mode,
     entry: {
       "imp": './src/editor_launcher.js',
-      "hatcher" : './src/hatcher.js'
+      "hatcher" : './src/hatcher.js',
+      "helpers" : './src/helpers.js' 
     },
     devtool: argv.mode != "production" ? 'inline-source-map' : false, 
 

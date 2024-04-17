@@ -22,3 +22,40 @@ export const md = require('markdown-it')({
   headerless: true,
   multiline: true
 })
+
+//BLACK MAGIC ZONE
+//
+const helperRx = /^```helper:([a-z0-9-_]+)(\/[a-z0-9_-]+)?$([^]+?)^```$/igm ;
+
+async function replaceAsync(str, regex, asyncFn) {
+  const promises = [];
+  str.replace(regex, (full, ...args) => {
+    promises.push(asyncFn(full, ...args));
+    return full;
+  });
+  const data = await Promise.all(promises);
+  return str.replace(regex, () => data.shift());
+}
+
+// g1 = helper name
+// g2 = helper subtype, with slash (/json)
+// g3 = helper settings
+
+function findHelpers(mdtext , draft){
+  let action = draft ? "preview" : "render";
+  return replaceAsync( mdtext ,  helperRx , function(f , name , subname , params){
+     return window.impHelpers.engage( name , "render" , params , subname) 
+  })
+}
+
+export function renderMd(mdtext , draft){
+  // let helped = window.impHelpers ? findHelpers(mdtext) : mdtext;
+  return md.render(mdtext);
+}
+
+export async function renderMdAsync(mdtext , draft){
+  return findHelpers(mdtext , draft)
+  .then(r=>md.render(r))
+  // return md.render(mdtext);
+}
+

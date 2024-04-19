@@ -126,10 +126,11 @@ async function cachedPreview( name ,  params_raw , subname ){
 
 window.impHelpers = {
 
-  register: (name , helper , paramFmt)=>{ 
+  register: async (name , helper , paramFmt)=>{ 
     console.info("register" , name)
     helpers[name]=helper  ; 
     makeFormatter(name, paramFmt);
+    "init" in helpers[name] && await helpers[name].init();
     if(typeof callbacks[name] === 'function'){ 
       callbacks[name](helpers[name]);
       callbacks[name]=null;
@@ -152,7 +153,11 @@ window.impHelpers = {
      return await getHelper(name)
      .then(hlp=>hlp[action](paramFormats[name](params_raw), params_raw , subname))
      .catch((e)=>console.error("Can not engage" , name , e))
-  }
+  },
+
+  //service
+
+  attachScript: attachScript
 
 }
 //do view mode work

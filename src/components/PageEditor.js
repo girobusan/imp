@@ -125,9 +125,15 @@ export class PageEditor extends Component{
   //service 
   saveHTML(){
     // console.log("save requested..." , this) ;
-    saveFile(renderMd(this.text , false) , this.text , this.makeSettings() );
-    this.modified = false;
-    this.setState({modified: false});
+    // saveFile(renderMd(this.text , false) , this.text , this.makeSettings() );
+
+    renderMdAsync( this.text , false )
+    .then( r=>{
+      saveFile( r , this.text , this.makeSettings() ) ;
+      this.modified = false;
+      this.setState({modified: false});
+    } )
+
   }
 
   importMdText(t , name){

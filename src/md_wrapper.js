@@ -44,7 +44,7 @@ async function replaceAsync(str, regex, asyncFn) {
 function findHelpers(mdtext , draft){
   let action = draft ? "preview" : "render";
   return replaceAsync( mdtext ,  helperRx , function(f , name , subname , params){
-     return window.impHelpers.engage( name , "render" , params , subname) 
+     return window.impHelpers.engage( name , action, params , subname) 
   })
 }
 

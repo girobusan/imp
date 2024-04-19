@@ -48,8 +48,7 @@ function findHelpers(mdtext , draft){
   })
 }
 
-export function renderMd(mdtext , draft){
-  // let helped = window.impHelpers ? findHelpers(mdtext) : mdtext;
+export function renderMd(mdtext ){
   return md.render(mdtext);
 }
 

@@ -5,6 +5,21 @@ var paramFormats={};
 var callbacks = {};
 var previewCache = {};
 
+const jsonFmt = (p)=>{
+  let r = p;
+  try{
+    r=JSON.parse(p)
+  }catch(e){ console.error("Can not parse JSON" , p , e) }
+  return r;
+}
+const yamlFmt = (p)=>{
+  let r=p;
+  try{
+    r=yaml.load(p)
+  }catch(e){ console.error("Can not parse YAML" , p ,e) }
+  return r;
+}
+
 function tracePath(obj , keys){
   let cursor = obj;
   keys.forEach( k=>{  
@@ -28,7 +43,7 @@ function attachScript(url){
   return new Promise( (res, rej)=>{
       document.head.appendChild(st);
       st.addEventListener("load", res);
-      st.addEventListener("error",()=>{ console.log("oops") ;st.remove() ; rej("Can not load script") });
+      st.addEventListener("error",(e)=>{ console.error("Can not load script", e) ;st.remove() ; rej("Can not load script") });
       st.setAttribute("src", url)
   } )
 }
@@ -98,20 +113,6 @@ async function cachedPreview( name ,  params_raw , subname ){
   }
 
   function makeFormatter( hname , pfname ){
-    const jsonFmt = (p)=>{
-      let r = p;
-      try{
-          r=JSON.parse(p)
-      }catch{ console.error("can not parse JSON" , p) }
-      return r;
-    }
-    const yamlFmt = (p)=>{
-       let r=p;
-       try{
-          r=yaml.load(p)
-       }catch{ console.error("can not parse YAML" , p) }
-       return r;
-    }
 
     switch(pfname.toLowerCase()) {
        case "json": paramFormats[hname]= jsonFmt;

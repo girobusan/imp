@@ -158,7 +158,8 @@ window.impHelpers = {
 
   //service
 
-  attachScript: attachScript
+  attachScript: attachScript,
+  parseYAML: yamlFmt
 
 }
 //do view mode work

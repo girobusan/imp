@@ -37,7 +37,8 @@ export default function TheInput(props){
       }
       }}
       value=${props.value || ""}
-      oninput=${onChange}
+      onchange=${onChange}
+      
       />
       </${If}>
       <${If} condition=${props.area==false}>

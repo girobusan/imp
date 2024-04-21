@@ -57,7 +57,7 @@ function defaultPreview(name, text){
   }
 
 function addHelper(name){
-  console.log("Add helper" , name ) 
+  // console.log("Add helper" , name ) 
   return timeout( 
   new Promise(
     (res, rej)=>{
@@ -71,13 +71,15 @@ function addHelper(name){
 }
 
 function getHelper(name){
-  console.log("getting helper" , name )
+  // console.log("getting helper" , name )
   return new Promise(
     (res , rej)=>{
        // console.log("test if already here" , helpers);
         if(helpers[name]){ res(helpers[name]) ; return }
         addHelper(name)
-        .then( r=>{console.log("About to finally get" , r) ;  res(r) })
+        .then( r=>{
+         // console.log("About to finally get" , r) ;
+         res(r) })
         .catch(e=>rej(e))
     }
   )

@@ -38,8 +38,9 @@ function timeout(prom, time, exception) {
   ]).finally(() => clearTimeout(timer));
 }
 
-function attachScript(url){
+export function attachScript(url , id){
   const st = document.createElement("script");
+  if( id ){ st.id=id };
   return new Promise( (res, rej)=>{
       document.head.appendChild(st);
       st.addEventListener("load", res);

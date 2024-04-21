@@ -11,6 +11,7 @@ require("./editor.scss")
 import impIcon from "../icons/imp.svg?raw";
 import TheInput from "./TheInput.js";
 import CheckBox from "./CheckBox.js";
+import { attachScript } from "../helpers.js";
 
 
 const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i
@@ -202,6 +203,11 @@ export class PageEditor extends Component{
   componentDidUpdate(){
     //update some current HTML
     document.title = this.state.title;
+    if(this.state.enableHelpers && 
+      !window.impHelpers
+      ){
+       attachScript( "helpers.js" , "helpersScript")
+    }
 
   }
   render(){

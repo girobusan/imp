@@ -398,12 +398,10 @@ export class PageEditor extends Component{
                   }></input>
 
                 <div class="divider"></div>
-                <input type="button" class="utility button is-gray violet" value="Save file" onclick=${
-                  ()=>{
-                    const s = this.makeSettings(); //sync settings
-                    saveFile( md.render(this.text) , this.text , s );
-                  }
-                  }></input>
+                <input type="button" 
+                class="utility button is-gray violet" 
+                value="Save file" 
+                onclick=${ this.saveHTML }/>
                   </div>
                   </div>
                   </div>`

@@ -23,9 +23,10 @@ export function renderHTMLFromObj({
    editor,
    viewCSS,
    author,
-   keywords
+   keywords,
+   enableHelpers
 } , noScript){
-   return renderHTML(htmlText, mdText, footer, title, description, image, icon, customCSS, customHeadHTML, settings, editor, viewCSS, author, keywords , noScript)
+   return renderHTML(htmlText, mdText, footer, title, description, image, icon, customCSS, customHeadHTML, settings, editor, viewCSS, author, keywords, enableHelpers , noScript)
  
 }
 
@@ -44,7 +45,8 @@ export function renderHTML(
    viewCSS,
    author,
    keywords,
-   noScript
+   enableHelpers,
+   noScript,
 
 ){
 return `<!DOCTYPE html>
@@ -61,7 +63,6 @@ return `<!DOCTYPE html>
   <meta name="og:image" content="${image}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="${image}">
-  <base target="_blank">
   <link rel="icon" type="image/png" href="${icon}">
   <script>
    window.settings = ${JSON.stringify(settings , null , 2)}
@@ -96,6 +97,7 @@ return `<!DOCTYPE html>
   ${  noScript===true ? "*/" : ""}
 })
   </script>
+  ${ enableHelpers && "<script src='helpers.js' id='helpersScript'></script>" }
   <link id = "viewCSS" rel="stylesheet" href="${viewCSS || "style.css"}">
   <style id="customCSS">${customCSS || ""}
   </style>

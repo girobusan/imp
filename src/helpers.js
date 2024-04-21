@@ -168,7 +168,8 @@ window.impHelpers = {
 
   attachScript: attachScript,
   parseYAML: yamlFmt,
-  defaultPreview: defaultPreview
+  defaultPreview: defaultPreview,
+  // disable: ()=>window.impHelpers = null;
 
 }
 //do view mode work

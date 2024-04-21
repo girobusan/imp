@@ -14,7 +14,9 @@ const props = [
    "editor",
    "viewCSS",
    "author",
-   "keywords"
+   "keywords",
+   "enableHelpers",
+   "pathToHelpersModule"
    ]
 var callback ; //called on update setting, maybe not required
 

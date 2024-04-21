@@ -3,13 +3,14 @@ import {Component , createRef , h} from "preact";
 import {html} from "htm/preact";
 const yaml = require('js-yaml');
 import BareMDE from "../BareMDE_v0.2.3.umd.js";
-import { md , renderMd , renderMdAsync} from "../md_wrapper.js";
+import { md , renderMdAsync} from "../md_wrapper.js";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
 import { addEmpties, cleanupObj } from "../settings";
 import { extractFM } from "../fm_extractor.js";
 require("./editor.scss")
 import impIcon from "../icons/imp.svg?raw";
 import TheInput from "./TheInput.js";
+import CheckBox from "./CheckBox.js";
 
 
 const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i
@@ -20,6 +21,8 @@ export class PageEditor extends Component{
     // console.log("one")
     this.editorNode = createRef();
     this.resizer = createRef();
+    // console.log(props.settings.enableHelpers());
+    // console.log(JSON.parse( props.settings.enableHelpers() || "false" ));
     this.state = {
       text: props.text,
       title: props.settings.title() || "",
@@ -34,7 +37,8 @@ export class PageEditor extends Component{
       headHTML: props.settings.headHTML() || "",
       author: props.settings.author() || "",
       keywords: props.settings.keywords() || "",
-      modified: false
+      modified: false,
+      enableHelpers: JSON.parse( props.settings.enableHelpers()|| "false" ) 
     }
     this.text=props.text;
     this.editorControls = {};
@@ -62,9 +66,6 @@ export class PageEditor extends Component{
   }
   //resize
   startResize(evt){
-    // console.log("start resize");
-    // evt.preventDefault();
-    // evt.stopPropagation();
     window.addEventListener("mouseup", this.stopResize)
     window.addEventListener("click", this.stopResize)
     window.addEventListener("mousemove", this.doResize)
@@ -184,6 +185,7 @@ export class PageEditor extends Component{
     .headHTML(this.state.headHTML)
     .author(this.state.author)
     .keywords(this.state.keywords)
+    .enableHelpers(this.state.enableHelpers)
     ;
     return this.props.settings;
   }
@@ -197,34 +199,12 @@ export class PageEditor extends Component{
     document.body.removeEventListener("dragover", this.handleDragOver)
   }
 
-  // componentWillUpdate(np,ns){
-    //   // this.text = ns.text;
-    //   if(ns.action!=this.state.action){ //switch preview mode
-      //     return;
-      //   }
+  componentDidUpdate(){
+    //update some current HTML
+    document.title = this.state.title;
 
-      // }
-      componentDidUpdate(){
-        //update settings
-        // this.props.settings
-        // .title(this.state.title)
-        // .description(this.state.description)
-        // .filename(this.state.filename)
-        // .css(this.state.customCSS)
-        // .image(this.state.image)
-        // .icon(this.state.icon)
-        // .footer(this.state.footer)
-        // .editor(this.state.editor)
-        // .viewCSS(this.state.viewCSS)
-        // .headHTML(this.state.headHTML)
-        // .author(this.state.author)
-        // .keywords(this.state.keywords)
-        //update some current HTML
-        document.title = this.state.title;
-
-        // console.log(this.state);
-      }
-      render(){
+  }
+  render(){
         return html`<div class="PageEditor">
         <!--markdown editor-->
         <div class="editor_ui" 
@@ -245,7 +225,7 @@ export class PageEditor extends Component{
             return renderMdAsync(c , true)
             .then( r=>{
               return `<main class="container" id="pageMain">${r}</main><footer id="pageFooter">${this.state.footer}</footer>`;
-              } )
+              })
           }
           }
         render=${
@@ -354,6 +334,16 @@ export class PageEditor extends Component{
             handler=${this.makeHandler("customCSS")}
             />
 
+            <h2 class="subtitle is-3">Helpers (save and reload required)</h2>
+<div class="formRow">
+            <${ CheckBox  }
+            title="Enable helpers"
+            checked=${this.state.enableHelpers}
+            onChange=${ (c)=>this.setState({enableHelpers: c})}
+            />
+
+            </div>
+
             <h2 class="subtitle is-3">Advanced (may break everything) </h2>
 
             <${TheInput} 
@@ -405,8 +395,5 @@ export class PageEditor extends Component{
                   </div>`
                 }//render
 
-                updateMdEditor(){
-                  console.error("wrong function called")
-                }
             }
 

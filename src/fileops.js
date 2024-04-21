@@ -14,10 +14,12 @@ const replaceToTags = {
 }
 
 export function escapeTags(s){
+  s=s.toString();
   const replacer=(tag)=>{return tagsToReplace[tag]||tag}
   return s.replace(/[&<>]/g , replacer);
 }
 export function unescapeTags(s){
+  s=s.toString();
   const replacer=(tag)=>{return replaceToTags[tag]||tag}
   return s.replace(/&amp;|&lt;|&gt;/g , replacer);
 }
@@ -49,6 +51,7 @@ export function convert2html(
     settings.viewCSS(),
     settings.author(),
     settings.keywords(),
+    settings.enableHelpers(),
     noScript
 
   )

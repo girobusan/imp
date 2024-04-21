@@ -6,7 +6,7 @@ const version = VERSION;
  <!--!!-->    /<!--!!-->/
  */
 function HTMLTemplate(ht){
-  return "<main class='container'>" + ht + "</main>"
+  return "<main class='container' id='pageMain'>" + ht + "</main>"
 }
 
 export function renderHTMLFromObj({

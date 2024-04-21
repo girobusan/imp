@@ -7,16 +7,16 @@ var previewCache = {};
 
 const jsonFmt = (p)=>{
   let r = p;
-  try{
+  // try{
     r=JSON.parse(p)
-  }catch(e){ console.error("Can not parse JSON" , p , e) }
+  // }catch(e){ console.error("Can not parse JSON" , p , e) }
   return r;
 }
 const yamlFmt = (p)=>{
   let r=p;
-  try{
+  // try{
     r=yaml.load(p)
-  }catch(e){ console.error("Can not parse YAML" , p ,e) }
+  // }catch(e){ console.error("Can not parse YAML" , p ,e) }
   return r;
 }
 
@@ -86,7 +86,7 @@ function getHelper(name){
 async function cachedPreview( name ,  params_raw , subname ){
   // console.log("trying to cached preview")
   let params="";
-  const cacheTime = 1000;
+  const cacheTime = 2000;
   const cacheKey = name + "/" + subname;
   let myCache = tracePath( previewCache ,[ cacheKey , params_raw ] ) 
   const killCache = ()=>delete previewCache[cacheKey][params_raw];
@@ -102,11 +102,19 @@ async function cachedPreview( name ,  params_raw , subname ){
 
   return getHelper(name)
   .then(hlp=>{ 
-    myCache["timer"] = window.setTimeout( killCache , cacheTime)
-    myCache["result"] = ( "preview" in hlp ) ? 
-    hlp["preview"](paramFormats[name](params_raw), params_raw , subname) 
-    : defaultPreview("Preview: " + name , params_raw || "See you in view mode!");
-
+    myCache["timer"] = window.setTimeout( killCache , cacheTime);
+    // myCache["result"] = ( "preview" in hlp ) ? 
+    // hlp["preview"](paramFormats[name](params_raw), params_raw , subname) 
+    // : defaultPreview("Preview: " + name , params_raw || "See you in view mode!");
+    if("preview" in hlp){
+      try{
+        myCache["result"] = hlp["preview"](paramFormats[name](params_raw), params_raw , subname) 
+      }catch{
+        myCache["result"] = defaultPreview("Preview: " + name ,  "Can not render preview (incomplete params?)")
+      } 
+    }else{
+      myCache["result"] = defaultPreview("Preview: " + name , params_raw || "See you in view mode!")
+    }
     return myCache["result"]
   })
   .catch(e=>console.error("Can not preview", name , e))
@@ -159,7 +167,8 @@ window.impHelpers = {
   //service
 
   attachScript: attachScript,
-  parseYAML: yamlFmt
+  parseYAML: yamlFmt,
+  defaultPreview: defaultPreview
 
 }
 //do view mode work

@@ -2,7 +2,7 @@ const version = VERSION ;
 import {Component , createRef , h} from "preact";
 import {html} from "htm/preact";
 const yaml = require('js-yaml');
-import BareMDE from "../BareMDE_v0.2.2.umd.js";
+import BareMDE from "../BareMDE_v0.2.3.umd.js";
 import { md , renderMd , renderMdAsync} from "../md_wrapper.js";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
 import { addEmpties, cleanupObj } from "../settings";
@@ -240,6 +240,14 @@ export class PageEditor extends Component{
         maxHeight="100%"
         branding=${ "<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>" }
         trueFullscreen=${true}
+        renderBody=${
+          (c)=>{ 
+            return renderMdAsync(c , true)
+            .then( r=>{
+              return `<main class="container" id="pageMain">${r}</main><footer id="pageFooter">${this.state.footer}</footer>`;
+              } )
+          }
+          }
         render=${
           (c)=>{ 
             return renderMdAsync(c , true)

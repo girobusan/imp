@@ -5,8 +5,8 @@ import { h } from "preact";
 export default function CheckBox(props){
   const [state , setState] = useState(props.checked)
   const myInput = useRef(null);
-  return html`<label>
-  <div class="label">${ props.title || "Checkbox" }</div>
+  return html`<label class="horizontal">
+  <div class="label horizontal">${ props.title || "Checkbox" }</div>
   <input type='checkbox' 
   ref=${myInput}
   checked=${state}

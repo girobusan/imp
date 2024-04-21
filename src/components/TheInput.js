@@ -18,6 +18,7 @@ export default function TheInput(props){
   <label class="label" for=${props.name || "" }>${props.title}</label>
   <${If} condition=${props.area==true}>
   <textarea ref=${inp} 
+  tabindex=${props.tabindex || ""}
   style="min-height: 100px;transition:height .5s"
   class=${"input biginout area"+props.name}
   name=${props.name || ""} 
@@ -43,6 +44,7 @@ export default function TheInput(props){
       </${If}>
       <${If} condition=${props.area==false}>
       <input class="input" type="text" ref=${inp} name=${props.name || ""}
+      tabindex=${props.tabindex || ""}
       value=${props.value || ""}
       onchange=${onChange}
       ></input>

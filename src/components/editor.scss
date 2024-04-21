@@ -176,3 +176,11 @@ button.TButton.alerted{
     flex-grow: 0;
   }
 }
+
+//some form
+label.horizontal{
+  div{
+    display: inline;
+    margin-right: 12px;
+  }
+}

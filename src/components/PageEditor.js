@@ -340,7 +340,7 @@ export class PageEditor extends Component{
             handler=${this.makeHandler("customCSS")}
             />
 
-            <h2 class="subtitle is-3">Helpers (save and reload required)</h2>
+            <h2 class="subtitle is-3">Helpers <small>(save and reload required)</small></h2>
 <div class="formRow">
             <${ CheckBox  }
             title="Enable helpers"
@@ -350,7 +350,7 @@ export class PageEditor extends Component{
 
             </div>
 
-            <h2 class="subtitle is-3">Advanced (may break everything) </h2>
+            <h2 class="subtitle is-3">Advanced <small>(may break everything)</small> </h2>
 
             <${TheInput} 
             title=${"Custom HTML to HEAD"}
@@ -394,6 +394,14 @@ export class PageEditor extends Component{
                     s.filename(newfilename);
                     saveFile( md.render(this.text) , this.text , s );
                     s.filename( thisfilename )
+                  }
+                  }></input>
+
+                <div class="divider"></div>
+                <input type="button" class="utility button is-gray violet" value="Save file" onclick=${
+                  ()=>{
+                    const s = this.makeSettings(); //sync settings
+                    saveFile( md.render(this.text) , this.text , s );
                   }
                   }></input>
                   </div>

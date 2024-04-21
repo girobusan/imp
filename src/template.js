@@ -49,6 +49,7 @@ export function renderHTML(
    noScript,
 
 ){
+  // if(noScript){ enableHelpers=false }
 return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,7 +98,7 @@ return `<!DOCTYPE html>
   ${  noScript===true ? "*/" : ""}
 })
   </script>
-  ${ enableHelpers && "<script src='helpers.js' id='helpersScript'></script>" }
+  ${ enableHelpers &&  "<script src='helpers.js' id='helpersScript'></script>" }
   <link id = "viewCSS" rel="stylesheet" href="${viewCSS || "style.css"}">
   <style id="customCSS">${customCSS || ""}
   </style>

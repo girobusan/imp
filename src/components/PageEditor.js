@@ -11,7 +11,7 @@ require("./editor.scss")
 import impIcon from "../icons/imp.svg?raw";
 import TheInput from "./TheInput.js";
 import CheckBox from "./CheckBox.js";
-import { attachScript } from "../helpers.js";
+// import { attachScript } from "../helpers.js";
 
 
 const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i
@@ -206,7 +206,18 @@ export class PageEditor extends Component{
     if(this.state.enableHelpers && 
       !window.impHelpers
       ){
-       attachScript( "helpers.js" , "helpersScript")
+       // attachScript( "helpers.js" , "helpersScript")
+      const s =  document.createElement("script");
+      s.id="helpersScript";
+      document.head.appendChild(s);
+      s.src="helpers.js"
+
+    }
+    if(!this.state.enableHelpers && 
+      window.impHelpers
+      ){
+      document.head.querySelector("script#helpersScript").remove();
+      delete window.impHelpers
     }
 
   }

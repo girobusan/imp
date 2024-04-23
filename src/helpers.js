@@ -1,9 +1,14 @@
 const yaml = require('js-yaml');
+import preloaderCode from './preloader.htm?raw';
 
 var helpers = {};
+var paramFormatters={};
 var paramFormats={};
 var callbacks = {};
 var previewCache = {};
+
+const escapeStr = (s)=>s.replace(/</g , "&lt;").replace(/>/g , "&gt;")
+const unescapeStr = (s)=>s.replace(/&lt;/g , "<").replace(/&gt;/g , ">")
 
 const jsonFmt = (p)=>{
   let r = p;
@@ -54,6 +59,22 @@ function defaultPreview(name, text){
      padding:32px;text-align:center;color: #444;
      font-size:0.8em;border-radius: 6px;font-family:ui-monospace, monospace;">
     <strong>${name}</strong><p>${text || ""}</p> </div>`
+  }
+
+  function defaultRender( name , params , params_raw ){
+    const paramFormatter = paramFormats[name];
+    const safeParams = escapeStr(params_raw);
+
+     let paramsScript = `<script type="text/plain">${safeParams}</script>`;
+
+     if( paramFormatter==='json'){ paramsScript=`<script type="application/json">${safeParams}</script>` }
+     if( paramFormatter==='yaml' ){ paramsScript=`<script type="application/yaml">${safeParams}</script>` } 
+     
+     return `<div data-ihelper="${ name }" data-defaultrender="true" 
+     data-paramformat="${paramFormatter}">
+       ${preloaderCode.replace("####" , name)}
+       ${ paramsScript }
+     </div>`
   }
 
 function addHelper(name){
@@ -111,12 +132,12 @@ async function cachedPreview( name ,  params_raw , subname ){
     // : defaultPreview("Preview: " + name , params_raw || "See you in view mode!");
     if("preview" in hlp){
       try{
-        myCache["result"] = hlp["preview"](paramFormats[name](params_raw), params_raw , subname) 
+        myCache["result"] = hlp["preview"](paramFormatters[name](params_raw), params_raw , subname) 
       }catch{
         myCache["result"] = defaultPreview("Preview: " + name ,  "Can not render preview (incomplete params?)")
       } 
     }else{
-      myCache["result"] = defaultPreview("Preview: " + name , params_raw || "See you in view mode!")
+      myCache["result"] = defaultPreview("Preview: " + name , params_raw || "See it in view mode")
     }
     return myCache["result"]
   })
@@ -124,13 +145,13 @@ async function cachedPreview( name ,  params_raw , subname ){
   }
 
   function makeFormatter( hname , pfname ){
-
+    paramFormats[hname] = pfname;
     switch(pfname.toLowerCase()) {
-       case "json": paramFormats[hname]= jsonFmt;
+       case "json": paramFormatters[hname]= jsonFmt;
        break;
-       case "yaml": paramFormats[hname]= yamlFmt;
+       case "yaml": paramFormatters[hname]= yamlFmt;
        break;
-       case "raw": paramFormats[hname]= (p)=>p;
+       default: paramFormatters[hname]= (p)=>p; paramFormats[hname] = "raw";
        break;
     }
     
@@ -156,15 +177,22 @@ window.impHelpers = {
     if(action=="preview"){ 
       return cachedPreview( name ,  params_raw , subname ) 
     }
-    if(action=="animate"){
-     return getHelper(name)
-     .then(hlp=>{ "animate" in hlp && hlp["animate"]( params_raw ) })
-     .catch((e)=>console.info("Can not animate" , e))
-    }
     //render
-     return await getHelper(name)
-     .then(hlp=>hlp[action](paramFormats[name](params_raw), params_raw , subname))
-     .catch((e)=>console.error("Can not engage" , name , e))
+    return await getHelper(name)
+    .then(hlp=>{ 
+      if(action in hlp){
+        return hlp[action](paramFormatters[name](params_raw), params_raw , subname) 
+      }
+      return defaultRender(name, paramFormatters[name](params_raw), params_raw)
+    }
+    )
+  .catch((e)=>console.error("Can not engage" , name , e))
+  },
+  
+  animateHelper: async ( name , element , params , params_raw )=>{
+     return getHelper(name)
+     .then(hlp=>{ "animate" in hlp && hlp["animate"](element , params , params_raw ) })
+     .catch((e)=>console.info("Can not animate" , e))
   },
 
   //service
@@ -172,7 +200,8 @@ window.impHelpers = {
   attachScript: attachScript,
   parseYAML: yamlFmt,
   defaultPreview: defaultPreview,
-  // disable: ()=>window.impHelpers = null;
+  defaultRender: defaultRender,
+  disable: ()=>window.impHelpers = null,
 
 }
 //do view mode work
@@ -197,7 +226,17 @@ function viewModeWork(){
    const myGuys = document.querySelectorAll("*[data-ihelper]");
    myGuys.forEach(e=>{
       const name = e.dataset.ihelper;
-      window.impHelpers.engage( name , "animate" , e  )
+      let p_raw = null;
+      let p_parsed = null;
+      if(e.dataset.defaultrender){ 
+          
+          const ps = e.querySelector( "script" )
+          if(ps){
+               p_raw = unescapeStr( ps.textContent );
+               p_parsed = paramFormatters[name](p_raw);
+          }
+      }
+      window.impHelpers.animateHelper( name,  e , p_parsed , p_raw );
       //.then(r=>console.log("engaged" , r))
    })
    viewModeDone = true;

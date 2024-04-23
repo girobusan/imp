@@ -49,6 +49,11 @@ module.exports = function (env, argv) {
           resourceQuery: { not: [/raw/] },
           type: 'asset/inline'
         },
+        {
+          test: /\.htm$/,
+          resourceQuery: /raw/,
+          type: 'asset/source'
+        },
 
         {
           test: /\.(less|css|scss)$/,

@@ -98,6 +98,13 @@ export class PageEditor extends Component{
     if(f!=='text'){ ns[f]=v }else{ this.text=v };
     ( !ns.modified ) && ( ns.modified = true );
     this.setState(ns);
+    if( ["headHTML" , "customCSS"].indexOf(f)!=-1 ){
+      try{
+        this.editorControls.refreshPreview();
+      }catch(e){
+        console.info("Editor controls malfuction:" , e)
+      }
+    }
   }
   makeHandler(f){
     const func =  (v)=>this.handleInput(f,v)

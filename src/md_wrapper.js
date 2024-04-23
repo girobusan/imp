@@ -25,7 +25,7 @@ export const md = require('markdown-it')({
 
 //BLACK MAGIC ZONE
 //
-const helperRx = /^```helper:([a-z0-9-_]+)(\/[a-z0-9_-]+)?$([^]+?)^```$/igm ;
+const helperRx = /^```(?:helper|h):([a-z0-9-_]+)(\/[a-z0-9_-]+)?$([^]+?)^```$/igm ;
 
 async function replaceAsync(str, regex, asyncFn) {
   const promises = [];

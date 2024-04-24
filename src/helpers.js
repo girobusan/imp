@@ -1,23 +1,25 @@
 const yaml = require('js-yaml');
 import preloaderCode from './preloader.htm?raw';
 
+var viewMode = false;
 var helpers = {};
 var paramFormatters={};
 var paramFormats={};
 var callbacks = {};
 var previewCache = {};
 
-// const escapeStr = (s)=>s
-// .replace(/</g , "&lt;")
-// .replace(/>/g , "&gt;")
-// .replace(/"/g , "&qt;");
+function packParams(p , fold){
+  let r = encodeURI(p) ;
+  if(fold){ return r.match( /.{1,64}/g ).join("\n") };
+  return r;
+}
 
-// const unescapeStr = (s)=>s
-// .replace(/&lt;/g , "<")
-// .replace(/&gt;/g , ">")
-// .replace(/&qt;/g , '"')
+function unpackParams(p){
+  return decodeURI(p.replace( /\n/g , "" ))
+}
 
 const jsonFmt = (p)=>{
+if(!p.trim()){ return {} }
   let r = p;
   // try{
     r=JSON.parse(p)
@@ -25,6 +27,7 @@ const jsonFmt = (p)=>{
     return r;
 }
 const yamlFmt = (p)=>{
+if(!p.trim()){ return {} }
   let r=p;
   // try{
     r=yaml.load(p)
@@ -50,15 +53,19 @@ function timeout(prom, time, exception) {
   ]).finally(() => clearTimeout(timer));
 }
 
-export function attachScript(url , id){
+function attachScript(url , id){
   const st = document.createElement("script");
   if( id ){ st.id=id };
   return new Promise( (res, rej)=>{
     document.head.appendChild(st);
     st.addEventListener("load", res);
-    st.addEventListener("error",(e)=>{ console.error("Can not load script", e) ;st.remove() ; rej("Can not load script") });
+    st.addEventListener("error",(e)=>{ console.error("Can not load script", e) ;st.remove() ; rej("Can not load script file.") });
     st.setAttribute("src", url)
   } )
+}
+
+function error(title , details){
+  return `<div style="background-color: orangered;border-radius:6px;color: black;padding:16px;font-family:monospace">${title}: ${details}</div>`
 }
 
 function defaultPreview(name, text){ 
@@ -68,12 +75,13 @@ function defaultPreview(name, text){
   <strong>${name}</strong><p style="margin:0">${text.replace(/\n\s*\n/g , "") || ""}</p> </div>`
 }
 
-function defaultRender( name , params , params_raw ){
+function defaultRender( name , params , params_raw , subname){
   const paramFormatter = paramFormats[name];
   const safeParams = encodeURI(params_raw);
   return `<div data-ihelper="${ name }" 
   data-defaultrender="true" 
   data-params="${safeParams}"
+  data-subname="${subname}"
   data-paramformat="${paramFormatter}">${preloaderCode.replace("####" , name)}</div>`
 }
 
@@ -111,7 +119,10 @@ async function cachedPreview( name ,  params_raw , subname ){
   // console.log("trying to cached preview")
   let params="";
   const cacheTime = 2000;
-  const cacheKey = name + "/" + subname;
+  const cacheKey = name + ( subname ?  "/" + subname : "" );
+  const fullName = name + ( subname ?  "/" + subname : "" );
+  console.log(fullName)
+  
   let myCache = tracePath( previewCache ,[ cacheKey , params_raw ] ) 
   const killCache = ()=>delete previewCache[cacheKey][params_raw];
 
@@ -134,11 +145,14 @@ async function cachedPreview( name ,  params_raw , subname ){
         myCache["result"] = defaultPreview("Preview: " + name ,  "Can not render preview (incomplete params?)")
       } 
     }else{
+      //just for the test
+      //we have to crtash here if params are invalid
+      params_raw.trim() && paramFormatters[name](params_raw.trim());
       myCache["result"] = defaultPreview("Preview: " + name , params_raw || "See it in view mode")
     }
     return myCache["result"]
   })
-  .catch(e=>console.error("Can not preview", name , e))
+  .catch(e=>{ console.error("Can not preview", name , e) ; return error( name , e) })
 }
 
 function makeFormatter( hname , pfname ){
@@ -180,23 +194,29 @@ window.impHelpers = {
       if(action in hlp){
         return hlp[action](paramFormatters[name](params_raw), params_raw , subname) 
       }
-      return defaultRender(name, paramFormatters[name](params_raw), params_raw)
+      return defaultRender(name, paramFormatters[name](params_raw), params_raw , subname)
     }
     )
-  .catch((e)=>console.error("Can not engage" , name , e))
+  .catch((e)=>{ console.error("Can not engage" , name , e) ; return error(name , e) })
   },
 
-  animateHelper: async ( name , element ,  params_raw )=>{
+  animateHelper: async ( name , element ,  params_raw , subname)=>{
     console.log("PRMS" , params_raw)
     return getHelper(name)
     .then(hlp=>{ "animate" in hlp && hlp["animate"](element , 
       paramFormatters[name](params_raw) , 
-    params_raw ) })
+    params_raw , subname ) })
   .catch((e)=>console.info("Can not animate" , e))
+  },
+
+  previewHelper: async( name ,  params_raw ,  subname )=>{
+      return cachedPreview( name ,  params_raw , subname ) 
   },
 
   //service
 
+  packParams: packParams,
+  unpackParams:unpackParams,
   attachScript: attachScript,
   parseYAML: yamlFmt,
   defaultPreview: defaultPreview,
@@ -229,13 +249,13 @@ function viewModeWork(){
     const name = e.dataset.ihelper;
     let p_raw = null;
     if(e.dataset.defaultrender){ 
-
+      var subname = e.dataset.subname || "";
       const ps = e.dataset.params;
       if(ps){
         p_raw = decodeURI( ps );
       }
     }
-    window.impHelpers.animateHelper( name,  e ,  p_raw );
+    window.impHelpers.animateHelper( name,  e ,  p_raw , subname);
     //.then(r=>console.log("engaged" , r))
   })
   viewModeDone = true;

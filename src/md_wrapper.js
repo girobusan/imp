@@ -25,7 +25,8 @@ export const md = require('markdown-it')({
 
 //BLACK MAGIC ZONE
 //
-const helperRx = /^```(?:helper|h):([a-z0-9-_]+)(\/[a-z0-9_-]+)?$([^]+?)^```$/igm ;
+// const helperRx = /^```(?:helper|h):([a-z0-9-_]+)(\/[a-z0-9_-]+)?$([^]+?)^(?=```)/mig
+ const helperRx =/^```(?:helper|h):([a-z0-9-_]+)(\/[a-z0-9_-]+)?$([^]+?)^```$/mig ;
 
 async function replaceAsync(str, regex, asyncFn) {
   const promises = [];
@@ -44,6 +45,7 @@ async function replaceAsync(str, regex, asyncFn) {
 function findHelpers(mdtext , draft){
   let action = draft ? "preview" : "render";
   return replaceAsync( mdtext ,  helperRx , function(f , name , subname , params){
+     subname = subname ? subname.replace("/" , "") : "";
      return window.impHelpers.engage( name , action, params , subname) 
   })
 }

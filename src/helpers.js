@@ -2,11 +2,15 @@ const yaml = require('js-yaml');
 import preloaderCode from './preloader.htm?raw';
 
 var viewMode = false;
+var viewModeDone = false;
+
 var helpers = {};
 var paramFormatters={};
 var paramFormats={};
 var callbacks = {};
 var previewCache = {};
+
+console.info("Starting impHelpers module...");
 
 function packParams(p , fold){
   let r = encodeURI(p) ;
@@ -18,20 +22,16 @@ function unpackParams(p){
   return decodeURI(p.replace( /\n/g , "" ))
 }
 
-const jsonFmt = (p)=>{
+function parseJSON(p){
 if(!p.trim()){ return {} }
   let r = p;
-  // try{
     r=JSON.parse(p)
-    // }catch(e){ console.error("Can not parse JSON" , p , e) }
     return r;
 }
-const yamlFmt = (p)=>{
+function parseYAML(p){
 if(!p.trim()){ return {} }
   let r=p;
-  // try{
     r=yaml.load(p)
-    // }catch(e){ console.error("Can not parse YAML" , p ,e) }
     return r;
 }
 
@@ -96,7 +96,7 @@ function addHelper(name){
       .catch(e=>{  rej(e) })
         ; 
       }
-    ) , 500 , "dropped by timeout:"+name);
+    ) , 1000 , "dropped by timeout:"+name);
 }
 
 function getHelper(name){
@@ -117,14 +117,11 @@ function getHelper(name){
 
 async function cachedPreview( name ,  params_raw , subname ){
   // console.log("trying to cached preview")
-  let params="";
   const cacheTime = 2000;
-  const cacheKey = name + ( subname ?  "/" + subname : "" );
   const fullName = name + ( subname ?  "/" + subname : "" );
-  console.log(fullName)
   
-  let myCache = tracePath( previewCache ,[ cacheKey , params_raw ] ) 
-  const killCache = ()=>delete previewCache[cacheKey][params_raw];
+  let myCache = tracePath( previewCache ,[ fullName , params_raw ] ) 
+  const killCache = ()=>delete previewCache[fullName][params_raw];
 
   if( myCache["result"] ){
     // console.log("CACHED!" , name )
@@ -146,7 +143,7 @@ async function cachedPreview( name ,  params_raw , subname ){
       } 
     }else{
       //just for the test
-      //we have to crtash here if params are invalid
+      //we have to crash here if params are invalid
       params_raw.trim() && paramFormatters[name](params_raw.trim());
       myCache["result"] = defaultPreview("Preview: " + name , params_raw || "See it in view mode")
     }
@@ -158,14 +155,13 @@ async function cachedPreview( name ,  params_raw , subname ){
 function makeFormatter( hname , pfname ){
   paramFormats[hname] = pfname;
   switch(pfname.toLowerCase()) {
-    case "json": paramFormatters[hname]= jsonFmt;
+    case "json": paramFormatters[hname]= parseJSON;
       break;
-    case "yaml": paramFormatters[hname]= yamlFmt;
+    case "yaml": paramFormatters[hname]= parseYAML;
       break;
     default: paramFormatters[hname]= (p)=>p; paramFormats[hname] = "raw";
       break;
   }
-
 }
 
 window.impHelpers = {
@@ -184,7 +180,7 @@ window.impHelpers = {
   },
 
   engage: async function( name ,  action ,  params_raw ,  subname ){
-    // console.log("action" , action)
+
     if(action=="preview"){ 
       return cachedPreview( name ,  params_raw , subname ) 
     }
@@ -201,39 +197,36 @@ window.impHelpers = {
   },
 
   animateHelper: async ( name , element ,  params_raw , subname)=>{
-    console.log("PRMS" , params_raw)
+    // console.log("PRMS" , params_raw)
     return getHelper(name)
     .then(hlp=>{ "animate" in hlp && hlp["animate"](element , 
       paramFormatters[name](params_raw) , 
     params_raw , subname ) })
-  .catch((e)=>console.info("Can not animate" , e))
+  .catch((e)=>console.info("Can not animate " + name + ":" , e))
   },
 
-  previewHelper: async( name ,  params_raw ,  subname )=>{
-      return cachedPreview( name ,  params_raw , subname ) 
-  },
 
   //service
 
   packParams: packParams,
   unpackParams:unpackParams,
   attachScript: attachScript,
-  parseYAML: yamlFmt,
+  parseYAML: parseYAML,
+
   defaultPreview: defaultPreview,
   defaultRender: defaultRender,
+  errorNotice: error,
+
   disable: ()=>window.impHelpers = null, //:FIX:
 
-}
-//do view mode work
-
-var viewModeDone = false;
+} //end helper code
 
 function viewModeWork(){
   //figure out view mode
-  const editor = document.head.querySelector("#editorScript");
+  const editor       = document.head.querySelector("#editorScript");
   const viewModeMark = window.location.search.indexOf("mode=view")!=-1 ;
   const editModeMark = window.location.search.indexOf("mode=edit")!=-1 ;
-  const protoIsFile = window.location.protocol.startsWith("file");
+  const protoIsFile  = window.location.protocol.startsWith("file");
 
   if( (editor || editModeMark) ||
   (protoIsFile && !viewModeMark) ||
@@ -243,9 +236,10 @@ function viewModeWork(){
   }
 
   // console.log("view mode work!" )
+  viewMode = true;
+
   const myGuys = document.querySelectorAll("*[data-ihelper]");
   myGuys.forEach(e=>{
-    console.log("found" , e)
     const name = e.dataset.ihelper;
     let p_raw = null;
     if(e.dataset.defaultrender){ 
@@ -256,7 +250,6 @@ function viewModeWork(){
       }
     }
     window.impHelpers.animateHelper( name,  e ,  p_raw , subname);
-    //.then(r=>console.log("engaged" , r))
   })
   viewModeDone = true;
 }

@@ -102,7 +102,7 @@ export class PageEditor extends Component{
       try{
         this.editorControls.refreshPreview();
       }catch(e){
-        console.info("Editor controls malfuction:" , e)
+        console.info("Editor controls malfunction:" , e)
       }
     }
   }
@@ -213,6 +213,7 @@ export class PageEditor extends Component{
     if(this.state.enableHelpers && 
       !window.impHelpers
       ){
+       console.log("Attach helpers script");
        // attachScript( "helpers.js" , "helpersScript")
       const s =  document.createElement("script");
       s.id="helpersScript";
@@ -223,6 +224,7 @@ export class PageEditor extends Component{
     if(!this.state.enableHelpers && 
       window.impHelpers
       ){
+       console.log("Detach helpers module");
       document.head.querySelector("script#helpersScript").remove();
       delete window.impHelpers
     }

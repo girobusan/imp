@@ -10,7 +10,6 @@ var paramFormats={};
 var callbacks = {};
 var previewCache = {};
 
-console.info("Starting impHelpers module...");
 
 function packParams(p , fold){
   let r = encodeURI(p) ;
@@ -65,7 +64,7 @@ function attachScript(url , id){
 }
 
 function error(title , details){
-  return `<div style="background-color: orangered;border-radius:6px;color: black;padding:16px;font-family:monospace">${title}: ${details}</div>`
+  return `<div style="background-color: orangered;border-radius:6px;color: black;padding:32px;font-family:ui-monospace,monospace;font-size:0.8em">${title}: ${details}</div>`
 }
 
 function defaultPreview(name, text){ 
@@ -164,7 +163,7 @@ function makeFormatter( hname , pfname ){
   }
 }
 
-window.impHelpers = {
+const API = {
 
   register: async (name , helper , paramFmt)=>{ 
     console.info("register" , name)
@@ -200,7 +199,7 @@ window.impHelpers = {
     // console.log("PRMS" , params_raw)
     return getHelper(name)
     .then(hlp=>{ "animate" in hlp && hlp["animate"](element , 
-      paramFormatters[name](params_raw) , 
+      params_raw ? paramFormatters[name](params_raw) : null , 
     params_raw , subname ) })
   .catch((e)=>console.info("Can not animate " + name + ":" , e))
   },
@@ -220,8 +219,13 @@ window.impHelpers = {
   disable: ()=>window.impHelpers = null, //:FIX:
 
 } //end helper code
+if(!window.impHelpers){
+  console.info("Starting impHelpers module...");
+  window.impHelpers = API;
+}
 
 function viewModeWork(){
+  
   //figure out view mode
   const editor       = document.head.querySelector("#editorScript");
   const viewModeMark = window.location.search.indexOf("mode=view")!=-1 ;

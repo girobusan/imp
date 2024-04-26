@@ -64,14 +64,16 @@ function attachScript(url , id){
 }
 
 function error(title , details){
-  return `<div style="background-color: orangered;border-radius:6px;color: black;padding:32px;font-family:ui-monospace,monospace;font-size:0.8em">${title}: ${details}</div>`
+  return `<div style="background-color:orangered;border-radius:6px;
+  color:black;padding:32px;font-family:ui-monospace,monospace;font-size:0.8em">
+  ${title.trim()}: ${details.trim()}</div>`
 }
 
 function defaultPreview(name, text){ 
   return `<div style="background-color: silver; 
   padding:32px;padding-top:18px;text-align:left;color: #666;
   font-size:0.8em;border-radius: 6px;font-family:ui-monospace, monospace;">
-  <strong>${name}</strong><p style="margin:0">${text.replace(/\n\s*\n/g , "") || ""}</p> </div>`
+  <strong>${name}</strong><p style="margin:0">${text.replace(/\n\s*\n/g , "") || ""}</p></div>`
 }
 
 function defaultRender( name , params , params_raw , subname){
@@ -166,13 +168,14 @@ function makeFormatter( hname , pfname ){
 const API = {
 
   register: async (name , helper , paramFmt)=>{ 
-    console.info("register" , name)
+    if(name in helpers){ console.error("Attempt to re-register rejected:" , name) ; return }
+    console.info("Registering:" , name)
     helpers[name]=helper  ; 
     makeFormatter(name, paramFmt);
-    "init" in helpers[name] && await helpers[name].init();
+    "init" in helpers[name] && await helpers[name].init( API , viewMode );
     if(typeof callbacks[name] === 'function'){ 
       callbacks[name](helpers[name]);
-      callbacks[name]=null;
+      delete callbacks[name];
     }else{
       console.info("Invalid callbacks chain for" , name)
     }

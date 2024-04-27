@@ -22,13 +22,13 @@ function unpackParams(p){
 }
 
 function parseJSON(p){
-if(!p.trim()){ return {} }
+if(!p || !p.trim()){ return {} }
   let r = p;
     r=JSON.parse(p)
     return r;
 }
 function parseYAML(p){
-if(!p.trim()){ return {} }
+if(!p || !p.trim()){ return {} }
   let r=p;
     r=yaml.load(p)
     return r;
@@ -66,14 +66,14 @@ function attachScript(url , id){
 function error(title , details){
   return `<div style="background-color:orangered;border-radius:6px;
   color:black;padding:32px;font-family:ui-monospace,monospace;font-size:0.8em">
-  ${title.trim()}: ${details.trim()}</div>`
+  ${title.trim()}: ${details &&  details.toString().trim()}</div>`
 }
 
 function defaultPreview(name, text){ 
   return `<div style="background-color: silver; 
   padding:32px;padding-top:18px;text-align:left;color: #666;
   font-size:0.8em;border-radius: 6px;font-family:ui-monospace, monospace;">
-  <strong>${name}</strong><p style="margin:0">${text.replace(/\n\s*\n/g , "") || ""}</p></div>`
+  <strong>${name}</strong><p style="margin:0">${text && text.replace(/\n\s*\n/g , "") || ""}</p></div>`
 }
 
 function defaultRender( name , params , params_raw , subname){

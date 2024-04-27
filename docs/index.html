@@ -12,12 +12,7 @@
   <meta name="og:image" content="https://girobusan.github.io/imp/side-by-side.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://girobusan.github.io/imp/side-by-side.png">
-  <base target="_blank">
   <link rel="icon" type="image/png" href="">
-  <link id = "viewCSS" rel="stylesheet" href="style.css">
-  <style id="customCSS">
-  
-  </style>
   <script>
    window.settings = {
   "title": "IMP!",
@@ -31,13 +26,13 @@
   "editor": "",
   "viewCSS": "",
   "author": "",
-  "keywords": ""
+  "keywords": "",
+  "enableHelpers": "false",
+  "pathToHelpersModule": ""
 }
-   window.savedWithImpVersion = "0.3.5"
+   window.savedWithImpVersion = "0.4.2"
   </script>
   <script>
-    window.addEventListener("DOMContentLoaded" , function(){
-  
    function IMPEdit(){
    console.info("Loading editor...")
    const editor = document.createElement("script");
@@ -45,6 +40,8 @@
    editor.src="imp.js";
    document.head.appendChild(editor);
    }
+   window.addEventListener("DOMContentLoaded" , function(){
+  
    if(window.location.search.indexOf("mode=view")!=-1)
    {
    return;
@@ -64,10 +61,14 @@
   
 })
   </script>
+  
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <style id="customCSS">
+  </style>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😈</text></svg>">
 </head>
 <body>
-<main class='container'><p><a href="https://girobusan.github.io">Girobusan</a></p>
+<main class='container' id='pageMain'><p>⬆️ <a href="https://girobusan.github.io">Girobusan</a></p>
    <a href="https://github.com/girobusan/imp">
   <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_orange_ff7600.png?resize=149%2C149" alt="Fork me on GitHub">
     </a>
@@ -107,7 +108,7 @@
 </ul>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
-<script id="pageData" type="text/markdown">[Girobusan](https://girobusan.github.io)
+<script id="pageData" type="text/markdown">:arrow_up: [Girobusan](https://girobusan.github.io)
 
    &lt;a href="https://github.com/girobusan/imp"&gt;
   &lt;img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_orange_ff7600.png?resize=149%2C149" alt="Fork me on GitHub"&gt;

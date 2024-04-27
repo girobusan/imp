@@ -12,12 +12,7 @@
   <meta name="og:image" content="">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="">
-  <base target="_blank">
   <link rel="icon" type="image/png" href="">
-  <link id = "viewCSS" rel="stylesheet" href="style.css">
-  <style id="customCSS">
-  
-  </style>
   <script>
    window.settings = {
   "title": "Markdown export and Import",
@@ -31,13 +26,13 @@
   "editor": "",
   "viewCSS": "",
   "author": "",
-  "keywords": ""
+  "keywords": "",
+  "enableHelpers": "false",
+  "pathToHelpersModule": ""
 }
-   window.savedWithImpVersion = "0.4.0"
+   window.savedWithImpVersion = "0.4.2"
   </script>
   <script>
-    window.addEventListener("DOMContentLoaded" , function(){
-  
    function IMPEdit(){
    console.info("Loading editor...")
    const editor = document.createElement("script");
@@ -45,6 +40,8 @@
    editor.src="imp.js";
    document.head.appendChild(editor);
    }
+   window.addEventListener("DOMContentLoaded" , function(){
+  
    if(window.location.search.indexOf("mode=view")!=-1)
    {
    return;
@@ -64,10 +61,14 @@
   
 })
   </script>
+  
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <style id="customCSS">
+  </style>
   <!--custom html here-->
 </head>
 <body>
-<main class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="index.html">IMP!</a></p>
+<main class='container' id='pageMain'><p><a href="https://girobusan.github.io">Girobusan</a> · <a href="index.html">IMP!</a></p>
 <h1>Markdown export and Import</h1>
 <p>You can export IMP! content as markdown file. All it's properties, like
 custom HTML, title, description will be exported as YAML frontmatter (see below).</p>
@@ -96,7 +97,7 @@ in frontmatter, they will be added to resulting IMP! page.</p>
 <div id="impHatcher"></div>
 <script src="hatcher.js" defer></script></main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
-<script id="pageData" type="text/markdown">[Girobusan](https://girobusan.github.io) | [IMP!](index.html)
+<script id="pageData" type="text/markdown">[Girobusan](https://girobusan.github.io) &amp;middot; [IMP!](index.html)
 
 Markdown export and Import
 ==========================

@@ -13,10 +13,6 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="">
   <link rel="icon" type="image/png" href="">
-  <link id = "viewCSS" rel="stylesheet" href="style.css">
-  <style id="customCSS">
-  
-  </style>
   <script>
    window.settings = {
   "title": "IMP! Favicon",
@@ -30,13 +26,13 @@
   "editor": "",
   "viewCSS": "",
   "author": "",
-  "keywords": ""
+  "keywords": "",
+  "enableHelpers": "false",
+  "pathToHelpersModule": ""
 }
-   window.savedWithImpVersion = "0.3.0"
+   window.savedWithImpVersion = "0.4.2"
   </script>
   <script>
-    window.addEventListener("DOMContentLoaded" , function(){
-
    function IMPEdit(){
    console.info("Loading editor...")
    const editor = document.createElement("script");
@@ -44,11 +40,8 @@
    editor.src="imp.js";
    document.head.appendChild(editor);
    }
-
-   if(window.self.name==="IMPPreviewIframe")
-   {
-   return;
-   }
+   window.addEventListener("DOMContentLoaded" , function(){
+  
    if(window.location.search.indexOf("mode=view")!=-1)
    {
    return;
@@ -65,8 +58,13 @@
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
+  
 })
   </script>
+  
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <style id="customCSS">
+  </style>
   <link rel="icon" 
 href="data:image/svg+xml,
 <svg xmlns=%22http://www.w3.org/2000/svg%22 
@@ -75,7 +73,7 @@ viewBox=%220 0 100 100%22>
 </svg>">
 </head>
 <body>
-<div class='container'><p><a href="https://girobusan.github.io">Girobusan</a> | <a href="https://girobusan.github.io/imp">IMP!</a></p>
+<main class='container' id='pageMain'><p><a href="https://girobusan.github.io">Girobusan</a> · <a href="https://girobusan.github.io/imp">IMP!</a></p>
 <h1>Add emoji favicon</h1>
 <p>Change emoji to your favourite and add this code to <code>Custom HTML</code> field in editor.</p>
 <pre><code>&lt;link rel=&quot;icon&quot; 
@@ -89,13 +87,9 @@ viewBox=%220 0 100 100%22&gt;
 <ul>
 <li>Taken from <a href="https://css-tricks.com/emoji-as-a-favicon/">here</a></li>
 </ul>
-</div>
+</main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
-<script id="pageData" type="text/markdown">
-
-
-
-[Girobusan](https://girobusan.github.io) | [IMP!](https://girobusan.github.io/imp)
+<script id="pageData" type="text/markdown">[Girobusan](https://girobusan.github.io) &amp;middot; [IMP!](https://girobusan.github.io/imp)
 
 # Add emoji favicon
 
@@ -112,19 +106,6 @@ viewBox=%220 0 100 100%22&gt;
 
 Look at this page in [edit mode](#edit) for reference.
 
-- Taken from [here](https://css-tricks.com/emoji-as-a-favicon/)
-
-
-
-
-
-
-
-
-
-
-
-
-</script>
+- Taken from [here](https://css-tricks.com/emoji-as-a-favicon/)</script>
 </body>
 </html>

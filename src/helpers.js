@@ -23,15 +23,11 @@ function unpackParams(p){
 
 function parseJSON(p){
 if(!p || !p.trim()){ return {} }
-  let r = p;
-    r=JSON.parse(p)
-    return r;
+    return JSON.parse(p)
 }
 function parseYAML(p){
 if(!p || !p.trim()){ return {} }
-  let r=p;
-    r=yaml.load(p)
-    return r;
+    return yaml.load(p)
 }
 
 function tracePath(obj , keys){
@@ -73,17 +69,16 @@ function defaultPreview(name, text){
   return `<div style="background-color: silver; 
   padding:32px;padding-top:18px;text-align:left;color: #666;
   font-size:0.8em;border-radius: 6px;font-family:ui-monospace, monospace;">
-  <strong>${name}</strong><p style="margin:0">${text && text.replace(/\n\s*\n/g , "") || ""}</p></div>`
+  <strong>${name}</strong><pre style="margin:0">${text && text.replace(/^\s*\n/g , "") || ""}</pre></div>`
 }
 
 function defaultRender( name , params , params_raw , subname){
-  const paramFormatter = paramFormats[name];
-  const safeParams = encodeURI(params_raw);
+  // const paramFormatter = paramFormats[name];
+  const safeParams = ( params_raw && params_raw.trim() ) ? encodeURI(params_raw) : "";
   return `<div data-ihelper="${ name }" 
   data-defaultrender="true" 
   data-params="${safeParams}"
-  data-subname="${subname}"
-  data-paramformat="${paramFormatter}">${preloaderCode.replace("####" , name)}</div>`
+  data-subname="${subname}">${preloaderCode.replace("####" , name)}</div>`
 }
 
 function addHelper(name){
@@ -97,18 +92,16 @@ function addHelper(name){
       .catch(e=>{  rej(e) })
         ; 
       }
-    ) , 1000 , "dropped by timeout:"+name);
+    ) , 2000 , "Dropped by timeout:"+name);
 }
 
 function getHelper(name){
   // console.log("getting helper" , name )
   return new Promise(
     (res , rej)=>{
-      // console.log("test if already here" , helpers);
       if(helpers[name]){ res(helpers[name]) ; return }
       addHelper(name)
       .then( r=>{
-        // console.log("About to finally get" , r) ;
         res(r) })
       .catch(e=>rej(e))
     }
@@ -125,7 +118,6 @@ async function cachedPreview( name ,  params_raw , subname ){
   const killCache = ()=>delete previewCache[fullName][params_raw];
 
   if( myCache["result"] ){
-    // console.log("CACHED!" , name )
     //reset timer
     window.clearTimeout( myCache["timer"] )
     myCache["timer"] = window.setTimeout(killCache , cacheTime)
@@ -183,7 +175,7 @@ const API = {
 
   engage: async function( name ,  action ,  params_raw ,  subname ){
 
-    if(action=="preview"){ 
+    if(action==="preview"){ 
       return cachedPreview( name ,  params_raw , subname ) 
     }
     //render
@@ -203,7 +195,8 @@ const API = {
     return getHelper(name)
     .then(hlp=>{ "animate" in hlp && hlp["animate"](element , 
       params_raw ? paramFormatters[name](params_raw) : null , 
-    params_raw , subname ) })
+    params_raw , subname ) }
+    )
   .catch((e)=>console.info("Can not animate " + name + ":" , e))
   },
 

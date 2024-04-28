@@ -10,7 +10,7 @@ Like a markdown-based CMS for single file, fully client-side. When you need to d
 
 ## How it works
 
-When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, **static** HTML. Page does not require Java Script to be viewed, it's just plain HTML. [Demo and docs](https://girobusan.github.io/imp/). 
+When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, clean HTML. Page does not require Java Script to be viewed by default, but there is an optional API for adding interactive content.  [Demo and docs](https://girobusan.github.io/imp/). 
 
 ![](docs/imp_screen.png)
 
@@ -27,17 +27,15 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 ## Features
 
 - Fully local thing &mdash; no server required, no setup. It's YOUR page!
-- Pages can be fully static, even text-based browser friendly (You'll need modern browser for editing)
-- You can add any HTML or JS to your page
-- All you need is browser, that means it fully multiplatform
-- Simple Markdown editor with pixel-perfect preview
-- Code highlighting
-- [ Customizable ](https://girobusan.github.io/imp/themes/)
-- Lo-fi :)
+- Pages can be fully static, even **text-based browser friendly.**
+- [Helpers API](https://girobusan.github.io/imp/helpers.html) for adding interactive content and other interesting things
+- Custom HTML, CSS and JS allowed 
+- Simple Markdown editor with pixel-perfect preview and code highlighting
+- [Customizable](https://girobusan.github.io/imp/themes/)
 
-## Two clicks setup, with CDN
+## CDN setup (not recommended)
 
-1. Click [ this link ]( https://girobusan.github.io/imp/impcdn.html#edit )
+1. Click [ this link ]( https://girobusan.github.io/imp/impcdn.html?mode=edit )
 2. Scroll down, click "Duplicate page" button
 3. Enter any filename, ending with `.html`, save.
 

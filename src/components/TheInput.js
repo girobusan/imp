@@ -45,6 +45,7 @@ export default function TheInput(props){
       <${If} condition=${props.area==false}>
       <input class="input" type="text" ref=${inp} name=${props.name || ""}
       tabindex=${props.tabindex || ""}
+      placeholder=${props.placeholder || ""}
       value=${props.value || ""}
       onchange=${onChange}
       ></input>

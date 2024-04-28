@@ -149,6 +149,9 @@ button.TButton.alerted{
   margin-bottom: 1rem;
   box-sizing: border-box;
   input, textarea{
+    &::placeholder{
+      color: gray;
+    }
     box-sizing: border-box;
     &:focus{
       outline: none;

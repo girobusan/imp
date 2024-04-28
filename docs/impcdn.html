@@ -13,10 +13,6 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="">
   <link rel="icon" type="image/png" href="">
-  <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
-  <style id="customCSS">
-  
-  </style>
   <script>
    window.settings = {
   "title": "IMP! preconfigured CDN setup",
@@ -30,13 +26,13 @@
   "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
   "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css",
   "author": "",
-  "keywords": ""
+  "keywords": "",
+  "enableHelpers": "false",
+  "pathToHelpersModule": ""
 }
-   window.savedWithImpVersion = "0.3.0"
+   window.savedWithImpVersion = "0.4.2"
   </script>
   <script>
-    window.addEventListener("DOMContentLoaded" , function(){
-
    function IMPEdit(){
    console.info("Loading editor...")
    const editor = document.createElement("script");
@@ -44,11 +40,8 @@
    editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
    document.head.appendChild(editor);
    }
-
-   if(window.self.name==="IMPPreviewIframe")
-   {
-   return;
-   }
+   window.addEventListener("DOMContentLoaded" , function(){
+  
    if(window.location.search.indexOf("mode=view")!=-1)
    {
    return;
@@ -65,12 +58,17 @@
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
+  
 })
   </script>
+  
+  <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
+  <style id="customCSS">
+  </style>
   <!--custom html here-->
 </head>
 <body>
-<div class='container'><p><a href="/">Girobusan</a> | <a href="index.html">IMP!</a></p>
+<main class='container' id='pageMain'><p><a href="https://girobusan.github.io">Girobusan</a> · <a href="index.html">IMP!</a></p>
 <h1>IMP! Preconfigured for CDN</h1>
 <p>From here you can get page, preconfigured to use CDN for editor script and view CSS.</p>
 <ol>
@@ -79,10 +77,9 @@
 <li>Enter any filename you want (ending with <code>.html</code>), save.</li>
 </ol>
 <p>This setup is ideal as starting point. You will get just one file, fully working and ready. Both editor and default theme will be served from CDN. If you will need to change default theme, you will also need to adjust <code>View CSS location</code> setting accordingly.</p>
-</div>
+</main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
-<script id="pageData" type="text/markdown">
-[Girobusan](/) | [IMP!](index.html)
+<script id="pageData" type="text/markdown">[Girobusan](https://girobusan.github.io) &amp;middot; [IMP!](index.html)
 
 # IMP! Preconfigured for CDN
 From here you can get page, preconfigured to use CDN for editor script and view CSS.
@@ -91,13 +88,6 @@ From here you can get page, preconfigured to use CDN for editor script and view 
 2. Scroll down, click the "Duplicate page" button
 3. Enter any filename you want (ending with `.html`), save.
 
-This setup is ideal as starting point. You will get just one file, fully working and ready. Both editor and default theme will be served from CDN. If you will need to change default theme, you will also need to adjust `View CSS location` setting accordingly. 
-
-
-
-
-
-
-</script>
+This setup is ideal as starting point. You will get just one file, fully working and ready. Both editor and default theme will be served from CDN. If you will need to change default theme, you will also need to adjust `View CSS location` setting accordingly.</script>
 </body>
 </html>

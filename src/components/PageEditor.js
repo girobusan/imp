@@ -383,6 +383,7 @@ export class PageEditor extends Component{
             <${TheInput} 
             title=${"Editor location"}
             value=${this.state.editor}
+            placeholder="imp.js"
             name=${"editor"}
             area=${false}
             handler=${this.makeHandler("editor")}
@@ -392,6 +393,7 @@ export class PageEditor extends Component{
             title=${"View CSS location"}
             value=${this.state.viewCSS}
             name=${"viewcss"}
+            placeholder="style.css"
             area=${false}
             handler=${this.makeHandler("viewCSS")}
             />

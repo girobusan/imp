@@ -88,15 +88,15 @@ color: royalblue !important;
 various types of content, not supported by regular markdown.
 Helpers may add static and/or interactive content in asynchronous way
 and enrich viewer experience.</p>
-<p>This API allows building interactive content blocks, whcih may also provide meaningful content without Java Script.</p>
+<p>This API allows building interactive content blocks, whcih may also provide meaningful content without JavaScript.</p>
 <h2>How to enable helpers for your IMP!</h2>
 <h3>Ensure, that you have the right IMP! version</h3>
-<p>File <code>helpers.js</code> must live in the same directory, where your IMP! file is. For now it  is awailable in git version.</p>
+<p>Check if you have updated to IMP! version 0.4.2 or higher. File <code>helpers.js</code> must live in the same directory, where your IMP! file is.</p>
 <h3>Enable helpers in IMP! GUI</h3>
 <p>There is a checkbox at the lower part of the page, labeled &quot;enable helpers&quot;. You must then save and reload your IMP! file.</p>
 <h3>Get the helper scripts</h3>
-<p>Previous step just enables the API. To use helpers, you must get some helper scripts. Good place to start is the <a href="https://github.com/girobusan/imp-helpers">git-helpers repo</a>, the <code>helpers</code> folder contains bundled scripts.</p>
-<p>You'll need to create folder, named <code>helpers</code> in the same directory, where your IMP! file is, and put required helpers there.</p>
+<p>Previous step just enables the API. To use helpers, you must get some helper scripts. Good place to start is the <a href="https://github.com/girobusan/imp-helpers">git-helpers repo</a>, the <code>helpers</code> folder there contains bundled scripts.</p>
+<p>You'll need to create a folder, named <code>helpers</code> in the same directory, where your IMP! file is, and put required helpers there.</p>
 <h2>Use them in markdown</h2>
 <p>The full syntax for helper will look like this:</p>
 <pre><code> ```helper:helper-name/helper-subtype
@@ -110,15 +110,16 @@ and enrich viewer experience.</p>
   format (consult helper doc)
  ```
 </code></pre>
-<p>Important:</p>
+<h3>Things to check</h3>
 <ul>
-<li>Name of the helper is the same, as the scipt filename. For example, helper <code>dsv-render</code> resides in the file <code>dsv-render.js</code>.</li>
+<li>Name of the helper is the same, as the scipt filename. For example, helper <code>dsv-render</code> resides in the file <code>dsv-render.js</code> in the <code>helpers</code> folder.</li>
 <li>No spaces before backticks at the start and end of the helper code.</li>
 <li>No spaces after them.</li>
 <li>If helpers enabled, the code will be parsed as you type, which may result in error messages, it's normal, and, <em>sometimes</em>, informative.</li>
+<li>If you use helpers in your IMP! html , file <code>helpers.js</code> as well as <code>helpers</code> folder must be uploaded to your hosting provider with main html file, <em>unlike</em> <code>imp.js</code> file (which is newer required for vieweing your html).</li>
 </ul>
 <h2>Make your own</h2>
-<p>It's quite easy. 'The dev documentation is coming soon!</p>
+<p>It's quite easy. The dev documentation is coming soon!</p>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html)
@@ -137,13 +138,13 @@ various types of content, not supported by regular markdown.
 Helpers may add static and/or interactive content in asynchronous way
 and enrich viewer experience.
 
-This API allows building interactive content blocks, whcih may also provide meaningful content without Java Script.
+This API allows building interactive content blocks, whcih may also provide meaningful content without JavaScript.
 
 ## How to enable helpers for your IMP!
 
 ### Ensure, that you have the right IMP! version
 
-File `helpers.js` must live in the same directory, where your IMP! file is. For now it  is awailable in git version.
+Check if you have updated to IMP! version 0.4.2 or higher. File `helpers.js` must live in the same directory, where your IMP! file is. 
 
 ### Enable helpers in IMP! GUI
 
@@ -151,9 +152,9 @@ There is a checkbox at the lower part of the page, labeled "enable helpers". You
 
 ### Get the helper scripts
 
-Previous step just enables the API. To use helpers, you must get some helper scripts. Good place to start is the [git-helpers repo](https://github.com/girobusan/imp-helpers), the `helpers` folder contains bundled scripts. 
+Previous step just enables the API. To use helpers, you must get some helper scripts. Good place to start is the [git-helpers repo](https://github.com/girobusan/imp-helpers), the `helpers` folder there contains bundled scripts. 
 
-You'll need to create folder, named `helpers` in the same directory, where your IMP! file is, and put required helpers there.
+You'll need to create a folder, named `helpers` in the same directory, where your IMP! file is, and put required helpers there.
 
 ## Use them in markdown
 
@@ -172,14 +173,15 @@ Subtype may be omitted, word `helper` may be shortened to just `h`:
   format (consult helper doc)
  ```
 ~~~
-Important:
-* Name of the helper is the same, as the scipt filename. For example, helper `dsv-render` resides in the file `dsv-render.js`.
+### Things to check
+* Name of the helper is the same, as the scipt filename. For example, helper `dsv-render` resides in the file `dsv-render.js` in the `helpers` folder.
 * No spaces before backticks at the start and end of the helper code.
 * No spaces after them.
 * If helpers enabled, the code will be parsed as you type, which may result in error messages, it's normal, and, _sometimes_, informative.
+* If you use helpers in your IMP! html , file `helpers.js` as well as `helpers` folder must be uploaded to your hosting provider with main html file, _unlike_ `imp.js` file (which is newer required for vieweing your html).
 
 ## Make your own
 
-It's quite easy. 'The dev documentation is coming soon!</script>
+It's quite easy. The dev documentation is coming soon!</script>
 </body>
 </html>

@@ -81,20 +81,20 @@ color: royalblue !important;
 <body>
 <main class='container' id='pageMain'><p><a href="/">Girobusan</a> · <a href="index.html">IMP!</a></p>
 <h1>IMP! Helpers</h1>
-<p><span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0A"></span></p>
+<p><small>The menu below is created by helper <code>headers-nav</code></small>
+<span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0A"></span></p>
 <p>Helpers are the scripts, which use new Helpers API for adding
 various types of content, not supported by regular markdown.
 Helpers may add static and/or interactive content in asynchronous way
 and enrich viewer experience.</p>
 <p>This API allows building interactive content blocks, whcih may also provide meaningful content without Java Script.</p>
-<p>By the way, the headers navigation menu on this page is an example of helper <code>helpers-nav</code>.</p>
 <h2>How to enable helpers for your IMP!</h2>
 <h3>Ensure, that you have the right IMP! version</h3>
 <p>File <code>helpers.js</code> must live in the same directory, where your IMP! file is. For now it  is awailable in git version.</p>
 <h3>Enable helpers in IMP! GUI</h3>
 <p>There is a checkbox at the lower part of the page, labeled &quot;enable helpers&quot;. You must then save and reload your IMP! file.</p>
-<h3>Get the actual helpers</h3>
-<p>Previous step just enables the API. To use helpers, you must have some helper scripts. Good place to start is the <a href="https://github.com/girobusan/imp-helpers">git-helpers repo</a>, the <code>helpers</code> folder contains bundled scripts.</p>
+<h3>Get the helper scripts</h3>
+<p>Previous step just enables the API. To use helpers, you must get some helper scripts. Good place to start is the <a href="https://github.com/girobusan/imp-helpers">git-helpers repo</a>, the <code>helpers</code> folder contains bundled scripts.</p>
 <p>You'll need to create folder, named <code>helpers</code> in the same directory, where your IMP! file is, and put required helpers there.</p>
 <h2>Use them in markdown</h2>
 <p>The full syntax for helper will look like this:</p>
@@ -116,13 +116,13 @@ and enrich viewer experience.</p>
 <li>If helpers enabled, the code will be parsed as you type, which may result in error messages, it's normal, and, <em>sometimes</em>, informative.</li>
 </ul>
 <h2>Make your own</h2>
-<p>The dev documentation is coming soon!</p>
+<p>It's quite easy. 'The dev documentation is coming soon!</p>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html)
 
 # IMP! Helpers
-
+--The menu below is created by helper `headers-nav`--
 ```h:headers-nav
 skipH1: true
 linkBack: "&lt;sup&gt;&amp;uarr;&lt;/sup&gt;"
@@ -135,8 +135,6 @@ and enrich viewer experience.
 
 This API allows building interactive content blocks, whcih may also provide meaningful content without Java Script.
 
-By the way, the headers navigation menu on this page is an example of helper `helpers-nav`. 
-
 ## How to enable helpers for your IMP!
 
 ### Ensure, that you have the right IMP! version
@@ -147,9 +145,9 @@ File `helpers.js` must live in the same directory, where your IMP! file is. For 
 
 There is a checkbox at the lower part of the page, labeled "enable helpers". You must then save and reload your IMP! file.
 
-### Get the actual helpers
+### Get the helper scripts
 
-Previous step just enables the API. To use helpers, you must have some helper scripts. Good place to start is the [git-helpers repo](https://github.com/girobusan/imp-helpers), the `helpers` folder contains bundled scripts. 
+Previous step just enables the API. To use helpers, you must get some helper scripts. Good place to start is the [git-helpers repo](https://github.com/girobusan/imp-helpers), the `helpers` folder contains bundled scripts. 
 
 You'll need to create folder, named `helpers` in the same directory, where your IMP! file is, and put required helpers there.
 
@@ -177,6 +175,6 @@ Important:
 
 ## Make your own
 
-The dev documentation is coming soon!</script>
+It's quite easy. 'The dev documentation is coming soon!</script>
 </body>
 </html>

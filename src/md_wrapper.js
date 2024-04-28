@@ -1,5 +1,6 @@
 const emoji = require('markdown-it-emoji');
 const hljs = require('highlight.js/lib/common');
+const markdownItAttrs = require('markdown-it-attrs');
 
 export const md = require('markdown-it')({
   html:true,
@@ -22,6 +23,9 @@ export const md = require('markdown-it')({
   headerless: true,
   multiline: true
 })
+.use(markdownItAttrs, {
+  allowedAttributes: []  // empty array = all attributes are allowed
+});
 
 //BLACK MAGIC ZONE
 //

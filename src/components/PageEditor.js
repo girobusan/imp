@@ -39,7 +39,7 @@ export class PageEditor extends Component{
       author: props.settings.author() || "",
       keywords: props.settings.keywords() || "",
       modified: false,
-      enableHelpers: JSON.parse( props.settings.enableHelpers()|| "false" ) 
+      enableHelpers: props.settings.enableHelpers()|| false  
     }
     this.text=props.text;
     this.editorControls = {};

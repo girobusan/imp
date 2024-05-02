@@ -7,8 +7,10 @@ var viewModeDone = false;
 var helpers = {};
 var paramFormatters={};
 var paramFormats={};
-var callbacks = {};
 var previewCache = {};
+
+var callbacks = {};
+var rejects = {};
 
 
 function packParams(p , fold){
@@ -82,22 +84,38 @@ function defaultRender( name , params , params_raw , subname){
 }
 
 function addHelper(name){
-  // console.log("Add helper" , name ) 
+  if(callbacks[name]){
+     //we're already waiting for this helper
+     return new Promise( (res, rej)=>{
+        callbacks[name].push(res);
+        if(!rejects[name]){ rejects[name] = [] }
+        rejects[name].push(rej);
+     } )
+     
+  }
+  // we're loading it first time
   return timeout( 
     new Promise(
       (res, rej)=>{
-        callbacks[name] = res;
+        callbacks[name] = [];
+        callbacks[name].push(  res );
         const url = "./helpers/" + name + ".js";
         attachScript(url)
-      .catch(e=>{  rej(e) })
+      .catch(e=>{  
+          //reject all
+          if(rejects[name]){
+             rejects[name].forEach(r=>r(e));
+             delete rejects[name];
+          }
+          rej(e) })
         ; 
       }
     ) , 2000 , "Dropped by timeout:"+name);
 }
 
-function getHelper(name){
+async function getHelper(name){
   // console.log("getting helper" , name )
-  return new Promise(
+  return new Promise( 
     (res , rej)=>{
       if(helpers[name]){ res(helpers[name]) ; return }
       addHelper(name)
@@ -165,8 +183,9 @@ const API = {
     helpers[name]=helper  ; 
     makeFormatter(name, paramFmt);
     "init" in helpers[name] && await helpers[name].init( API , viewMode );
-    if(typeof callbacks[name] === 'function'){ 
-      callbacks[name](helpers[name]);
+    if(callbacks[name]){ 
+      // callbacks[name](helpers[name]);
+      callbacks[name].forEach(c=>typeof c === 'function' && c(helpers[name]) )
       delete callbacks[name];
     }else{
       console.info("Invalid callbacks chain for" , name)

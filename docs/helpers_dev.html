@@ -104,19 +104,54 @@ color: royalblue !important;
   }	
 )()
 </code></pre>
-<p>This is a basic self-called function. The most important part is <em>obligatory</em> call to API function <code>register</code>, whith name of the helper, helper object and format specifier for helper parameters as arguments. The helper object <em>may</em> have  methods, which will be than called by API.</p>
+<p>This is a basic self-called function. The most important part is <em>obligatory</em> call to API function <code>register</code>, with name of the helper, helper object and format specifier (<code>json</code> , <code>yaml</code> or <code>raw</code>) for helper parameters as arguments. The helper object <em>may</em> have  methods, which will be than called by API.</p>
 <h2>Helper methods</h2>
 <h3>init(api, viewMode)</h3>
-<p>This function will be called once before any other actions.</p>
+<p>This function will be called once before any other actions. It will give two arguments: link to API and boolean value, indicating, if we're in view mode (and the next calls will be to our animate() function), or not.</p>
+<p>Good place to save the link to API, as we did. This method is optional.</p>
 <h3>preview(params , params_raw, subname)</h3>
-<p>Called when helper previewd.</p>
+<p>Called when helper previewed. This method must be as fast, as possible, to keep previewing process smooth. On the other hand, preview must be informative and, if possible, visual.</p>
+<p>This method is optional, if your skip it, default preview will be used.</p>
+<p>Parameters are:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>params</td>
+<td>Parsed parameters. Parameters are parsed, according to format specifier in register() function</td>
+</tr>
+<tr>
+<td>params_raw</td>
+<td>Raw parameters, as they where entered by user</td>
+</tr>
+<tr>
+<td>subname</td>
+<td>Subname, with which the helper was called</td>
+</tr>
+</tbody>
+</table>
+<p>Our helper will use API function <code>defaultPreview</code>, which will display standard gray rectangle with supplied text, like this:</p>
+<div style="background-color: silver; 
+  padding:32px;padding-top:18px;text-align:left;color: #666;
+  font-size:0.8em;border-radius: 6px;font-family:ui-monospace, monospace;">
+  <strong>Test helper</strong><p style="margin:0">Does nothing</p></div>
 <h3>render(params , params_raw, subname)</h3>
-<p>Renders static HTML.</p>
-<div data-ihelper="placeholders" 
+<p>Renders static HTML. Parameters are the same, as of preview method. Here you should render static HTML, which will be displayed on page. There are some requirements on this:</p>
+<ul>
+<li>If you want to animate your HTML in view mode, you have to add attribute <code>data-ihelper</code> with value, equal to the name of your helper, to the root element.</li>
+<li>You have to store parameters and subname of the helper somehow in this HTML (via <code>data-</code> attributes or inside a script tag with custom type)</li>
+</ul>
+<p>This method is also optional. If you skip it, you helper will be rendered like this:</p>
+<div data-ihelper="test" 
   data-defaultrender="true" 
   data-params=""
   data-subname=""
-  data-paramformat="yaml"><div class="preloader" style="
+  data-paramformat="undefined"><div class="preloader" style="
     max-width: 800px;
     margin: 0 auto;
     background-color: gray;
@@ -189,16 +224,17 @@ color: royalblue !important;
     transform: translate(24px, 0);
   }
 } </style>
-<div style="text-align: center;font-family:monospace;margin:0 auto">placeholders</div>
+<div style="text-align: center;font-family:monospace;margin:0 auto">test</div>
 <div class="lds-ellipsis"> <div></div> <div></div> <div></div> <div></div> </div>
 </div> 
 </div>
+<p>...and wait for animation. Skipping of the <code>render()</code> method also changes the behavior of the next method, <code>animate()</code>.</p>
 <h3>animate(element , params , params_raw, subname)</h3>
-<p>Animates HTML/</p>
+<p>Animates HTML. Totally optional. It behaves differently, depending on your render method:</p>
 <h4>When you have your own render()</h4>
-<p>You get only element.</p>
+<p>You get only the rendered element (which had a <code>data-ihelper</code> attribute, see above).</p>
 <h4>When you skip render()</h4>
-<p>You get full set of params.</p>
+<p>You get full set of params: the element (which you'd empty yourself), parameters, raw parameters and subname.</p>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html) &amp;middot; [Helpers](helpers.html)
@@ -238,29 +274,55 @@ Here is a full sourcecode of basic helper, named `test`, which will display defa
 )()
 ```
 
-This is a basic self-called function. The most important part is _obligatory_ call to API function `register`, whith name of the helper, helper object and format specifier for helper parameters as arguments. The helper object _may_ have  methods, which will be than called by API. 
+This is a basic self-called function. The most important part is _obligatory_ call to API function `register`, with name of the helper, helper object and format specifier (`json` , `yaml` or `raw`) for helper parameters as arguments. The helper object _may_ have  methods, which will be than called by API. 
 
 ## Helper methods
 
 ### init(api, viewMode)
 
-This function will be called once before any other actions. 
+This function will be called once before any other actions. It will give two arguments: link to API and boolean value, indicating, if we're in view mode (and the next calls will be to our animate() function), or not.
+
+Good place to save the link to API, as we did. This method is optional.
 
 ### preview(params , params_raw, subname)
-Called when helper previewd.
+Called when helper previewed. This method must be as fast, as possible, to keep previewing process smooth. On the other hand, preview must be informative and, if possible, visual.
+
+This method is optional, if your skip it, default preview will be used.
+
+Parameters are:
+
+| parameter |  meaning |
+|--|--|
+| params | Parsed parameters. Parameters are parsed, according to format specifier in register() function |
+| params_raw | Raw parameters, as they where entered by user |
+| subname | Subname, with which the helper was called |
+
+Our helper will use API function `defaultPreview`, which will display standard gray rectangle with supplied text, like this:
+```h:placeholders/preview
+title: Test helper
+text: Does nothing
+```
 
 ### render(params , params_raw, subname)
 
-Renders static HTML.
+Renders static HTML. Parameters are the same, as of preview method. Here you should render static HTML, which will be displayed on page. There are some requirements on this:
+
+- If you want to animate your HTML in view mode, you have to add attribute `data-ihelper` with value, equal to the name of your helper, to the root element. 
+- You have to store parameters and subname of the helper somehow in this HTML (via `data-` attributes or inside a script tag with custom type)
+
+ This method is also optional. If you skip it, you helper will be rendered like this:
 
 ```h:placeholders/render
+title: test
 ```
 
+...and wait for animation. Skipping of the `render()` method also changes the behavior of the next method, `animate()`.
+
 ### animate(element , params , params_raw, subname)
-Animates HTML/
+Animates HTML. Totally optional. It behaves differently, depending on your render method:
 #### When you have your own render()
-You get only element.
+You get only the rendered element (which had a `data-ihelper` attribute, see above).
 #### When you skip render()
-You get full set of params.</script>
+You get full set of params: the element (which you'd empty yourself), parameters, raw parameters and subname.</script>
 </body>
 </html>

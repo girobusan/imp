@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP! Helpers API</title>
+  <meta name="description" content="Helpers are the scripts, which use new Helpers API for adding 
+various types of content, not supported by regular markdown. 
+Helpers may add static and/or interactive content in asynchronous way
+and enrich viewer experience.">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="og:title" content="IMP! Helpers API">
+  <meta name="og:description" content="Helpers are the scripts, which use new Helpers API for adding 
+various types of content, not supported by regular markdown. 
+Helpers may add static and/or interactive content in asynchronous way
+and enrich viewer experience.">
+  <meta name="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="">
+  <link rel="icon" type="image/png" href="">
+  <script>
+   window.settings = {
+  "title": "IMP! Helpers API",
+  "description": "Helpers are the scripts, which use new Helpers API for adding \nvarious types of content, not supported by regular markdown. \nHelpers may add static and/or interactive content in asynchronous way\nand enrich viewer experience.",
+  "image": "",
+  "icon": "",
+  "filename": "helpers_dev.html",
+  "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
+  "css": "ul ul{\nmargin-bottom: 0\n}\n.linkToTop{\ntext-decoration: none;\ncolor: royalblue !important;\n}",
+  "headHTML": "",
+  "editor": "",
+  "viewCSS": "",
+  "author": "",
+  "keywords": "",
+  "enableHelpers": "true",
+  "pathToHelpersModule": ""
+}
+   window.savedWithImpVersion = "0.4.2"
+  </script>
+  <script>
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="imp.js";
+   document.head.appendChild(editor);
+   }
+   window.addEventListener("DOMContentLoaded" , function(){
+  
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
+   return;
+   }
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
+   IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
+   IMPEdit();
+   return;
+   }
+   if(window.location.protocol==="file:"){
+   IMPEdit();
+   }
+  
+})
+  </script>
+  <script src='helpers.js' id='helpersScript'></script>
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <style id="customCSS">ul ul{
+margin-bottom: 0
+}
+.linkToTop{
+text-decoration: none;
+color: royalblue !important;
+}</style>
+  <!--custom html here-->
+</head>
+<body>
+<main class='container' id='pageMain'><p><a href="/">Girobusan</a> · <a href="index.html">IMP!</a> · <a href="helpers.html">Helpers</a></p>
+<h1>Make your own helper</h1>
+<p><span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0A"></span></p>
+<hr>
+<h2>Basic helper</h2>
+<p>Here is a full sourcecode of basic helper, named <code>test</code>, which will display default preview in preview mode, word &quot;static&quot; in html source (or without Java Script), and word &quot;animated&quot; in interactive mode.</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// save this to helpers/test.js</span>
+( 
+<span class="hljs-function">()=&gt;</span>{
+  <span class="hljs-keyword">var</span> <span class="hljs-variable constant_">API</span>;
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">render</span> = (<span class="hljs-params">params, params_raw, subname</span>)=&gt;{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&lt;div data-ihelper=&#x27;test&#x27;&gt;STATIC&lt;/div&gt;&quot;</span>
+  }  
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">preview</span> = (<span class="hljs-params">params, params_raw, subname</span>)=&gt;{
+    <span class="hljs-keyword">return</span> <span class="hljs-variable constant_">API</span>.<span class="hljs-title function_">defaultPreview</span>(<span class="hljs-string">&quot;Test helper&quot;</span>, <span class="hljs-string">&quot;Does nothing&quot;</span>)
+  }  
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">animate</span> = (<span class="hljs-params">el</span>)=&gt;el.<span class="hljs-property">innerHTML</span>=<span class="hljs-string">&quot;ANIMATED&quot;</span>  
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">init</span> = (<span class="hljs-params">api</span>)=&gt;<span class="hljs-variable constant_">API</span>=api
+  
+  <span class="hljs-variable language_">window</span>.<span class="hljs-property">impHelpers</span>.<span class="hljs-title function_">register</span>( <span class="hljs-string">&quot;test&quot;</span> , 
+  {preview, render, animate, init} , 
+  <span class="hljs-string">&quot;raw&quot;</span>)
+  }	
+)()
+</code></pre>
+<p>This is a basic self-called function. The most important part is <em>obligatory</em> call to API function <code>register</code>, whith name of the helper, helper object and format specifier for helper parameters as arguments. The helper object <em>may</em> have  methods, which will be than called by API.</p>
+<h2>Helper methods</h2>
+<h3>init(api, viewMode)</h3>
+<p>This function will be called once before any other actions.</p>
+<h3>preview(params , params_raw, subname)</h3>
+<p>Called when helper previewd.</p>
+<h3>render(params , params_raw, subname)</h3>
+<p>Renders static HTML.</p>
+<div data-ihelper="placeholders" 
+  data-defaultrender="true" 
+  data-params=""
+  data-subname=""
+  data-paramformat="yaml"><div class="preloader" style="
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: gray;
+    min-width: 320px;
+    border-radius: 6px;
+    padding: 32px;
+    color: white;
+    ">
+    <style>
+   .lds-ellipsis {
+  color: currentColor;
+}
+.lds-ellipsis,
+.lds-ellipsis div {
+  box-sizing: border-box;
+}
+.lds-ellipsis {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33.33333px;
+  width: 13.33333px;
+  height: 13.33333px;
+  border-radius: 50%;
+  background: currentColor;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+} </style>
+<div style="text-align: center;font-family:monospace;margin:0 auto">placeholders</div>
+<div class="lds-ellipsis"> <div></div> <div></div> <div></div> <div></div> </div>
+</div> 
+</div>
+<h3>animate(element , params , params_raw, subname)</h3>
+<p>Animates HTML/</p>
+<h4>When you have your own render()</h4>
+<p>You get only element.</p>
+<h4>When you skip render()</h4>
+<p>You get full set of params.</p>
+</main>
+<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html) &amp;middot; [Helpers](helpers.html)
+
+# Make your own helper
+
+```h:headers-nav
+skipH1: true
+linkBack: "&lt;sup&gt;&amp;uarr;&lt;/sup&gt;"
+```
+
+----
+
+## Basic helper
+
+
+Here is a full sourcecode of basic helper, named `test`, which will display default preview in preview mode, word "static" in html source (or without Java Script), and word "animated" in interactive mode. 
+
+```javascript
+// save this to helpers/test.js
+( 
+()=&gt;{
+  var API;
+  const render = (params, params_raw, subname)=&gt;{
+    return "&lt;div data-ihelper='test'&gt;STATIC&lt;/div&gt;"
+  }  
+  const preview = (params, params_raw, subname)=&gt;{
+    return API.defaultPreview("Test helper", "Does nothing")
+  }  
+  const animate = (el)=&gt;el.innerHTML="ANIMATED"  
+  const init = (api)=&gt;API=api
+  
+  window.impHelpers.register( "test" , 
+  {preview, render, animate, init} , 
+  "raw")
+  }	
+)()
+```
+
+This is a basic self-called function. The most important part is _obligatory_ call to API function `register`, whith name of the helper, helper object and format specifier for helper parameters as arguments. The helper object _may_ have  methods, which will be than called by API. 
+
+## Helper methods
+
+### init(api, viewMode)
+
+This function will be called once before any other actions. 
+
+### preview(params , params_raw, subname)
+Called when helper previewd.
+
+### render(params , params_raw, subname)
+
+Renders static HTML.
+
+```h:placeholders/render
+```
+
+### animate(element , params , params_raw, subname)
+Animates HTML/
+#### When you have your own render()
+You get only element.
+#### When you skip render()
+You get full set of params.</script>
+</body>
+</html>

@@ -16,6 +16,7 @@ const props = [
    "author",
    "keywords",
    "enableHelpers",
+   "disableInteractivity",
    "pathToHelpersModule"
    ]
 var callback ; //called on update setting, maybe not required

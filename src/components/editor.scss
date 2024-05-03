@@ -173,10 +173,16 @@ button.TButton.alerted{
   .utility{
   }
   .divider{
-    width: 8px;
+    width: 12px;
     flex-grow: 0;
     flex-shrink: 0;
     flex-grow: 0;
+  }
+  @media(max-width: 600px){
+    flex-direction: column;
+    .divider{
+      height: 8px;
+    }
   }
 }
 

@@ -254,6 +254,11 @@ function viewModeWork(){
     return 
   }
 
+  if(window.settings.disableInteractivity){
+    console.info("Interactivity disabled by author.");
+    return;
+  }
+
   // console.log("view mode work!" )
   viewMode = true;
 

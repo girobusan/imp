@@ -38,6 +38,7 @@ export class PageEditor extends Component{
       headHTML: props.settings.headHTML() || "",
       author: props.settings.author() || "",
       keywords: props.settings.keywords() || "",
+      disableInteractivity: props.settings.disableInteractivity() || false,
       modified: false,
       enableHelpers: props.settings.enableHelpers()|| false  
     }
@@ -194,6 +195,7 @@ export class PageEditor extends Component{
     .author(this.state.author)
     .keywords(this.state.keywords)
     .enableHelpers(this.state.enableHelpers)
+    .disableInteractivity(this.state.disableInteractivity)
     ;
     return this.props.settings;
   }
@@ -361,13 +363,19 @@ export class PageEditor extends Component{
             />
 
             <h2 class="subtitle is-3">Helpers <small>(save and reload required)</small></h2>
-<div class="formRow">
+            <div class="formRow">
             <${ CheckBox  }
             title="Enable helpers"
             checked=${this.state.enableHelpers}
-            onChange=${ (c)=>this.setState({enableHelpers: c})}
+            onChange=${ (c)=>this.setState({modified: true , enableHelpers: c})}
             />
 
+            <div class="divider"></div>
+            <${ CheckBox  }
+            title="Disable interactivity"
+            checked=${this.state.disableInteractivity}
+            onChange=${ (c)=>this.setState({modified: true , disableInteractivity: c})}
+            />
             </div>
 
             <h2 class="subtitle is-3">Advanced <small>(may break everything)</small> </h2>

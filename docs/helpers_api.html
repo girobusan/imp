@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP! Helpers API</title>
+  <meta name="description" content="Helpers are the scripts, which use new Helpers API for adding 
+various types of content, not supported by regular markdown. 
+Helpers may add static and/or interactive content in asynchronous way
+and enrich viewer experience.">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="og:title" content="IMP! Helpers API">
+  <meta name="og:description" content="Helpers are the scripts, which use new Helpers API for adding 
+various types of content, not supported by regular markdown. 
+Helpers may add static and/or interactive content in asynchronous way
+and enrich viewer experience.">
+  <meta name="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="">
+  <link rel="icon" type="image/png" href="">
+  <script>
+   window.settings = {
+  "title": "IMP! Helpers API",
+  "description": "Helpers are the scripts, which use new Helpers API for adding \nvarious types of content, not supported by regular markdown. \nHelpers may add static and/or interactive content in asynchronous way\nand enrich viewer experience.",
+  "image": "",
+  "icon": "",
+  "filename": "helpers_api.html",
+  "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
+  "css": "ul ul{\nmargin-bottom: 0\n}\n.linkToTop{\ntext-decoration: none;\ncolor: royalblue !important;\n}",
+  "headHTML": "",
+  "editor": "",
+  "viewCSS": "",
+  "author": "",
+  "keywords": "",
+  "enableHelpers": "true",
+  "disableInteractivity": "",
+  "pathToHelpersModule": ""
+}
+   window.savedWithImpVersion = "0.4.4"
+  </script>
+  <script>
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="imp.js";
+   document.head.appendChild(editor);
+   }
+   window.addEventListener("DOMContentLoaded" , function(){
+  
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
+   return;
+   }
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
+   IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
+   IMPEdit();
+   return;
+   }
+   if(window.location.protocol==="file:"){
+   IMPEdit();
+   }
+  
+})
+  </script>
+  <script src='helpers.js' id='helpersScript'></script>
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <style id="customCSS">ul ul{
+margin-bottom: 0
+}
+.linkToTop{
+text-decoration: none;
+color: royalblue !important;
+}</style>
+  <!--custom html here-->
+</head>
+<body>
+<main class='container' id='pageMain'><p><a href="/">Girobusan</a> · <a href="index.html">IMP!</a> · <a href="helpers.html">Helpers</a></p>
+<h1>Helpers API methods</h1>
+<p><span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0A"></span></p>
+<hr>
+<h2>Core</h2>
+<h3>register(name, helper, parameters_format)</h3>
+<h2>Service</h2>
+<h3 id="defaultPreview">defaultPreview(title,text)</h3>
+<h3 id="attachScript">attachScript(url)</h3>
+<h3 id="packParams">packParams(params_raw , fold)</h3>
+<h3 id="unpackParams">unpackParams(packed)</h3>
+<h3>parseYAML(string)</h3>
+</main>
+<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html) &amp;middot; [Helpers](helpers.html)
+
+# Helpers API methods
+
+```h:headers-nav
+skipH1: true
+linkBack: "&lt;sup&gt;&amp;uarr;&lt;/sup&gt;"
+```
+
+----
+
+## Core
+
+### register(name, helper, parameters_format)
+
+## Service
+
+### defaultPreview(title,text){id=defaultPreview}
+### attachScript(url){id=attachScript}
+### packParams(params_raw , fold){id=packParams}
+### unpackParams(packed){id=unpackParams}
+### parseYAML(string)
+
+
+</script>
+</body>
+</html>

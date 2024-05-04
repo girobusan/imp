@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IMP! Helpers API</title>
+  <title>IMP! Helpers API methods</title>
   <meta name="description" content="Helpers are the scripts, which use new Helpers API for adding 
 various types of content, not supported by regular markdown. 
 Helpers may add static and/or interactive content in asynchronous way
 and enrich viewer experience.">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <meta name="og:title" content="IMP! Helpers API">
+  <meta name="og:title" content="IMP! Helpers API methods">
   <meta name="og:description" content="Helpers are the scripts, which use new Helpers API for adding 
 various types of content, not supported by regular markdown. 
 Helpers may add static and/or interactive content in asynchronous way
@@ -21,7 +21,7 @@ and enrich viewer experience.">
   <link rel="icon" type="image/png" href="">
   <script>
    window.settings = {
-  "title": "IMP! Helpers API",
+  "title": "IMP! Helpers API methods",
   "description": "Helpers are the scripts, which use new Helpers API for adding \nvarious types of content, not supported by regular markdown. \nHelpers may add static and/or interactive content in asynchronous way\nand enrich viewer experience.",
   "image": "",
   "icon": "",
@@ -82,16 +82,142 @@ color: royalblue !important;
 <body>
 <main class='container' id='pageMain'><p><a href="/">Girobusan</a> · <a href="index.html">IMP!</a> · <a href="helpers.html">Helpers</a></p>
 <h1>Helpers API methods</h1>
-<p><span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0A"></span></p>
+<p><span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0AmaxLevel:%203%0A"></span></p>
 <hr>
+<p>Please, keep in mind, that this API is at starting stage of development. We'll try to keep everything consistent and compatibile, but changes may occur.</p>
 <h2>Core</h2>
-<h3>register(name, helper, parameters_format)</h3>
+<h3 id="register">register(name, helper, parameters_format)</h3>
+<p>This function <strong>must</strong> be called by helper, as soon as possible.</p>
+<h4>Parameters</h4>
+<ol>
+<li>Name of the helper</li>
+<li>Helper object (more info in <a href="helpers_dev.html">dev docs</a>)</li>
+<li>Parameters format specifier, <code>json</code> , <code>yaml</code> or <code>raw</code></li>
+</ol>
 <h2>Service</h2>
+<p>This functions, which may be used in your helpers.</p>
 <h3 id="defaultPreview">defaultPreview(title,text)</h3>
+<p>Standard preview, with customizable title and text, which looks like this:</p>
+<div style="background-color: silver; 
+  padding:32px;padding-top:18px;text-align:left;color: #666;
+  font-size:0.8em;border-radius: 6px;font-family:ui-monospace, monospace;">
+  <strong>title</strong><p style="margin:0">Some text</p></div>
+<h4>Parameters</h4>
+<ol>
+<li>Title of the preview</li>
+<li>Text  to display</li>
+</ol>
+<h3 id="defaultRender">defaultRender(name, params, params_raw, subname)</h3>
+<p>Default render function, which will render preload screen:</p>
+<div data-ihelper="title" 
+  data-defaultrender="true" 
+  data-params=""
+  data-subname=""
+  data-paramformat="undefined"><div class="preloader" style="
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: gray;
+    min-width: 320px;
+    border-radius: 6px;
+    padding: 32px;
+    color: white;
+    ">
+    <style>
+   .lds-ellipsis {
+  color: currentColor;
+}
+.lds-ellipsis,
+.lds-ellipsis div {
+  box-sizing: border-box;
+}
+.lds-ellipsis {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33.33333px;
+  width: 13.33333px;
+  height: 13.33333px;
+  border-radius: 50%;
+  background: currentColor;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+} </style>
+<div style="text-align: center;font-family:monospace;margin:0 auto">title</div>
+<div class="lds-ellipsis"> <div></div> <div></div> <div></div> <div></div> </div>
+</div> 
+</div>
+<p>See <a href="helpers_dev.html">dev doc</a> for more info on defaultRender behavior.</p>
+<h4>Parameters</h4>
+<ol>
+<li>Name of the helper</li>
+<li>Parsed parameters</li>
+<li>Raw parameters (as they were entered)</li>
+<li>Subname of the helper</li>
+</ol>
+<h3 id="errorNotice">errorNotice(title, text)</h3>
+<p>Standard error notice.</p>
+<div style="background-color:orangered;border-radius:6px;
+  color:black;padding:32px;font-family:ui-monospace,monospace;font-size:0.8em">
+  title: Some text</div>
+<h4>Parameters</h4>
+<ol>
+<li>Title</li>
+<li>Text  to display</li>
+</ol>
 <h3 id="attachScript">attachScript(url)</h3>
-<h3 id="packParams">packParams(params_raw , fold)</h3>
+<p>Use this method for attaching external scripts. This method returns <code>Promise</code> which filfilled when script is attached, or rejected, if not. You can return this Promise from your helpers <code>init()</code> function.</p>
+<h4>Parameter</h4>
+<p>URL of the script to attach.</p>
+<h3 id="packParams">packParams(params_raw, fold)</h3>
+<p>Encodes supplied string using <code>encodeURI()</code> function. If second parameter is <code>true</code>, result than splitted to stings no longer than 64 characters long. Used for saving parameters in <code>render()</code> method.</p>
 <h3 id="unpackParams">unpackParams(packed)</h3>
-<h3>parseYAML(string)</h3>
+<p>Decodes result of the previous function.</p>
+<h3 id="parseYAML">parseYAML(string)</h3>
+<p>Parses YAML-formatted string. If string is empty, returns empty object.</p>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html) &amp;middot; [Helpers](helpers.html)
@@ -101,23 +227,71 @@ color: royalblue !important;
 ```h:headers-nav
 skipH1: true
 linkBack: "&lt;sup&gt;&amp;uarr;&lt;/sup&gt;"
+maxLevel: 3
 ```
 
 ----
 
+Please, keep in mind, that this API is at starting stage of development. We'll try to keep everything consistent and compatibile, but changes may occur.
+
 ## Core
 
-### register(name, helper, parameters_format)
+### register(name, helper, parameters_format){id=register}
+
+This function **must** be called by helper, as soon as possible.
+
+#### Parameters
+1. Name of the helper
+2. Helper object (more info in [dev docs](helpers_dev.html))
+3. Parameters format specifier, `json` , `yaml` or `raw`
 
 ## Service
+This functions, which may be used in your helpers.
 
 ### defaultPreview(title,text){id=defaultPreview}
+Standard preview, with customizable title and text, which looks like this:
+```h:placeholders/preview
+```
+
+#### Parameters
+1. Title of the preview
+1. Text  to display
+
+### defaultRender(name, params, params_raw, subname){id=defaultRender}
+Default render function, which will render preload screen:
+```h:placeholders/render
+```
+
+See [dev doc](helpers_dev.html) for more info on defaultRender behavior.
+ 
+#### Parameters
+1. Name of the helper
+1. Parsed parameters 
+1. Raw parameters (as they were entered)
+1. Subname of the helper
+
+### errorNotice(title, text){id=errorNotice}
+Standard error notice.
+```h:placeholders/error
+```
+
+#### Parameters
+1. Title 
+1. Text  to display
+
 ### attachScript(url){id=attachScript}
-### packParams(params_raw , fold){id=packParams}
+Use this method for attaching external scripts. This method returns `Promise` which filfilled when script is attached, or rejected, if not. You can return this Promise from your helpers `init()` function. 
+
+#### Parameter
+URL of the script to attach.
+
+### packParams(params_raw, fold){id=packParams}
+Encodes supplied string using `encodeURI()` function. If second parameter is `true`, result than splitted to stings no longer than 64 characters long. Used for saving parameters in `render()` method.
+
 ### unpackParams(packed){id=unpackParams}
-### parseYAML(string)
+Decodes result of the previous function.
 
-
-</script>
+### parseYAML(string){id=parseYAML}
+Parses YAML-formatted string. If string is empty, returns empty object.</script>
 </body>
 </html>

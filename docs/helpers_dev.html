@@ -34,9 +34,10 @@ and enrich viewer experience.">
   "author": "",
   "keywords": "",
   "enableHelpers": "true",
+  "disableInteractivity": "",
   "pathToHelpersModule": ""
 }
-   window.savedWithImpVersion = "0.4.2"
+   window.savedWithImpVersion = "0.4.4"
   </script>
   <script>
    function IMPEdit(){
@@ -84,7 +85,7 @@ color: royalblue !important;
 <p><span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0A"></span></p>
 <hr>
 <h2>Basic helper</h2>
-<p>Here is a full sourcecode of basic helper, named <code>test</code>, which will display default preview in preview mode, word &quot;static&quot; in html source (or without Java Script), and word &quot;animated&quot; in interactive mode.</p>
+<p>Here is a full sourcecode of basic helper, named <code>test</code>, which will display default preview in preview mode, word &quot;static&quot; in HTML source (or without Java Script), and word &quot;animated&quot; in interactive mode.</p>
 <pre><code class="language-javascript"><span class="hljs-comment">// save this to helpers/test.js</span>
 ( 
 <span class="hljs-function">()=&gt;</span>{
@@ -135,7 +136,7 @@ color: royalblue !important;
 </tr>
 </tbody>
 </table>
-<p>Our helper will use API function <code>defaultPreview</code>, which will display standard gray rectangle with supplied text, like this:</p>
+<p>Our helper will use API function <a href="helpers_api.html#defaultPreview"><code>defaultPreview</code></a>, which will display standard gray rectangle with supplied text, like this:</p>
 <div style="background-color: silver; 
   padding:32px;padding-top:18px;text-align:left;color: #666;
   font-size:0.8em;border-radius: 6px;font-family:ui-monospace, monospace;">
@@ -251,7 +252,7 @@ linkBack: "&lt;sup&gt;&amp;uarr;&lt;/sup&gt;"
 ## Basic helper
 
 
-Here is a full sourcecode of basic helper, named `test`, which will display default preview in preview mode, word "static" in html source (or without Java Script), and word "animated" in interactive mode. 
+Here is a full sourcecode of basic helper, named `test`, which will display default preview in preview mode, word "static" in HTML source (or without Java Script), and word "animated" in interactive mode. 
 
 ```javascript
 // save this to helpers/test.js
@@ -297,7 +298,7 @@ Parameters are:
 | params_raw | Raw parameters, as they where entered by user |
 | subname | Subname, with which the helper was called |
 
-Our helper will use API function `defaultPreview`, which will display standard gray rectangle with supplied text, like this:
+Our helper will use API function [`defaultPreview`](helpers_api.html#defaultPreview), which will display standard gray rectangle with supplied text, like this:
 ```h:placeholders/preview
 title: Test helper
 text: Does nothing

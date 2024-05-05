@@ -6,6 +6,13 @@
 
 Like a markdown-based CMS for single file, fully client-side. When you need to drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG, but still want to use GUI for content editing.
 
+Unlike many other project of this kind, IMP! page is **fully static by default**, 
+has all required SEO-tags in place and readable by any browser, even text-based.  
+
+But if you want to add interactive content to it, it's completely possible —
+you can add any custom HTML, CSS and JavaScript, and/or use IMP! Helpers API for
+creating more integrated custom content types of content (see [examples](https://girobusan.github.io/imp-helpers/)).
+
 → :book: [Docs](https://girobusan.github.io/imp/)
 
 ## How it works

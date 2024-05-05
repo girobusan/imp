@@ -51,7 +51,7 @@ This setup does not require downloading of any other files. Editor and main CSS 
 
 ## Local setup (everything local, no CDN)
 
-1. Download and unpack. There are 3 files: `index.html`, `style.css` and `imp.js`
+1. Download and unpack. There are 4 files: `index.html`, `style.css`, `imp.js` and `helpers.js`. The latter is required only for interactive content.
 2. Open the `index.html` in your browser (Firefox or Chrome is recommended)
 3. Edit it, import or enter your text, preview it. Click the big "Export HTML" ("Save" in newer version) button and save file to the same directory. If you didn't change file name, overwrite old file.
 

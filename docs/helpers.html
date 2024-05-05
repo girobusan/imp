@@ -88,8 +88,8 @@ color: royalblue !important;
 <p>Helpers are the scripts, which use new Helpers API for adding
 various types of content, not supported by regular markdown.
 Helpers may add static and/or interactive content in asynchronous way
-and enrich viewer experience.</p>
-<p>This API allows building interactive content blocks, whcih may also provide meaningful content without JavaScript.</p>
+and enrich viewer experience. Some <a href="https://girobusan.github.io/imp-helpers/">examples can be seen here</a>.</p>
+<p>This API allows building interactive content blocks, whcih may also provide meaningful content without JavaScript. Links to developer docs are <a href="#makeyourown">at the end of this page.</a></p>
 <h2>How to enable helpers for your IMP!</h2>
 <h3>Ensure, that you have the right IMP! version</h3>
 <p>Check if you have updated to IMP! version 0.4.2 or higher. File <code>helpers.js</code> must live in the same directory, where your IMP! file is.</p>
@@ -119,7 +119,7 @@ and enrich viewer experience.</p>
 <li>If helpers enabled, the code will be parsed as you type, which may result in error messages, it's normal, and, <em>sometimes</em>, informative.</li>
 <li>If you use helpers in your IMP! html , file <code>helpers.js</code> as well as <code>helpers</code> folder must be uploaded to your hosting provider with main html file, <em>unlike</em> <code>imp.js</code> file (which is newer required for vieweing your html).</li>
 </ul>
-<h2>Make your own</h2>
+<h2 id="makeyourown">Make your own</h2>
 <p>There are two other documents on that:</p>
 <ul>
 <li><a href="helpers_dev.html">Make your own helper</a></li>
@@ -141,9 +141,9 @@ linkBack: "&lt;sup&gt;&amp;uarr;&lt;/sup&gt;"
 Helpers are the scripts, which use new Helpers API for adding 
 various types of content, not supported by regular markdown. 
 Helpers may add static and/or interactive content in asynchronous way
-and enrich viewer experience.
+and enrich viewer experience. Some [examples can be seen here](https://girobusan.github.io/imp-helpers/).
 
-This API allows building interactive content blocks, whcih may also provide meaningful content without JavaScript.
+This API allows building interactive content blocks, whcih may also provide meaningful content without JavaScript. Links to developer docs are [at the end of this page.](#makeyourown)
 
 ## How to enable helpers for your IMP!
 
@@ -185,11 +185,11 @@ Subtype may be omitted, word `helper` may be shortened to just `h`:
 * If helpers enabled, the code will be parsed as you type, which may result in error messages, it's normal, and, _sometimes_, informative.
 * If you use helpers in your IMP! html , file `helpers.js` as well as `helpers` folder must be uploaded to your hosting provider with main html file, _unlike_ `imp.js` file (which is newer required for vieweing your html).
 
-## Make your own
+## Make your own{id=makeyourown}
 
 There are two other documents on that:
 
 * [Make your own helper](helpers_dev.html)
-* [Helpers API methods](helpers_api.html) </script>
+* [Helpers API methods](helpers_api.html)</script>
 </body>
 </html>

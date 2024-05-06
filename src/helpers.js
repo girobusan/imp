@@ -8,6 +8,7 @@ var helpers = {};
 var paramFormatters={};
 var paramFormats={};
 var previewCache = {};
+var postprocessors = [];
 
 var callbacks = {};
 var rejects = {};
@@ -175,9 +176,17 @@ function makeFormatter( hname , pfname ){
   }
 }
 
+function postprocess(  html , markdown){
+  let r = html;
+  if( postprocessors.length>0){
+     postprocessors.forEach( p=>r=p(html,markdown) )
+  }
+  return r;
+}
+
 const API = {
 
-  register: async (name , helper , paramFmt)=>{ 
+  register: async (name , helper , paramFmt , postprocessor)=>{ 
     if(name in helpers){ console.error("Attempt to re-register rejected:" , name) ; return }
     console.info("Registering:" , name)
     helpers[name]=helper  ; 
@@ -190,6 +199,7 @@ const API = {
     }else{
       console.info("Invalid callbacks chain for" , name)
     }
+    if(postprocessor){ postprocessors.push( postprocessor ) }
   },
 
   engage: async function( name ,  action ,  params_raw ,  subname ){
@@ -219,7 +229,7 @@ const API = {
   .catch((e)=>console.info("Can not animate " + name + ":" , e))
   },
 
-
+  postprocess: postprocess,
   //service
 
   packParams: packParams,

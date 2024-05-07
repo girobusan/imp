@@ -177,10 +177,13 @@ function makeFormatter( hname , pfname ){
 }
 
 function postprocess(  html , markdown){
+  console.info("Postprocessing requested...")
   let r = html;
   if( postprocessors.length>0){
+     console.info("Found postprocessors:" , postprocessors.length)
      postprocessors.forEach( p=>r=p(html,markdown) )
   }
+  console.info("Postprocessing done.")
   return r;
 }
 
@@ -199,7 +202,10 @@ const API = {
     }else{
       console.info("Invalid callbacks chain for" , name)
     }
-    if(postprocessor){ postprocessors.push( postprocessor ) }
+    if(postprocessor){ 
+       console.info("Postrocessor added from" , name)
+          postprocessors.push( postprocessor ) 
+      }
   },
 
   engage: async function( name ,  action ,  params_raw ,  subname ){

@@ -64,7 +64,7 @@ export async function renderMdAsync(mdtext , draft){
     return findHelpers(mdtext , draft)
     .then(r=>{return  draft ? 
        md.render(r) : 
-       window.impHelpers.postprocess( md.render(r) , mdtext) 
+       window.impHelpers.postprocess && window.impHelpers.postprocess( md.render(r) , mdtext) 
        })
   }else{
      return md.render(mdtext)

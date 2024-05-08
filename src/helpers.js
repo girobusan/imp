@@ -102,7 +102,9 @@ function getData(id){
   //get data from window
   return new Promise( (res , rej)=>{ 
     if(!viewMode){ rej("Can not retrieve data in this mode!") }
-     dataCallbacks.push( (d)=>{ return d[id] ? res(d[id]) : rej("No such data: " + id) } );
+    if(window.datasets && !window.datasets[id]){ rej("This data is absent.") }
+    if(window.datasets && window.datasets[id]){ res(window.datasets[id]) }
+    dataCallbacks.push( (d)=>{ return d[id] ? res(d[id]) : rej("No such data: " + id) } );
 
   } )
 }

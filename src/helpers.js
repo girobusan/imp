@@ -1,14 +1,38 @@
 const yaml = require('js-yaml');
 import preloaderCode from './preloader.htm?raw';
+const oldFetch = fetch;
+
+window.fetch = function(url , para){
+   return oldFetch(url , para);
+}
 
 var viewMode = false;
 var viewModeDone = false;
 
-var helpers = {};
-var paramFormatters={};
+
+var helpers = {
+   //system helpers
+   "save-data": {
+     render: (params  , params_raw , subname)=>{
+       prepData(params_raw , subname); return "" }
+   },
+
+   "save-json": {
+     render: (params  , params_raw , subname)=>{
+       prepData(params , subname) ; return "" }
+   }
+}
+
+var paramFormatters={
+  "save-data" : (d)=>d,
+  "save-json" : parseJSON
+};
+
 var paramFormats={};
 var previewCache = {};
 var postprocessors = [];
+var savedData={};
+var dataCallbacks=[];
 
 var callbacks = {};
 var rejects = {};
@@ -49,6 +73,38 @@ function timeout(prom, time, exception) {
     prom,
     new Promise((_r, rej) => timer = setTimeout(rej, time, exception))
   ]).finally(() => clearTimeout(timer));
+}
+
+// DATA ATTACHMENTS
+//
+// Gather data for future saving
+function prepData( d , id ){
+   const dtype = typeof d === 'string' ? "string" : "object" ;
+   savedData[id] = { type: dtype, data: d }
+}
+
+// Attach gathered data to html
+function attachData(html){
+  let r = html + "\n<script>window.datasets={};\n"
+  Object.keys(savedData).forEach( k=>{
+     const strdata = JSON.stringify(savedData[k])
+     const strscript = `window.datasets["${k}"]=${strdata};
+     `
+     r+=strscript;
+  } )
+  r+="\nwindow.impHelpers.dataDone(window.datasets)\n"
+  return r+="</script>"
+}
+
+// Retrieve attached data in View Mode
+// Async
+function getData(id){
+  //get data from window
+  return new Promise( (res , rej)=>{ 
+    if(!viewMode){ rej("Can not retrieve data in this mode!") }
+     dataCallbacks.push( (d)=>{ return d[id] ? res(d[id]) : rej("No such data: " + id) } );
+
+  } )
 }
 
 function attachScript(url , id){
@@ -184,6 +240,7 @@ function postprocess(  html , markdown){
      postprocessors.forEach( p=>r=p(html,markdown) )
   }
   console.info("Postprocessing done.")
+  if(Object.keys(savedData).length>0){ r = attachData(r) }
   return r;
 }
 
@@ -235,14 +292,19 @@ const API = {
   .catch((e)=>console.info("Can not animate " + name + ":" , e))
   },
 
+  //postprocessing
+
   postprocess: postprocess,
+  getData : getData,
+  dataDone: (d)=>dataCallbacks.forEach( c=>c(d) ),
   //service
 
   packParams: packParams,
   unpackParams:unpackParams,
   attachScript: attachScript,
   parseYAML: parseYAML,
-
+  //
+  //default views
   defaultPreview: defaultPreview,
   defaultRender: defaultRender,
   errorNotice: error,
@@ -250,6 +312,7 @@ const API = {
   disable: ()=>window.impHelpers = null, //:FIX:
 
 } //end helper code
+
 if(!window.impHelpers){
   console.info("Starting impHelpers module...");
   window.impHelpers = API;

@@ -11,6 +11,8 @@ require("./editor.scss")
 import impIcon from "../icons/imp.svg?raw";
 import TheInput from "./TheInput.js";
 import CheckBox from "./CheckBox.js";
+import { DataUI } from "../data.js";
+require( "../data_fetch.js" )
 // import { attachScript } from "../helpers.js";
 
 
@@ -361,6 +363,9 @@ export class PageEditor extends Component{
             value=${this.state.customCSS}
             handler=${this.makeHandler("customCSS")}
             />
+
+            <label class="label">Embedded data</label>
+           <${DataUI} /> 
 
             <h2 class="subtitle is-3">Helpers <small>(save and reload required)</small></h2>
             <div class="formRow">

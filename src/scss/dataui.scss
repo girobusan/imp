@@ -1,0 +1,44 @@
+.DataUI{
+  background-color: white;
+  border-radius: 4px;
+  overflow: hidden;
+  table{
+    border-collapse: collapse;
+    width:100%;
+    th{
+      font-size: 0.8em;
+      background-color: #666;
+      color: white;
+      font-weight: normal;
+    }
+
+    td , th{
+      padding: 4px;
+      border-right: 1px solid silver;
+      border-bottom: 1px solid silver;
+      &:last-child{
+        border-right: none;
+      }
+    }
+  }
+  .noData{
+    height: 60px;
+    color: gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+  }
+  .dataTools{
+    padding: 8px;
+    button{
+      font-size: 0.8rem;
+      margin-right: 8px;
+      cursor: pointer;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+}

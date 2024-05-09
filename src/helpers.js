@@ -75,39 +75,6 @@ function timeout(prom, time, exception) {
   ]).finally(() => clearTimeout(timer));
 }
 
-// DATA ATTACHMENTS
-//
-// Gather data for future saving
-function prepData( d , id ){
-   const dtype = typeof d === 'string' ? "string" : "object" ;
-   savedData[id] = { type: dtype, data: d }
-}
-
-// Attach gathered data to html
-function attachData(html){
-  let r = html + "\n<script>window.datasets={};\n"
-  Object.keys(savedData).forEach( k=>{
-     const strdata = JSON.stringify(savedData[k])
-     const strscript = `window.datasets["${k}"]=${strdata};
-     `
-     r+=strscript;
-  } )
-  r+="\nwindow.impHelpers.dataDone(window.datasets)\n"
-  return r+="</script>"
-}
-
-// Retrieve attached data in View Mode
-// Async
-function getData(id){
-  //get data from window
-  return new Promise( (res , rej)=>{ 
-    if(!viewMode){ rej("Can not retrieve data in this mode!") }
-    if(window.datasets && !window.datasets[id]){ rej("This data is absent.") }
-    if(window.datasets && window.datasets[id]){ res(window.datasets[id]) }
-    dataCallbacks.push( (d)=>{ return d[id] ? res(d[id]) : rej("No such data: " + id) } );
-
-  } )
-}
 
 function attachScript(url , id){
   const st = document.createElement("script");
@@ -242,7 +209,6 @@ function postprocess(  html , markdown){
      postprocessors.forEach( p=>r=p(html,markdown) )
   }
   console.info("Postprocessing done.")
-  if(Object.keys(savedData).length>0){ r = attachData(r) }
   return r;
 }
 

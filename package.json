@@ -10,7 +10,9 @@
     "watch": "npx webpack --mode development"
   },
   "babel": {
-    "plugins": [ ]
+    "plugins": [ 
+      [ "htm" ]
+    ]
   },
   "author": "",
   "license": "ISC",

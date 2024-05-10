@@ -20,13 +20,20 @@
         border-right: none;
       }
     }
+    tbody tr{
+      &:nth-child(even){
+        background-color: #eaeaea;
+      }
+    }
     .actionsTD{
       button{
         appearance: none;
         border: none;
         border-radius: 4px;
+        background-color: #cccccc;
         font-size: 0.8em;
         margin-right: 8px;
+        cursor: pointer;
       }
     }
   }

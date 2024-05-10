@@ -1,6 +1,7 @@
 const yaml = require('js-yaml');
 import preloaderCode from './preloader.htm?raw';
 require("./data_fetch.js");
+import { escapeTags , unescapeTags } from './util';
 
 var viewMode = false;
 var viewModeDone = false;
@@ -249,6 +250,8 @@ const API = {
   unpackParams:unpackParams,
   attachScript: attachScript,
   parseYAML: parseYAML,
+  escapeHTML: escapeTags,
+  unescapeHTML: unescapeTags,
   //
   //default views
   defaultPreview: defaultPreview,

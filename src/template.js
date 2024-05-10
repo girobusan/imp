@@ -99,7 +99,7 @@ return `<!DOCTYPE html>
   ${  noScript===true ? "*/" : ""}
 })
   </script>
-  ${ ( !noScript && enableHelpers ) ? "<script src='helpers.js' id='helpersScript'></script>" : "" }
+  ${ ( !noScript && enableHelpers ) ? "<script defer src='helpers.js' id='helpersScript'></script>" : "" }
   <link id = "viewCSS" rel="stylesheet" href="${viewCSS || "style.css"}">
   <style id="customCSS">${customCSS || ""}</style>
   ${customHeadHTML||"<!--custom html here-->"}

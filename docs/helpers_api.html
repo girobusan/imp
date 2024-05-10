@@ -218,6 +218,10 @@ color: royalblue !important;
 <p>Decodes result of the previous function.</p>
 <h3 id="parseYAML">parseYAML(string)</h3>
 <p>Parses YAML-formatted string. If string is empty, returns empty object.</p>
+<h3>escapeHTML(string)</h3>
+<p>Escapes &lt;, &gt; and &amp; .</p>
+<h3>unescapeHTML(string)</h3>
+<p>Unescapes escaped string.</p>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html) &amp;middot; [Helpers](helpers.html)
@@ -292,6 +296,12 @@ Encodes supplied string using `encodeURI()` function. If second parameter is `tr
 Decodes result of the previous function.
 
 ### parseYAML(string){id=parseYAML}
-Parses YAML-formatted string. If string is empty, returns empty object.</script>
+Parses YAML-formatted string. If string is empty, returns empty object.
+
+### escapeHTML(string)
+Escapes &lt;, &gt; and &amp; .
+
+### unescapeHTML(string) 
+Unescapes escaped string.  </script>
 </body>
 </html>

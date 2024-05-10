@@ -8,16 +8,25 @@
     th{
       font-size: 0.8em;
       background-color: #666;
-      color: white;
+      color: silver;
       font-weight: normal;
     }
 
     td , th{
-      padding: 4px;
+      padding: 4px 8px;
       border-right: 1px solid silver;
       border-bottom: 1px solid silver;
       &:last-child{
         border-right: none;
+      }
+    }
+    .actionsTD{
+      button{
+        appearance: none;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.8em;
+        margin-right: 8px;
       }
     }
   }

@@ -1,38 +1,18 @@
 const yaml = require('js-yaml');
 import preloaderCode from './preloader.htm?raw';
-const oldFetch = fetch;
-
-window.fetch = function(url , para){
-   return oldFetch(url , para);
-}
+require("./data_fetch.js");
 
 var viewMode = false;
 var viewModeDone = false;
 
 
-var helpers = {
-   //system helpers
-   "save-data": {
-     render: (params  , params_raw , subname)=>{
-       prepData(params_raw , subname); return "" }
-   },
+var helpers = {};
 
-   "save-json": {
-     render: (params  , params_raw , subname)=>{
-       prepData(params , subname) ; return "" }
-   }
-}
-
-var paramFormatters={
-  "save-data" : (d)=>d,
-  "save-json" : parseJSON
-};
-
+var paramFormatters={};
 var paramFormats={};
+
 var previewCache = {};
 var postprocessors = [];
-var savedData={};
-var dataCallbacks=[];
 
 var callbacks = {};
 var rejects = {};
@@ -263,8 +243,6 @@ const API = {
   //postprocessing
 
   postprocess: postprocess,
-  getData : getData,
-  dataDone: (d)=>dataCallbacks.forEach( c=>c(d) ),
   //service
 
   packParams: packParams,

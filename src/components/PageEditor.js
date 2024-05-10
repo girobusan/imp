@@ -365,7 +365,7 @@ export class PageEditor extends Component{
             />
 
             <label class="label">Embedded data</label>
-           <${DataUI} /> 
+           <${DataUI} signal=${ ()=>this.setState({modified:true}) }/> 
 
             <h2 class="subtitle is-3">Helpers <small>(save and reload required)</small></h2>
             <div class="formRow">

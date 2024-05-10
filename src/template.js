@@ -1,4 +1,5 @@
-import { escapeTags , unescapeTags } from "./fileops"
+import { escapeTags , unescapeTags } from "./util"
+import { stringifyData } from "./data";
 const version = VERSION;
 
 /*
@@ -106,7 +107,7 @@ return `<!DOCTYPE html>
 <body>
 ${HTMLTemplate(htmlText)}
 <footer id="pageFooter">${footer}</footer>
-${ `<script>window.impData=${window.impData && JSON.stringify(window.impData)}</script>` }
+${ `<script>window.impData=${window.impData && stringifyData()}</script>` }
 <script id="pageData" type="text/markdown">${escapeTags( mdText )}</script>
 </body>
 </html>`

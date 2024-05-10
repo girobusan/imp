@@ -1,30 +1,6 @@
 
 import {renderHTML} from "./template.js";
-
-const tagsToReplace = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;'
-};
-
-const replaceToTags = {
-  '&amp;':'&',
-  '&lt;': '<',
-  '&gt;': '>'
-}
-
-export function escapeTags(s){
-  // s=s.toString();
-  if(typeof s !== 'string'){ return s }
-  const replacer=(tag)=>{return tagsToReplace[tag]||tag}
-  return s.replace(/[&<>]/g , replacer);
-}
-export function unescapeTags(s){
-  if(typeof s !== 'string'){ return s }
-  s=s.toString();
-  const replacer=(tag)=>{return replaceToTags[tag]||tag}
-  return s.replace(/&amp;|&lt;|&gt;/g , replacer);
-}
+import { escapeTags , unescapeTags } from "./util.js";
 
 export function convert2html(
   text, 
@@ -35,7 +11,7 @@ export function convert2html(
 {
 
   //current custom CSS
-  const currentCSS = document.querySelector("#customCSS");
+  // const currentCSS = document.querySelector("#customCSS");
 
   return renderHTML(
     text,
@@ -70,9 +46,9 @@ export function extractFromHTML(){
     return { markdown: ""}
   }
   if(dataContainer.type=="text/markdown"){
-    return {markdown: unescapeTags(dataContainer.innerHTML).trim() }
+    return {markdown: unescapeTags(dataContainer.innerText).trim() }
   }
-  return JSON.parse(unescapeTags( dataContainer.innerHTML ));
+  return JSON.parse(unescapeTags( dataContainer.innerText ));
 }
 
 export function saveFile(text, mdtext, settings){

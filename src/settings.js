@@ -1,4 +1,4 @@
-import { escapeTags , unescapeTags } from "./fileops"
+import { escapeTags , unescapeTags } from "./util"
 const yaml = require('js-yaml');
 
 const STORE = {};

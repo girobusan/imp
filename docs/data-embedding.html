@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP! Data embedding</title>
+  <meta name="description" content="IMP! allows you to embed data into HTML, and use it in generation of static content and in Java Script and IMP! Helpers.">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="og:title" content="IMP! Data embedding">
+  <meta name="og:description" content="IMP! allows you to embed data into HTML, and use it in generation of static content and in Java Script and IMP! Helpers.">
+  <meta name="og:image" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="">
+  <link rel="icon" type="image/png" href="">
+  <script>
+   window.settings = {
+  "title": "IMP! Data embedding",
+  "description": "IMP! allows you to embed data into HTML, and use it in generation of static content and in Java Script and IMP! Helpers.",
+  "image": "",
+  "icon": "",
+  "filename": "data-embedding.html",
+  "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
+  "css": "ul ul{\nmargin-bottom: 0\n}\n.linkToTop{\ntext-decoration: none;\ncolor: royalblue !important;\n}",
+  "headHTML": "",
+  "editor": "",
+  "viewCSS": "",
+  "author": "",
+  "keywords": "",
+  "enableHelpers": "true",
+  "disableInteractivity": "",
+  "pathToHelpersModule": ""
+}
+   window.savedWithImpVersion = "0.4.4"
+  </script>
+  <script>
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="imp.js";
+   document.head.appendChild(editor);
+   }
+   window.addEventListener("DOMContentLoaded" , function(){
+  
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
+   return;
+   }
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
+   IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
+   IMPEdit();
+   return;
+   }
+   if(window.location.protocol==="file:"){
+   IMPEdit();
+   }
+  
+})
+  </script>
+  <script src='helpers.js' id='helpersScript'></script>
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <style id="customCSS">ul ul{
+margin-bottom: 0
+}
+.linkToTop{
+text-decoration: none;
+color: royalblue !important;
+}</style>
+  <!--custom html here-->
+</head>
+<body>
+<main class='container' id='pageMain'><p><a href="/">Girobusan</a> · <a href="index.html">IMP!</a></p>
+<h1>IMP! Data Embedding</h1>
+<p><span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0A"></span></p>
+<hr>
+<h2>Intro</h2>
+<p>IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by <a href="helpers.html">helpers</a>, in static and/or interactive content, or by your own scripts.</p>
+<h2>Attaching data</h2>
+<p>You can add data in IMP! GUI. There are two types of embedded data: <code>string</code> and <code>object</code>.</p>
+<p><img src="data-ui.png" alt=""></p>
+<h2>Retrieving data</h2>
+<h3>Directly</h3>
+<p>Embedded data is saved in global variable <code>window.impData</code>, which has the following structure:</p>
+<pre><code class="language-javascript"><span class="hljs-variable language_">window</span>.<span class="hljs-property">impData</span>{
+	.
+	.
+	<span class="hljs-string">&quot;data-id&quot;</span>: {
+		<span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span> or <span class="hljs-string">&quot;object&quot;</span>,
+		<span class="hljs-string">&quot;data&quot;</span>: -- data itself, 
+		           object or string
+	}
+	.
+	.
+}
+</code></pre>
+<h3>Via fetch()</h3>
+<p>In IMP! GUI and in view mode, if helpers are enabled, standart fetch() function is patched.</p>
+</main>
+<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html)
+
+# IMP! Data Embedding
+
+```h:headers-nav
+skipH1: true
+linkBack: "&lt;sup&gt;&amp;uarr;&lt;/sup&gt;"
+```
+
+----
+
+
+## Intro
+
+IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by [helpers](helpers.html), in static and/or interactive content, or by your own scripts. 
+
+## Attaching data
+
+You can add data in IMP! GUI. There are two types of embedded data: `string` and `object`. 
+
+![](data-ui.png)
+
+## Retrieving data
+
+### Directly
+
+Embedded data is saved in global variable `window.impData`, which has the following structure:
+
+```javascript
+window.impData{
+	.
+	.
+	"data-id": {
+		"type": "string" or "object",
+		"data": -- data itself, 
+		           object or string
+	}
+	.
+	.
+}
+```
+
+### Via fetch()
+In IMP! GUI and in view mode, if helpers are enabled, standart fetch() function is patched.</script>
+</body>
+</html>

@@ -18,9 +18,9 @@ if(!fetch.isAlreadyFixed){
       return Promise.resolve( {
         ok: true,
         status: 200,
-        blob: ()=>Promise.resolve( new Blob( [ dataType=='json' ? JSON.stringify(d) : d ] ) , {type: "text/plain"} ),
-        text: ()=> Promise.resolve( dataType=='json' ? JSON.stringify(d) : d) ,
-        json: ()=> Promise.resolve( dataType=='json' ? d : tryParse(d))
+        blob: ()=>Promise.resolve( new Blob( [ dataType=='object' ? JSON.stringify(d) : d ] ) , {type: "text/plain"} ),
+        text: ()=> Promise.resolve( dataType=='object' ? JSON.stringify(d) : d) ,
+        json: ()=> Promise.resolve( dataType=='object' ? d : tryParse(d))
       } )
    }
    return real_fetch(url,opts);

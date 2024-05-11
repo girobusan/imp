@@ -22,10 +22,12 @@
     }
     tbody tr{
       &:nth-child(even){
-        background-color: #eaeaea;
+        background-color: #efefef;
       }
     }
     .actionsTD{
+      width: 1%;
+      white-space: nowrap;
       button{
         appearance: none;
         border: none;
@@ -34,6 +36,9 @@
         font-size: 0.8em;
         margin-right: 8px;
         cursor: pointer;
+        &:last-child{
+          margin-right: 0;
+        }
       }
     }
   }

@@ -81,9 +81,11 @@ color: royalblue !important;
 <h2>Intro</h2>
 <p>IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by <a href="helpers.html">helpers</a>, in static and/or interactive content, or by your own scripts.</p>
 <h2>Attaching data</h2>
-<p>You can add data in IMP! GUI. There are two types of embedded data: <code>string</code> and <code>object</code>.</p>
-<p><img src="data-ui.png" alt=""></p>
+<p>You can add data in IMP! GUI. There are two types of embedded data: <code>string</code> and <code>object</code>. String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly.</p>
+<p><img src="data-ui.png" alt=""> <small>GUI for data</small></p>
+<p>There are two buttons in the GUI. <code>Embed JSON</code> is for embedding well-formed JSON files. The data will be parsed and used as <code>object</code>. <code>Embed text</code> embeds unstructured text as is.</p>
 <h2>Retrieving data</h2>
+<p>Data, added in GUI is always available. It can be used in helpers to render static HTML, as well as in interactive content. There are more than one way to retrieve it.</p>
 <h3>Directly</h3>
 <p>Embedded data is saved in global variable <code>window.impData</code>, which has the following structure:</p>
 <pre><code class="language-javascript"><span class="hljs-variable language_">window</span>.<span class="hljs-property">impData</span>{
@@ -98,8 +100,22 @@ color: royalblue !important;
 	.
 }
 </code></pre>
+<p>HTML tags are escaped. The variable will be available after <code>DOMContentLoaded</code> event.</p>
 <h3>Via fetch()</h3>
-<p>In IMP! GUI and in view mode, if helpers are enabled, standart fetch() function is patched.</p>
+<p>In IMP! GUI and in view mode, <em>if helpers are enabled,</em> standard fetch() function is patched to allow access to embedded data. Just pass data id  with prepended &quot;@&quot; as url.</p>
+<p>For example, you can embed csv file as text, named <code>stocks.csv</code>, and then feed it to vega-lite via &quot;special url&quot;, like this:</p>
+<pre><code class="language-json"> ```helper<span class="hljs-punctuation">:</span>vega-embed
+ <span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Stock prices of 5 ...&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;@stocks.csv&quot;</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> 
+  <span class="hljs-comment">//the rest of the code...</span>
+ ```
+</code></pre>
+<p>You may use in your own scripts. Remember to enable helpers, you do not need to use any helpers, just load the module.</p>
+<h2>Writting data</h2>
+<p>Helpers can write data, for example, in <code>render()</code> function, but this data may not be available to other helpers <code>render()</code>. You can write data in <code>render()</code> in order to read it later in <code>animate()</code> function.</p>
+<p>Of course, you can write data in <code>animate</code> but if you write data in <code>animate()</code> it won't be saved.</p>
+<p>Please, <strong>do not use data embedding for saving helper parameters</strong>. Embedded data is global and has no namespaces, and helpers have no methods to clean up after deleting.</p>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html)
@@ -120,11 +136,14 @@ IMP! (since version 0.5) allows you to embed data into HTML. Data can than be us
 
 ## Attaching data
 
-You can add data in IMP! GUI. There are two types of embedded data: `string` and `object`. 
+You can add data in IMP! GUI. There are two types of embedded data: `string` and `object`. String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly.
 
-![](data-ui.png)
+![](data-ui.png) --GUI for data--
+
+There are two buttons in the GUI. `Embed JSON` is for embedding well-formed JSON files. The data will be parsed and used as `object`. `Embed text` embeds unstructured text as is.
 
 ## Retrieving data
+Data, added in GUI is always available. It can be used in helpers to render static HTML, as well as in interactive content. There are more than one way to retrieve it.
 
 ### Directly
 
@@ -144,7 +163,29 @@ window.impData{
 }
 ```
 
+HTML tags are escaped. The variable will be available after `DOMContentLoaded` event. 
+
 ### Via fetch()
-In IMP! GUI and in view mode, if helpers are enabled, standart fetch() function is patched.</script>
+In IMP! GUI and in view mode, _if helpers are enabled,_ standard fetch() function is patched to allow access to embedded data. Just pass data id  with prepended "@" as url.
+
+For example, you can embed csv file as text, named `stocks.csv`, and then feed it to vega-lite via "special url", like this:
+
+~~~json
+ ```helper:vega-embed
+ {
+  "description": "Stock prices of 5 ...",
+  "data": {"url": "@stocks.csv"}, 
+  //the rest of the code...
+ ```
+~~~ 
+
+You may use in your own scripts. Remember to enable helpers, you do not need to use any helpers, just load the module.
+
+## Writting data
+Helpers can write data, for example, in `render()` function, but this data may not be available to other helpers `render()`. You can write data in `render()` in order to read it later in `animate()` function. 
+
+Of course, you can write data in `animate` but if you write data in `animate()` it won't be saved.
+
+Please, **do not use data embedding for saving helper parameters**. Embedded data is global and has no namespaces, and helpers have no methods to clean up after deleting.</script>
 </body>
 </html>

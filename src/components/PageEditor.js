@@ -63,10 +63,10 @@ export class PageEditor extends Component{
     if(this.props.settings.css()){ return this.props.settings.css() }
 
     let e = document.getElementById("customCSS");
-    if(e && e.innerHTML){
+    if(e && e.innerHTML.trim()){
       return e.innerHTML;
     }
-    return "/* write your CSS here*/";
+    return "";
   }
   //resize
   startResize(evt){
@@ -367,7 +367,7 @@ export class PageEditor extends Component{
             <label class="label">Embedded data</label>
            <${DataUI} signal=${ ()=>this.setState({modified:true}) }/> 
 
-            <h2 class="subtitle is-3">Helpers <small>(save and reload required)</small></h2>
+            <h2 class="subtitle is-3">Helpers API <small>(save and reload required)</small></h2>
             <div class="formRow">
             <${ CheckBox  }
             title="Enable helpers"

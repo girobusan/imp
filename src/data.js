@@ -47,6 +47,18 @@ function renameGUI(old){
   delete window.impData[old]
 }
 
+function downloadData(name){
+   let content = window.impData[name].data; // = JSON.stringify(window.impData[name].data)
+   if(window.impData[name].type === 'object'){ content = JSON.stringify(content , null , 2) }
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+  element.setAttribute('download', name);
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+   
+}
+
 
 
 function uploadData(type , name){
@@ -99,6 +111,7 @@ export function DataUI(props){
   <td class="actionsTD">
   <button onclick=${ ()=>renameGUI(k) }>rename</button>
   <button onclick=${ ()=>uploadData(data[k].type, k) }>replace</button>
+  <button onclick=${ ()=>downloadData(k) }>download</button>
   <button onclick=${()=>delete window.impData[k] }>delete</button>
   </td>
   </tr>` ) }

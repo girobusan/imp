@@ -82,8 +82,10 @@ color: royalblue !important;
 <p>IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by <a href="helpers.html">helpers</a>, in static and/or interactive content, or by your own scripts.</p>
 <h2>Attaching data</h2>
 <p>You can add data in IMP! GUI. There are two types of embedded data: <code>string</code> and <code>object</code>. String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly.</p>
-<p><img src="data-ui.png" alt=""> <small>GUI for data</small></p>
+<p><img src="data-ui.png" alt="Empty data UI"> <small>GUI for data, when no data is embedded</small></p>
 <p>There are two buttons in the GUI. <code>Embed JSON</code> is for embedding well-formed JSON files. The data will be parsed and used as <code>object</code>. <code>Embed text</code> embeds unstructured text as is.</p>
+<p><img src="data-ui-full.png" alt="Data UI with some data entered"> <small>Data embedded</small></p>
+<p>Frim GUI you can rename, replace, download or delete any data unit.</p>
 <h2>Retrieving data</h2>
 <p>Data, added in GUI is always available. It can be used in helpers to render static HTML, as well as in interactive content. There are more than one way to retrieve it.</p>
 <h3>Directly</h3>
@@ -138,9 +140,13 @@ IMP! (since version 0.5) allows you to embed data into HTML. Data can than be us
 
 You can add data in IMP! GUI. There are two types of embedded data: `string` and `object`. String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly.
 
-![](data-ui.png) --GUI for data--
+![Empty data UI](data-ui.png) --GUI for data, when no data is embedded--
 
 There are two buttons in the GUI. `Embed JSON` is for embedding well-formed JSON files. The data will be parsed and used as `object`. `Embed text` embeds unstructured text as is.
+
+![Data UI with some data entered](data-ui-full.png) --Data embedded--
+
+Frim GUI you can rename, replace, download or delete any data unit.
 
 ## Retrieving data
 Data, added in GUI is always available. It can be used in helpers to render static HTML, as well as in interactive content. There are more than one way to retrieve it.

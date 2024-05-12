@@ -107,7 +107,7 @@ return `<!DOCTYPE html>
 <body>
 ${HTMLTemplate(htmlText)}
 <footer id="pageFooter">${footer}</footer>
-${ `<script>window.impData=${window.impData && stringifyData()}</script>` }
+${ `<script>window.impData=${stringifyData()}</script>` }
 <script id="pageData" type="text/markdown">${escapeTags( mdText )}</script>
 </body>
 </html>`

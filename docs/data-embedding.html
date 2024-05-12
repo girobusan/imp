@@ -81,7 +81,7 @@ color: royalblue !important;
 <h2>Intro</h2>
 <p>IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by <a href="helpers.html">helpers</a>, in static and/or interactive content, or by your own scripts.</p>
 <h2>Attaching data</h2>
-<p>You can add data in IMP! GUI. There are two types of embedded data: <code>string</code> and <code>object</code>. String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly.</p>
+<p>You can add data in IMP! GUI. There are two types of embedded data: <code>string</code> and <code>object</code> (it can be changed in future). String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly.</p>
 <p><img src="data-ui.png" alt="Empty data UI"> <small>GUI for data, when no data is embedded</small></p>
 <p>There are two buttons in the GUI. <code>Embed JSON</code> is for embedding well-formed JSON files. The data will be parsed and used as <code>object</code>. <code>Embed text</code> embeds unstructured text as is.</p>
 <p><img src="data-ui-full.png" alt="Data UI with some data entered"> <small>Data embedded</small></p>
@@ -117,7 +117,7 @@ color: royalblue !important;
 <p>You may use in your own scripts. Remember to enable helpers, you do not need to use any helpers, just load the module.</p>
 <h2>Writting data</h2>
 <p>Helpers can write data, for example, in <code>render()</code> function, but this data may not be available to other helpers <code>render()</code>. You can write data in <code>render()</code> in order to read it later in <code>animate()</code> function.</p>
-<p>Of course, you can write data in <code>animate</code> but if you write data in <code>animate()</code> it won't be saved.</p>
+<p>Of course, you can write data in <code>animate()</code> function, but it won't be saved.</p>
 <p>Please, <strong>do not use data embedding for saving helper parameters</strong>. Embedded data is global and has no namespaces, and helpers have no methods to clean up after deleting.</p>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
@@ -139,7 +139,7 @@ IMP! (since version 0.5) allows you to embed data into HTML. Data can than be us
 
 ## Attaching data
 
-You can add data in IMP! GUI. There are two types of embedded data: `string` and `object`. String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly.
+You can add data in IMP! GUI. There are two types of embedded data: `string` and `object` (it can be changed in future). String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly.
 
 ![Empty data UI](data-ui.png) --GUI for data, when no data is embedded--
 
@@ -193,7 +193,7 @@ You may use in your own scripts. Remember to enable helpers, you do not need to 
 ## Writting data
 Helpers can write data, for example, in `render()` function, but this data may not be available to other helpers `render()`. You can write data in `render()` in order to read it later in `animate()` function. 
 
-Of course, you can write data in `animate` but if you write data in `animate()` it won't be saved.
+Of course, you can write data in `animate()` function, but it won't be saved.
 
 Please, **do not use data embedding for saving helper parameters**. Embedded data is global and has no namespaces, and helpers have no methods to clean up after deleting.</script>
 </body>

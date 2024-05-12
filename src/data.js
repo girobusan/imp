@@ -3,14 +3,27 @@ import { useState , useMemo} from 'preact/hooks';
 import { html } from 'htm/preact'
 require( "./scss/dataui.scss" )
 import { escapeTags } from './util';
+const isProxy = Symbol("isProxy")
 /*
  *
  * Data module
  *
  */
+function byteCount(s) {
+    return encodeURI(s).split(/%..|./).length - 1;
+}
+
+function sizeFormat(n){
+  if(n<600){return n+"B"}
+  return ( Math.round(n/102.4)/10 ) + "Kb";
+}
+
+function dataSize(d){
+  return sizeFormat( byteCount( JSON.stringify(d) ) )
+}
 
 function proxify(handler){
-if(typeof window.impData === 'Proxy'){ console.error("Double proxification prevented"); return }
+if(window.impData[ isProxy ]){ console.info("Double proxification prevented") ; return }
 const DATA = window.impData || {}
 
 const PROXY = {
@@ -26,18 +39,19 @@ const PROXY = {
      return true;
   },
   get: function(t,n){
+    if(n===isProxy){ return true }
     if(!t[n]){ return null }
     let r = t[n]
     return r
   }
 }
-console.info( "Data proxified." )
+// console.info( "Data proxified." )
 window.impData = new Proxy( DATA , PROXY );
 }
 
 export function stringifyData(){
-   const r = escapeTags( JSON.stringify(window.impData) );
-   return r;
+  if(!window.impData){ return "{}" }
+   return escapeTags( JSON.stringify(window.impData) );
 }
 
 function renameGUI(old){
@@ -92,6 +106,21 @@ function uploadData(type , name){
   
 }
 
+function DataRow(props){
+let k = props.name
+ return html`<tr>
+  <td>${k}</td>
+  <td>${window.impData[k].type}</td>
+  <td>${ dataSize(window.impData[k].data) }</td>
+  <td class="actionsTD">
+  <button onclick=${ ()=>renameGUI(k) }>rename</button>
+  <button onclick=${ ()=>uploadData(window.impData[k].type, k) }>replace</button>
+  <button onclick=${ ()=>downloadData(k) }>download</button>
+  <button onclick=${()=>delete window.impData[k] }>delete</button>
+  </td>
+ </tr>`
+}
+
 export function DataUI(props){
    
   const [data , setData] = useState(window.impData || {})
@@ -101,20 +130,11 @@ export function DataUI(props){
 
   return html`<div class="DataUI" > 
   <table><thead>
-  <tr><th>id</th><th>type</th><th>actions</th></tr>
+  <tr><th>id</th><th>type</th> <th>≈ size</th><th>actions</th></tr>
   </thead>
   <tbody>
   ${ Object.keys( data )
-  .map( k=>html`<tr>
-  <td>${k}</td>
-  <td>${data[k].type}</td>
-  <td class="actionsTD">
-  <button onclick=${ ()=>renameGUI(k) }>rename</button>
-  <button onclick=${ ()=>uploadData(data[k].type, k) }>replace</button>
-  <button onclick=${ ()=>downloadData(k) }>download</button>
-  <button onclick=${()=>delete window.impData[k] }>delete</button>
-  </td>
-  </tr>` ) }
+  .map( k=>html`<${DataRow} name=${k} />` ) }
   </tbody>
   </table>
   ${ Object.keys(data).length==0 && html`<div class="noData">no data</div>` }

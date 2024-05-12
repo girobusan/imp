@@ -23,6 +23,7 @@ function dataSize(d){
 }
 
 function proxify(handler){
+if(!window.impData){ window.impData = {} }
 if(window.impData[ isProxy ]){ console.info("Double proxification prevented") ; return }
 const DATA = window.impData || {}
 
@@ -33,7 +34,6 @@ const PROXY = {
     return true;
   },
   set: function( t, n , v ){
-    //escape string  
      t[n] = v;
      handler( Object.assign({} , t) )
      return true;
@@ -55,15 +55,15 @@ export function stringifyData(){
 }
 
 function renameGUI(old){
- const newname = prompt("Enter new name" , old) || old;
+  const newname = prompt("Enter new name" , old) || old;
   if(newname==old){ return }
   window.impData[newname] = window.impData[old];
   delete window.impData[old]
 }
 
 function downloadData(name){
-   let content = window.impData[name].data; // = JSON.stringify(window.impData[name].data)
-   if(window.impData[name].type === 'object'){ content = JSON.stringify(content , null , 2) }
+  let content = window.impData[name].data; // = JSON.stringify(window.impData[name].data)
+  if(window.impData[name].type === 'object'){ content = JSON.stringify(content , null , 2) }
   var element = document.createElement('a');
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
   element.setAttribute('download', name);

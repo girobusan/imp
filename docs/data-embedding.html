@@ -105,6 +105,7 @@ color: royalblue !important;
 <p>HTML tags are escaped. The variable will be available after <code>DOMContentLoaded</code> event.</p>
 <h3>Via fetch()</h3>
 <p>In IMP! GUI and in view mode, <em>if helpers are enabled,</em> standard fetch() function is patched to allow access to embedded data. Just pass data id  with prepended &quot;@&quot; as url.</p>
+<p>It is <em>extremely</em> useful, if you want to use a library, which can accept url as parameter, and other options for passing data are somehow complicated.</p>
 <p>For example, you can embed csv file as text, named <code>stocks.csv</code>, and then feed it to vega-lite via &quot;special url&quot;, like this:</p>
 <pre><code class="language-json"> ```helper<span class="hljs-punctuation">:</span>vega-embed
  <span class="hljs-punctuation">{</span>
@@ -173,6 +174,8 @@ HTML tags are escaped. The variable will be available after `DOMContentLoaded` e
 
 ### Via fetch()
 In IMP! GUI and in view mode, _if helpers are enabled,_ standard fetch() function is patched to allow access to embedded data. Just pass data id  with prepended "@" as url.
+
+It is _extremely_ useful, if you want to use a library, which can accept url as parameter, and other options for passing data are somehow complicated.
 
 For example, you can embed csv file as text, named `stocks.csv`, and then feed it to vega-lite via "special url", like this:
 

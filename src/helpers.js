@@ -18,6 +18,8 @@ var postprocessors = [];
 var callbacks = {};
 var rejects = {};
 
+const scripts = new Set();
+
 
 function packParams(p , fold){
   let r = encodeURI(p) ;
@@ -58,6 +60,8 @@ function timeout(prom, time, exception) {
 
 
 function attachScript(url , id){
+  if(scripts.has(url)){ return Promise.resolve("Already here") }
+  scripts.add(url)
   const st = document.createElement("script");
   if( id ){ st.id=id };
   return new Promise( (res, rej)=>{
@@ -69,7 +73,7 @@ function attachScript(url , id){
 }
 
 function error(title , details){
-  return `<div style="background-color:orangered;border-radius:6px;
+return `<div style="background-color:#b64445;border-radius:6px;
   color:black;padding:32px;font-family:ui-monospace,monospace;font-size:0.8em">
   ${title.trim()}: ${details &&  details.toString().trim()}</div>`
 }

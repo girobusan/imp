@@ -368,14 +368,13 @@ export class PageEditor extends Component{
            <${DataUI} signal=${ ()=>this.setState({modified:true}) }/> 
 
             <h2 class="subtitle is-3">Helpers API <small>(save and reload required)</small></h2>
-            <div class="formRow">
+            <div class="field is-grouped is-grouped-multiline">
             <${ CheckBox  }
             title="Enable helpers"
             checked=${this.state.enableHelpers}
             onChange=${ (c)=>this.setState({modified: true , enableHelpers: c})}
             />
 
-            <div class="divider"></div>
             <${ CheckBox  }
             title="Disable interactivity"
             checked=${this.state.disableInteractivity}
@@ -411,8 +410,8 @@ export class PageEditor extends Component{
             handler=${this.makeHandler("viewCSS")}
             />
 
-            <div class="formRow">
-            <input type="button" class="utility button is-gray violet" value="Switch to view mode" onclick=${()=>{
+            <div class="buttons">
+            <input type="button" class="button is-dark" value="Switch to view mode" onclick=${()=>{
               if(this.state.modified)
               { 
                 confirm("All changes may be lost. Proceed?") && ( window.location="?mode=view" ) 
@@ -420,8 +419,8 @@ export class PageEditor extends Component{
                 window.location="?mode=view"
                 }
                 }}></input>
-                <div class="divider"></div>
-                <input type="button" class="utility button is-gray violet" value="Duplicate file" onclick=${
+
+                <input type="button" class="button is-dark " value="Duplicate file" onclick=${
                   ()=>{
                     const s = this.makeSettings(); //sync settings
                     const thisfilename = s.filename();
@@ -432,9 +431,8 @@ export class PageEditor extends Component{
                   }
                   }></input>
 
-                <div class="divider"></div>
                 <input type="button" 
-                class="utility button is-gray violet" 
+                class="button is-dark ${this.state.modified ? "violet" : ""}" 
                 value="Save file" 
                 onclick=${ this.saveHTML }/>
                   </div>

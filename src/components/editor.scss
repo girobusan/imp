@@ -1,14 +1,17 @@
 @use '../scss/normalize.css';
 // @import '../scss/nofont.scss';
-@import 'bulma/sass/utilities/_all';
+@import 'bulma/sass/utilities/controls';
+// @import 'bulma/sass/utilities/mixins';
+@import 'bulma/sass/utilities/extends';
+
 @import 'bulma/sass/form/_all';
 @import 'bulma/sass/base/_all';
 
 @import 'bulma/sass/elements/button.sass';
 @import 'bulma/sass/elements/title.sass';
-@import 'bulma/sass/elements/content.sass';
 
-$hatch_color: rgba(0,0,0,0.3);
+
+$hatch_color: rgba(0,0,0,0.26);
 $hatch_bg_color: rgba(0,0,0,0.25);
 $violet_color:#8115d6 ;
 $resize_handle_height: 8px;
@@ -30,11 +33,19 @@ body{
       );
   background-size: 16px 16px;
   background-repeat: repeat;
+  *{
+    box-sizing: border-box;
+  }
 }
 h2.subtitle{
   color: white;
   text-shadow: 0 0 6px rgba(0,0,0,0.3);
   margin-top: 3rem;
+}
+
+button , input[type=button]{
+  // box-sizing: border-box;
+  // height: initial !important;
 }
 
 button.TButton.alerted{
@@ -143,6 +154,9 @@ button.TButton.alerted{
     background-color: $violet_color;
     color: white;
     border-color: darken($violet_color , 10%);
+    &:hover{
+      background-color: lighten($violet_color , 10%)
+    }
   }
 
 .TheInput{

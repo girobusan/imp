@@ -60,12 +60,10 @@
   }
   .dataTools{
     padding: 8px;
-    button{
-      font-size: 0.8rem;
-      margin-right: 8px;
+    button {
+      border-radius: 4px !important;
       cursor: pointer;
       &:last-child{
-        margin-right: 0;
       }
     }
   }

@@ -3,6 +3,7 @@ import { useState , useMemo} from 'preact/hooks';
 import { html } from 'htm/preact'
 require( "./scss/dataui.scss" )
 import { escapeTags } from './util';
+import { saveToDisk , loadFromDisk} from './fileops';
 const isProxy = Symbol("isProxy")
 /*
  *
@@ -64,13 +65,21 @@ function renameGUI(old){
 function downloadData(name){
   let content = window.impData[name].data; // = JSON.stringify(window.impData[name].data)
   if(window.impData[name].type === 'object'){ content = JSON.stringify(content , null , 2) }
-  var element = document.createElement('a');
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
-  element.setAttribute('download', name);
-  document.body.appendChild(element);
-  element.click();
-  document.body.removeChild(element);
-   
+  saveToDisk( name , content ) 
+}
+
+function dumpData(name){
+  saveToDisk( name , JSON.stringify(window.impData || {} , null , 2) )
+}
+
+function restoreData(){
+  loadFromDisk( txt=>{
+     const data = JSON.parse(txt);
+     //clean up current data
+     Object.keys(window.impData).forEach( k=>delete window.impData[k] )
+     //add new entries
+     Object.keys(data).forEach( k=>window.impData[k]=data[k] )
+  } )
 }
 
 
@@ -138,9 +147,15 @@ export function DataUI(props){
   </tbody>
   </table>
   ${ Object.keys(data).length==0 && html`<div class="noData">no data</div>` }
-  <div class="dataTools">
-   <button onclick=${()=>uploadData("object")}>Embed JSON</button>
-   <button onclick=${ uploadData }>Embed Text</button>
+  <div class="dataTools buttons">
+   <button class="button is-small is-dark " onclick=${()=>uploadData("object")}>Embed JSON</button>
+   <button class="button is-small is-dark " onclick=${ uploadData }>Embed Text</button>
+   <button class="button is-small is-dark " onclick=${ ()=>dumpData("dump.json") }>
+   Dump Data
+   </button>
+   <button class="button is-small is-dark " onclick=${restoreData}>
+   Restore Data
+   </button>
   </div>
   </div>`
 }

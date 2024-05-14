@@ -148,12 +148,12 @@ export function DataUI(props){
   </table>
   ${ Object.keys(data).length==0 && html`<div class="noData">no data</div>` }
   <div class="dataTools buttons">
-   <button class="button is-small is-dark " onclick=${()=>uploadData("object")}>Embed JSON</button>
-   <button class="button is-small is-dark " onclick=${ uploadData }>Embed Text</button>
-   <button class="button is-small is-dark " onclick=${ ()=>dumpData("dump.json") }>
+   <button class="button is-small is-light " onclick=${()=>uploadData("object")}>Embed JSON</button>
+   <button class="button is-small is-light " onclick=${ uploadData }>Embed Text</button>
+   <button class="button is-small is-light " onclick=${ ()=>dumpData("dump.json") }>
    Dump Data
    </button>
-   <button class="button is-small is-dark " onclick=${restoreData}>
+   <button class="button is-small is-light " onclick=${restoreData}>
    Restore Data
    </button>
   </div>

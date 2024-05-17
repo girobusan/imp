@@ -37,7 +37,7 @@ and enrich viewer experience.">
   "disableInteractivity": "",
   "pathToHelpersModule": ""
 }
-   window.savedWithImpVersion = "0.4.4"
+   window.savedWithImpVersion = "0.5.0"
   </script>
   <script>
    function IMPEdit(){
@@ -68,7 +68,7 @@ and enrich viewer experience.">
   
 })
   </script>
-  <script src='helpers.js' id='helpersScript'></script>
+  <script defer src='helpers.js' id='helpersScript'></script>
   <link id = "viewCSS" rel="stylesheet" href="style.css">
   <style id="customCSS">ul ul{
 margin-bottom: 0
@@ -84,10 +84,10 @@ color: royalblue !important;
 <h1>Helpers API methods</h1>
 <p><span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0AmaxLevel:%203%0A"></span></p>
 <hr>
-<p>Please, keep in mind, that this API is at starting stage of development. We'll try to keep everything consistent and compatibile, but changes may occur.</p>
+<p>Please, keep in mind, that this API is at starting stage of development. We'll try to keep everything consistent and compatible, but changes may occur.</p>
 <h2>Core</h2>
-<h3 id="register">register(name, helper, parameters_format)</h3>
-<p>This function <strong>must</strong> be called by helper, as soon as possible.</p>
+<h3 id="register">register(name, helper, parameters_format , postprocessor)</h3>
+<p>This function <strong>must</strong> be called by helper, as soon as possible. Postprocessor is an optional parameter; a function, which will be called after processing all helpers. It will be called with two arguments: resulting HTML and source markdown, and must return HTML. The order of execution of posprocessors is not guaranteed! Be careful.</p>
 <h4>Parameters</h4>
 <ol>
 <li>Name of the helper</li>
@@ -101,7 +101,7 @@ color: royalblue !important;
 <div style="background-color: silver; 
   padding:32px;padding-top:18px;text-align:left;color: #666;
   font-size:0.8em;border-radius: 6px;font-family:ui-monospace, monospace;">
-  <strong>title</strong><p style="margin:0">Some text</p></div>
+  <strong>title</strong><pre style="margin:0">Some text</pre></div>
 <h4>Parameters</h4>
 <ol>
 <li>Title of the preview</li>
@@ -112,8 +112,7 @@ color: royalblue !important;
 <div data-ihelper="title" 
   data-defaultrender="true" 
   data-params=""
-  data-subname=""
-  data-paramformat="undefined"><div class="preloader" style="
+  data-subname=""><div class="preloader" style="
     max-width: 800px;
     margin: 0 auto;
     background-color: gray;
@@ -200,7 +199,7 @@ color: royalblue !important;
 </ol>
 <h3 id="errorNotice">errorNotice(title, text)</h3>
 <p>Standard error notice.</p>
-<div style="background-color:orangered;border-radius:6px;
+<div style="background-color:#b64445;border-radius:6px;
   color:black;padding:32px;font-family:ui-monospace,monospace;font-size:0.8em">
   title: Some text</div>
 <h4>Parameters</h4>
@@ -209,11 +208,11 @@ color: royalblue !important;
 <li>Text  to display</li>
 </ol>
 <h3 id="attachScript">attachScript(url)</h3>
-<p>Use this method for attaching external scripts. This method returns <code>Promise</code> which filfilled when script is attached, or rejected, if not. You can return this Promise from your helpers <code>init()</code> function.</p>
+<p>Use this method for attaching external scripts. This method returns <code>Promise</code> which fulfilled when script is attached, or rejected, if not. You can return this Promise from your helpers <code>init()</code> function.</p>
 <h4>Parameter</h4>
 <p>URL of the script to attach.</p>
 <h3 id="packParams">packParams(params_raw, fold)</h3>
-<p>Encodes supplied string using <code>encodeURI()</code> function. If second parameter is <code>true</code>, result than splitted to stings no longer than 64 characters long. Used for saving parameters in <code>render()</code> method.</p>
+<p>Encodes supplied string using <code>encodeURI()</code> function. If second parameter is <code>true</code>, result than split to stings no longer than 64 characters. Used for saving parameters in <code>render()</code> method.</p>
 <h3 id="unpackParams">unpackParams(packed)</h3>
 <p>Decodes result of the previous function.</p>
 <h3 id="parseYAML">parseYAML(string)</h3>
@@ -224,6 +223,7 @@ color: royalblue !important;
 <p>Available in IMP! versions &gt; 0.5. Unescapes escaped string.</p>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script>window.impData={}</script>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html) &amp;middot; [Helpers](helpers.html)
 
 # Helpers API methods
@@ -236,13 +236,13 @@ maxLevel: 3
 
 ----
 
-Please, keep in mind, that this API is at starting stage of development. We'll try to keep everything consistent and compatibile, but changes may occur.
+Please, keep in mind, that this API is at starting stage of development. We'll try to keep everything consistent and compatible, but changes may occur.
 
 ## Core
 
-### register(name, helper, parameters_format){id=register}
+### register(name, helper, parameters_format , postprocessor){id=register}
 
-This function **must** be called by helper, as soon as possible.
+This function **must** be called by helper, as soon as possible. Postprocessor is an optional parameter; a function, which will be called after processing all helpers. It will be called with two arguments: resulting HTML and source markdown, and must return HTML. The order of execution of posprocessors is not guaranteed! Be careful.
 
 #### Parameters
 1. Name of the helper
@@ -284,13 +284,13 @@ Standard error notice.
 1. Text  to display
 
 ### attachScript(url){id=attachScript}
-Use this method for attaching external scripts. This method returns `Promise` which filfilled when script is attached, or rejected, if not. You can return this Promise from your helpers `init()` function. 
+Use this method for attaching external scripts. This method returns `Promise` which fulfilled when script is attached, or rejected, if not. You can return this Promise from your helpers `init()` function. 
 
 #### Parameter
 URL of the script to attach.
 
 ### packParams(params_raw, fold){id=packParams}
-Encodes supplied string using `encodeURI()` function. If second parameter is `true`, result than splitted to stings no longer than 64 characters long. Used for saving parameters in `render()` method.
+Encodes supplied string using `encodeURI()` function. If second parameter is `true`, result than split to stings no longer than 64 characters. Used for saving parameters in `render()` method.
 
 ### unpackParams(packed){id=unpackParams}
 Decodes result of the previous function.

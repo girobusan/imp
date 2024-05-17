@@ -34,10 +34,11 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 ## Features
 
 - Fully local thing &mdash; no server required, no setup. It's YOUR page!
-- Pages can be fully static, even **text-based browser friendly.**
-- [Helpers API](https://girobusan.github.io/imp/helpers.html) for adding interactive content and other interesting things
-- Custom HTML, CSS and JS allowed 
 - Simple Markdown editor with pixel-perfect preview and code highlighting
+- Pages can be fully static, even **text-based browser friendly.**
+- Custom HTML, CSS and JS allowed 
+- [Helpers API](https://girobusan.github.io/imp/helpers.html) for adding interactive content and other interesting things
+- [Data embedding](https://girobusan.github.io/imp/data-embedding.html)
 - [Customizable](https://girobusan.github.io/imp/themes/)
 
 ## CDN setup (not recommended)

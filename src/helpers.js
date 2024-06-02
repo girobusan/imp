@@ -8,6 +8,7 @@ var viewModeDone = false;
 
 
 var helpers = {};
+var blacklisted = new Set();
 
 var paramFormatters={};
 var paramFormats={};
@@ -95,6 +96,7 @@ function defaultRender( name , params , params_raw , subname){
 }
 
 function addHelper(name){
+  if (blacklisted.has(name)){ return Promise.reject("Helper unavailable") }
   if(callbacks[name]){
      //we're already waiting for this helper
      return new Promise( (res, rej)=>{
@@ -118,6 +120,7 @@ function addHelper(name){
              rejects[name].forEach(r=>r(e));
              delete rejects[name];
           }
+          blacklisted.add(name);
           rej(e) })
         ; 
       }
@@ -125,6 +128,7 @@ function addHelper(name){
 }
 
 async function getHelper(name){
+   if (blacklisted.has(name)){ return Promise.reject("Helper unavailable") }
   // console.log("getting helper" , name )
   return new Promise( 
     (res , rej)=>{

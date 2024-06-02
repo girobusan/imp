@@ -51,11 +51,11 @@ function tracePath(obj , keys){
   return cursor;
 }
 
-function timeout(prom, time, exception) {
+function timeout(prom, time, name) {
   let timer;
   return Promise.race([
     prom,
-    new Promise((_r, rej) => timer = setTimeout(rej, time, exception))
+    new Promise((_r, rej) => timer = setTimeout(()=>{ blacklisted.add(name) , rej("dropped by timeout") }, time))
   ]).finally(() => clearTimeout(timer));
 }
 
@@ -75,15 +75,15 @@ function attachScript(url , id){
 
 function error(title , details){
 return `<div style="background-color:#b64445;border-radius:6px;
-  color:black;padding:32px;font-family:ui-monospace,monospace;font-size:0.8em">
-  ${title.trim()}: ${details &&  details.toString().trim()}</div>`
+  color:black;padding:18px 32px;font-family:ui-monospace,monospace;font-size:0.8em;color: yellow">
+  <strong>${title.trim()}</strong>: ${details &&  details.toString().trim()}</div>`
 }
 
 function defaultPreview(name, text){ 
   return `<div style="background-color: silver; 
-  padding:32px;padding-top:18px;text-align:left;color: #666;
+  padding:18px 32px;text-align:left;color: #444;
   font-size:0.8em;border-radius: 6px;font-family:ui-monospace, monospace;">
-  <strong>${name}</strong><pre style="margin:0">${text && text.replace(/^\s*\n/g , "") || ""}</pre></div>`
+  <strong>${name}</strong><br/><code style="margin:0;padding:0;background-color: inherit">${text && text.replace(/^\s*\n/g , "") || ""}</code></div>`
 }
 
 function defaultRender( name , params , params_raw , subname){
@@ -124,7 +124,7 @@ function addHelper(name){
           rej(e) })
         ; 
       }
-    ) , 2000 , "Dropped by timeout:"+name);
+    ) , 2000 , name);
 }
 
 async function getHelper(name){

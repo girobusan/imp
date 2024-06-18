@@ -3,6 +3,7 @@ import {Component , createRef , h} from "preact";
 import {html} from "htm/preact";
 const yaml = require('js-yaml');
 import BareMDE from "../BareMDE_v0.2.3.umd.js";
+import SettingsEditor from "./SettingsEditor.js";
 import { md , renderMdAsync} from "../md_wrapper.js";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
 import { addEmpties, cleanupObj } from "../settings";
@@ -48,6 +49,7 @@ export class PageEditor extends Component{
     this.editorControls = {};
     this.editorHeight = Math.round( window.innerHeight * 0.75 );
     this.resizeValue = null;
+    this.makeHandler = this.makeHandler.bind(this);
     this.startResize = this.startResize.bind(this);
     this.stopResize = this.stopResize.bind(this);
     this.doResize = this.doResize.bind(this);
@@ -147,6 +149,15 @@ export class PageEditor extends Component{
     } )
 
   }
+  duplicateFile(){
+    const s = this.makeSettings(); //sync settings
+    const thisfilename = s.filename();
+    const newfilename = prompt("Enter new filename with extension" , 
+      s.filename());
+    s.filename(newfilename);
+    saveFile( md.render(this.text) , this.text , s );
+    s.filename( thisfilename )
+  }
 
   importMdText(t , name){
     const extracted = extractFM(t)
@@ -235,210 +246,71 @@ export class PageEditor extends Component{
 
   }
   render(){
-        return html`<div class="PageEditor">
-        <!--markdown editor-->
-        <div class="editor_ui" 
-        ref=${this.editorNode}
-        style=${{ height: this.editorHeight + 'px' }}
-        >
-        <${ BareMDE } 
-        controls=${this.editorControls}
-        content=${ this.state.text }
-        onUpdate=${ (c)=>this.handleInput( "text" , c ) }
-        modified=${ this.state.modified }
-        save=${ this.saveHTML }
-        maxHeight="100%"
-        branding=${ "<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>" }
-        trueFullscreen=${true}
-        renderBody=${
-          (c)=>{ 
-            return renderMdAsync(c , true)
-            .then( r=>{
-              return `<main class="container" id="pageMain">${r}</main><footer id="pageFooter">${this.state.footer}</footer>`;
-              })
-          }
-          }
-        render=${
-          (c)=>{ 
-            return renderMdAsync(c , true)
-            .then( r=>{
-              return convert2html( r , "" , this.makeSettings() , true) 
-              } )
-          }
-          }
-          menuItems=${[
-            { label:"Import markdown &larr;" , handler:this.importMd },
-            { label:"Export markdown &rarr;" , handler:this.exportMd },
-            ]}
-            />
-            <div id="resizeHandle" 
-            ref=${this.resizer}
-            onmousedown=${ this.startResize }
-            onmouseup=${ this.stopResize }
-            />
-            </div>
+    return html`<div class="PageEditor">
+<!--markdown editor-->
+<div class="editor_ui" 
+ref=${this.editorNode}
+style=${{ height: this.editorHeight + 'px' }}
+>
+<${ BareMDE } 
+controls=${this.editorControls}
+content=${ this.state.text }
+onUpdate=${ (c)=>this.handleInput( "text" , c ) }
+modified=${ this.state.modified }
+save=${ this.saveHTML }
+maxHeight="100%"
+branding=${ "<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>" }
+trueFullscreen=${true}
+renderBody=${
+(c)=>{ 
+return renderMdAsync(c , true)
+.then( r=>{
+return `<main class="container" id="pageMain">${r}</main><footer id="pageFooter">${this.state.footer}</footer>`;
+})
+}
+}
+render=${
+(c)=>{ 
+return renderMdAsync(c , true)
+.then( r=>{
+return convert2html( r , "" , this.makeSettings() , true) 
+} )
+}
+}
+menuItems=${[
+{ label:"Import markdown &larr;" , handler:this.importMd },
+{ label:"Export markdown &rarr;" , handler:this.exportMd },
+]}
+/>
+<div id="resizeHandle" 
+ref=${this.resizer}
+onmousedown=${ this.startResize }
+onmouseup=${ this.stopResize }
+/>
+</div>
 
-            <div class="main_ui ${this.state.modified ? 'modified' : 'still'}">
-
-            <h2 class="subtitle is-3">Page settings </h2>
-            <!--form-->
-            <div class="formRow">
-            <${TheInput} 
-            title=${"File name"}
-            name=${"filename"}
-            value=${this.state.filename}
-            area=${false}
-            handler=${this.makeHandler("filename")}
-            />
-            <div class="divider" />
-            <${TheInput} 
-            title=${"Title"}
-            value=${this.state.title}
-            name=${"title"}
-            area=${false}
-            handler=${this.makeHandler("title")}
-            />
-            </div>
-
-
-            <div class="formRow">
-
-            <${TheInput} 
-            title=${"Author"}
-            value=${this.state.author}
-            name=${"author"}
-            area=${false}
-            handler=${this.makeHandler("author")}
-            />
-            <div class="divider"></div>
-            <${TheInput} 
-            title=${"Keywords"}
-            value=${this.state.keywords}
-            name=${"keywords"}
-            area=${false}
-            handler=${this.makeHandler("keywords")}
-            />
-            </div>
-
-
-            <${TheInput} 
-            title=${"Description"}
-            name=${"description"}
-            value=${this.state.description}
-            area=${true}
-            handler=${this.makeHandler("description")}
-            />
-
-            <div class="formRow">
-
-            <${TheInput} 
-            title=${"Preview image URL"}
-            value=${this.state.image}
-            name=${"image"}
-            area=${false}
-            handler=${this.makeHandler("image")}
-            />
-            <div class="divider"></div>
-            <${TheInput} 
-            title=${"Icon image URL"}
-            value=${this.state.icon}
-            name=${"icon"}
-            area=${false}
-            handler=${this.makeHandler("icon")}
-            />
-            </div>
-
-            <${TheInput} 
-            title=${"Footer"}
-            name=${"footer"}
-            value=${this.state.footer}
-            area=${true}
-            handler=${this.makeHandler("footer")}
-            />
-
-            <${TheInput} 
-            title=${"Custom CSS"}
-            name=${"css"}
-            area=${true}
-            value=${this.state.customCSS}
-            handler=${this.makeHandler("customCSS")}
-            />
-
-            <label class="label">Embedded data</label>
-           <${DataUI} signal=${ ()=>this.setState({modified:true}) }/> 
-
-            <h2 class="subtitle is-3">Helpers API <small>(save and reload required)</small></h2>
-            <div class="field is-grouped is-grouped-multiline">
-            <${ CheckBox  }
-            title="Enable helpers"
-            checked=${this.state.enableHelpers}
-            onChange=${ (c)=>this.setState({modified: true , enableHelpers: c})}
-            />
-
-            <${ CheckBox  }
-            title="Disable interactivity"
-            checked=${this.state.disableInteractivity}
-            onChange=${ (c)=>this.setState({modified: true , disableInteractivity: c})}
-            />
-            </div>
-
-            <h2 class="subtitle is-3">Advanced <small>(may break everything)</small> </h2>
-
-            <${TheInput} 
-            title=${"Custom HTML to HEAD"}
-            name=${"head"}
-            area=${true}
-            value=${this.state.headHTML}
-            handler=${this.makeHandler("headHTML")}
-            />
-
-            <${TheInput} 
-            title=${"Editor location"}
-            value=${this.state.editor}
-            placeholder="imp.js"
-            name=${"editor"}
-            area=${false}
-            handler=${this.makeHandler("editor")}
-            />
-
-            <${TheInput} 
-            title=${"View CSS location"}
-            value=${this.state.viewCSS}
-            name=${"viewcss"}
-            placeholder="style.css"
-            area=${false}
-            handler=${this.makeHandler("viewCSS")}
-            />
-
-            <div class="buttons">
-            <input type="button" class="button is-dark" value="Switch to view mode" onclick=${()=>{
-              if(this.state.modified)
-              { 
-                confirm("All changes may be lost. Proceed?") && ( window.location="?mode=view" ) 
-              }else{
-                window.location="?mode=view"
-                }
-                }}></input>
-
-                <input type="button" class="button is-dark " value="Duplicate file" onclick=${
-                  ()=>{
-                    const s = this.makeSettings(); //sync settings
-                    const thisfilename = s.filename();
-                    const newfilename = prompt("Enter new filename with extension" , s.filename());
-                    s.filename(newfilename);
-                    saveFile( md.render(this.text) , this.text , s );
-                    s.filename( thisfilename )
-                  }
-                  }></input>
-
-                <input type="button" 
-                class="button is-dark ${this.state.modified ? "violet" : ""}" 
-                value="Save file" 
-                onclick=${ this.saveHTML }/>
-                  </div>
-                  </div>
-                  </div>`
-                }//render
-
-            }
+<${ SettingsEditor } 
+makeHandler=${this.makeHandler}
+modified=${this.state.modified}
+setModified=${ ()=>this.setState({modified:true})}
+saveHTML=${this.saveHTML}
+duplicateFile=${this.duplicateFile}
+filename=${this.state.filename}
+title=${this.state.title}
+author=${this.state.author}
+keywords=${this.state.keywords}
+description=${this.state.description}
+image=${this.state.image}
+icon=${this.state.icon}
+footer=${this.state.footer}
+customCSS=${this.state.customCSS}
+headHTML=${this.state.headHTML}
+enableHelpers=${this.state.enableHelpers}
+disableInteractivity=${this.state.disableInteractivity}
+viewCSS=${this.state.viewCSS}
+editor=${this.state.editor}
+/>
+</div>`
+  }//render
+}
 

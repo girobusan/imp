@@ -1,4 +1,5 @@
 .DS_Store
+*.vim
 node_modules/
 dist/hatcher*
 test/

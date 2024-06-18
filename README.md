@@ -1,4 +1,4 @@
-[Русский](README.ru.md)
+[Рус кий](README.ru.md)
 
 # IMP! :imp: (It's My Page!)
 

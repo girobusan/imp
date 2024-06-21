@@ -11,9 +11,21 @@
     padding: 2px 14px 4px 14px;
     background-color: inherit;
     cursor: pointer;
+    &.viewModeTab.faded{
+      /* height: 24px; */
+      /* margin-left: 14px; */
+      /* border-radius: 14px; */
+      background-color: orangered;
+      color: black;
+       
+    }
     &.faded{
       opacity: 0.4;
       background-color: black;
+    }
+    &.active.pageSettingsTab{
+      background-color: #b0b0b0;
+      color: #444;
     }
   }
   .tabBranding{

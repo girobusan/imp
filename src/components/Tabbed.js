@@ -4,9 +4,9 @@ require("./tabbed.scss");
 
 
 
-function Tab({title , key ,  action , active , activeBg , activeFg}){
+function Tab({title , key ,  action , active , customClass}){
     return html`
-<button class="Tab ${active? 'active' : 'faded'}" 
+<button class="Tab ${active? 'active' : 'faded'} ${customClass ? customClass : ""  }" 
 onClick=${()=>typeof action === 'function' && action(key)}>
 ${title}
 </button>`
@@ -22,9 +22,10 @@ export default function Tabbed({ selectFn , selected,  tabs , branding="*" })
     return html`<${Tab} 
     index=${i}
     key=${i} 
-    title=${e} 
+    title=${e.title} 
+    customClass=${ e.customClass || ""}
     active=${ selected===i}
-    action=${ ()=>selectFn(i)} />`})
+    action=${ ()=>e.action? e.action() : selectFn(i)} />`})
   }
   </div>
   <div class="tabBranding" dangerouslySetInnerHTML=${{__html: branding}}></div>

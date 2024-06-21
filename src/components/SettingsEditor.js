@@ -175,17 +175,6 @@ handler=${makeHandler("viewCSS")}
 />
 
 <div class="buttons">
-<input type="button" 
-class="button is-dark" 
-value="Switch to view mode" 
-onclick=${()=>{
-if(modified)
-{ 
-confirm("All changes may be lost. Proceed?") && ( window.location="?mode=view" ) 
-}else{
-window.location="?mode=view"
-}
-}}></input>
 
 <input type="button" 
 class="button is-dark " 

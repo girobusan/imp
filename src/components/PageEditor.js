@@ -227,7 +227,15 @@ export class PageEditor extends Component{
 <!--markdown editor-->
 <${ Tabbed } selectFn=${ i=>this.setState({"_tabSelected" : i})}
 selected=${this.state[ "_tabSelected"]}
-tabs=${["Content" , "Page Settings"]}
+tabs=${[
+   { title: "Content" , customClass:"contentEditorTab" } , 
+   { title: "Page Settings", customClass:"pageSettingsTab" },
+   { title: "View Mode", 
+     customClass:"viewModeTab" , 
+     action:()=>{ 
+        confirm("All unsaved changes may be lost. Continue?")&&(window.location="?mode=view") } 
+}
+]}
 branding=${branding}
 }/>
 <${TabPage} title="Text" 

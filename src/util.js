@@ -18,7 +18,6 @@ export function escapeTags(s){
 }
 export function unescapeTags(s){
   if(typeof s !== 'string'){ return s }
-  s=s.toString();
   const replacer=(tag)=>{return replaceToTags[tag]||tag}
   return s.replace(/&amp;|&lt;|&gt;/g , replacer);
 }

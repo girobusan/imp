@@ -2,23 +2,7 @@ import { escapeTags , unescapeTags } from "./util"
 const yaml = require('js-yaml');
 
 const STORE = {};
-const props = [
-   "title" , 
-   "description" , 
-   "image" , 
-   "icon" , 
-   "filename" , //html 
-   "footer" ,  //html
-   "css" , //html
-   "headHTML", //html
-   "editor",
-   "viewCSS",
-   "author",
-   "keywords",
-   "enableHelpers",
-   "disableInteractivity",
-   "pathToHelpersModule"
-   ]
+var SETTINGS;
 
 const defaults ={
 
@@ -38,6 +22,8 @@ const defaults ={
    "disableInteractivity": false,
    "pathToHelpersModule" : ""
 }
+
+const props = Object.keys(defaults)
 var callback ; //called on update setting, maybe not required
 
 export function create(settings_src , cb){
@@ -47,6 +33,37 @@ export function create(settings_src , cb){
   props.forEach(p=>STORE[p]=settings_src[p] || "");
   return createWrapper();
 }
+
+//NEW SETTINGS ROUTINES
+export function getSettings(){
+  return SETTINGS
+}
+export function updateSettings( newSettingsObj){
+   SETTINGS = Object.assign( SETTINGS , newSettingsObj)
+}
+
+export function makeSettings(obj){
+  //clean up
+  Object.keys(obj).forEach(k=>{ if(props.indexOf(k)===-1){ delete obj[k]} })
+  //unescape
+  Object.keys(obj).forEach( k=>{
+      ( typeof obj[k]==='string' ) && ( obj[k]=unescapeTags(obj[k]) )
+  })
+  SETTINGS = obj;
+  return obj;
+}
+/*
+/* stringify settings to JSON or YAML
+ */
+export function stringifySettings(toYAML){
+   const tobj = Object.assign({} , SETTINGS);
+   Object.keys(tobj).forEach( k=>{
+      ( typeof tobj[k]==='string' ) && ( tobj[k]=escapeTags(tobj[k]) )
+  })
+  return toYAML ? yaml.dump(tobj) : JSON.stringify();
+}
+
+// END NEW SETTINGS ROUTINES
 
 export function cleanupObj( obj , safe){
   return props.reduce( (a,e)=>{ 

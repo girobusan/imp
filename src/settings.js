@@ -19,6 +19,25 @@ const props = [
    "disableInteractivity",
    "pathToHelpersModule"
    ]
+
+const defaults ={
+
+   "title" : "", 
+   "description" : "", 
+   "image" : "", 
+   "icon" : "", 
+   "filename" : "", //html 
+   "footer" : "<small>Powered by IMP!</small>",  //html
+   "css" : "", //html
+   "headHTML": "", //html
+   "editor": "",
+   "viewCSS": "",
+   "author": "",
+   "keywords": "",
+   "enableHelpers": false,
+   "disableInteractivity": false,
+   "pathToHelpersModule" : ""
+}
 var callback ; //called on update setting, maybe not required
 
 export function create(settings_src , cb){

@@ -1,3 +1,6 @@
+body , html{
+  overflow: hidden !important;
+}
 .Tabbed {
   height: 28px;
   display: block;
@@ -98,5 +101,5 @@
     width: 100%;
     height: calc(100vh - 28px);
     position: relative;
-    overflow-y: scroll;
+    overflow-y: auto;
   }

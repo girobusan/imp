@@ -1,0 +1,36 @@
+.Tabbed{
+  height: 28px;
+  background-color: #444;
+  .Tab{
+    appearance: none;
+    border: none;
+    height: 28px;
+    color: white;
+    font-size: 14px;
+    line-height: 100%;
+    padding: 2px 14px 4px 14px;
+    background-color: inherit;
+    cursor: pointer;
+    &.faded{
+      opacity: 0.4;
+      background-color: black;
+    }
+  }
+  .tabBranding{
+    color: gray;
+    pointer-events: none;
+    user-select: none;
+    font-size: 14px;
+    position: absolute;
+    right: 12px;
+    top: 2px;
+    text-align: right;
+  }
+}
+
+.TabPage{
+  width: 100%;
+  height: calc( 100vh - 24px);
+  position: relative;
+  overflow-y: scroll;
+}

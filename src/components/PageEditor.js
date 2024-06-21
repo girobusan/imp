@@ -2,19 +2,20 @@ const version = VERSION ;
 import {Component , createRef , h} from "preact";
 import {html} from "htm/preact";
 const yaml = require('js-yaml');
-import BareMDE from "../BareMDE_v0.2.3.umd.js";
+import BareMDE from "../BareMDE_v0.2.4.umd.js";
 import SettingsEditor from "./SettingsEditor.js";
+import Tabbed from "./Tabbed.js";
+import TabPage from "./TabPage.js";
 import { md , renderMdAsync} from "../md_wrapper.js";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
 import { addEmpties, cleanupObj } from "../settings";
 import { extractFM } from "../fm_extractor.js";
 require("./editor.scss")
 import impIcon from "../icons/imp.svg?raw";
-import TheInput from "./TheInput.js";
-import CheckBox from "./CheckBox.js";
-import { DataUI } from "../data.js";
 require( "../data_fetch.js" )
 // import { attachScript } from "../helpers.js";
+
+const branding=( "<div class='IMPBrand' style='line-height:24px'>IMP!  " + impIcon + version + "</div>" )
 
 
 const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i
@@ -43,16 +44,17 @@ export class PageEditor extends Component{
       keywords: props.settings.keywords() || "",
       disableInteractivity: props.settings.disableInteractivity() || false,
       modified: false,
-      enableHelpers: props.settings.enableHelpers()|| false  
+      enableHelpers: props.settings.enableHelpers()|| false  ,
+      _tabSelected: 0
     }
     this.text=props.text;
     this.editorControls = {};
     this.editorHeight = Math.round( window.innerHeight * 0.75 );
     this.resizeValue = null;
     this.makeHandler = this.makeHandler.bind(this);
-    this.startResize = this.startResize.bind(this);
-    this.stopResize = this.stopResize.bind(this);
-    this.doResize = this.doResize.bind(this);
+    // this.startResize = this.startResize.bind(this);
+    // this.stopResize = this.stopResize.bind(this);
+    // this.doResize = this.doResize.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
@@ -71,31 +73,6 @@ export class PageEditor extends Component{
     return "";
   }
   //resize
-  startResize(evt){
-    window.addEventListener("mouseup", this.stopResize)
-    window.addEventListener("click", this.stopResize)
-    window.addEventListener("mousemove", this.doResize)
-    this.resizer.current.removeEventListener("mousedown" , this.startResize)
-    this.resizeValue = evt.clientY 
-  }
-  doResize(evt){
-    // console.log("resizing...")
-    const delta = evt.clientY - this.resizeValue;
-    if(Math.abs(delta)<=2){ return }
-    this.editorHeight += delta;
-    if(this.editorHeight<=200){ this.editorHeight=200 ; this.stopResize() }
-    this.resizeValue = evt.clientY;
-    this.editorNode.current.style.height = this.editorHeight + "px";
-    // console.log(delta);
-  }
-  stopResize(){
-    console.log("resized:" , this.editorHeight)
-    window.removeEventListener("mouseup", this.stopResize)
-    window.removeEventListener("click", this.stopResize)
-    window.removeEventListener("mousemove", this.doResize)
-    this.resizer.current.addEventListener("mousedown" , this.startResize)
-    this.editorControls.syncScroll();
-  }
   handleInput(f,v){
     const ns = {};
     //do not update text in state
@@ -248,9 +225,15 @@ export class PageEditor extends Component{
   render(){
     return html`<div class="PageEditor">
 <!--markdown editor-->
+<${ Tabbed } selectFn=${ i=>this.setState({"_tabSelected" : i})}
+selected=${this.state[ "_tabSelected"]}
+tabs=${["Content" , "Page Settings"]}
+branding=${branding}
+}/>
+<${TabPage} title="Text" 
+index=${0} selectedIndex=${this.state._tabSelected} >
 <div class="editor_ui" 
 ref=${this.editorNode}
-style=${{ height: this.editorHeight + 'px' }}
 >
 <${ BareMDE } 
 controls=${this.editorControls}
@@ -259,7 +242,7 @@ onUpdate=${ (c)=>this.handleInput( "text" , c ) }
 modified=${ this.state.modified }
 save=${ this.saveHTML }
 maxHeight="100%"
-branding=${ "<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>" }
+branding=${" "}
 trueFullscreen=${true}
 renderBody=${
 (c)=>{ 
@@ -282,13 +265,10 @@ menuItems=${[
 { label:"Export markdown &rarr;" , handler:this.exportMd },
 ]}
 />
-<div id="resizeHandle" 
-ref=${this.resizer}
-onmousedown=${ this.startResize }
-onmouseup=${ this.stopResize }
-/>
 </div>
+</${TabPage}>
 
+<${TabPage} title="Settings" index=${1} selectedIndex=${this.state._tabSelected} >
 <${ SettingsEditor } 
 makeHandler=${this.makeHandler}
 modified=${this.state.modified}
@@ -310,6 +290,7 @@ disableInteractivity=${this.state.disableInteractivity}
 viewCSS=${this.state.viewCSS}
 editor=${this.state.editor}
 />
+</${TabPage}>
 </div>`
   }//render
 }

@@ -93,9 +93,6 @@ button.TButton.alerted{
 
 .PageEditor{
   .IMPBrand{
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.5;
     svg{
       display: inline;
       width: 18px;
@@ -110,8 +107,12 @@ button.TButton.alerted{
     border-bottom: 1px solid #ccc;
   }
   .editor_ui{
-    position: relative;
-    padding-bottom: $resize_handle_height;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    /* padding-bottom: $resize_handle_height; */
     .BareMDE{
       height: 100%;
     }

@@ -13,7 +13,7 @@
 
 $hatch_color: rgba(0,0,0,0.26);
 $hatch_bg_color: rgba(0,0,0,0.25);
-$violet_color:#8115d6 ;
+$violet_color:#a54aed ;
 $resize_handle_height: 8px;
 
 body{
@@ -43,56 +43,24 @@ h2.subtitle{
   margin-top: 3rem;
 }
 
-button , input[type=button]{
+/* button , input[type=button]{ */
   // box-sizing: border-box;
   // height: initial !important;
-}
+//}
 
 button.TButton.alerted{
-  background-color: lighten( $violet_color , 15% ) !important;
+  background-color: $violet_color !important; //lighten( $violet_color , 15% ) !important;
 }
 
-  #resizeHandle{
-    height: $resize_handle_height;
-    width: 100%;
-    background-color: gray;
-    background-image: linear-gradient( to bottom,
-    rgb( 180 , 180 , 180 ),
-    rgb( 180 , 180 , 180) 20%, 
-    rgb( 120 , 120 , 120) 20%, 
-    rgb( 120 , 120 , 120) 80%, 
-    rgb( 60 , 60 , 60) 80%, 
-    );
-    cursor:  ns-resize;
-    display: block;
-    position: absolute;
-    bottom: 0;
-    user-select: none;
-    &:after{
-      pointer-events: none;
-      display: block;
-      content: " ";
-      width: 72px;
-      height: 8px;
-      opacity: 0.6;
-      margin: 0 auto;
-      background-size: 12px 8px;
-      background-position: center center;
-      background-image: linear-gradient(
-      to bottom,
-      white,
-    #585858,
-      white,
-    #585858,
-      white,
-    #585858,
-      );
-    }
-  }
 
 
 .PageEditor{
   .IMPBrand{
+    color: currentColor;
+    pointer-events: none;
+    user-select: none;
+    font-size: 14px;
+    opacity: 0.7;
     svg{
       display: inline;
       width: 18px;
@@ -156,7 +124,7 @@ button.TButton.alerted{
     color: white;
     border-color: darken($violet_color , 10%);
     &:hover{
-      background-color: lighten($violet_color , 10%)
+      background-color: $violet_color; // lighten($violet_color , 10%)
     }
   }
 

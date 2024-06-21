@@ -230,7 +230,7 @@ selected=${this.state[ "_tabSelected"]}
 tabs=${[
    { title: "Content" , customClass:"contentEditorTab" } , 
    { title: "Page Settings", customClass:"pageSettingsTab" },
-   { title: "View Mode", 
+   { title: "View page!", 
      customClass:"viewModeTab" , 
      action:()=>{ 
         confirm("All unsaved changes may be lost. Continue?")&&(window.location="?mode=view") } 
@@ -250,7 +250,7 @@ onUpdate=${ (c)=>this.handleInput( "text" , c ) }
 modified=${ this.state.modified }
 save=${ this.saveHTML }
 maxHeight="100%"
-branding=${" "}
+branding=${""}
 trueFullscreen=${true}
 renderBody=${
 (c)=>{ 

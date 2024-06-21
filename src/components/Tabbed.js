@@ -16,7 +16,7 @@ ${title}
 export default function Tabbed({ selectFn , selected,  tabs , branding="*" })
 { 
   return html`
-  <div class="Tabbed">
+  <div class=${ "Tabbed " + "selectedTab_"+selected }>
   <div class="tabHeader">
   ${ tabs.map( (e,i)=>{
     return html`<${Tab} 

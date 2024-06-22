@@ -26,13 +26,6 @@ const defaults ={
 const props = Object.keys(defaults)
 var callback ; //called on update setting, maybe not required
 
-export function create(settings_src , cb){
-// console.log("Creating settings wrapper" , settings_src)
-  // props.forEach( k=>STORE[k]="" );
-  if(cb){callback=cb}
-  props.forEach(p=>STORE[p]=settings_src[p] || "");
-  return createWrapper();
-}
 
 //NEW SETTINGS ROUTINES
 export function getSettings(){
@@ -40,6 +33,8 @@ export function getSettings(){
 }
 export function updateSettings( newSettingsObj){
    SETTINGS = Object.assign( SETTINGS , newSettingsObj)
+  //+remove 
+   return SETTINGS;
 }
 
 export function makeSettings(obj){
@@ -55,16 +50,16 @@ export function makeSettings(obj){
 /*
 /* stringify settings to JSON or YAML
  */
-export function stringifySettings(toYAML){
-   const tobj = Object.assign({} , SETTINGS);
+export function stringifySettings( obj , toYAML){
+   let tobj = Object.assign({} , obj || SETTINGS);
    Object.keys(tobj).forEach( k=>{
       ( typeof tobj[k]==='string' ) && ( tobj[k]=escapeTags(tobj[k]) )
   })
+  tobj=cleanupObj(tobj);
   return toYAML ? yaml.dump(tobj) : JSON.stringify();
 }
 
-// END NEW SETTINGS ROUTINES
-
+//full cleanup: all empty key/value pairs are removed
 export function cleanupObj( obj , safe){
   return props.reduce( (a,e)=>{ 
     if(safe && ['editor'].indexOf(e)!=-1){ return a }
@@ -78,6 +73,8 @@ export function addEmpties(obj){
    props.forEach( k=>{ if(!obj[k]){ obj[k]="" } } );
    return obj;
 }
+
+// END NEW SETTINGS ROUTINES
 
 function updated(k,v){
   if(callback){callback(k,v)}

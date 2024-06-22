@@ -1,6 +1,6 @@
 import "preact/debug";
 import {h , render } from "preact";
-import {create as createSettings} from "./settings.js";
+import {makeSettings} from "./settings.js";
 import {PageEditor} from "./components/PageEditor";
 const version = VERSION;
 
@@ -8,7 +8,7 @@ import {extractFromHTML , saveToDisk} from "./fileops.js"
 
 console.info("IMP! editor v" + version);
 const s = extractFromHTML();
-const settings = createSettings(window.settings);
+const settings = makeSettings(window.settings);
 
 if(window.location.search.indexOf("mode=download")==-1){
   const viewcss= document.head.querySelector("#viewCSS");

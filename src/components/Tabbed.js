@@ -7,9 +7,9 @@ require("./tabbed.scss");
 function Tab({title , key ,  action , active , customClass}){
     return html`
 <button class="Tab ${active? 'active' : 'faded'} ${customClass ? customClass : ""  }" 
-onClick=${()=>typeof action === 'function' && action(key)}>
-${title}
-</button>`
+onClick=${()=>typeof action === 'function' && action(key)}
+  dangerouslySetInnerHTML=${{__html: title}}
+> </button>`
 }
 
 

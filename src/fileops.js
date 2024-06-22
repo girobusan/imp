@@ -1,6 +1,7 @@
 
 import {renderHTML} from "./template.js";
 import { escapeTags , unescapeTags } from "./util.js";
+import { stringifySettings } from "./settings.js";
 
 export function convert2html(
   text, 
@@ -9,6 +10,7 @@ export function convert2html(
   noScript
 )
 {
+  console.log(text , mdtext , settings , noScript)
 
   //current custom CSS
   // const currentCSS = document.querySelector("#customCSS");
@@ -16,20 +18,21 @@ export function convert2html(
   return renderHTML(
     text,
     mdtext,
-    settings.footer(),
-    settings.title(),
-    settings.description(),
-    settings.image(),
-    settings.icon(),
-    settings.css(),
+    settings.footer,
+    settings.title,
+    settings.description,
+    settings.image,
+    settings.icon,
+    settings.css,
     // currentCSS ? currentCSS.innerHTML :  "",
-    settings.headHTML(),
-    settings.copy(true),
-    settings.editor(),
-    settings.viewCSS(),
-    settings.author(),
-    settings.keywords(),
-    settings.enableHelpers(),
+    stringifySettings(settings), //.headHTML,
+    // settings.copytrue,
+    settings,
+    settings.editor,
+    settings.viewCSS,
+    settings.author,
+    settings.keywords,
+    settings.enableHelpers,
     noScript
 
   )
@@ -53,7 +56,7 @@ export function extractFromHTML(){
 
 export function saveFile(text, mdtext, settings){
   // console.log("save with" , settings.copy());
-  const fn = settings.filename();
+  const fn = settings.filename;
   const content = convert2html(text, mdtext, settings);
   saveToDisk(fn, content);
 

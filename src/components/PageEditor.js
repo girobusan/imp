@@ -8,7 +8,7 @@ import Tabbed from "./Tabbed.js";
 import TabPage from "./TabPage.js";
 import { md , renderMdAsync} from "../md_wrapper.js";
 import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
-import { addEmpties, cleanupObj } from "../settings";
+import { addEmpties, cleanupObj , updateSettings , getSettings , stringifySettings} from "../settings";
 import { extractFM } from "../fm_extractor.js";
 require("./editor.scss")
 import impIcon from "../icons/imp.svg?raw";
@@ -30,23 +30,12 @@ export class PageEditor extends Component{
     // console.log(JSON.parse( props.settings.enableHelpers() || "false" ));
     this.state = {
       text: props.text,
-      title: props.settings.title() || "",
-      image: props.settings.image() || "",
-      icon: props.settings.icon() || "",
-      filename: props.settings.filename() || "",
-      description: props.settings.description() || "",
-      footer: props.settings.footer() || "",
-      customCSS: this.findCustomCSS(),
-      editor: props.settings.editor() || "",
-      viewCSS: props.settings.viewCSS() || "",
-      headHTML: props.settings.headHTML() || "",
-      author: props.settings.author() || "",
-      keywords: props.settings.keywords() || "",
-      disableInteractivity: props.settings.disableInteractivity() || false,
       modified: false,
-      enableHelpers: props.settings.enableHelpers()|| false  ,
       _tabSelected: 0
     }
+
+    this.state = Object.assign(this.state , this.props.settings)
+
     this.text=props.text;
     this.editorControls = {};
     this.editorHeight = Math.round( window.innerHeight * 0.75 );
@@ -128,12 +117,12 @@ export class PageEditor extends Component{
   }
   duplicateFile(){
     const s = this.makeSettings(); //sync settings
-    const thisfilename = s.filename();
+    const thisfilename = s.filename;
     const newfilename = prompt("Enter new filename with extension" , 
-      s.filename());
-    s.filename(newfilename);
+      s.filename);
+    s.filename=newfilename;
     saveFile( md.render(this.text) , this.text , s );
-    s.filename( thisfilename )
+    s.filename = thisfilename;
   }
 
   importMdText(t , name){
@@ -165,29 +154,13 @@ export class PageEditor extends Component{
 
   exportMd(){
     //export settings
-    const st = this.makeSettings().dump();
+    const st = stringifySettings( this.makeSettings() , true); //yaml
     saveToDisk(this.state.filename.replace(/.htm(l)?$/i , ".md"),
     "---\n" + st + "---\n" + this.text)
   }
 
   makeSettings(){
-    this.props.settings
-    .title(this.state.title)
-    .description(this.state.description)
-    .filename(this.state.filename)
-    .css(this.state.customCSS)
-    .image(this.state.image)
-    .icon(this.state.icon)
-    .footer(this.state.footer)
-    .editor(this.state.editor)
-    .viewCSS(this.state.viewCSS)
-    .headHTML(this.state.headHTML)
-    .author(this.state.author)
-    .keywords(this.state.keywords)
-    .enableHelpers(this.state.enableHelpers)
-    .disableInteractivity(this.state.disableInteractivity)
-    ;
-    return this.props.settings;
+    return updateSettings(this.state);
   }
 
   componentDidMount(){
@@ -228,13 +201,17 @@ export class PageEditor extends Component{
 <${ Tabbed } selectFn=${ i=>this.setState({"_tabSelected" : i})}
 selected=${this.state[ "_tabSelected"]}
 tabs=${[
-   { title: "Content" , customClass:"contentEditorTab" } , 
-   { title: "Page Settings", customClass:"pageSettingsTab" },
+   { title: "&larr; Content" , customClass:"contentEditorTab" } , 
+   { title: "&larr; Page Settings", customClass:"pageSettingsTab" },
+   { title: "Save page", 
+      customClass:"tabButton saveFileTab " + (this.state.modified ? "alerted" : "") , 
+     action: this.saveHTML 
+},
    { title: "View page!", 
-     customClass:"viewModeTab" , 
+     customClass:"tabButton viewModeTab" , 
      action:()=>{ 
         confirm("All unsaved changes may be lost. Continue?")&&(window.location="?mode=view") } 
-}
+},
 ]}
 branding=${branding}
 }/>
@@ -248,7 +225,7 @@ controls=${this.editorControls}
 content=${ this.state.text }
 onUpdate=${ (c)=>this.handleInput( "text" , c ) }
 modified=${ this.state.modified }
-save=${ this.saveHTML }
+save=${null}
 maxHeight="100%"
 branding=${""}
 trueFullscreen=${true}

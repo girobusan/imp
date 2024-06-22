@@ -7,8 +7,13 @@ const version = VERSION;
  <!--!block_name-->  /<!--!\s?(\w+)\s?-->(.+)<!--!!-->/
  <!--!!-->    /<!--!!-->/
  */
-function HTMLTemplate(ht){
-  return "<main class='container' id='pageMain'>" + ht + "</main>"
+// function HTMLTemplate(ht){
+//   return "<main class='container' id='pageMain'>" + ht + "</main>"
+// }
+
+export function bodyTemplate(bodyHTML , footerHTML){
+return `<main class="container" id="pageMain">${bodyHTML}</main>
+<footer id="pageFooter">${footerHTML}</footer>`;
 }
 
 export function renderHTMLFromObj({
@@ -106,8 +111,7 @@ return `<!DOCTYPE html>
   ${customHeadHTML||"<!--custom html here-->"}
 </head>
 <body>
-${HTMLTemplate(htmlText)}
-<footer id="pageFooter">${footer}</footer>
+${bodyTemplate(htmlText , footer)}
 ${ `<script>window.impData=${stringifyData()}</script>` }
 <script id="pageData" type="text/markdown">${escapeTags( mdText )}</script>
 </body>

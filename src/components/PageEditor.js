@@ -12,6 +12,7 @@ import { addEmpties, cleanupObj , updateSettings , getSettings , stringifySettin
 import { extractFM } from "../fm_extractor.js";
 require("./editor.scss")
 import impIcon from "../icons/imp.svg?raw";
+import { bodyTemplate } from "../template.js";
 require( "../data_fetch.js" )
 // import { attachScript } from "../helpers.js";
 
@@ -233,7 +234,7 @@ renderBody=${
 (c)=>{ 
 return renderMdAsync(c , true)
 .then( r=>{
-return `<main class="container" id="pageMain">${r}</main><footer id="pageFooter">${this.state.footer}</footer>`;
+        return bodyTemplate( r , this.state.footer)
 })
 }
 }

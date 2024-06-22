@@ -1,9 +1,7 @@
 import { escapeTags , unescapeTags } from "./util"
 const yaml = require('js-yaml');
 
-const STORE = {};
 var SETTINGS;
-
 const defaults ={
 
    "title" : "", 
@@ -24,7 +22,6 @@ const defaults ={
 }
 
 const props = Object.keys(defaults)
-var callback ; //called on update setting, maybe not required
 
 
 //NEW SETTINGS ROUTINES
@@ -33,7 +30,9 @@ export function getSettings(){
 }
 export function updateSettings( newSettingsObj){
    SETTINGS = Object.assign( SETTINGS , newSettingsObj)
+
   //+remove 
+  //
    return SETTINGS;
 }
 
@@ -56,10 +55,11 @@ export function stringifySettings( obj , toYAML){
       ( typeof tobj[k]==='string' ) && ( tobj[k]=escapeTags(tobj[k]) )
   })
   tobj=cleanupObj(tobj);
-  return toYAML ? yaml.dump(tobj) : JSON.stringify();
+  return toYAML ? yaml.dump(tobj) : JSON.stringify(tobj , null , 2);
 }
 
 //full cleanup: all empty key/value pairs are removed
+//all
 export function cleanupObj( obj , safe){
   return props.reduce( (a,e)=>{ 
     if(safe && ['editor'].indexOf(e)!=-1){ return a }
@@ -69,6 +69,7 @@ export function cleanupObj( obj , safe){
     return a;
   } , {} )
 }
+//add empty values for undefined settngs
 export function addEmpties(obj){
    props.forEach( k=>{ if(!obj[k]){ obj[k]="" } } );
    return obj;
@@ -76,16 +77,6 @@ export function addEmpties(obj){
 
 // END NEW SETTINGS ROUTINES
 
-function updated(k,v){
-  if(callback){callback(k,v)}
-  // console.log("Updated setting" , k)
-}
-
-function escapedCopy(obj){
-  const SRC = obj || STORE;
-  return props.reduce( (a,e)=>{a[e]=( SRC[e] || "" ) ; return a}  , {})
-  
-}
 
 function prepFalsy(something){
   if( typeof something === "string"){
@@ -94,33 +85,7 @@ function prepFalsy(something){
   return something;
 }
 
-function dump2YAML(obj){
-   const cleanVersion = Object.keys(obj)
-       .reduce( ( a,e )=>{ if( prepFalsy( obj[e] ) ){ a[e]=obj[e] } ; return a  } 
-       , {} );
-
-       return yaml.dump(cleanVersion);
-}
 
 
 
-function unescapedCopy(obj){
-  const SRC = obj || STORE;
-  return props.reduce( (a,e)=>{a[e]=unescapeTags( SRC[e] || "" ) ; return a}  , {})
-}
-
-function createWrapper(obj){
-   const w = {};
-   const SRC = obj || STORE;
-   w.listProps = ()=> props.slice(0);
-   w.copy = (escape)=> escape ? escapedCopy(SRC) : unescapedCopy(SRC);
-   w.dump = ()=>dump2YAML( unescapedCopy(SRC) );
-   props.forEach( p=>{
-      w[p] = (v)=>{ if(v===undefined){return unescapeTags( SRC[p] || "" )} ;  
-      const ev = escapeTags(v);
-      if(SRC[p]===ev){return w}
-      SRC[p]=ev ; updated(p,v) ; return w }
-   } )
-   return w;
-}
 

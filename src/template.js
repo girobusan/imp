@@ -1,5 +1,6 @@
 import { escapeTags , unescapeTags } from "./util"
 import { stringifyData } from "./data";
+import { stringifySettings } from "./settings";
 const version = VERSION;
 
 /*
@@ -67,7 +68,7 @@ return `<!DOCTYPE html>
   <meta name="twitter:image" content="${image}">
   <link rel="icon" type="image/png" href="${icon}">
   <script>
-   window.settings = ${JSON.stringify(settings , null , 2)}
+   window.settings = ${stringifySettings(settings)};
    window.savedWithImpVersion = "${version}"
   </script>
   <script>

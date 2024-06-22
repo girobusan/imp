@@ -76,6 +76,7 @@ return `<!DOCTYPE html>
    window.settings = ${stringifySettings(settings)};
    window.savedWithImpVersion = "${version}"
   </script>
+${  noScript ? "<!--" : "" }
   <script>
    function IMPEdit(){
    console.info("Loading editor...")
@@ -85,7 +86,6 @@ return `<!DOCTYPE html>
    document.head.appendChild(editor);
    }
    window.addEventListener("DOMContentLoaded" , function(){
-  ${  noScript===true ? "return;/*" : ""}
    if(window.location.search.indexOf("mode=view")!=-1)
    {
    return;
@@ -102,9 +102,9 @@ return `<!DOCTYPE html>
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
-  ${  noScript===true ? "*/" : ""}
 })
   </script>
+${  noScript ? "-->" : "" }
   ${ ( !noScript && enableHelpers ) ? "<script defer src='helpers.js' id='helpersScript'></script>" : "" }
   <link id = "viewCSS" rel="stylesheet" href="${viewCSS || "style.css"}">
   <style id="customCSS">${customCSS || ""}</style>

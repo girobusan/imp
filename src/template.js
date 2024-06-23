@@ -13,7 +13,7 @@ return `<main class="container" id="pageMain">${bodyHTML}</main>
  * @param {string} mdText - markdown
  * @param {string} htmlText - html
  * @param {object} settings 
- * @param {Bollean} noScript - disable IMP! script
+ * @param {?Boolean} noScript - disable IMP! script
  */
 export function renderHTML(
   htmlText,

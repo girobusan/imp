@@ -1,43 +1,5 @@
-
 import {renderHTML} from "./template.js";
-import { escapeTags , unescapeTags } from "./util.js";
-import { stringifySettings } from "./settings.js";
-
-export function convert2html(
-  text, 
-  mdtext , 
-  settings, //object
-  noScript
-)
-{
-  console.log(text , mdtext , settings , noScript)
-
-  //current custom CSS
-  // const currentCSS = document.querySelector("#customCSS");
-
-  return renderHTML(
-    text,
-    mdtext,
-    settings.footer,
-    settings.title,
-    settings.description,
-    settings.image,
-    settings.icon,
-    settings.css,
-    settings.headHTML,
-    settings, //.headHTML,
-    settings.editor,
-    settings.viewCSS,
-    settings.author,
-    settings.keywords,
-    settings.enableHelpers,
-    noScript
-
-  )
-  ;
-  /*
-  */
-}
+import { unescapeTags } from "./util.js";
 
 export function extractFromHTML(){
   const dataContainer = document.querySelector("script#pageData");
@@ -55,7 +17,7 @@ export function extractFromHTML(){
 export function saveFile(text, mdtext, settings){
   // console.log("save with" , settings.copy());
   const fn = settings.filename;
-  const content = convert2html(text, mdtext, settings);
+  const content = renderHTML(text, mdtext, settings);
   saveToDisk(fn, content);
 
 }

@@ -9,13 +9,17 @@ const replaceToTags = {
   '&lt;': '<',
   '&gt;': '>'
 }
-
+/**
+ * Escape HTML unsafe chars 
+ */
 export function escapeTags(s){
-  // s=s.toString();
   if(typeof s !== 'string'){ return s }
   const replacer=(tag)=>{return tagsToReplace[tag]||tag}
   return s.replace(/[&<>]/g , replacer);
 }
+/**
+ * Unescape string (entities=> chars)
+ */
 export function unescapeTags(s){
   if(typeof s !== 'string'){ return s }
   const replacer=(tag)=>{return replaceToTags[tag]||tag}

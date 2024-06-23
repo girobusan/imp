@@ -3,57 +3,23 @@ import { stringifyData } from "./data";
 import { stringifySettings } from "./settings";
 const version = VERSION;
 
-/*
- <!--!block_name-->  /<!--!\s?(\w+)\s?-->(.+)<!--!!-->/
- <!--!!-->    /<!--!!-->/
- */
-// function HTMLTemplate(ht){
-//   return "<main class='container' id='pageMain'>" + ht + "</main>"
-// }
 
 export function bodyTemplate(bodyHTML , footerHTML){
 return `<main class="container" id="pageMain">${bodyHTML}</main>
 <footer id="pageFooter">${footerHTML}</footer>`;
 }
 
-export function renderHTMLFromObj({
-   htmlText,
-   mdText,
-   footer,
-   title,
-   description,
-   image,
-   icon,
-   customCSS,
-   customHeadHTML,
-   settings, //escaped
-   editor,
-   viewCSS,
-   author,
-   keywords,
-   enableHelpers
-} , noScript){
-   return renderHTML(htmlText, mdText, footer, title, description, image, icon, customCSS, customHeadHTML, settings, editor, viewCSS, author, keywords, enableHelpers , noScript)
- 
-}
-
+/** renderHTML
+ * @param {string} mdText - markdown
+ * @param {string} htmlText - html
+ * @param {object} settings 
+ * @param {Bollean} noScript - disable IMP! script
+ */
 export function renderHTML(
-   htmlText,
-   mdText,
-   footer,
-   title,
-   description,
-   image,
-   icon,
-   customCSS,
-   customHeadHTML,
-   settings, //escaped
-   editor,
-   viewCSS,
-   author,
-   keywords,
-   enableHelpers,
-   noScript,
+  htmlText,
+  mdText,
+  settings,
+  noScript,
 
 ){
   // if(noScript){ enableHelpers=false }
@@ -62,16 +28,16 @@ return `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title}</title>
-  <meta name="description" content="${description || ""}">
-  <meta name="author" content="${author || ""}">
-  <meta name="keywords" content="${keywords || ""}">
-  <meta name="og:title" content="${title}">
-  <meta name="og:description" content="${description || ""}">
-  <meta name="og:image" content="${image}">
+  <title>${settings.title}</title>
+  <meta name="description" content="${settings.description || ""}">
+  <meta name="author" content="${settings.author || ""}">
+  <meta name="keywords" content="${settings.keywords || ""}">
+  <meta name="og:title" content="${settings.title}">
+  <meta name="og:description" content="${settings.description || ""}">
+  <meta name="og:image" content="${settings.image}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="${image}">
-  <link rel="icon" type="image/png" href="${icon}">
+  <meta name="twitter:image" content="${settings.image}">
+  <link rel="icon" type="image/png" href="${settings.icon}">
   <script>
    window.settings = ${stringifySettings(settings)};
    window.savedWithImpVersion = "${version}"
@@ -82,7 +48,7 @@ ${  noScript ? "<!--" : "" }
    console.info("Loading editor...")
    const editor = document.createElement("script");
    editor.id="editorScript";
-   editor.src="${editor || "imp.js"}";
+   editor.src="${settings.editor || "imp.js"}";
    document.head.appendChild(editor);
    }
    window.addEventListener("DOMContentLoaded" , function(){
@@ -105,13 +71,13 @@ ${  noScript ? "<!--" : "" }
 })
   </script>
 ${  noScript ? "-->" : "" }
-  ${ ( !noScript && enableHelpers ) ? "<script defer src='helpers.js' id='helpersScript'></script>" : "" }
-  <link id = "viewCSS" rel="stylesheet" href="${viewCSS || "style.css"}">
-  <style id="customCSS">${customCSS || ""}</style>
-  ${customHeadHTML||"<!--custom html here-->"}
+  ${ ( !noScript && settings.enableHelpers ) ? "<script defer src='helpers.js' id='helpersScript'></script>" : "" }
+  <link id = "viewCSS" rel="stylesheet" href="${settings.viewCSS || "style.css"}">
+  <style id="customCSS">${settings.customCSS || ""}</style>
+  ${settings.customHeadHTML||"<!--custom html here-->"}
 </head>
 <body>
-${bodyTemplate(htmlText , footer)}
+${bodyTemplate(htmlText , settings.footer)}
 ${ `<script>window.impData=${stringifyData()}</script>` }
 <script id="pageData" type="text/markdown">${escapeTags( mdText )}</script>
 </body>

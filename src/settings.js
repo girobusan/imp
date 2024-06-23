@@ -46,8 +46,10 @@ export function makeSettings(obj){
   SETTINGS = obj;
   return obj;
 }
-/*
-/* stringify settings to JSON or YAML
+
+/** stringify settings to JSON or YAML
+ * @param {*} obj - optional settings
+ * @param {Boolean} toYAML - use YAML
  */
 export function stringifySettings( obj , toYAML){
    let tobj = Object.assign({} , obj || SETTINGS);
@@ -58,11 +60,13 @@ export function stringifySettings( obj , toYAML){
   return toYAML ? yaml.dump(tobj) : JSON.stringify(tobj , null , 2);
 }
 
-//full cleanup: all empty key/value pairs are removed
-//all
+/** 
+* full cleanup: all empty key/value pairs are removed
+* @param {Boolean} safe - remove unsafe settings
+*/
 export function cleanupObj( obj , safe){
   return props.reduce( (a,e)=>{ 
-    if(safe && ['editor'].indexOf(e)!=-1){ return a }
+    if(safe && ['editor' , 'viewCSS'].indexOf(e)!=-1){ return a }
     if( prepFalsy(obj[e]) ){
         a[e] = obj[e]
     }
@@ -75,9 +79,6 @@ export function addEmpties(obj){
    return obj;
 }
 
-// END NEW SETTINGS ROUTINES
-
-
 function prepFalsy(something){
   if( typeof something === "string"){
       return something.trim();
@@ -85,6 +86,7 @@ function prepFalsy(something){
   return something;
 }
 
+// END NEW SETTINGS ROUTINES
 
 
 

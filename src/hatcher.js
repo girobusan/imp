@@ -2,7 +2,7 @@ import {h , render} from "preact";
 import { useRef } from "preact/hooks";
 import {html} from "htm/preact";
 import { saveToDisk } from "./fileops.js";
-import { renderHTMLFromObj } from "./template.js";
+import { renderHTML } from "./template.js";
 import { cleanupObj } from "./settings.js";
 import { extractFM } from "./fm_extractor.js";
 const yaml = require('js-yaml');
@@ -49,7 +49,7 @@ function md2imp(mdtext , fname){
    metadata.mdText = parts.markdown; 
    if(fname){ metadata.filename = fname }
    metadata.settings = Object.assign( {} , metadata)
-   return renderHTMLFromObj(metadata)
+   return renderHTML(metadata.htmlText , metadata.mdText ,  metadata)
 }
 
 const Hatcher = function(){

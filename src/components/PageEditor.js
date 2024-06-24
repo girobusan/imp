@@ -6,6 +6,7 @@ import BareMDE from "../BareMDE_v0.2.4.umd.js";
 import SettingsEditor from "./SettingsEditor.js";
 import Tabbed from "./Tabbed.js";
 import TabPage from "./TabPage.js";
+import Menu from "../BareMDE_v0.2.4.umd.js"
 import { md, renderMdAsync } from "../md_wrapper.js";
 import { saveFile, saveToDisk, loadFromDisk} from "../fileops.js";
 import { addEmpties, cleanupObj, updateSettings, stringifySettings } from "../settings";
@@ -23,7 +24,6 @@ export class PageEditor extends Component {
   constructor(props) {
     super(props);
     this.editorNode = createRef();
-    this.resizer = createRef();
     this.state = {
       text: props.text,
       modified: false,
@@ -182,20 +182,22 @@ export class PageEditor extends Component {
 <${Tabbed} selectFn=${i => this.setState({ "_tabSelected": i })}
 selected=${this.state["_tabSelected"]}
 tabs=${[
-        { title: "&larr; Content", customClass: "contentEditorTab" },
-        { title: "&larr; Page Settings", customClass: "pageSettingsTab" },
         {
           title: "Save page",
           customClass: "tabButton saveFileTab " + (this.state.modified ? "alerted" : ""),
-          action: this.saveHTML
+          action: this.saveHTML,
+          index: "no",
         },
         {
           title: "View page!",
           customClass: "tabButton viewModeTab",
+          index: "no",
           action: () => {
             confirm("All unsaved changes may be lost. Continue?") && (window.location = "?mode=view")
           }
         },
+        { title: "Content &rarr;", textTitle: "Content editor" , customClass: "contentEditorTab" , index:0 },
+        { title: "Page settings &rarr;", textTitle: "Page settings" , customClass: "pageSettingsTab", index: 1 },
       ]}
 branding=${branding}
 }/>

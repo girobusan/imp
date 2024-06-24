@@ -58,6 +58,10 @@ export function renderMd(mdtext ){
   return md.render(mdtext);
 }
 
+/**
+ * @param {string} mdtext - markdown text
+ * @param {?boolean} draft — preview render
+ */
 export async function renderMdAsync(mdtext , draft){
   if(window.impHelpers)
   {

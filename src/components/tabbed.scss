@@ -5,37 +5,15 @@ body , html{
   height: 28px;
   display: block;
   
-
-  &.selectedTab_1 {
-    background-color: transparent;
-    color: #444;
-    &::after{
-      content: " ";
-      display: block;
-      width: 100%;
-      /* border: 1px solid red; */
-      height: 30px;
-      position: absolute;
-      top: 28px;
-      left: 0px;
-      z-index: 1200;
-      pointer-events: none;
-
-      background-image: linear-gradient(
-          to bottom,
-        #b0b0b0,
-        transparent
-        )
-
-    }
-  }
-
-  &.selectedTab_0 {
     background-color: #444;
     color: #b0b0b0;
-  }
+
+
   .tabHeader{
     background-color: inherit;
+    display: flex;
+    flex-direction: row;
+    padding-top: 3px;
   }
   
   .Tab.tabButton{
@@ -46,17 +24,16 @@ body , html{
       padding: 0 12px;
     padding-bottom: 2px;
       margin:0 2px;
-      top: 0;
       background-color: gray;
       font-size: 0.8em;
       color: #444;
       /* border-radius: 0 0 9px 9px; */
-      border-radius: 10px;
-    &.saveFileTab{
+      border-radius: 4px;
       &:hover{
       color: white;
       background-color: #A54AED;
       }
+    &.saveFileTab{
       &.alerted{
         background-color: #BB2525;
         color: white;
@@ -66,14 +43,14 @@ body , html{
 
 
   .Tab {
+
     appearance: none;
     box-sizing: border-box;
     border: none;
-    height: 28px;
+    height: 24px;
     color: inherit;
     font-size: 14px;
-    line-height: 100%;
-    padding: 2px 1px 4px 1px;
+    padding-bottom: 6px;
     margin: 0 12px;
     background-color: inherit;
     cursor: pointer;
@@ -86,15 +63,6 @@ body , html{
     }
 
     /* border-radius: 6px 6px 0 0; */
-    &.viewModeTab.faded {
-      opacity: 1;
-      z-index: 2000;
-      background-color: #A54AED;
-      &:hover {
-        color: white;
-      }
-
-    }
 
     &.active.pageSettingsTab {
       background-color: #b0b0b0;

@@ -6,7 +6,6 @@ import BareMDE from "../BareMDE_v0.2.4.umd.js";
 import SettingsEditor from "./SettingsEditor.js";
 import Tabbed from "./Tabbed.js";
 import TabPage from "./TabPage.js";
-import Menu from "../BareMDE_v0.2.4.umd.js"
 import { md, renderMdAsync } from "../md_wrapper.js";
 import { saveFile, saveToDisk, loadFromDisk} from "../fileops.js";
 import { addEmpties, cleanupObj, updateSettings, stringifySettings } from "../settings";
@@ -27,7 +26,8 @@ export class PageEditor extends Component {
     this.state = {
       text: props.text,
       modified: false,
-      _tabSelected: 0
+      _tabSelected: 0,
+      _menuShown: false,
     }
 
     this.state = Object.assign(this.state, this.props.settings)
@@ -179,27 +179,34 @@ export class PageEditor extends Component {
   }
   render() {
     return html`<div class="PageEditor">
-<${Tabbed} selectFn=${i => this.setState({ "_tabSelected": i })}
-selected=${this.state["_tabSelected"]}
-tabs=${[
-        {
-          title: "Save page",
-          customClass: "tabButton saveFileTab " + (this.state.modified ? "alerted" : ""),
-          action: this.saveHTML,
-          index: "no",
-        },
-        {
-          title: "View page!",
-          customClass: "tabButton viewModeTab",
-          index: "no",
-          action: () => {
-            confirm("All unsaved changes may be lost. Continue?") && (window.location = "?mode=view")
-          }
-        },
-        { title: "Content &rarr;", textTitle: "Content editor" , customClass: "contentEditorTab" , index:0 },
-        { title: "Page settings &rarr;", textTitle: "Page settings" , customClass: "pageSettingsTab", index: 1 },
+      <${Tabbed} selectFn=${i => this.setState({ "_tabSelected": i })}
+      selected=${this.state["_tabSelected"]}
+      menuToggler=${ ()=>{ console.log("TOGGLE") ;  this.setState({ _menuShown: !this.state._menuShown}) }}
+      menuVisible=${this.state._menuShown}
+      menuItems=${[
+      { label: "Import markdown &larr;", handler: this.importMd },
+      { label: "Export markdown &rarr;", handler: this.exportMd },
+      { label: "Duplicate page", handler: this.duplicateFile },
       ]}
-branding=${branding}
+      tabs=${[
+      {
+      title: "Save page",
+      customClass: "tabButton saveFileTab " + (this.state.modified ? "alerted" : ""),
+      action: this.saveHTML,
+      index: "no",
+      },
+      {
+      title: "View page!",
+      customClass: "tabButton viewModeTab",
+      index: "no",
+      action: () => {
+      confirm("All unsaved changes may be lost. Continue?") && (window.location = "?mode=view")
+      }
+      },
+      { title: "Content &rarr;", textTitle: "Content editor" , customClass: "contentEditorTab" , index:0 },
+      { title: "Page settings &rarr;", textTitle: "Page settings" , customClass: "pageSettingsTab", index: 1 },
+      ]}
+      branding=${branding}
 }/>
 <${TabPage} title="Text" 
 index=${0} selectedIndex=${this.state._tabSelected} >
@@ -230,10 +237,6 @@ render=${(c) => {
           })
       }
       }
-menuItems=${[
-        { label: "Import markdown &larr;", handler: this.importMd },
-        { label: "Export markdown &rarr;", handler: this.exportMd },
-      ]}
 />
 </div>
 </${TabPage}>

@@ -41,7 +41,7 @@ export default function SettingsEditor(
 <div class="SettingsEditor main_ui ${modified ? 'modified' : 'still'}">
 
 <h2 class="subtitle is-3">
-Page settings 
+  Page settings 
 </h2>
 <!--form-->
 <div class="formRow">
@@ -145,7 +145,7 @@ onChange=${makeHandler("disableInteractivity")}
 </div>
 
 <h2 class="subtitle is-3">
-Advanced <small>(may break everything)</small> 
+  Advanced <small>(may break everything)</small> 
 </h2>
 
 <${TheInput} 
@@ -176,15 +176,15 @@ handler=${makeHandler("viewCSS")}
 
 <div class="buttons">
 
-<input type="button" 
-class="button is-dark " 
-value="Duplicate file" 
-onclick=${ duplicateFile }></input>
+  <input type="button" 
+    class="button is-dark " 
+    value="Duplicate file" 
+    onclick=${ duplicateFile }></input>
 
-<input type="button" 
-class="button is-dark ${modified ? "violet" : ""}" 
-value="Save file" 
-onclick=${ saveHTML }/>
+  <input type="button" 
+    class="button is-dark ${modified ? "violet" : ""}" 
+    value="Save file" 
+    onclick=${ saveHTML }/>
 </div>
 </div>
 `

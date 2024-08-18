@@ -1,23 +1,32 @@
 const version = VERSION;
 import { Component, createRef, h } from "preact";
 import { html } from "htm/preact";
-const yaml = require('js-yaml');
+const yaml = require("js-yaml");
 import BareMDE from "../BareMDE_v0.2.4.umd.js";
 import SettingsEditor from "./SettingsEditor.js";
 import Tabbed from "./Tabbed.js";
-import TabPage from "./TabPage.js";
 import { md, renderMdAsync } from "../md_wrapper.js";
-import { saveFile, saveToDisk, loadFromDisk} from "../fileops.js";
-import { addEmpties, cleanupObj, updateSettings, stringifySettings } from "../settings";
+import { saveFile, saveToDisk, loadFromDisk } from "../fileops.js";
+import { If } from "./If.js";
+import {
+  addEmpties,
+  cleanupObj,
+  updateSettings,
+  stringifySettings,
+} from "../settings";
 import { extractFM } from "../fm_extractor.js";
-import { bodyTemplate , renderHTML} from "../template.js";
+import { bodyTemplate, renderHTML } from "../template.js";
 import impIcon from "../icons/imp.svg?raw";
-require("./editor.scss")
-require("../data_fetch.js")
+require("./editor.scss");
+require("../data_fetch.js");
 // import { attachScript } from "../helpers.js";
 
-const branding = ("<div class='IMPBrand' style='line-height:24px'>IMP!  " + impIcon + version + "</div>")
-const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i
+const branding =
+  "<div class='IMPBrand' style='line-height:24px'>IMP!  " +
+  impIcon +
+  version +
+  "</div>";
+const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i;
 
 export class PageEditor extends Component {
   constructor(props) {
@@ -26,11 +35,12 @@ export class PageEditor extends Component {
     this.state = {
       text: props.text,
       modified: false,
+      settingsShown: false,
       _tabSelected: 0,
       _menuShown: false,
-    }
+    };
 
-    this.state = Object.assign(this.state, this.props.settings)
+    this.state = Object.assign(this.state, this.props.settings);
     this.text = props.text;
     this.editorControls = {};
 
@@ -41,25 +51,30 @@ export class PageEditor extends Component {
     this.saveHTML = this.saveHTML.bind(this);
     this.exportMd = this.exportMd.bind(this);
     this.importMd = this.importMd.bind(this);
-
+    this.makeSettings = this.makeSettings.bind(this);
+    this.duplicateFile = this.duplicateFile.bind(this);
   }
   handleInput(f, v) {
     const ns = {};
     //do not update text in state
     //keep copy
-    if (f !== 'text') { ns[f] = v } else { this.text = v };
-    (!ns.modified) && (ns.modified = true);
+    if (f !== "text") {
+      ns[f] = v;
+    } else {
+      this.text = v;
+    }
+    !ns.modified && (ns.modified = true);
     this.setState(ns);
     if (["headHTML", "customCSS"].indexOf(f) != -1) {
       try {
         this.editorControls.refreshPreview();
       } catch (e) {
-        console.info("Editor controls malfunction:", e)
+        console.info("Editor controls malfunction:", e);
       }
     }
   }
   makeHandler(f) {
-    const func = (v) => this.handleInput(f, v)
+    const func = (v) => this.handleInput(f, v);
     func.bind(this);
     return func;
   }
@@ -72,10 +87,10 @@ export class PageEditor extends Component {
       const f = e.dataTransfer.items[0].getAsFile();
       // console.log(f);
       if (mdRx.test(f.name) && f.type.startsWith("text/")) {
-        f.text().then(t => {
+        f.text().then((t) => {
           confirm("Looks like markdown file. Do you want to import it?") &&
-            this.importMdText(t, f.name.replace(mdRx, ".html"))
-        })
+            this.importMdText(t, f.name.replace(mdRx, ".html"));
+        });
       }
     }
   }
@@ -84,61 +99,61 @@ export class PageEditor extends Component {
     e.preventDefault();
     e.stopPropagation();
   }
-  //service 
+  //service
   saveHTML() {
     // console.log("save requested..." , this) ;
     // saveFile(renderMd(this.text , false) , this.text , this.makeSettings() );
 
-    renderMdAsync(this.text, false)
-      .then(r => {
-        saveFile(r, this.text, this.makeSettings());
-        this.modified = false;
-        this.setState({ modified: false });
-      })
-
+    renderMdAsync(this.text, false).then((r) => {
+      saveFile(r, this.text, this.makeSettings());
+      this.modified = false;
+      this.setState({ modified: false });
+    });
   }
   duplicateFile() {
     const s = this.makeSettings(); //sync settings
     const thisfilename = s.filename;
-    const newfilename = prompt("Enter new filename with extension",
-      s.filename);
+    const newfilename = prompt("Enter new filename with extension", s.filename);
     s.filename = newfilename;
     saveFile(md.render(this.text), this.text, s);
     s.filename = thisfilename;
   }
 
   importMdText(t, name) {
-    const extracted = extractFM(t)
+    const extracted = extractFM(t);
     let newState = {
       text: extracted.markdown,
-      footer: "Powered by <a href='https://github.com/girobusan/imp'><strong>IMP!</strong></a>",
-      filename: name || 'index.html'
-    }
+      footer:
+        "Powered by <a href='https://github.com/girobusan/imp'><strong>IMP!</strong></a>",
+      filename: name || "index.html",
+    };
     this.text = extracted.markdown;
 
     if (extracted.meta) {
       try {
         newState = Object.assign(
           newState,
-          cleanupObj(yaml.load(extracted.meta), true)
-        )
+          cleanupObj(yaml.load(extracted.meta), true),
+        );
       } catch (e) {
         console.error("Can not parse metadata:", e);
       }
     }
     newState = addEmpties(newState);
-    this.setState(newState)
+    this.setState(newState);
   }
 
   importMd() {
-    loadFromDisk((t, n) => this.importMdText(t, n.replace(mdRx, ".html")))
+    loadFromDisk((t, n) => this.importMdText(t, n.replace(mdRx, ".html")));
   }
 
   exportMd() {
     //export settings
     const st = stringifySettings(this.makeSettings(), true); //yaml
-    saveToDisk(this.state.filename.replace(/.htm(l)?$/i, ".md"),
-      "---\n" + st + "---\n" + this.text)
+    saveToDisk(
+      this.state.filename.replace(/.htm(l)?$/i, ".md"),
+      "---\n" + st + "---\n" + this.text,
+    );
   }
 
   makeSettings() {
@@ -146,70 +161,73 @@ export class PageEditor extends Component {
   }
 
   componentDidMount() {
-    document.body.addEventListener("drop", this.handleDrop)
-    document.body.addEventListener("dragover", this.handleDragOver)
+    document.body.addEventListener("drop", this.handleDrop);
+    document.body.addEventListener("dragover", this.handleDragOver);
   }
   componentWillUnmount() {
-    document.body.removeEventListener("drop", this.handleDrop)
-    document.body.removeEventListener("dragover", this.handleDragOver)
+    document.body.removeEventListener("drop", this.handleDrop);
+    document.body.removeEventListener("dragover", this.handleDragOver);
   }
 
   componentDidUpdate() {
     //update some current HTML
     document.title = this.state.title;
-    if (this.state.enableHelpers &&
-      !window.impHelpers
-    ) {
+    if (this.state.enableHelpers && !window.impHelpers) {
       console.log("Attach helpers script");
       // attachScript( "helpers.js" , "helpersScript")
       const s = document.createElement("script");
       s.id = "helpersScript";
       document.head.appendChild(s);
-      s.src = "helpers.js"
-
+      s.src = "helpers.js";
     }
-    if (!this.state.enableHelpers &&
-      window.impHelpers
-    ) {
+    if (!this.state.enableHelpers && window.impHelpers) {
       console.log("Detach helpers module");
       document.head.querySelector("script#helpersScript").remove();
-      delete window.impHelpers
+      delete window.impHelpers;
     }
-
   }
   render() {
     return html`<div class="PageEditor">
-      <${Tabbed} selectFn=${i => this.setState({ "_tabSelected": i })}
+      <${Tabbed} selectFn=${(i) => this.setState({ _tabSelected: i })}
       selected=${this.state["_tabSelected"]}
-      menuToggler=${ ()=>{ console.log("TOGGLE") ;  this.setState({ _menuShown: !this.state._menuShown}) }}
+      menuToggler=${() => {
+        console.log("TOGGLE");
+        this.setState({ _menuShown: !this.state._menuShown });
+      }}
       menuVisible=${this.state._menuShown}
       menuItems=${[
-      { label: "Import markdown &larr;", handler: this.importMd },
-      { label: "Export markdown &rarr;", handler: this.exportMd },
-      { label: "Duplicate page", handler: this.duplicateFile },
+        { label: "Import markdown &larr;", handler: this.importMd },
+        { label: "Export markdown &rarr;", handler: this.exportMd },
+        { label: "Duplicate page", handler: this.duplicateFile },
       ]}
       tabs=${[
-      {
-      title: "Save page",
-      customClass: "tabButton saveFileTab " + (this.state.modified ? "alerted" : ""),
-      action: this.saveHTML,
-      index: "no",
-      },
-      {
-      title: "View page!",
-      customClass: "tabButton viewModeTab",
-      index: "no",
-      action: () => {
-      confirm("All unsaved changes may be lost. Continue?") && (window.location = "?mode=view")
-      }
-      },
-      { title: "Content &rarr;", textTitle: "Content editor" , customClass: "contentEditorTab" , index:0 },
-      { title: "Page settings &rarr;", textTitle: "Page settings" , customClass: "pageSettingsTab", index: 1 },
+        {
+          title: "Save page",
+          customClass:
+            "tabButton saveFileTab " + (this.state.modified ? "alerted" : ""),
+          action: this.saveHTML,
+          index: "no",
+        },
+        {
+          title: "View page!",
+          customClass: "tabButton viewModeTab",
+          index: "no",
+          action: () => {
+            confirm("All unsaved changes may be lost. Continue?") &&
+              (window.location = "?mode=view");
+          },
+        },
+        {
+          title: "Page settings &rarr;",
+          textTitle: "Page settings",
+          customClass: "pageSettingsTab",
+          index: 1,
+          action: () =>
+            this.setState({ settingsShown: !this.state.settingsShown }),
+        },
       ]}
       branding=${branding}
 }/>
-<${TabPage} title="Text" 
-index=${0} selectedIndex=${this.state._tabSelected} >
 <div class="editor_ui" 
 ref=${this.editorNode}
 >
@@ -221,50 +239,69 @@ onUpdate=${(c) => this.handleInput("text", c)}
 modified=${this.state.modified}
 save=${null}
 maxHeight="100%"
-branding=${""}
+
+        branding=${"<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>"}
 trueFullscreen=${true}
+    save=${this.saveHTML}
+menuItems=${[
+        { label: "Import markdown &larr;", handler: this.importMd },
+        { label: "Export markdown &rarr;", handler: this.exportMd },
+        { label: "Duplicate file", handler: this.duplicateFile },
+        {
+          label: "Edit settings",
+          handler: () =>
+            this.setState({ settingsShown: !this.state.settingsShown }),
+        },
+        {
+          label: "View mode",
+          handler: () => {
+            confirm("All unsaved changes may be lost. Continue?") &&
+              (window.location = "?mode=view");
+          },
+        },
+      ]}
+            
 renderBody=${(c) => {
-        return renderMdAsync(c, true)
-          .then(r => {
-            return bodyTemplate(r, this.state.footer)
-          })
-      }
-      }
+        return renderMdAsync(c, true).then((r) => {
+          return bodyTemplate(r, this.state.footer);
+        });
+      }}
 render=${(c) => {
-        return renderMdAsync(c, true)
-          .then(r => {
-            return renderHTML(r, "", this.makeSettings(), true)
-          })
-      }
-      }
+        return renderMdAsync(c, true).then((r) => {
+          return renderHTML(r, "", this.makeSettings(), true);
+        });
+      }}
 />
 </div>
-</${TabPage}>
 
-<${TabPage} title="Settings" index=${1} selectedIndex=${this.state._tabSelected} >
-<${SettingsEditor} 
-makeHandler=${this.makeHandler}
-modified=${this.state.modified}
-setModified=${() => this.setState({ modified: true })}
-saveHTML=${this.saveHTML}
-duplicateFile=${this.duplicateFile}
-filename=${this.state.filename}
-title=${this.state.title}
-author=${this.state.author}
-keywords=${this.state.keywords}
-description=${this.state.description}
-image=${this.state.image}
-icon=${this.state.icon}
-footer=${this.state.footer}
-customCSS=${this.state.customCSS}
-headHTML=${this.state.headHTML}
-enableHelpers=${this.state.enableHelpers}
-disableInteractivity=${this.state.disableInteractivity}
-viewCSS=${this.state.viewCSS}
-editor=${this.state.editor}
-/>
-</${TabPage}>
-</div>`
-  }//render
+    <${If} condition=${this.state.settingsShown}>
+    <div class="settingsEditorOverlay">
+    <div class="scrolledArea">
+    <button class="closeButton" title="Close" onClick=${() => this.setState({ settingsShown: false })}>×</button>
+      <${SettingsEditor} 
+      makeHandler=${this.makeHandler}
+      modified=${this.state.modified}
+      setModified=${() => this.setState({ modified: true })}
+      saveHTML=${this.saveHTML}
+      duplicateFile=${this.duplicateFile}
+      filename=${this.state.filename}
+      title=${this.state.title}
+      author=${this.state.author}
+      keywords=${this.state.keywords}
+      description=${this.state.description}
+      image=${this.state.image}
+      icon=${this.state.icon}
+      footer=${this.state.footer}
+      customCSS=${this.state.customCSS}
+      headHTML=${this.state.headHTML}
+      enableHelpers=${this.state.enableHelpers}
+      disableInteractivity=${this.state.disableInteractivity}
+      viewCSS=${this.state.viewCSS}
+      editor=${this.state.editor}
+    />
+    </div>
+    </div>
+    </${If}>
+</div>`;
+  } //render
 }
-

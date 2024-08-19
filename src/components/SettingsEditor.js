@@ -15,8 +15,6 @@ export default function SettingsEditor({
   makeHandler,
   modified,
   setModified,
-  saveHTML,
-  duplicateFile,
   // settings to edit
   filename,
   title,

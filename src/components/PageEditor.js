@@ -232,7 +232,7 @@ export class PageEditor extends Component {
         {
           svgOff: exitIcon,
           isOn: false,
-          title: "View mode",
+          title: "View mode (exit editor)",
           onClick: () => {
             confirm("All unsaved changes may be lost. Continue?") &&
               (window.location = "?mode=view");

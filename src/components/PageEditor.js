@@ -2,7 +2,7 @@ const version = VERSION;
 import { Component, createRef, h } from "preact";
 import { html } from "htm/preact";
 const yaml = require("js-yaml");
-import BareMDE from "../BareMDE_v0.2.4.umd.js";
+import BareMDE from "../BareMDE_v0.2.5.umd.js";
 import SettingsEditor from "./SettingsEditor.js";
 import Tabbed from "./Tabbed.js";
 import { md, renderMdAsync } from "../md_wrapper.js";
@@ -17,6 +17,8 @@ import {
 import { extractFM } from "../fm_extractor.js";
 import { bodyTemplate, renderHTML } from "../template.js";
 import impIcon from "../icons/imp.svg?raw";
+import settingsIcon from "../icons/settings_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg?raw";
+import exitIcon from "../icons/logout_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg?raw";
 require("./editor.scss");
 require("../data_fetch.js");
 // import { attachScript } from "../helpers.js";
@@ -255,6 +257,25 @@ menuItems=${[
         {
           label: "View mode",
           handler: () => {
+            confirm("All unsaved changes may be lost. Continue?") &&
+              (window.location = "?mode=view");
+          },
+        },
+      ]}
+customButtons=${[
+        {
+          svgOff: settingsIcon,
+          svg: settingsIcon,
+          title: "Page settings",
+          isOn: this.state.settingsShown,
+          onClick: () =>
+            this.setState({ settingsShown: !this.state.settingsShown }),
+        },
+        {
+          svgOff: exitIcon,
+          isOn: false,
+          title: "View mode",
+          onClick: () => {
             confirm("All unsaved changes may be lost. Continue?") &&
               (window.location = "?mode=view");
           },

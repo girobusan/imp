@@ -33,7 +33,7 @@ export default function SettingsEditor({
   viewCSS,
   editor,
 }) {
-  console.log("title", title);
+  // console.log("title", title);
   return html`
     <div class="SettingsEditor main_ui ${modified ? "modified" : "still"}">
       <h2 class="subtitle is-3">Page settings</h2>

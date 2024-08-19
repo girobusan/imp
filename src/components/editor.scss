@@ -14,7 +14,7 @@ $hatch_color: rgba(0, 0, 0, 0.26);
 $hatch_bg_color: rgba(0, 0, 0, 0.25);
 $violet_color: #a54aed;
 $resize_handle_height: 8px;
-$gray_bg: #bdbdbd;
+$gray_bg: #989898;
 
 body {
   background-color: #b0b0b0;
@@ -81,6 +81,16 @@ button.TButton.alerted {
     border-radius: 16px;
     padding: 16px;
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
+
+    @media (max-width: 800px) {
+      margin-left: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 0;
+      transform: none;
+    }
 
     .scrolledArea {
       overflow-y: auto;

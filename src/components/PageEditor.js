@@ -208,12 +208,12 @@ export class PageEditor extends Component {
         { label: "Export markdown &rarr;", handler: this.exportMd },
         { label: "Duplicate file", handler: this.duplicateFile },
         {
-          label: "Edit settings",
+          label: "Page settings",
           handler: () =>
             this.setState({ settingsShown: !this.state.settingsShown }),
         },
         {
-          label: "View mode",
+          label: "View mode (exit editor)",
           handler: () => {
             confirm("All unsaved changes may be lost. Continue?") &&
               (window.location = "?mode=view");

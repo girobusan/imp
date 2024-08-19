@@ -75,12 +75,14 @@ button.TButton.alerted {
     left: 0;
     margin-left: 50%;
     transform: translateX(-50%);
-    bottom: 32px;
+    bottom: 0;
     top: 32px;
     background-color: $gray_bg;
-    border-radius: 16px;
-    padding: 16px;
+    border-radius: 16px 16px 0 0;
+    padding: 40px 16px 16px 16px;
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: all 0.5s;
 
     @media (max-width: 800px) {
       margin-left: 0;
@@ -92,16 +94,54 @@ button.TButton.alerted {
       transform: none;
     }
 
+    &[data-shown*="false"] {
+      opacity: 0;
+      top: 100vh;
+    }
+
+    &[data-shown*="true"] {
+      opacity: 1;
+    }
+
     .scrolledArea {
       overflow-y: auto;
       height: 100%;
       position: relative;
+      scrollbar-color: #444 transparent;
+      scrollbar-width: thin;
+
+      &:before {
+        content: " ";
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 80px;
+        user-select: none;
+        pointer-events: none;
+        background-image: linear-gradient(to bottom,
+            $gray_bg 40px,
+            transparent);
+        z-index: 10;
+      }
+
+      &:after {
+        content: " ";
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 80px;
+        user-select: none;
+        pointer-events: none;
+        background-image: linear-gradient(to top, $gray_bg 16px, transparent);
+      }
     }
 
     .closeButton {
       position: absolute;
       right: 16px;
-      top: 0px;
+      top: 8px;
       appearance: none;
       border: none;
       background: transparent;
@@ -113,6 +153,7 @@ button.TButton.alerted {
       margin: 0;
       display: block;
       cursor: pointer;
+      z-index: 20;
 
       &:hover {
         color: $violet_color;
@@ -166,6 +207,10 @@ button.TButton.alerted {
     margin-left: auto;
     margin-right: auto;
     max-width: 800px;
+
+    h2:first-child {
+      margin-top: 0.4em;
+    }
   }
 
   .areacss {

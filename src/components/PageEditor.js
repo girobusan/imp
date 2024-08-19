@@ -38,8 +38,6 @@ export class PageEditor extends Component {
       text: props.text,
       modified: false,
       settingsShown: false,
-      _tabSelected: 0,
-      _menuShown: false,
     };
 
     this.state = Object.assign(this.state, this.props.settings);
@@ -190,62 +188,22 @@ export class PageEditor extends Component {
   }
   render() {
     return html`<div class="PageEditor">
-      <${Tabbed} selectFn=${(i) => this.setState({ _tabSelected: i })}
-      selected=${this.state["_tabSelected"]}
-      menuToggler=${() => {
-        console.log("TOGGLE");
-        this.setState({ _menuShown: !this.state._menuShown });
-      }}
-      menuVisible=${this.state._menuShown}
-      menuItems=${[
-        { label: "Import markdown &larr;", handler: this.importMd },
-        { label: "Export markdown &rarr;", handler: this.exportMd },
-        { label: "Duplicate page", handler: this.duplicateFile },
-      ]}
-      tabs=${[
-        {
-          title: "Save page",
-          customClass:
-            "tabButton saveFileTab " + (this.state.modified ? "alerted" : ""),
-          action: this.saveHTML,
-          index: "no",
-        },
-        {
-          title: "View page!",
-          customClass: "tabButton viewModeTab",
-          index: "no",
-          action: () => {
-            confirm("All unsaved changes may be lost. Continue?") &&
-              (window.location = "?mode=view");
-          },
-        },
-        {
-          title: "Page settings &rarr;",
-          textTitle: "Page settings",
-          customClass: "pageSettingsTab",
-          index: 1,
-          action: () =>
-            this.setState({ settingsShown: !this.state.settingsShown }),
-        },
-      ]}
-      branding=${branding}
-}/>
-<div class="editor_ui" 
-ref=${this.editorNode}
->
+      <div class="editor_ui" ref=${this.editorNode}>
         <!--markdown editor-->
-<${BareMDE} 
-controls=${this.editorControls}
-content=${this.state.text}
-onUpdate=${(c) => this.handleInput("text", c)}
-modified=${this.state.modified}
-save=${null}
-maxHeight="100%"
-
-        branding=${"<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>"}
-trueFullscreen=${true}
-    save=${this.saveHTML}
-menuItems=${[
+        <${BareMDE}
+          controls=${this.editorControls}
+          content=${this.state.text}
+          onUpdate=${(c) => this.handleInput("text", c)}
+          modified=${this.state.modified}
+          save=${null}
+          maxHeight="100%"
+          branding=${"<div class='IMPBrand' style='line-height:38px'>IMP!  " +
+      impIcon +
+      version +
+      "</div>"}
+          trueFullscreen=${true}
+          save=${this.saveHTML}
+          menuItems=${[
         { label: "Import markdown &larr;", handler: this.importMd },
         { label: "Export markdown &rarr;", handler: this.exportMd },
         { label: "Duplicate file", handler: this.duplicateFile },
@@ -262,7 +220,7 @@ menuItems=${[
           },
         },
       ]}
-customButtons=${[
+          customButtons=${[
         {
           svgOff: settingsIcon,
           svg: settingsIcon,
@@ -281,48 +239,52 @@ customButtons=${[
           },
         },
       ]}
-            
-renderBody=${(c) => {
+          renderBody=${(c) => {
         return renderMdAsync(c, true).then((r) => {
           return bodyTemplate(r, this.state.footer);
         });
       }}
-render=${(c) => {
+          render=${(c) => {
         return renderMdAsync(c, true).then((r) => {
           return renderHTML(r, "", this.makeSettings(), true);
         });
       }}
-/>
-</div>
+        />
+      </div>
 
-    <${If} condition=${this.state.settingsShown}>
-    <div class="settingsEditorOverlay">
-    <div class="scrolledArea">
-    <button class="closeButton" title="Close" onClick=${() => this.setState({ settingsShown: false })}>×</button>
-      <${SettingsEditor} 
-      makeHandler=${this.makeHandler}
-      modified=${this.state.modified}
-      setModified=${() => this.setState({ modified: true })}
-      saveHTML=${this.saveHTML}
-      duplicateFile=${this.duplicateFile}
-      filename=${this.state.filename}
-      title=${this.state.title}
-      author=${this.state.author}
-      keywords=${this.state.keywords}
-      description=${this.state.description}
-      image=${this.state.image}
-      icon=${this.state.icon}
-      footer=${this.state.footer}
-      customCSS=${this.state.customCSS}
-      headHTML=${this.state.headHTML}
-      enableHelpers=${this.state.enableHelpers}
-      disableInteractivity=${this.state.disableInteractivity}
-      viewCSS=${this.state.viewCSS}
-      editor=${this.state.editor}
-    />
-    </div>
-    </div>
-    </${If}>
-</div>`;
+      <div
+        class="settingsEditorOverlay"
+        data-shown=${this.state.settingsShown.toString()}
+      >
+        <button
+          class="closeButton"
+          title="Close"
+          onClick=${() => this.setState({ settingsShown: false })}
+        >
+          ×
+        </button>
+        <div class="scrolledArea">
+          <${SettingsEditor}
+            makeHandler=${this.makeHandler}
+            modified=${this.state.modified}
+            setModified=${() => this.setState({ modified: true })}
+            filename=${this.state.filename}
+            title=${this.state.title}
+            author=${this.state.author}
+            keywords=${this.state.keywords}
+            description=${this.state.description}
+            image=${this.state.image}
+            icon=${this.state.icon}
+            footer=${this.state.footer}
+            customCSS=${this.state.customCSS}
+            headHTML=${this.state.headHTML}
+            enableHelpers=${this.state.enableHelpers}
+            disableInteractivity=${this.state.disableInteractivity}
+            viewCSS=${this.state.viewCSS}
+            editor=${this.state.editor}
+          />
+        </div>
+      </div>
+    </div>`;
   } //render
 }

@@ -91,7 +91,7 @@ button.TButton.alerted {
       top: 0;
       bottom: 0;
       border-radius: 0;
-      transform: none;
+      transform: translateX(0);
     }
 
     &[data-shown*="false"] {

@@ -1,29 +1,22 @@
-import { escapeTags , unescapeTags } from "./util"
+import { escapeTags, unescapeTags } from "./util";
 import { stringifyData } from "./data";
 import { stringifySettings } from "./settings";
 const version = VERSION;
 
-
-export function bodyTemplate(bodyHTML , footerHTML){
-return `<main class="container" id="pageMain">${bodyHTML}</main>
-<footer id="pageFooter">${footerHTML}</footer>`;
+export function bodyTemplate(bodyHTML, footerHTML) {
+ return `<main class="container" id="pageMain">${bodyHTML}</main>
+<footer id="pageFooter">${footerHTML || ""}</footer>`;
 }
 
 /** renderHTML
  * @param {string} mdText - markdown
  * @param {string} htmlText - html
- * @param {object} settings 
+ * @param {object} settings
  * @param {?Boolean} noScript - disable IMP! script
  */
-export function renderHTML(
-  htmlText,
-  mdText,
-  settings,
-  noScript,
-
-){
-  // if(noScript){ enableHelpers=false }
-return `<!DOCTYPE html>
+export function renderHTML(htmlText, mdText, settings, noScript) {
+ // if(noScript){ enableHelpers=false }
+ return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -42,7 +35,7 @@ return `<!DOCTYPE html>
    window.settings = ${stringifySettings(settings)};
    window.savedWithImpVersion = "${version}"
   </script>
-${  noScript ? "<!--" : "" }
+${noScript ? "<!--" : ""}
   <script>
    function IMPEdit(){
    console.info("Loading editor...")
@@ -70,18 +63,16 @@ ${  noScript ? "<!--" : "" }
    }
 })
   </script>
-${  noScript ? "-->" : "" }
-  ${ ( !noScript && settings.enableHelpers ) ? "<script defer src='helpers.js' id='helpersScript'></script>" : "" }
+${noScript ? "-->" : ""}
+  ${!noScript && settings.enableHelpers ? "<script defer src='helpers.js' id='helpersScript'></script>" : ""}
   <link id = "viewCSS" rel="stylesheet" href="${settings.viewCSS || "style.css"}">
   <style id="customCSS">${settings.customCSS || ""}</style>
-  ${settings.customHeadHTML||"<!--custom html here-->"}
+  ${settings.customHeadHTML || "<!--custom html here-->"}
 </head>
 <body>
-${bodyTemplate(htmlText , settings.footer)}
-${ `<script>window.impData=${stringifyData()}</script>` }
-<script id="pageData" type="text/markdown">${escapeTags( mdText )}</script>
+${bodyTemplate(htmlText, settings.footer)}
+${`<script>window.impData=${stringifyData()}</script>`}
+<script id="pageData" type="text/markdown">${escapeTags(mdText)}</script>
 </body>
-</html>`
-
+</html>`;
 }
-

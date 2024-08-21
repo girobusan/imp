@@ -1,173 +1,256 @@
-@use '../scss/normalize.css';
+@use "../scss/normalize.css";
 // @import '../scss/nofont.scss';
-@import 'bulma/sass/utilities/controls';
+@import "bulma/sass/utilities/controls";
 // @import 'bulma/sass/utilities/mixins';
-@import 'bulma/sass/utilities/extends';
+@import "bulma/sass/utilities/extends";
 
-@import 'bulma/sass/form/_all';
-@import 'bulma/sass/base/_all';
+@import "bulma/sass/form/_all";
+@import "bulma/sass/base/_all";
 
-@import 'bulma/sass/elements/button.sass';
-@import 'bulma/sass/elements/title.sass';
+@import "bulma/sass/elements/button.sass";
+@import "bulma/sass/elements/title.sass";
 
-
-$hatch_color: rgba(0,0,0,0.26);
-$hatch_bg_color: rgba(0,0,0,0.25);
-$violet_color:#8115d6 ;
+$hatch_color: rgba(0, 0, 0, 0.26);
+$hatch_bg_color: rgba(0, 0, 0, 0.25);
+$violet_color: #a54aed;
 $resize_handle_height: 8px;
+$gray_bg: #989898;
 
-body{
-  background-color: #eee;
-  background-image: linear-gradient( 
-      to bottom right, 
-      $hatch_color,
-      $hatch_color 10%,
-      $hatch_bg_color 10%,
-      $hatch_bg_color 40%,
-      $hatch_color 40%,
-      $hatch_color 60%,
-      $hatch_bg_color 60%,
-      $hatch_bg_color 90%,
-      $hatch_color 90%,
+body {
+  background-color: #b0b0b0;
+  /* background-image: linear-gradient(  */
+  /*     to bottom right,  */
+  /*     $hatch_color, */
+  /*     $hatch_color 10%, */
+  /*     $hatch_bg_color 10%, */
+  /*     $hatch_bg_color 40%, */
+  /*     $hatch_color 40%, */
+  /*     $hatch_color 60%, */
+  /*     $hatch_bg_color 60%, */
+  /*     $hatch_bg_color 90%, */
+  /*     $hatch_color 90%, */
 
-      );
-  background-size: 16px 16px;
-  background-repeat: repeat;
-  *{
+  /*     ); */
+  /* background-size: 16px 16px; */
+  /* background-repeat: repeat; */
+  * {
     box-sizing: border-box;
   }
 }
-h2.subtitle{
+
+h2.subtitle {
   color: white;
-  text-shadow: 0 0 6px rgba(0,0,0,0.3);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
   margin-top: 3rem;
 }
 
-button , input[type=button]{
-  // box-sizing: border-box;
-  // height: initial !important;
+/* button , input[type=button]{ */
+// box-sizing: border-box;
+// height: initial !important;
+//}
+
+button.TButton.alerted {
+  background-color: $violet_color !important; //lighten( $violet_color , 15% ) !important;
 }
 
-button.TButton.alerted{
-  background-color: lighten( $violet_color , 15% ) !important;
-}
-
-  #resizeHandle{
-    height: $resize_handle_height;
-    width: 100%;
-    background-color: gray;
-    background-image: linear-gradient( to bottom,
-    rgb( 180 , 180 , 180 ),
-    rgb( 180 , 180 , 180) 20%, 
-    rgb( 120 , 120 , 120) 20%, 
-    rgb( 120 , 120 , 120) 80%, 
-    rgb( 60 , 60 , 60) 80%, 
-    );
-    cursor:  ns-resize;
-    display: block;
-    position: absolute;
-    bottom: 0;
-    user-select: none;
-    &:after{
-      pointer-events: none;
-      display: block;
-      content: " ";
-      width: 72px;
-      height: 8px;
-      opacity: 0.6;
-      margin: 0 auto;
-      background-size: 12px 8px;
-      background-position: center center;
-      background-image: linear-gradient(
-      to bottom,
-      white,
-    #585858,
-      white,
-    #585858,
-      white,
-    #585858,
-      );
-    }
-  }
-
-
-.PageEditor{
-  .IMPBrand{
+.PageEditor {
+  .IMPBrand {
+    color: currentColor;
     pointer-events: none;
     user-select: none;
-    opacity: 0.5;
-    svg{
+    font-size: 14px;
+    opacity: 0.7;
+
+    svg {
       display: inline;
       width: 18px;
       height: 18px;
       position: relative;
-      top: 4px;
+      top: 3px;
     }
   }
-  hr{
+
+  .settingsEditorOverlay {
+    position: absolute;
+    left: 0;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    top: 32px;
+    background-color: $gray_bg;
+    border-radius: 16px 16px 0 0;
+    padding: 40px 16px 16px 16px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: all 0.5s;
+    z-index: 20;
+
+    @media (max-width: 800px) {
+      margin-left: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 0;
+      transform: translateX(0);
+    }
+
+    &[data-shown*="false"] {
+      opacity: 0;
+      top: 100vh;
+    }
+
+    &[data-shown*="true"] {
+      opacity: 1;
+    }
+
+    .scrolledArea {
+      overflow-y: auto;
+      height: 100%;
+      position: relative;
+      scrollbar-color: #444 transparent;
+      scrollbar-width: thin;
+
+      &:before {
+        content: " ";
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 60px;
+        user-select: none;
+        pointer-events: none;
+        background-image: linear-gradient(to bottom,
+            $gray_bg 40px,
+            transparent);
+        z-index: 10;
+      }
+
+      &:after {
+        content: " ";
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 60px;
+        user-select: none;
+        pointer-events: none;
+        background-image: linear-gradient(to top, $gray_bg 16px, transparent);
+      }
+    }
+
+    .closeButton {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      appearance: none;
+      border: none;
+      background: transparent;
+      font-size: 32px;
+      line-height: 24px;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      margin: 0;
+      display: block;
+      cursor: pointer;
+      z-index: 20;
+
+      &:hover {
+        color: $violet_color;
+      }
+    }
+  }
+
+  hr {
     display: block;
     border: none;
     border-bottom: 1px solid #ccc;
   }
-  .editor_ui{
-    position: relative;
-    padding-bottom: $resize_handle_height;
-    .BareMDE{
+
+  .editor_ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    /* padding-bottom: $resize_handle_height; */
+    .BareMDE {
       height: 100%;
     }
-    &:after{
+
+    &:after {
       display: block;
       position: absolute;
       content: " ";
       height: 4px;
       width: 100%;
       bottom: -4px;
-      background: linear-gradient( to bottom , rgba(0,0,0,0.2) , rgba(0,0,0,0) )
-
+      background: linear-gradient(to bottom,
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0));
     }
+
     margin: 0;
     // border-radius: 6px;
     overflow: hidden;
     // margin-bottom: 1rem;
-     // border-bottom: 1px solid silver;
+    // border-bottom: 1px solid silver;
   }
-  .main_ui{
-    all:unset;
-    display:block;
+
+  .main_ui {
+    all: unset;
+    display: block;
     margin-top: 0px;
     padding: 0 16px;
     padding-bottom: 32px;
     margin-left: auto;
     margin-right: auto;
     max-width: 800px;
+    min-width: 640px;
 
+    @media (max-width: 800px) {
+      min-width: initial;
+    }
+
+    h2:first-child {
+      margin-top: 0.4em;
+    }
   }
-  .areacss{
+
+  .areacss {
     min-height: 300px;
   }
+
   // .editorArea{
   //   // height: calc(100vh - 200px);
   // }
 }
 
-  input[type*=button].violet{
-    background-color: $violet_color;
-    color: white;
-    border-color: darken($violet_color , 10%);
-    &:hover{
-      background-color: lighten($violet_color , 10%)
-    }
-  }
+input[type*="button"].violet {
+  background-color: $violet_color;
+  color: white;
+  border-color: darken($violet_color, 10%);
 
-.TheInput{
+  &:hover {
+    background-color: $violet_color; // lighten($violet_color , 10%)
+  }
+}
+
+.TheInput {
   margin-bottom: 1rem;
   box-sizing: border-box;
-  input, textarea{
-    &::placeholder{
+
+  input,
+  textarea {
+    &::placeholder {
       color: gray;
     }
+
     box-sizing: border-box;
-    &:focus{
+
+    &:focus {
       outline: none;
       border: 1px solid $violet_color;
       box-shadow: 0 0 4px $violet_color;
@@ -175,34 +258,34 @@ button.TButton.alerted{
   }
 }
 
-.formRow{
+.formRow {
   display: flex;
   flex-direction: row;
   justify-content: stretch;
-  .TheInput{
+
+  .TheInput {
     flex-grow: 1;
-    &:last-child{
-    }
   }
-  .utility{
-  }
-  .divider{
+
+  .divider {
     width: 12px;
     flex-grow: 0;
     flex-shrink: 0;
     flex-grow: 0;
   }
-  @media(max-width: 600px){
+
+  @media (max-width: 600px) {
     flex-direction: column;
-    .divider{
+
+    .divider {
       height: 8px;
     }
   }
 }
 
 //some form
-label.horizontal{
-  div{
+label.horizontal {
+  div {
     display: inline;
     margin-right: 12px;
   }

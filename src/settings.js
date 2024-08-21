@@ -1,57 +1,82 @@
 import { escapeTags , unescapeTags } from "./util"
 const yaml = require('js-yaml');
 
-const STORE = {};
-const props = [
-   "title" , 
-   "description" , 
-   "image" , 
-   "icon" , 
-   "filename" , //html 
-   "footer" ,  //html
-   "css" , //html
-   "headHTML", //html
-   "editor",
-   "viewCSS",
-   "author",
-   "keywords",
-   "enableHelpers",
-   "disableInteractivity",
-   "pathToHelpersModule"
-   ]
-var callback ; //called on update setting, maybe not required
+var SETTINGS;
+const defaults ={
 
-export function create(settings_src , cb){
-// console.log("Creating settings wrapper" , settings_src)
-  // props.forEach( k=>STORE[k]="" );
-  if(cb){callback=cb}
-  props.forEach(p=>STORE[p]=settings_src[p] || "");
-  return createWrapper();
+   "title" : "", 
+   "description" : "", 
+   "image" : "", 
+   "icon" : "", 
+   "filename" : "", //html 
+   "footer" : "<small>Powered by IMP!</small>",  //html
+   "css" : "", //html
+   "headHTML": "", //html
+   "editor": "",
+   "viewCSS": "",
+   "author": "",
+   "keywords": "",
+   "enableHelpers": false,
+   "disableInteractivity": false,
+   "pathToHelpersModule" : ""
 }
 
+const props = Object.keys(defaults)
+
+
+//NEW SETTINGS ROUTINES
+export function getSettings(){
+  return SETTINGS
+}
+export function updateSettings( newSettingsObj){
+   SETTINGS = Object.assign( SETTINGS , newSettingsObj)
+
+  //+remove 
+  //
+   return SETTINGS;
+}
+
+export function makeSettings(obj){
+  //clean up
+  Object.keys(obj).forEach(k=>{ if(props.indexOf(k)===-1){ delete obj[k]} })
+  //unescape
+  Object.keys(obj).forEach( k=>{
+      ( typeof obj[k]==='string' ) && ( obj[k]=unescapeTags(obj[k]) )
+  })
+  SETTINGS = obj;
+  return obj;
+}
+
+/** stringify settings to JSON or YAML
+ * @param {*} obj - optional settings
+ * @param {Boolean} toYAML - use YAML
+ */
+export function stringifySettings( obj , toYAML){
+   let tobj = Object.assign({} , obj || SETTINGS);
+   Object.keys(tobj).forEach( k=>{
+      ( typeof tobj[k]==='string' ) && ( tobj[k]=escapeTags(tobj[k]) )
+  })
+  tobj=cleanupObj(tobj);
+  return toYAML ? yaml.dump(tobj) : JSON.stringify(tobj , null , 2);
+}
+
+/** 
+* full cleanup: all empty key/value pairs are removed
+* @param {Boolean} safe - remove unsafe settings
+*/
 export function cleanupObj( obj , safe){
   return props.reduce( (a,e)=>{ 
-    if(safe && ['editor'].indexOf(e)!=-1){ return a }
+    if(safe && ['editor' , 'viewCSS'].indexOf(e)!=-1){ return a }
     if( prepFalsy(obj[e]) ){
         a[e] = obj[e]
     }
     return a;
   } , {} )
 }
+//add empty values for undefined settngs
 export function addEmpties(obj){
    props.forEach( k=>{ if(!obj[k]){ obj[k]="" } } );
    return obj;
-}
-
-function updated(k,v){
-  if(callback){callback(k,v)}
-  // console.log("Updated setting" , k)
-}
-
-function escapedCopy(obj){
-  const SRC = obj || STORE;
-  return props.reduce( (a,e)=>{a[e]=( SRC[e] || "" ) ; return a}  , {})
-  
 }
 
 function prepFalsy(something){
@@ -61,33 +86,8 @@ function prepFalsy(something){
   return something;
 }
 
-function dump2YAML(obj){
-   const cleanVersion = Object.keys(obj)
-       .reduce( ( a,e )=>{ if( prepFalsy( obj[e] ) ){ a[e]=obj[e] } ; return a  } 
-       , {} );
-
-       return yaml.dump(cleanVersion);
-}
+// END NEW SETTINGS ROUTINES
 
 
 
-function unescapedCopy(obj){
-  const SRC = obj || STORE;
-  return props.reduce( (a,e)=>{a[e]=unescapeTags( SRC[e] || "" ) ; return a}  , {})
-}
-
-function createWrapper(obj){
-   const w = {};
-   const SRC = obj || STORE;
-   w.listProps = ()=> props.slice(0);
-   w.copy = (escape)=> escape ? escapedCopy(SRC) : unescapedCopy(SRC);
-   w.dump = ()=>dump2YAML( unescapedCopy(SRC) );
-   props.forEach( p=>{
-      w[p] = (v)=>{ if(v===undefined){return unescapeTags( SRC[p] || "" )} ;  
-      const ev = escapeTags(v);
-      if(SRC[p]===ev){return w}
-      SRC[p]=ev ; updated(p,v) ; return w }
-   } )
-   return w;
-}
 

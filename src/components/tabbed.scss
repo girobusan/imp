@@ -1,0 +1,135 @@
+body,
+html {
+  overflow: hidden !important;
+}
+
+.Tabbed {
+  height: 28px;
+  display: block;
+
+  background-color: #444;
+  color: #b0b0b0;
+
+
+  .tabHeader {
+    position: relative;
+    background-color: inherit;
+    display: flex;
+    flex-direction: row;
+    padding-top: 3px;
+    .burgerMenu{
+      appearance: none;
+      border: none;
+      background-color: transparent;
+      color: white;
+      opacity: 0.6;
+      cursor: pointer;
+      height: 26px;
+      margin-top: -3px;
+      svg{
+        display: block;
+      }
+      &:hover{
+        opacity: 1;
+      }
+    }
+    .MenuItem{
+      padding: 6px 12px;
+      transition: all 0.2s;
+      color: #444;
+      user-select: none;
+      cursor: pointer;
+      &:hover{
+        background-color: #666;
+        color: white;
+      }
+    }
+    .dropDownMenu{
+      min-width: 100px;
+      min-height: 80px;
+      background-color: white;
+      position: absolute;
+      top: 30px;
+      left: 8px;
+      z-index: 2000;
+      border-radius: 4px;
+      box-shadow: 0px 0px 6px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+  }
+
+  .Tab.tabButton {
+    height: 20px;
+    transition: all 0.2s;
+    /* position: absolute; */
+    line-height: 12px;
+    padding: 0 12px;
+    padding-bottom: 2px;
+    margin: 0 2px;
+    background-color: gray;
+    font-size: 0.8em;
+    color: #444;
+    /* border-radius: 0 0 9px 9px; */
+    border-radius: 4px;
+
+    &:hover {
+      color: white;
+      background-color: #A54AED;
+    }
+
+    &.saveFileTab {
+      &.alerted {
+        background-color: #BB2525;
+        color: white;
+      }
+    }
+  }
+
+
+  .Tab {
+
+    appearance: none;
+    box-sizing: border-box;
+    border: none;
+    height: 24px;
+    color: inherit;
+    font-size: 14px;
+    padding-bottom: 6px;
+    margin: 0 12px;
+    background-color: inherit;
+    cursor: pointer;
+
+    &:first-child {
+      margin-left: 8px;
+    }
+
+    &.active {
+      display: none;
+      border-top: 3px solid currentColor;
+    }
+
+    /* border-radius: 6px 6px 0 0; */
+
+    &.active.pageSettingsTab {
+      background-color: #b0b0b0;
+      color: #444;
+      opacity: 1;
+    }
+  }
+
+  .tabBranding {
+    position: absolute;
+    right: 12px;
+    top: 2px;
+    text-align: right;
+  }
+
+
+}
+
+.TabPage {
+  width: 100%;
+  height: calc(100vh - 28px);
+  position: relative;
+  overflow-y: auto;
+}

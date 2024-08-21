@@ -1,444 +1,290 @@
-const version = VERSION ;
-import {Component , createRef , h} from "preact";
-import {html} from "htm/preact";
-const yaml = require('js-yaml');
-import BareMDE from "../BareMDE_v0.2.3.umd.js";
-import { md , renderMdAsync} from "../md_wrapper.js";
-import {saveFile, saveToDisk , loadFromDisk, convert2html} from "../fileops.js";
-import { addEmpties, cleanupObj } from "../settings";
+const version = VERSION;
+import { Component, createRef, h } from "preact";
+import { html } from "htm/preact";
+const yaml = require("js-yaml");
+import BareMDE from "../BareMDE_v0.2.5.umd.js";
+import SettingsEditor from "./SettingsEditor.js";
+import Tabbed from "./Tabbed.js";
+import { md, renderMdAsync } from "../md_wrapper.js";
+import { saveFile, saveToDisk, loadFromDisk } from "../fileops.js";
+import { If } from "./If.js";
+import {
+  addEmpties,
+  cleanupObj,
+  updateSettings,
+  stringifySettings,
+} from "../settings";
 import { extractFM } from "../fm_extractor.js";
-require("./editor.scss")
+import { bodyTemplate, renderHTML } from "../template.js";
 import impIcon from "../icons/imp.svg?raw";
-import TheInput from "./TheInput.js";
-import CheckBox from "./CheckBox.js";
-import { DataUI } from "../data.js";
-require( "../data_fetch.js" )
+import settingsIcon from "../icons/settings_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg?raw";
+import exitIcon from "../icons/logout_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg?raw";
+require("./editor.scss");
+require("../data_fetch.js");
 // import { attachScript } from "../helpers.js";
 
+const branding =
+  "<div class='IMPBrand' style='line-height:24px'>IMP!  " +
+  impIcon +
+  version +
+  "</div>";
+const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i;
 
-const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i
-
-export class PageEditor extends Component{
-  constructor(props){
+export class PageEditor extends Component {
+  constructor(props) {
     super(props);
-    // console.log("one")
     this.editorNode = createRef();
-    this.resizer = createRef();
-    // console.log(props.settings.enableHelpers());
-    // console.log(JSON.parse( props.settings.enableHelpers() || "false" ));
     this.state = {
       text: props.text,
-      title: props.settings.title() || "",
-      image: props.settings.image() || "",
-      icon: props.settings.icon() || "",
-      filename: props.settings.filename() || "",
-      description: props.settings.description() || "",
-      footer: props.settings.footer() || "",
-      customCSS: this.findCustomCSS(),
-      editor: props.settings.editor() || "",
-      viewCSS: props.settings.viewCSS() || "",
-      headHTML: props.settings.headHTML() || "",
-      author: props.settings.author() || "",
-      keywords: props.settings.keywords() || "",
-      disableInteractivity: props.settings.disableInteractivity() || false,
       modified: false,
-      enableHelpers: props.settings.enableHelpers()|| false  
-    }
-    this.text=props.text;
+      settingsShown: false,
+    };
+
+    this.state = Object.assign(this.state, this.props.settings);
+    this.text = props.text;
     this.editorControls = {};
-    this.editorHeight = Math.round( window.innerHeight * 0.75 );
-    this.resizeValue = null;
-    this.startResize = this.startResize.bind(this);
-    this.stopResize = this.stopResize.bind(this);
-    this.doResize = this.doResize.bind(this);
+
+    this.makeHandler = this.makeHandler.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
     this.saveHTML = this.saveHTML.bind(this);
     this.exportMd = this.exportMd.bind(this);
     this.importMd = this.importMd.bind(this);
-
+    this.makeSettings = this.makeSettings.bind(this);
+    this.duplicateFile = this.duplicateFile.bind(this);
   }
-  findCustomCSS(){
-    if(this.props.settings.css()){ return this.props.settings.css() }
-
-    let e = document.getElementById("customCSS");
-    if(e && e.innerHTML.trim()){
-      return e.innerHTML;
-    }
-    return "";
-  }
-  //resize
-  startResize(evt){
-    window.addEventListener("mouseup", this.stopResize)
-    window.addEventListener("click", this.stopResize)
-    window.addEventListener("mousemove", this.doResize)
-    this.resizer.current.removeEventListener("mousedown" , this.startResize)
-    this.resizeValue = evt.clientY 
-  }
-  doResize(evt){
-    // console.log("resizing...")
-    const delta = evt.clientY - this.resizeValue;
-    if(Math.abs(delta)<=2){ return }
-    this.editorHeight += delta;
-    if(this.editorHeight<=200){ this.editorHeight=200 ; this.stopResize() }
-    this.resizeValue = evt.clientY;
-    this.editorNode.current.style.height = this.editorHeight + "px";
-    // console.log(delta);
-  }
-  stopResize(){
-    console.log("resized:" , this.editorHeight)
-    window.removeEventListener("mouseup", this.stopResize)
-    window.removeEventListener("click", this.stopResize)
-    window.removeEventListener("mousemove", this.doResize)
-    this.resizer.current.addEventListener("mousedown" , this.startResize)
-    this.editorControls.syncScroll();
-  }
-  handleInput(f,v){
+  handleInput(f, v) {
     const ns = {};
     //do not update text in state
     //keep copy
-    if(f!=='text'){ ns[f]=v }else{ this.text=v };
-    ( !ns.modified ) && ( ns.modified = true );
+    if (f !== "text") {
+      ns[f] = v;
+    } else {
+      this.text = v;
+    }
+    !ns.modified && (ns.modified = true);
     this.setState(ns);
-    if( ["headHTML" , "customCSS"].indexOf(f)!=-1 ){
-      try{
+    if (["headHTML", "customCSS"].indexOf(f) != -1) {
+      try {
         this.editorControls.refreshPreview();
-      }catch(e){
-        console.info("Editor controls malfunction:" , e)
+      } catch (e) {
+        console.info("Editor controls malfunction:", e);
       }
     }
   }
-  makeHandler(f){
-    const func =  (v)=>this.handleInput(f,v)
+  makeHandler(f) {
+    const func = (v) => this.handleInput(f, v);
     func.bind(this);
     return func;
   }
-  handleDrop(e){
+  handleDrop(e) {
     // console.log("Drop event found" , e);
     e.preventDefault();
     e.stopPropagation();
-    if(e.dataTransfer.items){
+    if (e.dataTransfer.items) {
       console.log("I see file");
       const f = e.dataTransfer.items[0].getAsFile();
       // console.log(f);
-      if(mdRx.test(f.name) && f.type.startsWith("text/")){
-        f.text().then(t=>{ 
-          confirm("Looks like markdown file. Do you want to import it?") && 
-          this.importMdText(t , f.name.replace(mdRx , ".html")) }) 
+      if (mdRx.test(f.name) && f.type.startsWith("text/")) {
+        f.text().then((t) => {
+          confirm("Looks like markdown file. Do you want to import it?") &&
+            this.importMdText(t, f.name.replace(mdRx, ".html"));
+        });
       }
     }
   }
-  handleDragOver(e){
+  handleDragOver(e) {
     // console.log("Drop event found" , e);
     e.preventDefault();
     e.stopPropagation();
   }
-  //service 
-  saveHTML(){
+  //service
+  saveHTML() {
     // console.log("save requested..." , this) ;
     // saveFile(renderMd(this.text , false) , this.text , this.makeSettings() );
 
-    renderMdAsync( this.text , false )
-    .then( r=>{
-      saveFile( r , this.text , this.makeSettings() ) ;
+    renderMdAsync(this.text, false).then((r) => {
+      saveFile(r, this.text, this.makeSettings());
       this.modified = false;
-      this.setState({modified: false});
-    } )
-
+      this.setState({ modified: false });
+    });
+  }
+  duplicateFile() {
+    const s = this.makeSettings(); //sync settings
+    const thisfilename = s.filename;
+    const newfilename = prompt("Enter new filename with extension", s.filename);
+    s.filename = newfilename;
+    saveFile(md.render(this.text), this.text, s);
+    s.filename = thisfilename;
   }
 
-  importMdText(t , name){
-    const extracted = extractFM(t)
+  importMdText(t, name) {
+    const extracted = extractFM(t);
     let newState = {
-      text:extracted.markdown,
-      footer : "Powered by <a href='https://github.com/girobusan/imp'><strong>IMP!</strong></a>",
-      filename: name || 'index.html'
-      }
-    this.text=extracted.markdown;
+      text: extracted.markdown,
+      footer:
+        "Powered by <a href='https://github.com/girobusan/imp'><strong>IMP!</strong></a>",
+      filename: name || "index.html",
+    };
+    this.text = extracted.markdown;
 
-    if(extracted.meta){
-      try{
+    if (extracted.meta) {
+      try {
         newState = Object.assign(
-          newState , 
-          cleanupObj( yaml.load( extracted.meta ) , true )
-        )
-      }catch ( e ){
-        console.error("Can not parse metadata:" , e);
+          newState,
+          cleanupObj(yaml.load(extracted.meta), true),
+        );
+      } catch (e) {
+        console.error("Can not parse metadata:", e);
       }
     }
     newState = addEmpties(newState);
-    this.setState( newState ) 
+    this.setState(newState);
   }
 
-  importMd(){
-    loadFromDisk((t,n)=>this.importMdText(t , n.replace(mdRx , ".html")))
+  importMd() {
+    loadFromDisk((t, n) => this.importMdText(t, n.replace(mdRx, ".html")));
   }
 
-  exportMd(){
+  exportMd() {
     //export settings
-    const st = this.makeSettings().dump();
-    saveToDisk(this.state.filename.replace(/.htm(l)?$/i , ".md"),
-    "---\n" + st + "---\n" + this.text)
+    const st = stringifySettings(this.makeSettings(), true); //yaml
+    saveToDisk(
+      this.state.filename.replace(/.htm(l)?$/i, ".md"),
+      "---\n" + st + "---\n" + this.text,
+    );
   }
 
-  makeSettings(){
-    this.props.settings
-    .title(this.state.title)
-    .description(this.state.description)
-    .filename(this.state.filename)
-    .css(this.state.customCSS)
-    .image(this.state.image)
-    .icon(this.state.icon)
-    .footer(this.state.footer)
-    .editor(this.state.editor)
-    .viewCSS(this.state.viewCSS)
-    .headHTML(this.state.headHTML)
-    .author(this.state.author)
-    .keywords(this.state.keywords)
-    .enableHelpers(this.state.enableHelpers)
-    .disableInteractivity(this.state.disableInteractivity)
-    ;
-    return this.props.settings;
+  makeSettings() {
+    return updateSettings(this.state);
   }
 
-  componentDidMount(){
-    document.body.addEventListener("drop", this.handleDrop)
-    document.body.addEventListener("dragover", this.handleDragOver)
+  componentDidMount() {
+    document.body.addEventListener("drop", this.handleDrop);
+    document.body.addEventListener("dragover", this.handleDragOver);
   }
-  componentWillUnmount(){
-    document.body.removeEventListener("drop", this.handleDrop)
-    document.body.removeEventListener("dragover", this.handleDragOver)
+  componentWillUnmount() {
+    document.body.removeEventListener("drop", this.handleDrop);
+    document.body.removeEventListener("dragover", this.handleDragOver);
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     //update some current HTML
     document.title = this.state.title;
-    if(this.state.enableHelpers && 
-      !window.impHelpers
-      ){
-       console.log("Attach helpers script");
-       // attachScript( "helpers.js" , "helpersScript")
-      const s =  document.createElement("script");
-      s.id="helpersScript";
+    if (this.state.enableHelpers && !window.impHelpers) {
+      console.log("Attach helpers script");
+      // attachScript( "helpers.js" , "helpersScript")
+      const s = document.createElement("script");
+      s.id = "helpersScript";
       document.head.appendChild(s);
-      s.src="helpers.js"
-
+      s.src = "helpers.js";
     }
-    if(!this.state.enableHelpers && 
-      window.impHelpers
-      ){
-       console.log("Detach helpers module");
+    if (!this.state.enableHelpers && window.impHelpers) {
+      console.log("Detach helpers module");
       document.head.querySelector("script#helpersScript").remove();
-      delete window.impHelpers
+      delete window.impHelpers;
     }
-
   }
-  render(){
-        return html`<div class="PageEditor">
+  render() {
+    return html`<div class="PageEditor">
+      <div class="editor_ui" ref=${this.editorNode}>
         <!--markdown editor-->
-        <div class="editor_ui" 
-        ref=${this.editorNode}
-        style=${{ height: this.editorHeight + 'px' }}
-        >
-        <${ BareMDE } 
-        controls=${this.editorControls}
-        content=${ this.state.text }
-        onUpdate=${ (c)=>this.handleInput( "text" , c ) }
-        modified=${ this.state.modified }
-        save=${ this.saveHTML }
-        maxHeight="100%"
-        branding=${ "<div class='IMPBrand' style='line-height:38px'>IMP!  " + impIcon + version + "</div>" }
-        trueFullscreen=${true}
-        renderBody=${
-          (c)=>{ 
-            return renderMdAsync(c , true)
-            .then( r=>{
-              return `<main class="container" id="pageMain">${r}</main><footer id="pageFooter">${this.state.footer}</footer>`;
-              })
-          }
-          }
-        render=${
-          (c)=>{ 
-            return renderMdAsync(c , true)
-            .then( r=>{
-              return convert2html( r , "" , this.makeSettings() , true) 
-              } )
-          }
-          }
+        <${BareMDE}
+          controls=${this.editorControls}
+          content=${this.state.text}
+          onUpdate=${(c) => this.handleInput("text", c)}
+          modified=${this.state.modified}
+          save=${null}
+          maxHeight="100%"
+          branding=${"<div class='IMPBrand' style='line-height:38px'>IMP!  " +
+      impIcon +
+      version +
+      "</div>"}
+          trueFullscreen=${true}
+          save=${this.saveHTML}
           menuItems=${[
-            { label:"Import markdown &larr;" , handler:this.importMd },
-            { label:"Export markdown &rarr;" , handler:this.exportMd },
-            ]}
-            />
-            <div id="resizeHandle" 
-            ref=${this.resizer}
-            onmousedown=${ this.startResize }
-            onmouseup=${ this.stopResize }
-            />
-            </div>
+        { label: "Import markdown &larr;", handler: this.importMd },
+        { label: "Export markdown &rarr;", handler: this.exportMd },
+        { label: "Duplicate file", handler: this.duplicateFile },
+        {
+          label: "Page settings",
+          handler: () =>
+            this.setState({ settingsShown: !this.state.settingsShown }),
+        },
+        {
+          label: "View mode (exit editor)",
+          handler: () => {
+            confirm("All unsaved changes may be lost. Continue?") &&
+              (window.location = "?mode=view");
+          },
+        },
+      ]}
+          customButtons=${[
+        {
+          svgOff: settingsIcon,
+          svg: settingsIcon,
+          title: "Page settings",
+          isOn: this.state.settingsShown,
+          onClick: () =>
+            this.setState({ settingsShown: !this.state.settingsShown }),
+        },
+        {
+          svgOff: exitIcon,
+          isOn: false,
+          title: "View mode (exit editor)",
+          onClick: () => {
+            confirm("All unsaved changes may be lost. Continue?") &&
+              (window.location = "?mode=view");
+          },
+        },
+      ]}
+          renderBody=${(c) => {
+        return renderMdAsync(c, true).then((r) => {
+          return bodyTemplate(r, this.state.footer);
+        });
+      }}
+          render=${(c) => {
+        return renderMdAsync(c, true).then((r) => {
+          return renderHTML(r, "", this.makeSettings(), true);
+        });
+      }}
+        />
+      </div>
 
-            <div class="main_ui ${this.state.modified ? 'modified' : 'still'}">
-
-            <h2 class="subtitle is-3">Page settings </h2>
-            <!--form-->
-            <div class="formRow">
-            <${TheInput} 
-            title=${"File name"}
-            name=${"filename"}
-            value=${this.state.filename}
-            area=${false}
-            handler=${this.makeHandler("filename")}
-            />
-            <div class="divider" />
-            <${TheInput} 
-            title=${"Title"}
-            value=${this.state.title}
-            name=${"title"}
-            area=${false}
-            handler=${this.makeHandler("title")}
-            />
-            </div>
-
-
-            <div class="formRow">
-
-            <${TheInput} 
-            title=${"Author"}
-            value=${this.state.author}
-            name=${"author"}
-            area=${false}
-            handler=${this.makeHandler("author")}
-            />
-            <div class="divider"></div>
-            <${TheInput} 
-            title=${"Keywords"}
-            value=${this.state.keywords}
-            name=${"keywords"}
-            area=${false}
-            handler=${this.makeHandler("keywords")}
-            />
-            </div>
-
-
-            <${TheInput} 
-            title=${"Description"}
-            name=${"description"}
-            value=${this.state.description}
-            area=${true}
-            handler=${this.makeHandler("description")}
-            />
-
-            <div class="formRow">
-
-            <${TheInput} 
-            title=${"Preview image URL"}
-            value=${this.state.image}
-            name=${"image"}
-            area=${false}
-            handler=${this.makeHandler("image")}
-            />
-            <div class="divider"></div>
-            <${TheInput} 
-            title=${"Icon image URL"}
-            value=${this.state.icon}
-            name=${"icon"}
-            area=${false}
-            handler=${this.makeHandler("icon")}
-            />
-            </div>
-
-            <${TheInput} 
-            title=${"Footer"}
-            name=${"footer"}
-            value=${this.state.footer}
-            area=${true}
-            handler=${this.makeHandler("footer")}
-            />
-
-            <${TheInput} 
-            title=${"Custom CSS"}
-            name=${"css"}
-            area=${true}
-            value=${this.state.customCSS}
-            handler=${this.makeHandler("customCSS")}
-            />
-
-            <label class="label">Embedded data</label>
-           <${DataUI} signal=${ ()=>this.setState({modified:true}) }/> 
-
-            <h2 class="subtitle is-3">Helpers API <small>(save and reload required)</small></h2>
-            <div class="field is-grouped is-grouped-multiline">
-            <${ CheckBox  }
-            title="Enable helpers"
-            checked=${this.state.enableHelpers}
-            onChange=${ (c)=>this.setState({modified: true , enableHelpers: c})}
-            />
-
-            <${ CheckBox  }
-            title="Disable interactivity"
-            checked=${this.state.disableInteractivity}
-            onChange=${ (c)=>this.setState({modified: true , disableInteractivity: c})}
-            />
-            </div>
-
-            <h2 class="subtitle is-3">Advanced <small>(may break everything)</small> </h2>
-
-            <${TheInput} 
-            title=${"Custom HTML to HEAD"}
-            name=${"head"}
-            area=${true}
-            value=${this.state.headHTML}
-            handler=${this.makeHandler("headHTML")}
-            />
-
-            <${TheInput} 
-            title=${"Editor location"}
-            value=${this.state.editor}
-            placeholder="imp.js"
-            name=${"editor"}
-            area=${false}
-            handler=${this.makeHandler("editor")}
-            />
-
-            <${TheInput} 
-            title=${"View CSS location"}
-            value=${this.state.viewCSS}
-            name=${"viewcss"}
-            placeholder="style.css"
-            area=${false}
-            handler=${this.makeHandler("viewCSS")}
-            />
-
-            <div class="buttons">
-            <input type="button" class="button is-dark" value="Switch to view mode" onclick=${()=>{
-              if(this.state.modified)
-              { 
-                confirm("All changes may be lost. Proceed?") && ( window.location="?mode=view" ) 
-              }else{
-                window.location="?mode=view"
-                }
-                }}></input>
-
-                <input type="button" class="button is-dark " value="Duplicate file" onclick=${
-                  ()=>{
-                    const s = this.makeSettings(); //sync settings
-                    const thisfilename = s.filename();
-                    const newfilename = prompt("Enter new filename with extension" , s.filename());
-                    s.filename(newfilename);
-                    saveFile( md.render(this.text) , this.text , s );
-                    s.filename( thisfilename )
-                  }
-                  }></input>
-
-                <input type="button" 
-                class="button is-dark ${this.state.modified ? "violet" : ""}" 
-                value="Save file" 
-                onclick=${ this.saveHTML }/>
-                  </div>
-                  </div>
-                  </div>`
-                }//render
-
-            }
-
+      <div
+        class="settingsEditorOverlay"
+        data-shown=${this.state.settingsShown.toString()}
+      >
+        <button
+          class="closeButton"
+          title="Close"
+          onClick=${() => this.setState({ settingsShown: false })}
+        >
+          ×
+        </button>
+        <div class="scrolledArea">
+          <${SettingsEditor}
+            makeHandler=${this.makeHandler}
+            modified=${this.state.modified}
+            setModified=${() => this.setState({ modified: true })}
+            filename=${this.state.filename}
+            title=${this.state.title}
+            author=${this.state.author}
+            keywords=${this.state.keywords}
+            description=${this.state.description}
+            image=${this.state.image}
+            icon=${this.state.icon}
+            footer=${this.state.footer}
+            customCSS=${this.state.customCSS}
+            headHTML=${this.state.headHTML}
+            enableHelpers=${this.state.enableHelpers}
+            disableInteractivity=${this.state.disableInteractivity}
+            viewCSS=${this.state.viewCSS}
+            editor=${this.state.editor}
+          />
+        </div>
+      </div>
+    </div>`;
+  } //render
+}

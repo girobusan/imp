@@ -1,6 +1,6 @@
 {
   "name": "imp",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,8 +10,10 @@
     "watch": "npx webpack --mode development"
   },
   "babel": {
-    "plugins": [ 
-      [ "htm" ]
+    "plugins": [
+      [
+        "htm"
+      ]
     ]
   },
   "author": "",

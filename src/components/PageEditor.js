@@ -4,10 +4,8 @@ import { html } from "htm/preact";
 const yaml = require("js-yaml");
 import BareMDE from "../BareMDE_v0.2.5.umd.js";
 import SettingsEditor from "./SettingsEditor.js";
-import Tabbed from "./Tabbed.js";
 import { md, renderMdAsync } from "../md_wrapper.js";
 import { saveFile, saveToDisk, loadFromDisk } from "../fileops.js";
-import { If } from "./If.js";
 import {
   addEmpties,
   cleanupObj,
@@ -23,11 +21,6 @@ require("./editor.scss");
 require("../data_fetch.js");
 // import { attachScript } from "../helpers.js";
 
-const branding =
-  "<div class='IMPBrand' style='line-height:24px'>IMP!  " +
-  impIcon +
-  version +
-  "</div>";
 const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i;
 
 export class PageEditor extends Component {
@@ -173,7 +166,7 @@ export class PageEditor extends Component {
     //update some current HTML
     document.title = this.state.title;
     if (this.state.enableHelpers && !window.impHelpers) {
-      console.log("Attach helpers script");
+      console.info("Attaching helpers script...");
       // attachScript( "helpers.js" , "helpersScript")
       const s = document.createElement("script");
       s.id = "helpersScript";

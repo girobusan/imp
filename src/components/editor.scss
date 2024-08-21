@@ -97,11 +97,12 @@ button.TButton.alerted {
 
     &[data-shown*="false"] {
       opacity: 0;
-      top: 100vh;
+      display: none;
     }
 
     &[data-shown*="true"] {
       opacity: 1;
+      display: block;
     }
 
     .scrolledArea {

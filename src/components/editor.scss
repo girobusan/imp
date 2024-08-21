@@ -83,6 +83,7 @@ button.TButton.alerted {
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     transition: all 0.5s;
+    z-index: 20;
 
     @media (max-width: 800px) {
       margin-left: 0;

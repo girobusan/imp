@@ -84,6 +84,7 @@ button.TButton.alerted {
     overflow: hidden;
     transition: all 0.5s;
     z-index: 20;
+    min-width: 800px;
 
     @media (max-width: 800px) {
       margin-left: 0;
@@ -93,6 +94,8 @@ button.TButton.alerted {
       bottom: 0;
       border-radius: 0;
       transform: translateX(0);
+      min-width: initial;
+      transition: none;
     }
 
     &[data-shown*="false"] {

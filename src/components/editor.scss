@@ -18,6 +18,7 @@ $gray_bg: #989898;
 
 body {
   background-color: #b0b0b0;
+  // overflow-y: clip;
   /* background-image: linear-gradient(  */
   /*     to bottom right,  */
   /*     $hatch_color, */
@@ -37,6 +38,25 @@ body {
     box-sizing: border-box;
   }
 }
+
+/* hide page scrollbar */
+html {
+  scrollbar-width: none;
+}
+
+/* Firefox */
+body {
+  -ms-overflow-style: none;
+}
+
+/* IE and Edge */
+body::-webkit-scrollbar,
+body::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Chrome */
+/* end hide page scrollbar */
 
 h2.subtitle {
   color: white;
@@ -115,11 +135,26 @@ button.TButton.alerted {
       scrollbar-color: #444 transparent;
       scrollbar-width: thin;
 
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: $gray_bg;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #444;
+        border-radius: 3px;
+        -webkit-border-radius: 3px;
+        overflow: hidden;
+      }
+
       &:before {
         content: " ";
         position: fixed;
         left: 0;
-        right: 0;
+        right: 24px;
         top: 0;
         height: 60px;
         user-select: none;
@@ -134,7 +169,7 @@ button.TButton.alerted {
         content: " ";
         position: fixed;
         left: 0;
-        right: 0;
+        right: 24px;
         bottom: 0;
         height: 60px;
         user-select: none;
@@ -159,6 +194,7 @@ button.TButton.alerted {
       display: block;
       cursor: pointer;
       z-index: 20;
+      color: #444;
 
       &:hover {
         color: $violet_color;

@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "cssbuild": "cp src/scss/style.css dist/",
     "build": "npx webpack --mode production",
-    "postbuild": "cp src/scss/style.css dist/ ; mv dist/hatcher* hatcher/",
+    "postbuild": "shx cp src/scss/style.css dist/ ; shx mv dist/hatcher* hatcher/ ; shx rm dist/*.txt",
     "watch": "npx webpack --mode development"
   },
   "babel": {

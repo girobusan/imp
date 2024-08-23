@@ -17,22 +17,14 @@
    window.settings = {
   "title": "IMP! Data embedding",
   "description": "IMP! allows you to embed data into HTML, and use it in generation of static content and in Java Script and IMP! Helpers.",
-  "image": "",
-  "icon": "",
   "filename": "data-embedding.html",
   "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
   "css": "ul ul{\nmargin-bottom: 0\n}\n.linkToTop{\ntext-decoration: none;\ncolor: royalblue !important;\n}",
-  "headHTML": "",
-  "editor": "",
-  "viewCSS": "",
-  "author": "",
-  "keywords": "",
-  "enableHelpers": "true",
-  "disableInteractivity": "",
-  "pathToHelpersModule": ""
-}
-   window.savedWithImpVersion = "0.4.4"
+  "enableHelpers": "true"
+};
+   window.savedWithImpVersion = "0.5.3"
   </script>
+
   <script>
    function IMPEdit(){
    console.info("Loading editor...")
@@ -42,7 +34,6 @@
    document.head.appendChild(editor);
    }
    window.addEventListener("DOMContentLoaded" , function(){
-  
    if(window.location.search.indexOf("mode=view")!=-1)
    {
    return;
@@ -59,33 +50,27 @@
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
-  
 })
   </script>
-  <script src='helpers.js' id='helpersScript'></script>
+
+  <script defer src='helpers.js' id='helpersScript'></script>
   <link id = "viewCSS" rel="stylesheet" href="style.css">
-  <style id="customCSS">ul ul{
-margin-bottom: 0
-}
-.linkToTop{
-text-decoration: none;
-color: royalblue !important;
-}</style>
+  <style id="customCSS"></style>
   <!--custom html here-->
 </head>
 <body>
-<main class='container' id='pageMain'><p><a href="/">Girobusan</a> · <a href="index.html">IMP!</a></p>
+<main class="container" id="pageMain"><p><a href="/">Girobusan</a> · <a href="index.html">IMP!</a></p>
 <h1>IMP! Data Embedding</h1>
 <p><span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0A"></span></p>
 <hr>
 <h2>Intro</h2>
-<p>IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by <a href="helpers.html">helpers</a>, in static and/or interactive content, or by your own scripts.</p>
+<p>IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by <a href="helpers.html">helpers</a>, in static and/or interactive content, or in your own scripts.</p>
 <h2>Attaching data</h2>
 <p>You can add data in IMP! GUI. There are two types of embedded data: <code>string</code> and <code>object</code> (it can be changed in future). String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly.</p>
 <p><img src="data-ui.png" alt="Empty data UI"> <small>GUI for data, when no data is embedded</small></p>
 <p>There are two buttons in the GUI. <code>Embed JSON</code> is for embedding well-formed JSON files. The data will be parsed and used as <code>object</code>. <code>Embed text</code> embeds unstructured text as is.</p>
 <p><img src="data-ui-full.png" alt="Data UI with some data entered"> <small>Data embedded</small></p>
-<p>Frim GUI you can rename, replace, download or delete any data unit.</p>
+<p>From this GUI you can rename, replace, download or delete any data unit.</p>
 <h2>Retrieving data</h2>
 <p>Data, added in GUI is always available. It can be used in helpers to render static HTML, as well as in interactive content. There are more than one way to retrieve it.</p>
 <h3>Directly</h3>
@@ -121,6 +106,7 @@ color: royalblue !important;
 <p>Please, <strong>do not use data embedding for saving helper parameters</strong>. Embedded data is global and has no namespaces, and helpers have no methods to clean up after deleting.</p>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script>window.impData={}</script>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html)
 
 # IMP! Data Embedding
@@ -135,7 +121,7 @@ linkBack: "&lt;sup&gt;&amp;uarr;&lt;/sup&gt;"
 
 ## Intro
 
-IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by [helpers](helpers.html), in static and/or interactive content, or by your own scripts. 
+IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by [helpers](helpers.html), in static and/or interactive content, or in your own scripts. 
 
 ## Attaching data
 
@@ -147,7 +133,7 @@ There are two buttons in the GUI. `Embed JSON` is for embedding well-formed JSON
 
 ![Data UI with some data entered](data-ui-full.png) --Data embedded--
 
-Frim GUI you can rename, replace, download or delete any data unit.
+From this GUI you can rename, replace, download or delete any data unit.
 
 ## Retrieving data
 Data, added in GUI is always available. It can be used in helpers to render static HTML, as well as in interactive content. There are more than one way to retrieve it.

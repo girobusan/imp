@@ -17,21 +17,14 @@
    window.settings = {
   "title": "IMP! :: More options",
   "description": "IMP! advanced topics.",
-  "image": "",
-  "icon": "",
   "filename": "impdocs.html",
   "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
-  "css": "\n  ",
   "headHTML": "&lt;link rel=\"icon\" href=\"data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;😈&lt;/text&gt;&lt;/svg&gt;\"&gt;",
-  "editor": "",
-  "viewCSS": "",
-  "author": "",
-  "keywords": "",
-  "enableHelpers": "false",
-  "pathToHelpersModule": ""
-}
-   window.savedWithImpVersion = "0.4.2"
+  "enableHelpers": "false"
+};
+   window.savedWithImpVersion = "0.5.3"
   </script>
+
   <script>
    function IMPEdit(){
    console.info("Loading editor...")
@@ -41,7 +34,6 @@
    document.head.appendChild(editor);
    }
    window.addEventListener("DOMContentLoaded" , function(){
-  
    if(window.location.search.indexOf("mode=view")!=-1)
    {
    return;
@@ -58,30 +50,23 @@
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
-  
 })
   </script>
-  
+
+  <script defer src='helpers.js' id='helpersScript'></script>
   <link id = "viewCSS" rel="stylesheet" href="style.css">
-  <style id="customCSS">
-  </style>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😈</text></svg>">
+  <style id="customCSS"></style>
+  <!--custom html here-->
 </head>
 <body>
-<main class='container' id='pageMain'><p><a href="https://girobusan.github.io">Girobusan</a> · <a href="index.html">IMP!</a></p>
+<main class="container" id="pageMain"><p><a href="https://girobusan.github.io">Girobusan</a> · <a href="index.html">IMP!</a></p>
 <h1>IMP!</h1>
 <p><big>Advanced usage</big></p>
 <h2>Force <em>view</em> or <em>edit</em> mode</h2>
-<p>By default, when you open IMP! page locally, it loads in edit mode, and when you load it over http, in view mode. But you can force mode by adding special hash to filename. Like this for view mode:</p>
-<pre><code>....filename.html#view
-</code></pre>
-<p>In the next versions (since 0.3) this will be changed to:</p>
+<p>By default, when you open IMP! page locally, it loads in edit mode, and when you load it over http, in view mode. But you can force mode by adding special query string <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> to filename. Like this for view mode:</p>
 <pre><code>...filename.html?mode=view
 </code></pre>
 <p>And for edit mode:</p>
-<pre><code>....filename.html#edit
-</code></pre>
-<p>In the next versions (since 0.3) this will be changed to:</p>
 <pre><code>...filename.html?mode=edit
 </code></pre>
 <p>There is also button in editor, which will switch to view mode. Use &quot;back&quot; button of your browser to return to editor. Switching to view mode before saving will erase all changes you've made so far!</p>
@@ -98,8 +83,16 @@
 </code></pre>
 <h2>Update your IMP! page to new version</h2>
 <p>You have to update only editor file. On the next save the html will be updated too.</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>In older versions it was done via hash: <code>....filename.html#view</code> and <code>....filename.html#edit</code> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script>window.impData={}</script>
 <script id="pageData" type="text/markdown">[Girobusan](https://girobusan.github.io) &amp;middot; [IMP!](index.html)
 # IMP! 
 
@@ -107,25 +100,13 @@
 
 ## Force *view* or *edit* mode
 
-By default, when you open IMP! page locally, it loads in edit mode, and when you load it over http, in view mode. But you can force mode by adding special hash to filename. Like this for view mode:
-
-```
-....filename.html#view
-```
-
-In the next versions (since 0.3) this will be changed to:
+By default, when you open IMP! page locally, it loads in edit mode, and when you load it over http, in view mode. But you can force mode by adding special query string [^1] to filename. Like this for view mode:
 
 ```
 ...filename.html?mode=view
 ```
 
 And for edit mode:
-
-```
-....filename.html#edit
-```
-
-In the next versions (since 0.3) this will be changed to:
 
 ```
 ...filename.html?mode=edit
@@ -158,6 +139,10 @@ https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css
 
 ## Update your IMP! page to new version
 
-You have to update only editor file. On the next save the html will be updated too.</script>
+You have to update only editor file. On the next save the html will be updated too.
+
+
+
+[^1]: In older versions it was done via hash: `....filename.html#view` and `....filename.html#edit`</script>
 </body>
 </html>

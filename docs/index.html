@@ -18,21 +18,14 @@
   "title": "IMP!",
   "description": "Markdown-based CMS for single file, fully client-side. When you need just drop one page somewhere on the web, and do not want (can not) use full-blown CMS or SSG",
   "image": "https://girobusan.github.io/imp/side-by-side.png",
-  "icon": "",
   "filename": "index.html",
   "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
-  "css": "\n  ",
   "headHTML": "&lt;link rel=\"icon\" href=\"data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;😈&lt;/text&gt;&lt;/svg&gt;\"&gt;",
-  "editor": "",
-  "viewCSS": "",
-  "author": "",
-  "keywords": "",
-  "enableHelpers": "false",
-  "disableInteractivity": "",
-  "pathToHelpersModule": ""
-}
-   window.savedWithImpVersion = "0.4.4"
+  "enableHelpers": "false"
+};
+   window.savedWithImpVersion = "0.5.3"
   </script>
+
   <script>
    function IMPEdit(){
    console.info("Loading editor...")
@@ -42,7 +35,6 @@
    document.head.appendChild(editor);
    }
    window.addEventListener("DOMContentLoaded" , function(){
-  
    if(window.location.search.indexOf("mode=view")!=-1)
    {
    return;
@@ -59,17 +51,16 @@
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
-  
 })
   </script>
-  <script src='helpers.js' id='helpersScript'></script>
+
+  <script defer src='helpers.js' id='helpersScript'></script>
   <link id = "viewCSS" rel="stylesheet" href="style.css">
-  <style id="customCSS">
-  </style>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😈</text></svg>">
+  <style id="customCSS"></style>
+  <!--custom html here-->
 </head>
 <body>
-<main class='container' id='pageMain'><p>⬆️ <a href="https://girobusan.github.io">Girobusan</a></p>
+<main class="container" id="pageMain"><p>⬆️ <a href="https://girobusan.github.io">Girobusan</a></p>
    <a href="https://github.com/girobusan/imp">
   <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_orange_ff7600.png?resize=149%2C149" alt="Fork me on GitHub">
     </a>
@@ -99,12 +90,14 @@
 </ul>
 <h2>Wouldn't be possible without awesome projects like:</h2>
 <ul>
+<li><a href="https://medv.io/codejar/">CodeJar</a></li>
 <li><a href="https://preactjs.com/">Preact</a></li>
 <li><a href="https://matejlatin.github.io/Gutenberg">Gutenberg CSS</a></li>
 <li><a href="https://bulma.io/">Bulma CSS framework</a></li>
 </ul>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script>window.impData={}</script>
 <script id="pageData" type="text/markdown">:arrow_up: [Girobusan](https://girobusan.github.io)
 
    &lt;a href="https://github.com/girobusan/imp"&gt;
@@ -139,6 +132,7 @@
 
 ## Wouldn't be possible without awesome projects like:
 
+- [CodeJar](https://medv.io/codejar/)
 - [Preact](https://preactjs.com/)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Bulma CSS framework](https://bulma.io/)</script>

@@ -44,8 +44,7 @@ Descent browser, Firefox or Chrome preferred (tested). If you've updated your br
 ## CDN setup (not recommended)
 
 1. Click [ this link ]( https://girobusan.github.io/imp/impcdn.html?mode=edit )
-2. Scroll down, click "Duplicate page" button
-3. Enter any filename, ending with `.html`, save.
+2. Follow the instructions there.
 
 This setup does not require downloading of any other files. Editor and main CSS will be loaded from CDN. You may load newly downloaded file in your browser, edit content and settings, save it (see below) and than upload to your server. 
 
@@ -79,6 +78,7 @@ You can have as many imps as you want. If they would live in one directory, they
 
 ## Wouldn't be possible without awesome projects like:
 
+- [CodeJar](https://medv.io/codejar/)
 - [Preact](https://preactjs.com/)
 - [Gutenberg CSS](https://matejlatin.github.io/Gutenberg)
 - [Bulma CSS framework](https://bulma.io/)

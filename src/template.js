@@ -21,7 +21,7 @@ export function renderHTML(htmlText, mdText, settings, noScript) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${settings.title}</title>
+  <title>${settings.title || ""}</title>
   <meta name="description" content="${settings.description || ""}">
   <meta name="author" content="${settings.author || ""}">
   <meta name="keywords" content="${settings.keywords || ""}">

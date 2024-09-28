@@ -13,6 +13,7 @@ const defaults = {
    headHTML: "", //html
    editor: "",
    viewCSS: "",
+   customCSS: "",
    author: "",
    keywords: "",
    enableHelpers: false,

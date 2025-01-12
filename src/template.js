@@ -5,7 +5,8 @@ const version = VERSION;
 
 export function bodyTemplate(bodyHTML, footerHTML) {
  return `<main class="container" id="pageMain">${bodyHTML}</main>
-<footer id="pageFooter">${footerHTML || ""}</footer>`;
+${footerHTML ? "<footer id='pageFooter'>" + footerHTML + "</footer>" : ""}
+`;
 }
 
 /** renderHTML

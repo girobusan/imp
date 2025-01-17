@@ -4,9 +4,9 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cssbuild": "cp src/scss/style.css dist/",
+    "cssbuild": "cp src/scss/amzng.min.css dist/style.css",
     "build": "npx webpack --mode production",
-    "postbuild": "shx cp src/scss/style.css dist/ ; shx mv dist/hatcher* hatcher/ ; shx rm dist/*.txt",
+    "postbuild": "shx cp src/scss/amzng.min.css dist/style.css ; shx mv dist/hatcher* hatcher/ ; shx rm dist/*.txt",
     "watch": "npx webpack --mode development"
   },
   "babel": {

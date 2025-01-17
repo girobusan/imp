@@ -375,8 +375,32 @@ function viewModeWork() {
   viewModeDone = true;
 }
 
+function loadAuto(jsn) {
+  console.log("Loading autoloaded...", jsn);
+  if (!jsn.modules) {
+    return;
+  }
+  jsn.modules.forEach((m) => {
+    addHelper(m[0]);
+    if (m[1]) {
+      API.engage(m[0], m[1], JSON.stringify(m[2] || {}));
+    }
+  });
+}
+
+async function autoLoad() {
+  attachScript("./helpers/autoload.js", "autoload")
+    .then((r) => console.log("Autoload started..."))
+    .then(() => loadAuto(window.ImpAutoLoadModules))
+    .catch((e) => console.log("no autoload", e));
+}
+
 if (document.readyState == "complete") {
+  autoLoad();
   viewModeWork();
 } else {
-  window.addEventListener("DOMContentLoaded", viewModeWork);
+  window.addEventListener("DOMContentLoaded", () => {
+    viewModeWork();
+    autoLoad();
+  });
 }

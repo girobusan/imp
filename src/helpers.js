@@ -3,6 +3,8 @@ import preloaderCode from "./preloader.htm?raw";
 require("./data_fetch.js");
 import { escapeTags, unescapeTags } from "./util";
 
+const validActions = new Set(["render", "preview", "animate"]);
+
 var viewMode = false;
 var viewModeDone = false;
 
@@ -269,8 +271,16 @@ const API = {
   },
 
   engage: async function(name, action, params_raw, subname) {
+    if (!validActions.has(action)) {
+      console.error("Unknown action:", action, "called for", name);
+      return;
+    }
     if (action === "preview") {
       return cachedPreview(name, params_raw, subname);
+    }
+    if (action === "animate") {
+      // mainly used by autoload
+      return this.animateHelper(name, null, params_raw, subname);
     }
     //render
     return await getHelper(name)
@@ -311,10 +321,9 @@ const API = {
   },
 
   //postprocessing
-
   postprocess: postprocess,
+  //
   //service
-
   packParams: packParams,
   unpackParams: unpackParams,
   attachScript: attachScript,
@@ -328,7 +337,7 @@ const API = {
   errorNotice: error,
 
   disable: () => (window.impHelpers = null), //:FIX:
-}; //end helper code
+}; //end helpers API code
 
 if (!window.impHelpers) {
   console.info("Starting impHelpers module...");
@@ -375,24 +384,28 @@ function viewModeWork() {
   viewModeDone = true;
 }
 
-function loadAuto(jsn) {
-  console.log("Loading autoloaded...", jsn);
-  if (!jsn.modules) {
+function loadAutoloadedModules(jsn) {
+  if (!jsn.modules || jsn.modules.length === 0) {
     return;
   }
+  console.info("Autoload:");
   jsn.modules.forEach((m) => {
-    addHelper(m[0]);
-    if (m[1]) {
-      API.engage(m[0], m[1], JSON.stringify(m[2] || {}));
-    }
+    console.info("*", m[0]);
+    addHelper(m[0])
+      .then(() => {
+        if (m[2]) {
+          API.engage(m[0], m[1] || "animate", JSON.stringify(m[2] || {}));
+        }
+      })
+      .catch((e) => console.error("Can not load autoloaded helper", m[0], e));
   });
 }
 
 async function autoLoad() {
   attachScript("./helpers/autoload.js", "autoload")
-    .then((r) => console.log("Autoload started..."))
-    .then(() => loadAuto(window.ImpAutoLoadModules))
-    .catch((e) => console.log("no autoload", e));
+    .then(() => console.info("Autoload started..."))
+    .then(() => loadAutoloadedModules(window.ImpAutoLoadModules))
+    .catch(() => console.info("Autoload script is unavailable"));
 }
 
 if (document.readyState == "complete") {
@@ -400,7 +413,7 @@ if (document.readyState == "complete") {
   viewModeWork();
 } else {
   window.addEventListener("DOMContentLoaded", () => {
-    viewModeWork();
     autoLoad();
+    viewModeWork();
   });
 }

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP! Helpers API methods</title>
+  <meta name="description" content="Helpers are the scripts, which use new Helpers API for adding 
+various types of content, not supported by regular markdown. 
+Helpers may add static and/or interactive content in asynchronous way
+and enrich viewer experience.">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="og:title" content="IMP! Helpers API methods">
+  <meta name="og:description" content="Helpers are the scripts, which use new Helpers API for adding 
+various types of content, not supported by regular markdown. 
+Helpers may add static and/or interactive content in asynchronous way
+and enrich viewer experience.">
+  <meta name="og:image" content="undefined">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="undefined">
+  <link rel="icon" type="image/png" href="undefined">
+  <script>
+   window.settings = {
+  "title": "IMP! Helpers API methods",
+  "description": "Helpers are the scripts, which use new Helpers API for adding \nvarious types of content, not supported by regular markdown. \nHelpers may add static and/or interactive content in asynchronous way\nand enrich viewer experience.",
+  "filename": "helpers_autoload.html",
+  "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
+  "css": "ul ul{\nmargin-bottom: 0\n}\n.linkToTop{\ntext-decoration: none;\ncolor: royalblue !important;\n}",
+  "enableHelpers": "true"
+};
+   window.savedWithImpVersion = "0.5.3"
+  </script>
+
+  <script>
+   function IMPEdit(){
+   console.info("Loading editor...")
+   const editor = document.createElement("script");
+   editor.id="editorScript";
+   editor.src="imp.js";
+   document.head.appendChild(editor);
+   }
+   window.addEventListener("DOMContentLoaded" , function(){
+   if(window.location.search.indexOf("mode=view")!=-1)
+   {
+   return;
+   }
+   if(window.location.search.indexOf("mode=edit")!=-1)
+   {
+   IMPEdit();
+   return;
+   }
+   if(window.location.search.indexOf("mode=download")!=-1){
+   IMPEdit();
+   return;
+   }
+   if(window.location.protocol==="file:"){
+   IMPEdit();
+   }
+})
+  </script>
+
+  <script defer src='helpers.js' id='helpersScript'></script>
+  <link id = "viewCSS" rel="stylesheet" href="style.css">
+  <style id="customCSS"></style>
+  <!--custom html here-->
+</head>
+<body>
+<main class="container" id="pageMain"><p><a href="/">Girobusan</a> · <a href="index.html">IMP!</a> · <a href="helpers.html">Helpers</a></p>
+<h1>Autoload helpers (upcoming feature)</h1>
+<p><span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0AmaxLevel:%203%0A"></span></p>
+<hr>
+<h2>What it is</h2>
+<p>It will possible to autoload and engage helpers on page load, which makes possible to:</p>
+<ul>
+<li>Share the same widget or any other data between many IMP! pages.</li>
+<li>Add interactivity without additional code.</li>
+</ul>
+<h2>How?</h2>
+<p>There must be file <code>autoload.js</code> in the helpers directory, which will be automatically load with IMP! page, <em>if this page has helpers enabled</em>.</p>
+<h3>autoload.js</h3>
+<p>The script must define <code>window.ImpAutoLoadModules</code> with object with certain structure:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">//autoload</span>
+<span class="hljs-variable language_">window</span>.<span class="hljs-property">ImpAutoLoadModules</span> = {
+  <span class="hljs-attr">modules</span>: [
+  [<span class="hljs-string">&quot;&lt;helper-name&gt;&quot;</span>, <span class="hljs-string">&quot;&lt;method to call&gt;&quot;</span> , &lt;parameters&gt;],
+  <span class="hljs-comment">// you can skip method, </span>
+  <span class="hljs-comment">// &quot;animate&quot; will be called by default</span>
+  [<span class="hljs-string">&quot;&lt;helper2-name&gt;&quot;</span>,, &lt;parameters object&gt;],
+  // you can skip method and params, 
+  // only &quot;init&quot; will be called 
+  // (&quot;init&quot; is always called)
+  [&quot;&lt;helper2-name&gt;&quot;]
+  	...
+  	]
+};
+</code></pre>
+<h2>Restrictions</h2>
+<ul>
+<li>If autoloaded helper has to receive parameters, it must use JSON parameter format (not YAML or raw text).</li>
+</ul>
+</main>
+<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script>window.impData={}</script>
+<script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html) &amp;middot; [Helpers](helpers.html)
+
+# Autoload helpers (upcoming feature)
+
+```h:headers-nav
+skipH1: true
+linkBack: "&lt;sup&gt;&amp;uarr;&lt;/sup&gt;"
+maxLevel: 3
+```
+
+----
+
+
+
+## What it is
+
+It will possible to autoload and engage helpers on page load, which makes possible to:
+
+- Share the same widget or any other data between many IMP! pages.
+- Add interactivity without additional code.
+
+## How?
+
+There must be file `autoload.js` in the helpers directory, which will be automatically load with IMP! page, _if this page has helpers enabled_.
+
+### autoload.js
+
+The script must define `window.ImpAutoLoadModules` with object with certain structure:
+
+```javascript
+//autoload
+window.ImpAutoLoadModules = {
+  modules: [
+  ["&lt;helper-name&gt;", "&lt;method to call&gt;" , &lt;parameters&gt;],
+  // you can skip method, 
+  // "animate" will be called by default
+  ["&lt;helper2-name&gt;",, &lt;parameters object&gt;],
+  // you can skip method and params, 
+  // only "init" will be called 
+  // ("init" is always called)
+  ["&lt;helper2-name&gt;"]
+  	...
+  	]
+};
+```
+
+## Restrictions
+
+- If autoloaded helper has to receive parameters, it must use JSON parameter format (not YAML or raw text).</script>
+</body>
+</html>

@@ -339,10 +339,14 @@ const API = {
   disable: () => (window.impHelpers = null), //:FIX:
 }; //end helpers API code
 
+// attach API
+
 if (!window.impHelpers) {
   console.info("Starting impHelpers module...");
   window.impHelpers = API;
 }
+
+// VIEW MODE STUFF
 
 function viewModeWork() {
   //figure out view mode
@@ -384,12 +388,14 @@ function viewModeWork() {
   viewModeDone = true;
 }
 
-function loadAutoloadedModules(jsn) {
-  if (!jsn.modules || jsn.modules.length === 0) {
+// AUTO LOAD HELPERS
+
+function loadAutoloadedHelpers(jsn) {
+  if (!jsn.helpers || jsn.helpers.length === 0) {
     return;
   }
   console.info("Autoload:");
-  jsn.modules.forEach((m) => {
+  jsn.helpers.forEach((m) => {
     console.info("*", m[0]);
     addHelper(m[0])
       .then(() => {
@@ -404,11 +410,13 @@ function loadAutoloadedModules(jsn) {
 async function autoLoad() {
   attachScript("./helpers/autoload.js", "autoload")
     .then(() => console.info("Autoload started..."))
-    .then(() => loadAutoloadedModules(window.ImpAutoLoadModules))
+    .then(() => loadAutoloadedHelpers(window.ImpAutoLoadHelpers))
     .catch(() => console.info("Autoload script is unavailable"));
 }
 
-if (document.readyState == "complete") {
+// START MODULE
+
+if (document.readyState === "complete") {
   autoLoad();
   viewModeWork();
 } else {

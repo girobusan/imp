@@ -417,11 +417,11 @@ async function autoLoad() {
 // START MODULE
 
 if (document.readyState === "complete") {
-  autoLoad();
   viewModeWork();
+  autoLoad();
 } else {
   window.addEventListener("DOMContentLoaded", () => {
-    autoLoad();
     viewModeWork();
+    autoLoad();
   });
 }

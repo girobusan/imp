@@ -37,33 +37,25 @@ export function renderHTML(htmlText, mdText, settings, noScript) {
    window.savedWithImpVersion = "${version}"
   </script>
 ${noScript ? "<!--" : ""}
-  <script>
-   function IMPEdit(){
-   console.info("Loading editor...")
-   const editor = document.createElement("script");
-   editor.id="editorScript";
-   editor.src="${settings.editor || "imp.js"}";
-   document.head.appendChild(editor);
-   }
-   window.addEventListener("DOMContentLoaded" , function(){
-   if(window.location.search.indexOf("mode=view")!=-1)
-   {
-   return;
-   }
-   if(window.location.search.indexOf("mode=edit")!=-1)
-   {
-   IMPEdit();
-   return;
-   }
-   if(window.location.search.indexOf("mode=download")!=-1){
-   IMPEdit();
-   return;
-   }
-   if(window.location.protocol==="file:"){
-   IMPEdit();
-   }
-})
-  </script>
+  <script defer>
+    function IMPEdit() {
+      console.info("Loading editor...")
+      const editor = document.createElement("script");
+      editor.id = "editorScript";
+      editor.src = "imp.js";
+      document.head.appendChild(editor);
+    }
+    if (window.location.search.indexOf("mode=edit") != -1) {
+      IMPEdit();
+    }
+    if (window.location.search.indexOf("mode=download") != -1) {
+      IMPEdit();
+    }
+    if (window.location.protocol === "file:" &&
+      window.location.search.indexOf("mode=view") == -1) {
+      IMPEdit();
+    }
+</script>
 ${noScript ? "-->" : ""}
   ${!noScript && settings.enableHelpers ? "<script defer src='helpers.js' id='helpersScript'></script>" : ""}
   <link id = "viewCSS" rel="stylesheet" href="${settings.viewCSS || "style.css"}">

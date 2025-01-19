@@ -5,6 +5,7 @@ import { escapeTags, unescapeTags } from "./util";
 
 const validActions = new Set(["render", "preview", "animate"]);
 
+// do not figure it out!
 var viewMode = false;
 var viewModeDone = false;
 
@@ -349,18 +350,7 @@ if (!window.impHelpers) {
 // VIEW MODE STUFF
 
 function viewModeWork() {
-  //figure out view mode
-  const editor = document.head.querySelector("#editorScript");
-  const viewModeMark = window.location.search.indexOf("mode=view") != -1;
-  const editModeMark = window.location.search.indexOf("mode=edit") != -1;
-  const protoIsFile = window.location.protocol.startsWith("file");
-
-  if (
-    editor ||
-    editModeMark ||
-    (protoIsFile && !viewModeMark) ||
-    viewModeDone
-  ) {
+  if (!viewMode || viewModeDone) {
     return;
   }
 
@@ -368,9 +358,6 @@ function viewModeWork() {
     console.info("Interactivity disabled by author.");
     return;
   }
-
-  // console.log("view mode work!" )
-  viewMode = true;
 
   const myGuys = document.querySelectorAll("*[data-ihelper]");
   myGuys.forEach((e) => {
@@ -415,13 +402,15 @@ async function autoLoad() {
 }
 
 // START MODULE
-
-if (document.readyState === "complete") {
+//
+function startUp() {
+  viewMode = !(document.head.querySelector("script#editorScript") || false);
   viewModeWork();
   autoLoad();
+}
+
+if (document.readyState === "complete") {
+  startUp();
 } else {
-  window.addEventListener("DOMContentLoaded", () => {
-    viewModeWork();
-    autoLoad();
-  });
+  window.addEventListener("DOMContentLoaded", startUp);
 }

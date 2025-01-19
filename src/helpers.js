@@ -84,10 +84,10 @@ function attachScript(url, id) {
   return new Promise((res, rej) => {
     document.head.appendChild(st);
     st.addEventListener("load", res);
-    st.addEventListener("error", (e) => {
-      console.error("Can not load script", e);
+    st.addEventListener("error", () => {
+      // console.error("Can not load script", url);
       st.remove();
-      rej("Can not load script file.");
+      rej("Can not load script file " + url);
     });
     st.setAttribute("src", url);
   });
@@ -410,8 +410,8 @@ function loadAutoloadedHelpers(jsn) {
 async function autoLoad() {
   attachScript("./helpers/autoload.js", "autoload")
     .then(() => console.info("Autoload started..."))
-    .then(() => loadAutoloadedHelpers(window.ImpAutoLoadHelpers))
-    .catch(() => console.info("Autoload script is unavailable"));
+    .then(() => loadAutoloadedHelpers(API.autoload))
+    .catch((e) => console.info("Autoload script is unavailable:", e));
 }
 
 // START MODULE

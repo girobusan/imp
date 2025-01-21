@@ -42,7 +42,7 @@ function proxify(handler) {
       return true;
     },
     set: function(t, n, v) {
-      t[n] = v;
+      t[n] = v; //{ data: v, type: typeof v === "string" ? "string" : "object" };
       handler(Object.assign({}, t));
       return true;
     },
@@ -78,11 +78,14 @@ function renameGUI(old) {
 }
 
 function downloadData(name) {
-  let content = window.impData[name].data; // = JSON.stringify(window.impData[name].data)
-  if (window.impData[name].type === "object") {
+  let content = window.impData[name]; // = JSON.stringify(window.impData[name].data)
+  if (typeof window.impData[name] === "object") {
     content = JSON.stringify(content, null, 2);
   }
-  saveToDisk(name, content);
+  saveToDisk(
+    name + "." + (typeof window.impData[name] === "object" ? "json" : "txt"),
+    content,
+  );
 }
 
 function dumpData(name) {
@@ -119,7 +122,7 @@ function uploadData(type, name) {
           console.log("Can not parse JSON");
         }
       }
-      window.impData[n] = { type: t, data: c };
+      window.impData[n] = c; //{ type: t, data: c };
     });
   };
 
@@ -132,11 +135,17 @@ function DataRow(props) {
   let k = props.name;
   return html`<tr>
     <td>${k}</td>
-    <td>${window.impData[k].type}</td>
-    <td>${dataSize(window.impData[k].data)}</td>
+    <td>${typeof window.impData[k]}</td>
+    <td>${dataSize(window.impData[k])}</td>
     <td class="actionsTD">
       <button onclick=${() => renameGUI(k)}>rename</button>
-      <button onclick=${() => uploadData(window.impData[k].type, k)}>
+      <button
+        onclick=${() =>
+      uploadData(
+        typeof window.impData[k] === "object" ? "object" : "string",
+        k,
+      )}
+      >
         replace
       </button>
       <button onclick=${() => downloadData(k)}>download</button>

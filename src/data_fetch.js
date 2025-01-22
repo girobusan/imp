@@ -17,8 +17,8 @@ if (!fetch.isAlreadyFixed) {
       if (!window.impData[dataId]) {
         return Promise.reject("No such data");
       }
-      const dataType = window.impData[dataId].type;
-      const d = window.impData[dataId].data;
+      const dataType = typeof window.impData[dataId];
+      const d = window.impData[dataId];
       return Promise.resolve({
         ok: true,
         status: 200,

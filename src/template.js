@@ -4,7 +4,7 @@ import { stringifySettings } from "./settings";
 const version = VERSION;
 
 export function bodyTemplate(bodyHTML, footerHTML) {
- return `<main class="container" id="pageMain">${bodyHTML}</main>
+  return `<main class="container" id="pageMain">${bodyHTML}</main>
 ${footerHTML ? "<footer id='pageFooter'>" + footerHTML + "</footer>" : ""}
 `;
 }
@@ -16,8 +16,8 @@ ${footerHTML ? "<footer id='pageFooter'>" + footerHTML + "</footer>" : ""}
  * @param {?Boolean} noScript - disable IMP! script
  */
 export function renderHTML(htmlText, mdText, settings, noScript) {
- // if(noScript){ enableHelpers=false }
- return `<!DOCTYPE html>
+  // if(noScript){ enableHelpers=false }
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -38,23 +38,31 @@ export function renderHTML(htmlText, mdText, settings, noScript) {
   </script>
 ${noScript ? "<!--" : ""}
   <script defer>
-    function IMPEdit() {
-      console.info("Loading editor...")
-      const editor = document.createElement("script");
-      editor.id = "editorScript";
-      editor.src = "imp.js";
-      document.head.appendChild(editor);
-    }
-    if (window.location.search.indexOf("mode=edit") != -1) {
-      IMPEdit();
-    }
-    if (window.location.search.indexOf("mode=download") != -1) {
-      IMPEdit();
-    }
-    if (window.location.protocol === "file:" &&
-      window.location.search.indexOf("mode=view") == -1) {
-      IMPEdit();
-    }
+      (
+        function () {
+          function IMPEdit() {
+            console.info("Loading editor...")
+            const editor = document.createElement("script");
+            editor.id = "editorScript";
+            editor.src = "imp.js";
+            document.head.appendChild(editor);
+          }
+          if (window.location.search.indexOf("mode=edit") != -1) {
+            console.log("no edit");
+            IMPEdit();
+            return;
+          }
+          if (window.location.search.indexOf("mode=download") != -1) {
+            IMPEdit();
+            return;
+          }
+          if (window.location.protocol === "file:" &&
+            window.location.search.indexOf("mode=view") == -1) {
+            console.log("file edit")
+            IMPEdit();
+          }
+        }
+      )();
 </script>
 ${noScript ? "-->" : ""}
   ${!noScript && settings.enableHelpers ? "<script defer src='helpers.js' id='helpersScript'></script>" : ""}

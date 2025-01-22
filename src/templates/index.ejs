@@ -28,23 +28,31 @@
     }
   </script>
   <script defer>
-    function IMPEdit() {
-      console.info("Loading editor...")
-      const editor = document.createElement("script");
-      editor.id = "editorScript";
-      editor.src = "imp.js";
-      document.head.appendChild(editor);
-    }
-    if (window.location.search.indexOf("mode=edit") != -1) {
-      IMPEdit();
-    }
-    if (window.location.search.indexOf("mode=download") != -1) {
-      IMPEdit();
-    }
-    if (window.location.protocol === "file:" &&
-      window.location.search.indexOf("mode=view") == -1) {
-      IMPEdit();
-    }
+      (
+        function () {
+          function IMPEdit() {
+            console.info("Loading editor...")
+            const editor = document.createElement("script");
+            editor.id = "editorScript";
+            editor.src = "imp.js";
+            document.head.appendChild(editor);
+          }
+          if (window.location.search.indexOf("mode=edit") != -1) {
+            console.log("no edit");
+            IMPEdit();
+            return;
+          }
+          if (window.location.search.indexOf("mode=download") != -1) {
+            IMPEdit();
+            return;
+          }
+          if (window.location.protocol === "file:" &&
+            window.location.search.indexOf("mode=view") == -1) {
+            console.log("file edit")
+            IMPEdit();
+          }
+        }
+      )();
   </script>
   <link id="viewCSS" rel="stylesheet" href="style.css">
   <style id="customCSS"></style>

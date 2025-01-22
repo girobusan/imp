@@ -9,10 +9,10 @@
   <meta name="keywords" content="">
   <meta name="og:title" content="IMP! Data embedding">
   <meta name="og:description" content="IMP! allows you to embed data into HTML, and use it in generation of static content and in Java Script and IMP! Helpers.">
-  <meta name="og:image" content="">
+  <meta name="og:image" content="undefined">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="">
-  <link rel="icon" type="image/png" href="">
+  <meta name="twitter:image" content="undefined">
+  <link rel="icon" type="image/png" href="undefined">
   <script>
    window.settings = {
   "title": "IMP! Data embedding",
@@ -65,17 +65,18 @@
 <hr>
 <h2>Intro</h2>
 <p>IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by <a href="helpers.html">helpers</a>, in static and/or interactive content, or in your own scripts.</p>
+<p>Since version 0.6, the format will be changed!</p>
 <h2>Attaching data</h2>
-<p>You can add data in IMP! GUI. There are two types of embedded data: <code>string</code> and <code>object</code> (it can be changed in future). String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly.</p>
+<p>You can add data in IMP! GUI. There are two types of embedded data: <code>string</code> and <code>object</code> (it can be changed in future). String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly. <strong>Objects must be JSON-serializable in order to be saved with page.</strong></p>
 <p><img src="data-ui.png" alt="Empty data UI"> <small>GUI for data, when no data is embedded</small></p>
 <p>There are two buttons in the GUI. <code>Embed JSON</code> is for embedding well-formed JSON files. The data will be parsed and used as <code>object</code>. <code>Embed text</code> embeds unstructured text as is.</p>
 <p><img src="data-ui-full.png" alt="Data UI with some data entered"> <small>Data embedded</small></p>
 <p>From this GUI you can rename, replace, download or delete any data unit.</p>
 <h2>Retrieving data</h2>
 <p>Data, added in GUI is always available. It can be used in helpers to render static HTML, as well as in interactive content. There are more than one way to retrieve it.</p>
-<h3>Directly</h3>
+<h3>Directly (v0.5.x)</h3>
 <p>Embedded data is saved in global variable <code>window.impData</code>, which has the following structure:</p>
-<pre><code class="language-javascript"><span class="hljs-variable language_">window</span>.<span class="hljs-property">impData</span>{
+<pre><code class="language-javascript"><span class="hljs-variable language_">window</span>.<span class="hljs-property">impData</span>={
 	.
 	.
 	<span class="hljs-string">&quot;data-id&quot;</span>: {
@@ -88,10 +89,20 @@
 }
 </code></pre>
 <p>HTML tags are escaped. The variable will be available after <code>DOMContentLoaded</code> event.</p>
+<h3>Directly (maybe, since v0.6.x)</h3>
+<p>Since this version, embedded data is saved in global variable <code>window.impData</code>, which has much simpler structure:</p>
+<pre><code class="language-javascript"><span class="hljs-variable language_">window</span>.<span class="hljs-property">impData</span>={
+	.
+	.
+	<span class="hljs-string">&quot;data-id&quot;</span>: ... <span class="hljs-comment">// data, object or string</span>
+	.
+	.
+}
+</code></pre>
 <h3>Via fetch()</h3>
 <p>In IMP! GUI and in view mode, <em>if helpers are enabled,</em> standard fetch() function is patched to allow access to embedded data. Just pass data id  with prepended &quot;@&quot; as url.</p>
-<p>It is <em>extremely</em> useful, if you want to use a library, which can accept url as parameter, and other options for passing data are somehow complicated.</p>
-<p>For example, you can embed csv file as text, named <code>stocks.csv</code>, and then feed it to vega-lite via &quot;special url&quot;, like this:</p>
+<p>It is <em>extremely</em> useful when you want to use a library, which can accept url as parameter, and other options for passing data are somehow complicated.</p>
+<p>For example, you can embed csv file as text, named <code>stocks.csv</code>, and then feed it to vega-lite via  this <em>special url</em>, like this:</p>
 <pre><code class="language-json"> ```helper<span class="hljs-punctuation">:</span>vega-embed
  <span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Stock prices of 5 ...&quot;</span><span class="hljs-punctuation">,</span>
@@ -121,11 +132,13 @@ linkBack: "&lt;sup&gt;&amp;uarr;&lt;/sup&gt;"
 
 ## Intro
 
-IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by [helpers](helpers.html), in static and/or interactive content, or in your own scripts. 
+IMP! (since version 0.5) allows you to embed data into HTML. Data can than be used by [helpers](helpers.html), in static and/or interactive content, or in your own scripts.
+
+Since version 0.6, the format will be changed! 
 
 ## Attaching data
 
-You can add data in IMP! GUI. There are two types of embedded data: `string` and `object` (it can be changed in future). String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly.
+You can add data in IMP! GUI. There are two types of embedded data: `string` and `object` (it can be changed in future). String is just unstructured string, you need to parse it in your code. Object is a structured data, which can be operated directly. __Objects must be JSON-serializable in order to be saved with page.__
 
 ![Empty data UI](data-ui.png) --GUI for data, when no data is embedded--
 
@@ -138,12 +151,12 @@ From this GUI you can rename, replace, download or delete any data unit.
 ## Retrieving data
 Data, added in GUI is always available. It can be used in helpers to render static HTML, as well as in interactive content. There are more than one way to retrieve it.
 
-### Directly
+### Directly (v0.5.x)
 
 Embedded data is saved in global variable `window.impData`, which has the following structure:
 
 ```javascript
-window.impData{
+window.impData={
 	.
 	.
 	"data-id": {
@@ -158,12 +171,27 @@ window.impData{
 
 HTML tags are escaped. The variable will be available after `DOMContentLoaded` event. 
 
+### Directly (maybe, since v0.6.x)
+
+Since this version, embedded data is saved in global variable `window.impData`, which has much simpler structure:
+
+```javascript
+window.impData={
+	.
+	.
+	"data-id": ... // data, object or string
+	.
+	.
+}
+```
+ 
+
 ### Via fetch()
 In IMP! GUI and in view mode, _if helpers are enabled,_ standard fetch() function is patched to allow access to embedded data. Just pass data id  with prepended "@" as url.
 
-It is _extremely_ useful, if you want to use a library, which can accept url as parameter, and other options for passing data are somehow complicated.
+It is _extremely_ useful when you want to use a library, which can accept url as parameter, and other options for passing data are somehow complicated.
 
-For example, you can embed csv file as text, named `stocks.csv`, and then feed it to vega-lite via "special url", like this:
+For example, you can embed csv file as text, named `stocks.csv`, and then feed it to vega-lite via  this _special url_, like this:
 
 ~~~json
  ```helper:vega-embed

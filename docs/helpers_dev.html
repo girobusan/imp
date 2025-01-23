@@ -23,22 +23,14 @@ and enrich viewer experience.">
    window.settings = {
   "title": "IMP! Helpers API",
   "description": "Helpers are the scripts, which use new Helpers API for adding \nvarious types of content, not supported by regular markdown. \nHelpers may add static and/or interactive content in asynchronous way\nand enrich viewer experience.",
-  "image": "",
-  "icon": "",
   "filename": "helpers_dev.html",
   "footer": "&lt;small&gt;Powered by &lt;a href='https://github.com/girobusan/imp'&gt;IMP!&lt;/a&gt; and &lt;a href='https://matejlatin.github.io/Gutenberg/'&gt;Gutenberg CSS&lt;/a&gt;&lt;/small&gt;",
   "css": "ul ul{\nmargin-bottom: 0\n}\n.linkToTop{\ntext-decoration: none;\ncolor: royalblue !important;\n}",
-  "headHTML": "",
-  "editor": "",
-  "viewCSS": "",
-  "author": "",
-  "keywords": "",
-  "enableHelpers": "true",
-  "disableInteractivity": "",
-  "pathToHelpersModule": ""
-}
-   window.savedWithImpVersion = "0.4.4"
+  "enableHelpers": "true"
+};
+   window.savedWithImpVersion = "0.5.3"
   </script>
+
   <script>
    function IMPEdit(){
    console.info("Loading editor...")
@@ -48,7 +40,6 @@ and enrich viewer experience.">
    document.head.appendChild(editor);
    }
    window.addEventListener("DOMContentLoaded" , function(){
-  
    if(window.location.search.indexOf("mode=view")!=-1)
    {
    return;
@@ -65,22 +56,16 @@ and enrich viewer experience.">
    if(window.location.protocol==="file:"){
    IMPEdit();
    }
-  
 })
   </script>
-  <script src='helpers.js' id='helpersScript'></script>
+
+  <script defer src='helpers.js' id='helpersScript'></script>
   <link id = "viewCSS" rel="stylesheet" href="style.css">
-  <style id="customCSS">ul ul{
-margin-bottom: 0
-}
-.linkToTop{
-text-decoration: none;
-color: royalblue !important;
-}</style>
+  <style id="customCSS"></style>
   <!--custom html here-->
 </head>
 <body>
-<main class='container' id='pageMain'><p><a href="/">Girobusan</a> · <a href="index.html">IMP!</a> · <a href="helpers.html">Helpers</a></p>
+<main class="container" id="pageMain"><p><a href="/">Girobusan</a> · <a href="index.html">IMP!</a> · <a href="helpers.html">Helpers</a></p>
 <h1>Make your own helper</h1>
 <p><span data-ihelper='headers-nav' data-params="%0AskipH1:%20true%0AlinkBack:%20%22%3Csup%3E&uarr;%3C/sup%3E%22%0A"></span></p>
 <hr>
@@ -142,7 +127,7 @@ color: royalblue !important;
 <div style="background-color: silver; 
   padding:32px;padding-top:18px;text-align:left;color: #666;
   font-size:0.8em;border-radius: 6px;font-family:ui-monospace, monospace;">
-  <strong>Test helper</strong><p style="margin:0">Does nothing</p></div>
+  <strong>Test helper</strong><pre style="margin:0">Does nothing</pre></div>
 <h3>render(params , params_raw, subname)</h3>
 <p>Renders static HTML. Parameters are the same, as of preview method. Here you should render static HTML, which will be displayed on page. There are some requirements on this:</p>
 <ul>
@@ -154,8 +139,7 @@ color: royalblue !important;
 <div data-ihelper="test" 
   data-defaultrender="true" 
   data-params=""
-  data-subname=""
-  data-paramformat="undefined"><div class="preloader" style="
+  data-subname=""><div class="preloader" style="
     max-width: 800px;
     margin: 0 auto;
     background-color: gray;
@@ -239,10 +223,36 @@ color: royalblue !important;
 <p>You get only the rendered element (which had a <code>data-ihelper</code> attribute, see above).</p>
 <h4>When you skip render()</h4>
 <p>You get full set of params: the element (which you'd empty yourself), parameters, raw parameters and subname.</p>
+<p>This method is also legacy method to get parameters. when helper is autoloaded. Use method <code>autoload</code> for this.</p>
+<h3>autoload( params , viewMode , subname)</h3>
+<p>Called when helper is autoloaded (upcoming feature) with some parameters. When no parameters specified in <code>autoload.js</code> only <code>init()</code> is called (if present).</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>params</td>
+<td>Parameters of the helper</td>
+</tr>
+<tr>
+<td>viewMode</td>
+<td><code>true</code> if loaded in view mode, <code>false</code> otherwise</td>
+</tr>
+<tr>
+<td>subname</td>
+<td>Subname of the helper, if there is one</td>
+</tr>
+</tbody>
+</table>
 <h2>Further reading</h2>
 <p>Please, read also <a href="helpers_api.html">Helpers API methods reference</a>.</p>
 </main>
 <footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<script>window.impData={}</script>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html) &amp;middot; [Helpers](helpers.html)
 
 # Make your own helper
@@ -336,6 +346,18 @@ Animates HTML. Totally optional. It behaves differently, depending on your rende
 You get only the rendered element (which had a `data-ihelper` attribute, see above).
 #### When you skip render()
 You get full set of params: the element (which you'd empty yourself), parameters, raw parameters and subname.
+
+This method is also legacy method to get parameters. when helper is autoloaded. Use method `autoload` for this.
+
+### autoload( params , viewMode , subname)
+Called when helper is autoloaded (upcoming feature) with some parameters. When no parameters specified in `autoload.js` only `init()` is called (if present).
+
+| parameter | meaning |
+|--|--|
+| params | Parameters of the helper |
+| viewMode | `true` if loaded in view mode, `false` otherwise |
+| subname | Subname of the helper, if there is one |
+
 
 ## Further reading
 Please, read also [Helpers API methods reference](helpers_api.html).</script>

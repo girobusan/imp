@@ -310,6 +310,7 @@ const API = {
     // console.log("PRMS" , params_raw)
     return getHelper(name)
       .then((hlp) => {
+        //
         "animate" in hlp &&
           hlp["animate"](
             element,
@@ -384,10 +385,32 @@ function loadAutoloadedHelpers(jsn) {
   console.info("Autoload:");
   jsn.helpers.forEach((m) => {
     console.info("*", m[0]);
-    addHelper(m[0])
-      .then(() => {
-        if (m[2]) {
-          API.engage(m[0], m[1] || "animate", JSON.stringify(m[2] || {}));
+    //extract subname
+    const subnameTest = m[0].split("/");
+    const helperName = subnameTest[0].trim();
+    const helperSubname = subnameTest.length > 1 ? subnameTest[1].trim() : null;
+    addHelper(helperName)
+      .then((h) => {
+        let params = m.length > 1 ? m[m.length - 1] : null; // last element is params
+
+        if (m.length > 1) {
+          // if there are three elements, the second is for method
+          // but it can be undefined
+          let definedMethod = m.length === 3 ? m[1] : null;
+          //if method is undefined (or there are 2 elements, which means default method)
+          let method = definedMethod || (h.autoload ? "autoload" : "animate");
+          // check errors
+          if (!h[method]) {
+            console.error(m[0], "does not have the method", method);
+            console.erorr("No action is performed.");
+            return;
+          }
+          // keep the right signature for animate method
+          // if helper uses 'animate' for autoload
+          // it shoud get viewMode from 'init'
+          method === "animate"
+            ? h[method](null, params, null, helperSubname)
+            : h[method](params, viewMode, helperSubname);
         }
       })
       .catch((e) => console.error("Can not load autoloaded helper", m[0], e));

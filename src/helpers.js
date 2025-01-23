@@ -401,8 +401,8 @@ function loadAutoloadedHelpers(jsn) {
           let method = definedMethod || (h.autoload ? "autoload" : "animate");
           // check errors
           if (!h[method]) {
-            console.error(m[0], "does not have the method", method);
-            console.erorr("No action is performed.");
+            console.error(m[0] + " does not have the method " + method);
+            console.error("No action is performed.");
             return;
           }
           // keep the right signature for animate method
@@ -413,7 +413,9 @@ function loadAutoloadedHelpers(jsn) {
             : h[method](params, viewMode, helperSubname);
         }
       })
-      .catch((e) => console.error("Can not load autoloaded helper", m[0], e));
+      .catch((e) =>
+        console.error("Can not load autoloaded helper " + m[0] + " " + e),
+      );
   });
 }
 

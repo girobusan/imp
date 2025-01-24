@@ -3,14 +3,14 @@ import preloaderCode from "./preloader.htm?raw";
 require("./data_fetch.js");
 import { escapeTags, unescapeTags } from "./util";
 
-const validActions = new Set(["render", "preview", "animate"]);
+const validActions = new Set(["render", "preview", "animate", "autoload"]);
 
 // do not figure it out!
 var viewMode = false;
 var viewModeDone = false;
 
 var helpers = {};
-var blacklisted = new Set();
+var blacklisted = new Set(["autoload"]);
 
 var paramFormatters = {};
 var paramFormats = {};

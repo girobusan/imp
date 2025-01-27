@@ -271,6 +271,7 @@ export class PageEditor extends Component {
             footer=${this.state.footer}
             customCSS=${this.state.customCSS}
             headHTML=${this.state.headHTML}
+            forceEditorIfLocal=${this.state.forceEditorIfLocal}
             enableHelpers=${this.state.enableHelpers}
             disableInteractivity=${this.state.disableInteractivity}
             viewCSS=${this.state.viewCSS}

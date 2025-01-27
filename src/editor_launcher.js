@@ -15,6 +15,7 @@ import editIcon from "../src/icons/edit_24dp_E8EAED_FILL0_wght500_GRAD0_opsz24.s
     !settings.forceEditorIfLocal &&
     window.location.search.indexOf("mode=edit") === -1
   ) {
+    console.info("Do not force editor if file loaded locally.");
     // add edit button
     const ebutton = document.createElement("button");
     ebutton.innerHTML = editIcon;

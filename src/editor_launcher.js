@@ -22,7 +22,7 @@ import editIcon from "../src/icons/edit_24dp_E8EAED_FILL0_wght500_GRAD0_opsz24.s
     ebutton.title = "Edit page";
     ebutton.setAttribute(
       "style",
-      `position:absolute; box-sizing: border-box; display: block; width: 32px; 
+      `position:fixed; box-sizing: border-box; display: block; width: 32px; 
 height: 32px; right: 18px ; top: 18px ; padding: 4px ; padding-top: 3px`,
     );
     ebutton.addEventListener("click", () => (window.location = "?mode=edit"));

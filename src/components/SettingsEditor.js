@@ -26,6 +26,7 @@ export default function SettingsEditor({
   footer, //!
   customCSS, //!
   headHTML,
+  forceEditorIfLocal,
   enableHelpers,
   disableInteractivity,
   viewCSS,
@@ -113,6 +114,21 @@ export default function SettingsEditor({
         value=${customCSS}
         handler=${makeHandler("customCSS")}
       />
+
+      <h2 class="subtitle is-3">
+        UI <small>(save and reload required)</small>
+      </h2>
+
+      <div
+        class="field is-grouped is-grouped-multiline"
+        style="margin-bottom: 2rem"
+      >
+        <${CheckBox}
+          title="Force editor if opened locally"
+          checked=${forceEditorIfLocal}
+          onChange=${makeHandler("forceEditorIfLocal")}
+        />
+      </div>
 
       <label class="label">Embedded data</label>
       <${DataUI} signal=${setModified} />

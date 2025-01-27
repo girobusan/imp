@@ -17,7 +17,6 @@ import { bodyTemplate, renderHTML } from "../template.js";
 import impIcon from "../icons/imp.svg?raw";
 import settingsIcon from "../icons/settings_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg?raw";
 import exitIcon from "../icons/logout_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg?raw";
-require("./editor.scss");
 require("../data_fetch.js");
 // import { attachScript } from "../helpers.js";
 
@@ -25,6 +24,7 @@ const mdRx = /\.(md|markdown|mkd|mdwn|mdtxt|mdtext|txt|text)$/i;
 
 export class PageEditor extends Component {
   constructor(props) {
+    require("./editor.scss");
     super(props);
     this.editorNode = createRef();
     this.state = {

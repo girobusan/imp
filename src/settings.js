@@ -16,6 +16,7 @@ const defaults = {
    customCSS: "",
    author: "",
    keywords: "",
+   forceEditorIfLocal: false,
    enableHelpers: false,
    disableInteractivity: false,
    pathToHelpersModule: "",

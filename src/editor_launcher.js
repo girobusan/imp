@@ -9,12 +9,11 @@ import editIcon from "../src/icons/edit_24dp_E8EAED_FILL0_wght500_GRAD0_opsz24.s
 
 (() => {
   console.info("IMP! editor v" + version);
-  const s = extractFromHTML();
-  const settings = makeSettings(window.settings);
   if (
-    !settings.forceEditorIfLocal &&
+    !window.settings.forceEditorIfLocal &&
     window.location.search.indexOf("mode=edit") === -1
   ) {
+    document.getElementById("editorScript").remove();
     console.info("Do not force editor if file loaded locally.");
     // add edit button
     const ebutton = document.createElement("button");
@@ -30,6 +29,9 @@ height: 32px; right: 18px ; top: 18px ; padding: 4px ; padding-top: 3px`,
     // exit
     return;
   }
+
+  const s = extractFromHTML();
+  const settings = makeSettings(window.settings);
 
   if (window.location.search.indexOf("mode=download") == -1) {
     const viewcss = document.head.querySelector("#viewCSS");

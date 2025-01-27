@@ -38,11 +38,13 @@ export function renderHTML(htmlText, mdText, settings, noScript) {
   </script>
 ${noScript ? "<!--" : ""}
   <script defer>
+
       (
         function () {
           function IMPEdit() {
             console.info("Loading editor...")
             const editor = document.createElement("script");
+            editor.setAttribute("defer", "defer");
             editor.id = "editorScript";
             editor.src = "imp.js";
             document.head.appendChild(editor);
@@ -63,6 +65,7 @@ ${noScript ? "<!--" : ""}
           }
         }
       )();
+  
 </script>
 ${noScript ? "-->" : ""}
   ${!noScript && settings.enableHelpers ? "<script defer src='helpers.js' id='helpersScript'></script>" : ""}

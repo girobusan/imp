@@ -33,6 +33,7 @@
           function IMPEdit() {
             console.info("Loading editor...")
             const editor = document.createElement("script");
+            editor.setAttribute("defer", "defer");
             editor.id = "editorScript";
             editor.src = "imp.js";
             document.head.appendChild(editor);

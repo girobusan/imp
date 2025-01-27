@@ -38,7 +38,6 @@ export function renderHTML(htmlText, mdText, settings, noScript) {
   </script>
 ${noScript ? "<!--" : ""}
   <script defer>
-
       (
         function () {
           function IMPEdit() {

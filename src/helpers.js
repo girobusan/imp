@@ -5,8 +5,24 @@ import { escapeTags, unescapeTags } from "./util";
 
 const validActions = new Set(["render", "preview", "animate", "autoload"]);
 
-// do not figure it out!
-var viewMode = false;
+function isViewMode() {
+  const Q = window.location.search;
+  const P = window.location.protocol;
+  // mode set
+  if (Q.indexOf("mode=edit") != -1) {
+    return false;
+  }
+  if (Q.indexOf("mode=view") != -1) {
+    return true;
+  }
+  // mode may be forced
+  if (window.settings.forceEditorIfLocal && P.startsWith("file")) {
+    return false;
+  }
+  return true;
+}
+
+var viewMode = isViewMode();
 var viewModeDone = false;
 
 var helpers = {};
@@ -429,7 +445,6 @@ async function autoLoad() {
 // START MODULE
 //
 function startUp() {
-  viewMode = !(document.head.querySelector("script#editorScript") || false);
   viewModeWork();
   autoLoad();
 }

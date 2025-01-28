@@ -43,13 +43,11 @@ ${noScript ? "<!--" : ""}
           function IMPEdit() {
             console.info("Loading editor...")
             const editor = document.createElement("script");
-            editor.setAttribute("defer", "defer");
             editor.id = "editorScript";
             editor.src = "imp.js";
             document.head.appendChild(editor);
           }
           if (window.location.search.indexOf("mode=edit") != -1) {
-            console.log("no edit");
             IMPEdit();
             return;
           }
@@ -59,7 +57,6 @@ ${noScript ? "<!--" : ""}
           }
           if (window.location.protocol === "file:" &&
             window.location.search.indexOf("mode=view") == -1) {
-            console.log("file edit")
             IMPEdit();
           }
         }

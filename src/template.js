@@ -47,21 +47,21 @@ ${noScript ? "<!--" : ""}
             editor.src = "imp.js";
             document.head.appendChild(editor);
           }
-          if (window.location.search.indexOf("mode=edit") != -1) {
+         var S = window.location.search.toLowerCase();
+          if (S.indexOf("mode=edit") != -1) {
             IMPEdit();
             return;
           }
-          if (window.location.search.indexOf("mode=download") != -1) {
+          if (S.indexOf("mode=download") != -1) {
             IMPEdit();
             return;
           }
           if (window.location.protocol === "file:" &&
-            window.location.search.indexOf("mode=view") == -1) {
+            S.indexOf("mode=view") == -1) {
             IMPEdit();
           }
         }
       )();
-  
 </script>
 ${noScript ? "-->" : ""}
   ${!noScript && settings.enableHelpers ? "<script defer src='helpers.js' id='helpersScript'></script>" : ""}

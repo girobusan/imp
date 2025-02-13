@@ -11,7 +11,7 @@ import editIcon from "../src/icons/edit_24dp_E8EAED_FILL0_wght500_GRAD0_opsz24.s
   console.info("IMP! editor v" + version);
   if (
     !window.settings.forceEditorIfLocal &&
-    window.location.search.indexOf("mode=edit") === -1
+    window.location.search.toLowerCase().indexOf("mode=edit") === -1
   ) {
     document.getElementById("editorScript").remove();
     console.info("Do not force editor if file loaded locally.");

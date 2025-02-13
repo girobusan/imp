@@ -6,8 +6,8 @@ import { escapeTags, unescapeTags } from "./util";
 const validActions = new Set(["render", "preview", "animate", "autoload"]);
 
 function isViewMode() {
-  const Q = window.location.search;
-  const P = window.location.protocol;
+  const Q = window.location.search.toLowerCase();
+  const P = window.location.protocol.toLowerCase();
   // mode set
   if (Q.indexOf("mode=edit") != -1) {
     return false;

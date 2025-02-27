@@ -17,7 +17,7 @@ creating more integrated custom content types of content (see [examples](https:/
 
 ## How it works
 
-When you load IMP! Locally, it opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, clean HTML. Page does not require Java Script to be viewed by default, but there is an optional API for adding interactive content.  [Demo and docs](https://girobusan.github.io/imp/). 
+When you load IMP! Locally, you will see a small edit button, which opens up an editor, where you can enter or import your text, setup SEO tags and custom CSS. When the very same page is served over http, user gets a light, clean HTML. Page does not require Java Script to be viewed by default, but there is an optional API for adding interactive content.  [Demo and docs](https://girobusan.github.io/imp/). 
 
 ![](docs/imp_screen.png)
 

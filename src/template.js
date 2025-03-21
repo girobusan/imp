@@ -44,7 +44,7 @@ ${noScript ? "<!--" : ""}
             console.info("Loading editor...")
             const editor = document.createElement("script");
             editor.id = "editorScript";
-            editor.src = "imp.js";
+            editor.src = window.settings.editor || "imp.js";
             document.head.appendChild(editor);
           }
          var S = window.location.search.toLowerCase();

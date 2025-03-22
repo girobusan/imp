@@ -16,7 +16,11 @@ function isViewMode() {
     return true;
   }
   // mode may be forced
-  if (window.settings.forceEditorIfLocal && P.startsWith("file")) {
+  if (
+    window.settings &&
+    window.settings.forceEditorIfLocal &&
+    P.startsWith("file")
+  ) {
     return false;
   }
   return true;
@@ -82,9 +86,9 @@ function timeout(prom, time, name) {
     prom,
     new Promise(
       (_r, rej) =>
-      (timer = setTimeout(() => {
-        blacklisted.add(name), rej("dropped by timeout");
-      }, time)),
+        (timer = setTimeout(() => {
+          blacklisted.add(name), rej("dropped by timeout");
+        }, time)),
     ),
   ]).finally(() => clearTimeout(timer));
 }
@@ -287,7 +291,7 @@ const API = {
     }
   },
 
-  engage: async function(name, action, params_raw, subname) {
+  engage: async function (name, action, params_raw, subname) {
     if (!validActions.has(action)) {
       console.error("Unknown action:", action, "called for", name);
       return;
@@ -371,7 +375,7 @@ function viewModeWork() {
     return;
   }
 
-  if (window.settings.disableInteractivity) {
+  if (window.settings && window.settings.disableInteractivity) {
     console.info("Interactivity disabled by author.");
     return;
   }

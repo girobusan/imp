@@ -9,10 +9,10 @@
   <meta name="keywords" content="">
   <meta name="og:title" content="IMP! конфигурация для CDN">
   <meta name="og:description" content="Эта настройка — хороший способ начать работать с IMP! У вас будет всего один файл, полностью готовый к работе. И редактор, и тема оформления будут загружаться с CDN по необходимости. Но если вы захотите поменять тему, вам нужно будет соответственно поменять настройку `View CSS location`.">
-  <meta name="og:image" content="">
+  <meta name="og:image" content="undefined">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="">
-  <link rel="icon" type="image/png" href="">
+  <meta name="twitter:image" content="undefined">
+  <link rel="icon" type="image/png" href="undefined">
   <script>
    window.settings = {
   "title": "IMP! конфигурация для CDN",
@@ -22,36 +22,35 @@
   "editor": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js",
   "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css"
 };
-   window.savedWithImpVersion = "0.5.3"
+   window.savedWithImpVersion = "0.6.1"
   </script>
 
-  <script>
-   function IMPEdit(){
-   console.info("Loading editor...")
-   const editor = document.createElement("script");
-   editor.id="editorScript";
-   editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
-   document.head.appendChild(editor);
-   }
-   window.addEventListener("DOMContentLoaded" , function(){
-   if(window.location.search.indexOf("mode=view")!=-1)
-   {
-   return;
-   }
-   if(window.location.search.indexOf("mode=edit")!=-1)
-   {
-   IMPEdit();
-   return;
-   }
-   if(window.location.search.indexOf("mode=download")!=-1){
-   IMPEdit();
-   return;
-   }
-   if(window.location.protocol==="file:"){
-   IMPEdit();
-   }
-})
-  </script>
+  <script defer>
+      (
+        function () {
+          function IMPEdit() {
+            console.info("Loading editor...")
+            const editor = document.createElement("script");
+            editor.id = "editorScript";
+            editor.src = window.settings.editor || "imp.js";
+            document.head.appendChild(editor);
+          }
+         var S = window.location.search.toLowerCase();
+          if (S.indexOf("mode=edit") != -1) {
+            IMPEdit();
+            return;
+          }
+          if (S.indexOf("mode=download") != -1) {
+            IMPEdit();
+            return;
+          }
+          if (window.location.protocol === "file:" &&
+            S.indexOf("mode=view") == -1) {
+            IMPEdit();
+          }
+        }
+      )();
+</script>
 
   
   <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
@@ -65,6 +64,7 @@
 <li><a href="https://github.com/girobusan/imp/blob/master/README.ru.md">Что такое IMP?</a></li>
 </ul>
 <p>Здесь вы можете создать страничку, которая использует CDN для редактора и основного CSS.</p>
+<p style="color: red">Внимание! Это небезопасный способ работы с IMP! Злоумышленник может завладеть CDN, и подсунуть вам вместо редактора что-то вредное. Подключая IMP! таким образом, вы берете на себя все возможные риски, включая потерю данных, порчу оборудования, нарушения конфиденциальности и все, что только может сделать потенциальный зловред.</p>
 <ol>
 <li>Переключитесь в <a href="#?mode=edit">режим редактирования</a>. <!--Если вы видите этот текст, вы уже в нем--></li>
 <li>Кликните бургер в левом верхнем углу, выберите в выпавшем меню пункт <code>duplicate file</code></li>
@@ -72,7 +72,8 @@
 </ol>
 <p>Эта настройка — хороший способ начать работать с IMP! У вас будет всего один файл, полностью готовый к работе. И редактор, и тема оформления будут загружаться с CDN по необходимости. Но если вы захотите поменять тему, вам нужно будет соответственно поменять настройку <code>View CSS location</code>.</p>
 </main>
-<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<footer id='pageFooter'><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+
 <script>window.impData={}</script>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html)
 
@@ -81,6 +82,9 @@
 - [Что такое IMP?](https://github.com/girobusan/imp/blob/master/README.ru.md)
 
 Здесь вы можете создать страничку, которая использует CDN для редактора и основного CSS.
+
+&lt;p style="color: red"&gt;Внимание! Это небезопасный способ работы с IMP! Злоумышленник может завладеть CDN, и подсунуть вам вместо редактора что-то вредное. Подключая IMP! таким образом, вы берете на себя все возможные риски, включая потерю данных, порчу оборудования, нарушения конфиденциальности и все, что только может сделать потенциальный зловред.&lt;/p&gt;
+
 
 1. Переключитесь в [режим редактирования](#?mode=edit). &lt;!--Если вы видите этот текст, вы уже в нем--&gt;
 2. Кликните бургер в левом верхнем углу, выберите в выпавшем меню пункт `duplicate file`

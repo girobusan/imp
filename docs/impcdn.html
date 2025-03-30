@@ -9,10 +9,10 @@
   <meta name="keywords" content="">
   <meta name="og:title" content="IMP! preconfigured CDN setup">
   <meta name="og:description" content="IMP! peconfigured CDN">
-  <meta name="og:image" content="">
+  <meta name="og:image" content="undefined">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="">
-  <link rel="icon" type="image/png" href="">
+  <meta name="twitter:image" content="undefined">
+  <link rel="icon" type="image/png" href="undefined">
   <script>
    window.settings = {
   "title": "IMP! preconfigured CDN setup",
@@ -23,36 +23,35 @@
   "viewCSS": "https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css",
   "enableHelpers": "false"
 };
-   window.savedWithImpVersion = "0.5.3"
+   window.savedWithImpVersion = "0.6.1"
   </script>
 
-  <script>
-   function IMPEdit(){
-   console.info("Loading editor...")
-   const editor = document.createElement("script");
-   editor.id="editorScript";
-   editor.src="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/imp.js";
-   document.head.appendChild(editor);
-   }
-   window.addEventListener("DOMContentLoaded" , function(){
-   if(window.location.search.indexOf("mode=view")!=-1)
-   {
-   return;
-   }
-   if(window.location.search.indexOf("mode=edit")!=-1)
-   {
-   IMPEdit();
-   return;
-   }
-   if(window.location.search.indexOf("mode=download")!=-1){
-   IMPEdit();
-   return;
-   }
-   if(window.location.protocol==="file:"){
-   IMPEdit();
-   }
-})
-  </script>
+  <script defer>
+      (
+        function () {
+          function IMPEdit() {
+            console.info("Loading editor...")
+            const editor = document.createElement("script");
+            editor.id = "editorScript";
+            editor.src = window.settings.editor || "imp.js";
+            document.head.appendChild(editor);
+          }
+         var S = window.location.search.toLowerCase();
+          if (S.indexOf("mode=edit") != -1) {
+            IMPEdit();
+            return;
+          }
+          if (S.indexOf("mode=download") != -1) {
+            IMPEdit();
+            return;
+          }
+          if (window.location.protocol === "file:" &&
+            S.indexOf("mode=view") == -1) {
+            IMPEdit();
+          }
+        }
+      )();
+</script>
 
   <script defer src='helpers.js' id='helpersScript'></script>
   <link id = "viewCSS" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/girobusan/imp@latest/dist/style.css">
@@ -63,6 +62,7 @@
 <main class="container" id="pageMain"><p><a href="https://girobusan.github.io">Girobusan</a> · <a href="index.html">IMP!</a></p>
 <h1>IMP! Preconfigured for CDN</h1>
 <p>From here you can get page, preconfigured to use CDN for editor script and view CSS.</p>
+<p style="color: red">Warning! This is VERY risky way to use IMP! Hackers can take over this CDN and inject some malicious code to your page! You take the full responsibility for any consequences, including data loss, hardware malfunction, stolen identity and all other possible bad things. </p>
 <ol>
 <li>Switch to <a href="?mode=edit">edit mode</a>. <!--If you see this text, you already there--></li>
 <li>Clcik burger button, choose <code>duplicate file</code> in the menu.</li>
@@ -70,12 +70,15 @@
 </ol>
 <p>This setup is ideal as starting point. You will get just one file, fully working and ready. Both editor and default theme will be served from CDN. If you will need to change default theme, you will also need to adjust <code>View CSS location</code> setting accordingly.</p>
 </main>
-<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<footer id='pageFooter'><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+
 <script>window.impData={}</script>
 <script id="pageData" type="text/markdown">[Girobusan](https://girobusan.github.io) &amp;middot; [IMP!](index.html)
 
 # IMP! Preconfigured for CDN
 From here you can get page, preconfigured to use CDN for editor script and view CSS.
+
+&lt;p style="color: red"&gt;Warning! This is VERY risky way to use IMP! Hackers can take over this CDN and inject some malicious code to your page! You take the full responsibility for any consequences, including data loss, hardware malfunction, stolen identity and all other possible bad things. &lt;/p&gt;
 
 1. Switch to [edit mode](?mode=edit). &lt;!--If you see this text, you already there--&gt;
 2. Clcik burger button, choose `duplicate file` in the menu.

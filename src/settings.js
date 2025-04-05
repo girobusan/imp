@@ -16,6 +16,7 @@ const defaults = {
    customCSS: "",
    author: "",
    keywords: "",
+   linksInNewWindow: true,
    forceEditorIfLocal: false,
    enableHelpers: false,
    disableInteractivity: false,
@@ -69,13 +70,18 @@ export function stringifySettings(obj, toYAML) {
  * @param {Boolean} safe - remove unsafe settings
  */
 export function cleanupObj(obj, safe) {
-   return props.reduce((a, e) => {
-      if (safe && ["editor", "viewCSS"].indexOf(e) != -1) {
+   return props.reduce((a, key) => {
+      // safe mode does not save IMP! files locations
+      if (safe && ["editor", "viewCSS"].indexOf(key) != -1) {
          return a;
       }
-      if (prepBool(obj[e])) {
-         a[e] = obj[e];
+      // trim strings
+      prepBool(obj[key]);
+      // skip undefined fields and empty strings
+      if (obj[key] !== undefined && obj[key] !== "") {
+         a[key] = obj[key];
       }
+
       return a;
    }, {});
 }

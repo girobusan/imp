@@ -1,6 +1,6 @@
 {
   "name": "imp",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

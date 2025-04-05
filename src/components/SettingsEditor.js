@@ -26,6 +26,7 @@ export default function SettingsEditor({
   footer, //!
   customCSS, //!
   headHTML,
+  linksInNewWindow,
   forceEditorIfLocal,
   enableHelpers,
   disableInteractivity,
@@ -127,6 +128,11 @@ export default function SettingsEditor({
           title="Force editor if opened locally"
           checked=${forceEditorIfLocal}
           onChange=${makeHandler("forceEditorIfLocal")}
+        />
+        <${CheckBox}
+          title="Open links in new window"
+          checked=${linksInNewWindow}
+          onChange=${makeHandler("linksInNewWindow")}
         />
       </div>
 

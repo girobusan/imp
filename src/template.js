@@ -32,6 +32,7 @@ export function renderHTML(htmlText, mdText, settings, noScript) {
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="${settings.image}">
   <link rel="icon" type="image/png" href="${settings.icon}">
+  ${settings.linksInNewWindow ? "<base target='_blank'>" : "<base target='_self'>"}
   <script>
    window.settings = ${stringifySettings(settings)};
    window.savedWithImpVersion = "${version}"

@@ -13,6 +13,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="undefined">
   <link rel="icon" type="image/png" href="undefined">
+  <base target='_self'>
   <script>
    window.settings = {
   "title": "IMP! Data embedding",
@@ -22,36 +23,35 @@
   "css": "ul ul{\nmargin-bottom: 0\n}\n.linkToTop{\ntext-decoration: none;\ncolor: royalblue !important;\n}",
   "enableHelpers": "true"
 };
-   window.savedWithImpVersion = "0.5.3"
+   window.savedWithImpVersion = "0.6.2"
   </script>
 
-  <script>
-   function IMPEdit(){
-   console.info("Loading editor...")
-   const editor = document.createElement("script");
-   editor.id="editorScript";
-   editor.src="imp.js";
-   document.head.appendChild(editor);
-   }
-   window.addEventListener("DOMContentLoaded" , function(){
-   if(window.location.search.indexOf("mode=view")!=-1)
-   {
-   return;
-   }
-   if(window.location.search.indexOf("mode=edit")!=-1)
-   {
-   IMPEdit();
-   return;
-   }
-   if(window.location.search.indexOf("mode=download")!=-1){
-   IMPEdit();
-   return;
-   }
-   if(window.location.protocol==="file:"){
-   IMPEdit();
-   }
-})
-  </script>
+  <script defer>
+      (
+        function () {
+          function IMPEdit() {
+            console.info("Loading editor...")
+            const editor = document.createElement("script");
+            editor.id = "editorScript";
+            editor.src = window.settings.editor || "imp.js";
+            document.head.appendChild(editor);
+          }
+         var S = window.location.search.toLowerCase();
+          if (S.indexOf("mode=edit") != -1) {
+            IMPEdit();
+            return;
+          }
+          if (S.indexOf("mode=download") != -1) {
+            IMPEdit();
+            return;
+          }
+          if (window.location.protocol === "file:" &&
+            S.indexOf("mode=view") == -1) {
+            IMPEdit();
+          }
+        }
+      )();
+</script>
 
   <script defer src='helpers.js' id='helpersScript'></script>
   <link id = "viewCSS" rel="stylesheet" href="style.css">
@@ -89,7 +89,7 @@
 }
 </code></pre>
 <p>HTML tags are escaped. The variable will be available after <code>DOMContentLoaded</code> event.</p>
-<h3>Directly (maybe, since v0.6.x)</h3>
+<h3>Directly (v0.6.x)</h3>
 <p>Since this version, embedded data is saved in global variable <code>window.impData</code>, which has much simpler structure:</p>
 <pre><code class="language-javascript"><span class="hljs-variable language_">window</span>.<span class="hljs-property">impData</span>={
 	.
@@ -110,13 +110,15 @@
   <span class="hljs-comment">//the rest of the code...</span>
  ```
 </code></pre>
+<p>If your data has more complicated structure, and you need to retrive something from <code>impData.tables[&quot;stocks.csv&quot;]</code>, use url with slashes like:<code>@tables/stocks.csv</code>.</p>
 <p>You may use in your own scripts. Remember to enable helpers, you do not need to use any helpers, just load the module.</p>
 <h2>Writting data</h2>
 <p>Helpers can write data, for example, in <code>render()</code> function, but this data may not be available to other helpers <code>render()</code>. You can write data in <code>render()</code> in order to read it later in <code>animate()</code> function.</p>
 <p>Of course, you can write data in <code>animate()</code> function, but it won't be saved.</p>
 <p>Please, <strong>do not use data embedding for saving helper parameters</strong>. Embedded data is global and has no namespaces, and helpers have no methods to clean up after deleting.</p>
 </main>
-<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<footer id='pageFooter'><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+
 <script>window.impData={}</script>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html)
 
@@ -171,7 +173,7 @@ window.impData={
 
 HTML tags are escaped. The variable will be available after `DOMContentLoaded` event. 
 
-### Directly (maybe, since v0.6.x)
+### Directly (v0.6.x)
 
 Since this version, embedded data is saved in global variable `window.impData`, which has much simpler structure:
 
@@ -201,6 +203,8 @@ For example, you can embed csv file as text, named `stocks.csv`, and then feed i
   //the rest of the code...
  ```
 ~~~ 
+
+If your data has more complicated structure, and you need to retrive something from `impData.tables["stocks.csv"]`, use url with slashes like:`@tables/stocks.csv`.
 
 You may use in your own scripts. Remember to enable helpers, you do not need to use any helpers, just load the module.
 

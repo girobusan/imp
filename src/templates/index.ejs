@@ -28,13 +28,14 @@
       "viewCSS": ""
     }
   </script>
-  <script defer>
+  <script>
       (
         function () {
           function IMPEdit() {
             console.info("Loading editor...")
             const editor = document.createElement("script");
             editor.id = "editorScript";
+            editor.setAttribute("defer", "defer");
             editor.src = window.settings.editor || "imp.js";
             document.head.appendChild(editor);
           }

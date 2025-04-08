@@ -86,9 +86,9 @@ function timeout(prom, time, name) {
     prom,
     new Promise(
       (_r, rej) =>
-        (timer = setTimeout(() => {
-          blacklisted.add(name), rej("dropped by timeout");
-        }, time)),
+      (timer = setTimeout(() => {
+        blacklisted.add(name), rej("dropped by timeout");
+      }, time)),
     ),
   ]).finally(() => clearTimeout(timer));
 }
@@ -291,7 +291,7 @@ const API = {
     }
   },
 
-  engage: async function (name, action, params_raw, subname) {
+  engage: async function(name, action, params_raw, subname) {
     if (!validActions.has(action)) {
       console.error("Unknown action:", action, "called for", name);
       return;
@@ -411,6 +411,7 @@ function loadAutoloadedHelpers(jsn) {
     const helperSubname = subnameTest.length > 1 ? subnameTest[1].trim() : null;
     addHelper(helperName)
       .then((h) => {
+        console.log("loaded", h);
         let params = m.length > 1 ? m[m.length - 1] : null; // last element is params
 
         if (m.length > 1) {

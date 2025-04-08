@@ -28,23 +28,24 @@ export function renderHTML(htmlText, mdText, settings, noScript) {
   <meta name="keywords" content="${settings.keywords || ""}">
   <meta name="og:title" content="${settings.title}">
   <meta name="og:description" content="${settings.description || ""}">
-  <meta name="og:image" content="${settings.image}">
+  <meta name="og:image" content="${settings.image || ""}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="${settings.image}">
-  <link rel="icon" type="image/png" href="${settings.icon}">
+  <meta name="twitter:image" content="${settings.image || ""}">
+  <link rel="icon" type="image/png" href="${settings.icon || ""}">
   ${settings.linksInNewWindow ? "<base target='_blank'>" : "<base target='_self'>"}
   <script>
    window.settings = ${stringifySettings(settings)};
    window.savedWithImpVersion = "${version}"
   </script>
 ${noScript ? "<!--" : ""}
-  <script defer>
+  <script>
       (
         function () {
           function IMPEdit() {
             console.info("Loading editor...")
             const editor = document.createElement("script");
             editor.id = "editorScript";
+            editor.setAttribute("defer", "defer");
             editor.src = window.settings.editor || "imp.js";
             document.head.appendChild(editor);
           }

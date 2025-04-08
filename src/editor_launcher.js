@@ -30,25 +30,38 @@ height: 32px; right: 18px ; top: 18px ; padding: 4px ; padding-top: 3px`,
     return;
   }
 
-  const s = extractFromHTML();
-  const settings = makeSettings(window.settings);
-
-  if (window.location.search.indexOf("mode=download") == -1) {
+  function editorLoader() {
+    //get source
+    const s = extractFromHTML();
+    const settings = makeSettings(window.settings);
+    //find asssets
     const viewcss = document.head.querySelector("#viewCSS");
     const customcss = document.head.querySelector("#customCSS");
+    //remove older links
     viewcss && viewcss.remove();
     customcss && customcss.remove();
-
+    //clean up body
     document.body.innerHTML = "";
+    //mount component
     render(
       h(PageEditor, { settings: settings, text: s.markdown }, ""),
       document.body,
     );
-  } else {
-    console.info("Download function is quirky!");
-    const fcontent =
-      "---\n" + stringifySettings(settings, true) + "---\n" + s.markdown;
-    window.location = "?mode=view";
-    saveToDisk(settings.filename.replace(/\.htm(l)?$/, "") + ".md", fcontent);
   }
+  // chrome makes strange things with deferred script
+  // do defer manually
+  if (window.document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", editorLoader);
+  } else {
+    editorLoader();
+  }
+
+  // maybe, one day...↓
+
+  // console.info("Download function is quirky!");
+  // const fcontent =
+  //   "---\n" + stringifySettings(settings, true) + "---\n" + s.markdown;
+  // window.location = "?mode=view";
+  // saveToDisk(settings.filename.replace(/\.htm(l)?$/, "") + ".md", fcontent);
+  //
 })();

@@ -11,7 +11,7 @@ has all required SEO-tags in place and readable by any browser, even text-based.
 
 But if you want to add interactive content to it, it's completely possible —
 you can add any custom HTML, CSS and JavaScript, and/or use IMP! Helpers API for
-creating more integrated custom content types of content (see [examples](https://girobusan.github.io/imp-helpers/)).
+creating more integrated custom types of content (see [examples](https://girobusan.github.io/imp-helpers/)).
 
 → :book: [Docs](https://girobusan.github.io/imp/)
 

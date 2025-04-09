@@ -5,11 +5,11 @@ const markdownItAttrs = require("markdown-it-attrs");
 export const md = require("markdown-it")({
   html: true,
   langPrefix: "language-",
-  highlight: function(str, lang) {
+  highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
       try {
         return hljs.highlight(str, { language: lang }).value;
-      } catch (__) { }
+      } catch (__) {}
     }
     return ""; // use external default escaping
   },
@@ -48,8 +48,8 @@ async function replaceAsync(str, regex, asyncFn) {
 
 function findHelpers(mdtext, draft) {
   let action = draft ? "preview" : "render";
-  return replaceAsync(mdtext, helperRx, function(f, name, subname, params) {
-    subname = subname ? subname.replace("/", "") : "";
+  return replaceAsync(mdtext, helperRx, function (f, name, subname, params) {
+    subname = subname ? subname.trim().replace("/", "") : "";
     return window.impHelpers.engage(name, action, params, subname);
   });
 }
@@ -68,7 +68,7 @@ export async function renderMdAsync(mdtext, draft) {
       return draft
         ? md.render(r)
         : window.impHelpers.postprocess &&
-        window.impHelpers.postprocess(md.render(r), mdtext);
+            window.impHelpers.postprocess(md.render(r), mdtext);
     });
   } else {
     return md.render(mdtext);

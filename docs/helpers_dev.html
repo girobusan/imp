@@ -15,10 +15,11 @@ and enrich viewer experience.">
 various types of content, not supported by regular markdown. 
 Helpers may add static and/or interactive content in asynchronous way
 and enrich viewer experience.">
-  <meta name="og:image" content="">
+  <meta name="og:image" content="undefined">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="">
-  <link rel="icon" type="image/png" href="">
+  <meta name="twitter:image" content="undefined">
+  <link rel="icon" type="image/png" href="undefined">
+  <base target='_self'>
   <script>
    window.settings = {
   "title": "IMP! Helpers API",
@@ -28,36 +29,35 @@ and enrich viewer experience.">
   "css": "ul ul{\nmargin-bottom: 0\n}\n.linkToTop{\ntext-decoration: none;\ncolor: royalblue !important;\n}",
   "enableHelpers": "true"
 };
-   window.savedWithImpVersion = "0.5.3"
+   window.savedWithImpVersion = "0.6.2"
   </script>
 
-  <script>
-   function IMPEdit(){
-   console.info("Loading editor...")
-   const editor = document.createElement("script");
-   editor.id="editorScript";
-   editor.src="imp.js";
-   document.head.appendChild(editor);
-   }
-   window.addEventListener("DOMContentLoaded" , function(){
-   if(window.location.search.indexOf("mode=view")!=-1)
-   {
-   return;
-   }
-   if(window.location.search.indexOf("mode=edit")!=-1)
-   {
-   IMPEdit();
-   return;
-   }
-   if(window.location.search.indexOf("mode=download")!=-1){
-   IMPEdit();
-   return;
-   }
-   if(window.location.protocol==="file:"){
-   IMPEdit();
-   }
-})
-  </script>
+  <script defer>
+      (
+        function () {
+          function IMPEdit() {
+            console.info("Loading editor...")
+            const editor = document.createElement("script");
+            editor.id = "editorScript";
+            editor.src = window.settings.editor || "imp.js";
+            document.head.appendChild(editor);
+          }
+         var S = window.location.search.toLowerCase();
+          if (S.indexOf("mode=edit") != -1) {
+            IMPEdit();
+            return;
+          }
+          if (S.indexOf("mode=download") != -1) {
+            IMPEdit();
+            return;
+          }
+          if (window.location.protocol === "file:" &&
+            S.indexOf("mode=view") == -1) {
+            IMPEdit();
+          }
+        }
+      )();
+</script>
 
   <script defer src='helpers.js' id='helpersScript'></script>
   <link id = "viewCSS" rel="stylesheet" href="style.css">
@@ -81,7 +81,7 @@ and enrich viewer experience.">
   <span class="hljs-keyword">const</span> <span class="hljs-title function_">preview</span> = (<span class="hljs-params">params, params_raw, subname</span>)=&gt;{
     <span class="hljs-keyword">return</span> <span class="hljs-variable constant_">API</span>.<span class="hljs-title function_">defaultPreview</span>(<span class="hljs-string">&quot;Test helper&quot;</span>, <span class="hljs-string">&quot;Does nothing&quot;</span>)
   }  
-  <span class="hljs-keyword">const</span> <span class="hljs-title function_">animate</span> = (<span class="hljs-params">el</span>)=&gt;el.<span class="hljs-property">innerHTML</span>=<span class="hljs-string">&quot;ANIMATED&quot;</span>  
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">animate</span> = (<span class="hljs-params">el</span>)=&gt;el &amp;&amp; el.<span class="hljs-property">innerHTML</span>=<span class="hljs-string">&quot;ANIMATED&quot;</span>  
   <span class="hljs-keyword">const</span> <span class="hljs-title function_">init</span> = (<span class="hljs-params">api</span>)=&gt;<span class="hljs-variable constant_">API</span>=api
   
   <span class="hljs-variable language_">window</span>.<span class="hljs-property">impHelpers</span>.<span class="hljs-title function_">register</span>( <span class="hljs-string">&quot;test&quot;</span> , 
@@ -125,9 +125,9 @@ and enrich viewer experience.">
 </table>
 <p>Our helper will use API function <a href="helpers_api.html#defaultPreview"><code>defaultPreview</code></a>, which will display standard gray rectangle with supplied text, like this:</p>
 <div style="background-color: silver; 
-  padding:32px;padding-top:18px;text-align:left;color: #666;
+  padding:18px 32px;text-align:left;color: #444;
   font-size:0.8em;border-radius: 6px;font-family:ui-monospace, monospace;">
-  <strong>Test helper</strong><pre style="margin:0">Does nothing</pre></div>
+  <strong>Test helper</strong><br/><code style="margin:0;padding:0;background-color: inherit">Does nothing</code></div>
 <h3>render(params , params_raw, subname)</h3>
 <p>Renders static HTML. Parameters are the same, as of preview method. Here you should render static HTML, which will be displayed on page. There are some requirements on this:</p>
 <ul>
@@ -251,7 +251,8 @@ and enrich viewer experience.">
 <h2>Further reading</h2>
 <p>Please, read also <a href="helpers_api.html">Helpers API methods reference</a>.</p>
 </main>
-<footer id="pageFooter"><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+<footer id='pageFooter'><small>Powered by <a href='https://github.com/girobusan/imp'>IMP!</a> and <a href='https://matejlatin.github.io/Gutenberg/'>Gutenberg CSS</a></small></footer>
+
 <script>window.impData={}</script>
 <script id="pageData" type="text/markdown">[Girobusan](/) &amp;middot; [IMP!](index.html) &amp;middot; [Helpers](helpers.html)
 
@@ -280,7 +281,7 @@ Here is a full sourcecode of basic helper, named `test`, which will display defa
   const preview = (params, params_raw, subname)=&gt;{
     return API.defaultPreview("Test helper", "Does nothing")
   }  
-  const animate = (el)=&gt;el.innerHTML="ANIMATED"  
+  const animate = (el)=&gt;el &amp;&amp; el.innerHTML="ANIMATED"  
   const init = (api)=&gt;API=api
   
   window.impHelpers.register( "test" , 

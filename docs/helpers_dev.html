@@ -86,11 +86,11 @@ and enrich viewer experience.">
   
   <span class="hljs-variable language_">window</span>.<span class="hljs-property">impHelpers</span>.<span class="hljs-title function_">register</span>( <span class="hljs-string">&quot;test&quot;</span> , 
   {preview, render, animate, init} , 
-  <span class="hljs-string">&quot;raw&quot;</span>)
+  <span class="hljs-string">&quot;raw&quot;</span> , <span class="hljs-literal">null</span>)
   }	
 )()
 </code></pre>
-<p>This is a basic self-called function. The most important part is <em>obligatory</em> call to API function <code>register</code>, with name of the helper, helper object and format specifier (<code>json</code> , <code>yaml</code> or <code>raw</code>) for helper parameters as arguments. The helper object <em>may</em> have  methods, which will be than called by API.</p>
+<p>This is a basic self-called function. The most important part is <em>obligatory</em> call to API function <code>register</code>, with name of the helper, helper object, format specifier (<code>json</code> , <code>yaml</code> or <code>raw</code>) and optional postrocessor function for helper parameters as arguments. The helper object <em>may</em> have  methods, which will be than called by API.</p>
 <h2>Helper methods</h2>
 <h3>init(api, viewMode)</h3>
 <p>This function will be called once before any other actions. It will give two arguments: link to API and boolean value, indicating, if we're in view mode (and the next calls will be to our animate() function), or not.</p>
@@ -286,12 +286,12 @@ Here is a full sourcecode of basic helper, named `test`, which will display defa
   
   window.impHelpers.register( "test" , 
   {preview, render, animate, init} , 
-  "raw")
+  "raw" , null)
   }	
 )()
 ```
 
-This is a basic self-called function. The most important part is _obligatory_ call to API function `register`, with name of the helper, helper object and format specifier (`json` , `yaml` or `raw`) for helper parameters as arguments. The helper object _may_ have  methods, which will be than called by API. 
+This is a basic self-called function. The most important part is _obligatory_ call to API function `register`, with name of the helper, helper object, format specifier (`json` , `yaml` or `raw`) and optional postrocessor function for helper parameters as arguments. The helper object _may_ have  methods, which will be than called by API. 
 
 ## Helper methods
 

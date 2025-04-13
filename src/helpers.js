@@ -256,11 +256,12 @@ function makeFormatter(hname, pfname) {
 }
 
 function postprocess(html, markdown) {
-  console.info("Postprocessing requested...");
   let r = html;
   if (postprocessors.length > 0) {
     console.info("Found postprocessors:", postprocessors.length);
-    postprocessors.forEach((p) => (r = p(html, markdown)));
+    for (let i = 0; i < postprocessors.length; i++) {
+      r = postprocessors[i](r, markdown);
+    }
   }
   console.info("Postprocessing done.");
   return r;
